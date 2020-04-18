@@ -5,14 +5,14 @@ if(entity != null){
     entity.lines = entity.message.split("\n");
 }
 */
-cmd=require("commandblock");
+//cmd=require("commandblock");
 const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating", {
   update(tile){
     var entity=tile.ent();
     if(tile.entity.cons.valid()){
       this.super$update(tile);
       //entity.cons.trigger();
-      cmd.block.command(tile,entity.message);
+      //cmd.block.command(tile,entity.message);
     }
     else return;
   }
