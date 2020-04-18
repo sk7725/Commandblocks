@@ -23,7 +23,6 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
     if(args.length==0){
       return;
     }
-    console.log(args);
     var cmd = args[0];
     args = args.splice(1);
     switch(cmd){
