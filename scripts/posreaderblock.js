@@ -5,7 +5,7 @@ if(entity != null){
     entity.lines = entity.message.split("\n");
 }
 */
-const posreader = extendContent(MessageBlock, "posreader", {
+const posreaderblock = extendContent(MessageBlock, "posreaderblock", {
 	buildConfiguration(tile, table){
 
 	},
