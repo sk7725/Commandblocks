@@ -37,11 +37,7 @@ const posreader = extendContent(MessageBlock, "posreader", {
 		this.super$placed(tile);
 		const x=tile.x
     const y=tile.y
-    MessageBlockEntity entity = tile.ent();
-    if(entity != null){
-        entity.message = "( "+x+" , "+y+" )";
-        entity.lines = entity.message.split("\n");
-    }
+    this.setMessageBlockText(null,tile,"( "+x+" , "+y+" )");
 	}
 /*
 	removed(tile) {
