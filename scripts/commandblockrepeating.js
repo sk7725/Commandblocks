@@ -5,8 +5,8 @@ if(entity != null){
     entity.lines = entity.message.split("\n");
 }
 */
-require("command");
-const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating", {
+
+const commandblockrepeating = extendContent(commandblock, "commandblockrepeating", {
   update(tile){
     var entity=tile.ent();
     if(tile.entity.cons.valid()){
