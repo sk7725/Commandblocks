@@ -7,7 +7,7 @@ if(entity != null){
 */
 const commandblock = extendContent(MessageBlock, "commandblock", {
   command(tile,msg){
-    if(msg.substring(0,1)=="/") msg=msg.substring(1,cmd.length);
+    if(msg.substring(0,1)=="/") msg=msg.substring(1,msg.length);
     var argstmp = msg.substring(1).split('"');
     var args=[];
     for(var i=0;i<argstmp.length;i++){
