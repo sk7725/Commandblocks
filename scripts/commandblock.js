@@ -27,7 +27,7 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
     args = args.splice(1);
     switch(cmd){
       case 'say':
-        this.setMessageBlockText(null,tile,args.join(' '));
+        setMessageBlockText(null,tile,args.join(' '));
       break;
     }
   },
