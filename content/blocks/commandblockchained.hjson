@@ -1,0 +1,17 @@
+localizedName: Chained Command Block
+description: Executes command when power requirements are met, and the command block it is facing away from has executed successfully.
+size: 1
+breakable: true
+update: true
+category: effect
+requirements: [
+  surge-alloy/256
+]
+maxTextLength: 32000
+maxNewlines: 0
+sync: true
+expanded: true
+consumes: {
+  power: 0.1
+}
+rotate: true

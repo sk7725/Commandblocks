@@ -1,4 +1,4 @@
-import {command} from "command.js";
+
 const commandblock = extendContent(MessageBlock, "commandblock", {
   init(){
     this.super$init();
