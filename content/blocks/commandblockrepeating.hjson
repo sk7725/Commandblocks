@@ -9,3 +9,8 @@ requirements: [
 ]
 maxTextLength: 32000
 maxNewlines: 0
+sync: true
+expanded: true
+consumes: {
+  power: 0.3
+}
