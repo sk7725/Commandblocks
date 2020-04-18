@@ -19,8 +19,11 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
     var cmd = args[0];
     args = args.splice(1);
     switch(cmd){
-      case 'say':
+      case 'overwrite':
         this.setMessageBlockText(null,tile,args.join(' '));
+      break;
+      case 'say':
+        Call.sendMessage(args.join(' '));
       break;
     }
   },
