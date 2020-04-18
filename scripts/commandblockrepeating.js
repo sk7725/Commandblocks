@@ -6,6 +6,15 @@ if(entity != null){
 }
 */
 const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating", {
+  update(tile){
+    var entity=tile.ent();
+    if(tile.entity.cons.valid()){
+      this.super$update(tile);
+      //entity.cons.trigger();
+      this.command(tile,entity.message);
+    }
+    else return;
+  }
   /*
 	draw(tile) {
 		Draw.rect(Core.atlas.find(this.name + "_" + tile.x % 2),
