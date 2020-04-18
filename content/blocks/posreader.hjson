@@ -8,3 +8,4 @@ requirements: [
   surge-alloy/25
 ]
 buildVisibility: sandboxOnly
+configurable: false

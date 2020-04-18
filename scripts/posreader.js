@@ -33,6 +33,10 @@ const posreader = extendContent(MessageBlock, "posreader", {
 		return other.block() == "air"
 	},
   */
+	buildConfiguration(tile, table){
+
+	},
+
 	placed(tile) {
 		this.super$placed(tile);
 		const x=tile.x
