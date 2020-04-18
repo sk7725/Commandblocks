@@ -1,0 +1,11 @@
+localizedName: Repeating Command Block
+description: Executes command every tick when power requirements are met.
+size: 1
+breakable: true
+update: true
+category: effect
+requirements: [
+  surge-alloy/512
+]
+maxTextLength: 32000
+maxNewlines: 0

@@ -1,0 +1,11 @@
+localizedName: Command Block
+description: Executes command once when power requirements are met.
+size: 1
+breakable: true
+update: true
+category: effect
+requirements: [
+  surge-alloy/256
+]
+maxTextLength: 32000
+maxNewlines: 0
