@@ -5,6 +5,7 @@ if(entity != null){
     entity.lines = entity.message.split("\n");
 }
 */
+import {command} from "command.js";
 const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating", {
   update(tile){
     var entity=tile.ent();
