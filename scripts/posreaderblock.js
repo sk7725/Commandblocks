@@ -6,42 +6,39 @@ if(entity != null){
 }
 */
 const posreader = extendContent(MessageBlock, "posreader", {
-  /*
-	draw(tile) {
-		Draw.rect(Core.atlas.find(this.name + "_" + tile.x % 2),
-			tile.drawx(),
-			tile.drawy());
-	},
-
-	generateIcons() {
-		return [Core.atlas.find(this.name)];
-	},
-
-	calcOffset(tile) {
-		var x = tile.x;
-		if (x % 2 == 0) {
-			x++;
-		} else {
-			x--;
-		}
-		return x;
-	},
-
-	canPlaceOn(tile){
-		const x = this.calcOffset(tile);
-		const other = Vars.world.tile(x, tile.y);
-		return other.block() == "air"
-	},
-  */
 	buildConfiguration(tile, table){
 
 	},
+	getfacingpos(tx, ty, trot){
+		var tmpobj={};
+		if(trot==0){
+			tmpobj.x=tx+1;
+			tmpobj.y=ty;
+		}
+		else if(trot==1){
+			tmpobj.x=tx;
+			tmpobj.y=ty+1;
+		}
+		else if(trot==2){
+			tmpobj.x=tx-1;
+			tmpobj.y=ty;
+		}
+		else{
+			tmpobj.x=tx;
+			tmpobj.y=ty-1;
+		}
+		return tmpobj;
+	},
+	tapped(tile, player){
 
+  },
 	placed(tile) {
 		this.super$placed(tile);
-		const x=tile.x
-    const y=tile.y
-    this.setMessageBlockText(null,tile,"( "+x+" , "+y+" )");
+		const facepos=getfacingpos(tile.x,tile.y);
+		const x=facepos.x;
+    const y=facepos.y;
+		var near = Vars.world.tile(x,y);
+    this.setMessageBlockText(null,tile,JSON.stringify(near.block()));
 	}
 /*
 	removed(tile) {
