@@ -1,6 +1,6 @@
 const commandblock = extendContent(MessageBlock, "commandblock", {
   command(tile,msg){
-    if(msg.substring(0,1)=="/") msg=msg.substring(1,msg.length);
+    if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
     var args=[];
     for(var i=0;i<argstmp.length;i++){
@@ -20,7 +20,6 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
     args = args.splice(1);
     switch(cmd){
       case 'say':
-      say.
         setMessageBlockText(null,tile,args.join(' '));
       break;
     }
