@@ -6,6 +6,51 @@ if(entity != null){
 }
 */
 const commandblock = extendContent(MessageBlock, "commandblock", {
+  command(tile,msg){
+    if(msg.substring(0,1)=="/") msg=msg.substring(1,cmd.length);
+    var argstmp = msg.substring(1).split('"');
+    var args=[];
+    for(var i=0;i<argstmp.length;i++){
+      if(i%2==0){
+        if(argstmp[i].trim()!=''){
+          args=args.concat(argstmp[i].trim().split(' '));
+        }
+      }
+      else{
+        args.push(argstmp[i].trim());
+      }
+    }
+    if(args.length==0){
+      return;
+    }
+    console.log(args);
+    var cmd = args[0];
+    args = args.splice(1);
+    switch(cmd){
+      case 'say':
+        this.setMessageBlockText(null,tile,args.join(' '));
+      break;
+    }
+  },
+  init(){
+		this.didcmd = false;
+	},
+  update(tile){
+    var entity=tile.ent();
+    if(tile.entity.cons.valid()){
+      this.super$update(tile);
+      //entity.cons.trigger();
+      if(!this.didcmd){
+        this.command(tile,entity.message);
+        this.didcmd = true;
+      }
+
+    }
+    else{
+      if(this.didcmd) this.didcmd=false;
+      return;
+    }
+  }
   /*
 	draw(tile) {
 		Draw.rect(Core.atlas.find(this.name + "_" + tile.x % 2),
