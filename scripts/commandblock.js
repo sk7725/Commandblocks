@@ -33,6 +33,7 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
     }
   },
   init(){
+    this.super$init();
 		this.didcmd = false;
 	},
   update(tile){
