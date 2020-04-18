@@ -1,4 +1,5 @@
-command(tile,msg){
+this.global.commandblocks={
+  command(tile,msg){
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
     var args=[];
@@ -24,5 +25,9 @@ command(tile,msg){
       case 'say':
         Call.sendMessage(args.join(' '));
       break;
+      case 'title':
+        Vars.ui.scriptfrag.addMessage(args.join(' '));
+      break;
     }
   }
+};
