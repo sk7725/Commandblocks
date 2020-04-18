@@ -31,7 +31,7 @@ const posreaderblock = extendContent(MessageBlock, "posreaderblock", {
 	},
 	tapped(tile, player){
 		this.super$tapped(tile);
-		const facepos=getfacingpos(tile.x,tile.y);
+		const facepos=this.getfacingpos(tile.x,tile.y);
 		const x=facepos.x;
     const y=facepos.y;
 		var near = Vars.world.tile(x,y);
@@ -39,7 +39,7 @@ const posreaderblock = extendContent(MessageBlock, "posreaderblock", {
   },
 	placed(tile) {
 		this.super$placed(tile);
-		const facepos=getfacingpos(tile.x,tile.y);
+		const facepos=this.getfacingpos(tile.x,tile.y);
 		const x=facepos.x;
     const y=facepos.y;
 		var near = Vars.world.tile(x,y);
