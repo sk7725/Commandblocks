@@ -12,7 +12,7 @@ const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating
     if(tile.entity.cons.valid()){
       this.super$update(tile);
       //entity.cons.trigger();
-      //cmd.block.command(tile,entity.message);
+      this.global.commandblocks.command(tile,entity.message);
     }
     else return;
   }
