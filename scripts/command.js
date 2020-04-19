@@ -18,7 +18,6 @@ const commandblocks={
     }
     var cmd = args[0];
     args = args.splice(1);
-    try{
     switch(cmd){
       case 'overwrite':
         setMessageBlockText(null,tile,args.join(' '));
@@ -35,10 +34,8 @@ const commandblocks={
       default:
         return false;
     }
-    }
-    catch(err){
-      Call.sendMessage(err);
-    }
+  }.catch(err){
+    Call.sendMessage(err);
   }
 };
 this.global.commandblocks=commandblocks;
