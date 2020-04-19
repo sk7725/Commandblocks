@@ -280,9 +280,9 @@ const commandblocks={
                 if(args[3]>=0&&args[3]<=3) crot=args[3];
                 else throw "Rotation should be 0~3";
               }
-              if(args.length==5){
-                if(args[3]>=0&&args[3]<=3&&args[4]>=0&&args[4]<=256){ crot=args[3];cteam=args[4]; }
-                else throw "Rotation should be 0~3 and Team should be 0~256";
+              if(args.length>=5){
+                if(args[3]>=0&&args[3]<=3&&args[4]>=-1&&args[4]<=256){ crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team; }
+                else throw "Rotation should be 0~3 and Team should be -1~256";
               }
               //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
               //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
@@ -298,6 +298,7 @@ const commandblocks={
               Events.fire(new BlockBuildEndEvent(Vars.world.tile(cx, cy), null, cteam, false));
             }
             else if(args[5]=="force"){
+              crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team;
               ctile.block().removed(ctile);
               ctile.remove();
               Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, true);
