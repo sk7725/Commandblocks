@@ -2,22 +2,22 @@ const commandblocksi = this.global.commandblocks;
 const commandblock = extendContent(MessageBlock, "commandblock", {
   init(){
     this.super$init();
-		this.didcmd = false;
+		tile.didcmd = false;
 	},
   update(tile){
     var entity=tile.ent();
     if(tile.entity.cons.valid()){
       this.super$update(tile);
       //entity.cons.trigger();
-      if(!this.didcmd){
-        this.success = commandblocksi.command(tile,entity.message,this);
-        this.didcmd = true;
+      if(!tile.didcmd){
+        tile.didsuccess = commandblocksi.command(tile,entity.message,this);
+        tile.didcmd = true;
       }
 
     }
     else{
-      if(this.didcmd) this.didcmd=false;
-      this.success=false;
+      if(tile.didcmd) tile.didcmd=false;
+      tile.didsuccess=false;
       return;
     }
   }
