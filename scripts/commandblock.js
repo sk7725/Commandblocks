@@ -14,7 +14,7 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
       this.super$update(tile);
       //entity.cons.trigger();
       if(!thiscmd.didcmd){
-        thiscmd.didsuccess = commandblocksi.command(tile,entity.message,this,entity.message,false,"tile");
+        thiscmd.didsuccess = commandblocksi.command(tile,entity.message,this,entity.message,false);
         thiscmd.didcmd = true;
       }
       else{
