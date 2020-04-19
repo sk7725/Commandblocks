@@ -296,7 +296,7 @@ const commandblocks={
               }
               Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
               Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
-              Events.fire(new BlockBuildEndEvent(Vars.world.tile(cx, cy), null, cteam, false));
+              Events.fire(new this.BlockBuild.BlockBuildEndEvent(Vars.world.tile(cx, cy), null, cteam, false));
             }
             else if(args[5]=="force"){
               crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team;
