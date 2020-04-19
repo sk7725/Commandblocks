@@ -294,7 +294,7 @@ const commandblocks={
               else{
                 if(ctile.ent()!=null) ctile.ent().remove();
               }
-              Vars.world.tile(cx, cy).removeNet();
+              //Vars.world.tile(cx, cy).removeNet();
               if(args[5]=="build"){
                 //Call.onDeconstructFinish(ctile, ctile.block(), 0);
                 Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
