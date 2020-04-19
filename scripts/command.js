@@ -292,9 +292,11 @@ const commandblocks={
                 ctile.block().onDestroyed(ctile);
               }
               else{
+                ctile.preChanged();
                 if(ctile.ent()!=null) ctile.ent().remove();
+                Vars.world.tile(cx, cy).changed();
               }
-              //Vars.world.tile(cx, cy).removeNet();
+              Vars.world.tile(cx, cy).removeNet();
               if(args[5]=="build"){
                 //Call.onDeconstructFinish(ctile, ctile.block(), 0);
                 Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
@@ -321,6 +323,7 @@ const commandblocks={
             else if(args[5]=="force"){
               if(ctile.ent()!=null) ctile.ent().remove();
               Call.setNet(Vars.world.tile(cx, cy), Blocks[cblock], cteam, crot);
+              Vars.world.tile(cx, cy).changed();
               return true;
             }
             else throw "Cannot set the block";
