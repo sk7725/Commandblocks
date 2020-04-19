@@ -6,7 +6,7 @@ const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating
     if(tile.entity.cons.valid()){
       this.super$update(tile);
       //entity.cons.trigger();
-      this.success=commandblocksr.command(tile,entity.message);
+      this.success=commandblocksr.command(tile,entity.message,this);
     }
     else{
       this.success=false;
