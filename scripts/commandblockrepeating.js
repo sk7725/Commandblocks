@@ -3,13 +3,15 @@ const commandblocksr=this.global.commandblocks;
 const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating", {
   update(tile){
     var entity=tile.ent();
+    var key=tile.x+","+tile.y;
+    if(!commandblocksr.hasOwnProperty(key)) commandblocksr[key]={};
+    thiscmd=commandblocksr[key];
     if(tile.entity.cons.valid()){
       this.super$update(tile);
-      //entity.cons.trigger();
-      tile.didsuccess=commandblocksr.command(tile,entity.message,this);
+      thiscmd.didsuccess = commandblocksr.command(tile,entity.message,this);
     }
     else{
-      tile.didsuccess=false;
+      thiscmd.didsuccess=false;
       return;
     }
   }
