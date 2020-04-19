@@ -40,9 +40,9 @@ const commandblocks={
   },
   command(tile,msg,parentthis,parentcmd,executed,executortype){
     var mytype="tile";
-    //if(tile instanceof Tile) mytype="tile";
-    //if(tile instanceof Block) mytype="block";
-    //if(tile instanceof Unit) mytype="unit";
+    if(tile instanceof Tile) mytype="tile";
+    if(tile instanceof Block) mytype="block";
+    if(tile instanceof Unit) mytype="unit";
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
     var args=[];
@@ -163,6 +163,7 @@ const commandblocks={
         else throw "THis command is for /execute only";
       break;
       */
+      /*
       case 'execute':
         if(args.length>2){
           if(args[0]=="at"){
@@ -187,6 +188,7 @@ const commandblocks={
         }
         else throw "Missing params";
       break;
+      */
       case 'debug':
         if(args.length>0){
           switch(args[0]){
