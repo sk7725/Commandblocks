@@ -288,6 +288,7 @@ const commandblocks={
               //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
               //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
               //ctile.block().removed(ctile);
+              ctile.block().onDestroyed(ctile);
               Vars.world.tile(cx, cy).removeNet();
               if(args[5]=="build"){
                 //Call.onDeconstructFinish(ctile, ctile.block(), 0);
