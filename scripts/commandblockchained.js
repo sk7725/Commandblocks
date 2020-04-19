@@ -39,3 +39,19 @@ this.success=false; return;
 }
 });
 */
+
+const commandblockchained = extendContent(MessageBlock, "commandblockchained", {
+  update(tile){
+    var entity=tile.ent();
+    if(tile.entity.cons.valid()){
+      this.super$update(tile);
+      //entity.cons.trigger();
+      this.success=commandblocksc.command(tile,entity.message);
+    }
+    else{
+      this.success=false;
+      return;
+    }
+  }
+});
+
