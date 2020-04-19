@@ -26,7 +26,7 @@ return tmpobj;
       const awaypos=this.getawaypos(tile.x,tile.y,tile.rotation());
       const akey=awaypos.x+","+awaypos.y;
       if(commandblocksc.hasOwnProperty(akey)&&commandblocksc[akey].didsuccess){
-        thiscmd.didsuccess = commandblocksc.command(tile,entity.message,this,entity.message,false);
+        thiscmd.didsuccess = commandblocksc.command(tile,entity.message,this,entity.message,false,"tile");
       }
       else{
       thiscmd.didsuccess=false;

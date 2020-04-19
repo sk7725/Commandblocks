@@ -8,7 +8,7 @@ const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating
     thiscmd=commandblocksr[key];
     if(tile.entity.cons.valid()){
       this.super$update(tile);
-      thiscmd.didsuccess = commandblocksr.command(tile,entity.message,this,entity.message,false);
+      thiscmd.didsuccess = commandblocksr.command(tile,entity.message,this,entity.message,false,"tile");
     }
     else{
       thiscmd.didsuccess=false;

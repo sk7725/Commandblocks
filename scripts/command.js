@@ -7,10 +7,42 @@ const commandblocks={
     else if(iny.substring(0,1)=="~") tmpobj.y=Number(iny.substring(1,iny.length))+tile.y;
     return tmpobj;
   },
-  targetselect(tile,intarget){
-
+  targetselect(ptile,pthis,intarget){
+    if(intarget.includes("{")){
+      return JSON.parse(intarget);
+    }
+    else if(intarget.includes("[")){
+      //TBA:selector
+    }
+    else if(intarget.includes(",")){
+      var tmparr=intarget.trim().split(",");
+      if(tmparr.length==2&&){
+        var ta=tilde(ptile,tmparr[0],tmparr[1]);
+        if(isNaN(ta.x)&&!isNaN(ta.y)){
+          return Vars.world.tile(ta.x,ta.y);
+        }
+        else return tmparr;
+      }
+      else return tmparr;
+    }
+    else{
+      switch(intarget.trim()){
+        case "@s":
+          return ptile;
+        break;
+        case "@t":
+          return pthis;
+        break;
+        default:
+          return intarget;
+      }
+    }
   },
-  command(tile,msg,parentthis,parentcmd,executed){
+  command(tile,msg,parentthis,parentcmd,executed,executortype){
+    var mytype="tile";
+    if(tile instanceof Tile) mytype="tile";
+    if(tile instanceof Block) mytype="block";
+    if(tile instanceof Unit) mytype="unit";
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
     var args=[];
@@ -89,12 +121,82 @@ const commandblocks={
             throw "Coordinates should be above 0";
           }
         }
-        else{
-          Call.sendMessage("E:Missing params.");
-          return false;
-        }
+        else throw "Missing params";
       break;
       case 'function':
+        if(executed&&executortype=="tile"){
+          var ret=false;
+          if(args.length==1){
+            var res=tile.block[args[0]]();
+            if(res===undefined) ret=true;
+            if(!res) ret=false;
+            else ret=true;
+          }
+          else if(args.length==2){
+            args[1]=this.targetselect(tile,this,args[1]);
+            var res=tile.block[args[0]](args[1]);
+            if(res===undefined) ret=true;
+            if(!res) ret=false;
+            else ret=true;
+          }
+          else if(args.length==3){
+            args[1]=this.targetselect(tile,this,args[1]);
+            args[2]=this.targetselect(tile,this,args[2]);
+            var res=tile.block[args[0]](args[1],args[2]);
+            if(res===undefined) ret=true;
+            if(!res) ret=false;
+            else ret=true;
+          }
+          else if(args.length==4){
+            args[1]=this.targetselect(tile,this,args[1]);
+            args[2]=this.targetselect(tile,this,args[2]);
+            args[3]=this.targetselect(tile,this,args[3]);
+            var res=tile.block[args[0]](args[1],args[2],args[3]);
+            if(res===undefined) ret=true;
+            if(!res) ret=false;
+            else ret=true;
+          }
+          else throw "Missing params";
+          return ret;
+        }
+        else throw "THis command is for /execute only";
+      break;
+      case 'execute':
+        if(args.length>2){
+          if(args[0]=="at"){
+            if(args.length>=5){
+              var ctile=targetselect(args[1]+","+args[2]);
+              if(args[3]=="run"){
+                return this.command(ctile,args.slice(4).join(" "),parentthis,msg,true,mytype);
+              }
+              else throw "Incorrect params";
+            }
+          }
+          else if(args[0]=="as"){
+            throw "TBA";
+          }
+          else throw "Incorrect params";
+        }
+        else throw "Missing params";
+      break;
+      case 'debug':
+        if(args.length>0){
+          switch(args[0]){
+            case 'ts':
+            case 'targetselect':
+              Call.sendMessage(targetselect(tile,this,args[1]));
+              return true;
+            break;
+            case 'ti':
+            case 'tilde':
+              Call.sendMessage(tilde(tile,args[1],args[2]));
+              return true;
+            break;
+            default:
+              throw "Incorrect params";
+          }
+        }
+        else throw  "Missing params";
       break;
       default:
         return false;
