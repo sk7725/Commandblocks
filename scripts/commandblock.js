@@ -9,7 +9,7 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
     var key=tile.x+","+tile.y;
     if(!this.global.commandblocks.hasOwnProperty(key)) this.global.commandblocks[key]={};
     thiscmd=this.global.commandblocks[key];
-    if(!thiscmd.hasOwnProperty("didcmd") thiscmd.didcmd=false;
+    if(!thiscmd.hasOwnProperty("didcmd")) thiscmd.didcmd=false;
     if(tile.entity.cons.valid()){
       this.super$update(tile);
       //entity.cons.trigger();
