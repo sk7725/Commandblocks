@@ -20,7 +20,7 @@ const commandblocks={
     args = args.splice(1);
     switch(cmd){
       case 'overwrite':
-        this.setMessageBlockText(null,tile,args.join(' '));
+        tile.setMessageBlockText(null,tile,args.join(' '));
         return true;
       break;
       case 'say':
