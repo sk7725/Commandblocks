@@ -66,11 +66,11 @@ return tmpobj;
       var ax=awaypos.x; var ay=awaypos.y;
       var near = Vars.world.tile(x,y);
       if(near.block instanceof commandblock){
-      this.success=commandblocksc.command(tile,entity.message,this);
+      tile.didsuccess=commandblocksc.command(tile,entity.message,this);
       }
     }
     else{
-      this.success=false;
+      tile.didsuccess=false;
       return;
     }
   }
