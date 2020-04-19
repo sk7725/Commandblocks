@@ -321,8 +321,10 @@ const commandblocks={
             }
 */
             else if(args[5]=="force"){
+              crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team;
+              if(cteam!==tile.team) cteam=Team.get(cteam);
               if(ctile.ent()!=null) ctile.ent().remove();
-              Call.setNet(Vars.world.tile(cx, cy), Blocks[cblock], cteam, crot);
+              Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
               Vars.world.tile(cx, cy).changed();
               return true;
             }
