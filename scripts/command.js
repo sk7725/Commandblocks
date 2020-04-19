@@ -307,7 +307,7 @@ const commandblocks={
               //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
               //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
               //ctile.block().removed(ctile);
-              if(args[5]=="build"!!args[5]=="destroy"){
+              if(args[5]=="build"||args[5]=="destroy"){
                 Vars.world.tile(cx, cy).block().onDestroyed(Vars.world.tile(cx, cy));
               }
               else{
