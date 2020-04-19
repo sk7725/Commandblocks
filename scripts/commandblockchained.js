@@ -64,7 +64,10 @@ return tmpobj;
       //entity.cons.trigger();
       const awaypos=this.getawaypos(tile.x,tile.y,tile.rotation());	
       var ax=awaypos.x; var ay=awaypos.y;
+      var near = Vars.world.tile(x,y);
+      if(near.block instanceof commandblock){
       this.success=commandblocksc.command(tile,entity.message,this);
+      }
     }
     else{
       this.success=false;
