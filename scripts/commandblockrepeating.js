@@ -6,13 +6,14 @@ if(entity != null){
 }
 */
 //cmd=require("commandblock");
+const commandblocks=this.global.commandblocks;
 const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating", {
   update(tile){
     var entity=tile.ent();
     if(tile.entity.cons.valid()){
       this.super$update(tile);
       //entity.cons.trigger();
-      this.global.commandblocks.command(tile,entity.message);
+      commandblocks.command(tile,entity.message);
     }
     else return;
   }
