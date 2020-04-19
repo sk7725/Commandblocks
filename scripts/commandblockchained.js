@@ -3,17 +3,16 @@ const commandblockchained = extendContent(MessageBlock, "commandblockchained", {
 getfacingpos(tx, ty, trot){
 var tmpobj={};
 if(trot==0){
-tmpobj.x=tx+1;  tmpobj.y=ty;
-}
-else if(trot==1){
-tmpobj.x=tx;  tmpobj.y=ty+1;
-}
-else if(trot==2){
 tmpobj.x=tx-1;  tmpobj.y=ty;
 }
+else if(trot==1){
+tmpobj.x=tx;  tmpobj.y=ty-1;
+}
+else if(trot==2){
+tmpobj.x=tx+1;  tmpobj.y=ty;
+}
 else{
-tmpobj.x=tx;  
-tmpobj.y=ty-1;
+tmpobj.x=tx;  tmpobj.y=ty+1;
 }
 return tmpobj;
 },		
