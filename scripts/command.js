@@ -294,7 +294,7 @@ const commandblocks={
               else{
                 //ctile.preChanged();
                 //if(ctile.ent()!=null) ctile.ent().remove();
-                ctile.block().removed(tile);
+                ctile.block().removed(ctile);
                 //Vars.world.tile(cx, cy).changed();
               }
               Vars.world.tile(cx, cy).removeNet();
