@@ -1,4 +1,4 @@
-commandblocks=this.global.commandblocks;
+const commandblocks=this.global.commandblocks;
 const commandblock = extendContent(MessageBlock, "commandblock", {
   init(){
     this.super$init();
