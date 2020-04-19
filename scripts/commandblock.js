@@ -7,8 +7,8 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
   update(tile){
     var entity=tile.ent();
     var key=tile.x+","+tile.y;
-    if(!this.global.commandblocks.hasOwnProperty(key)) this.global.commandblocks[key]={};
-    thiscmd=this.global.commandblocks[key];
+    if(!commandblocksi.hasOwnProperty(key)) commandblocksi[key]={};
+    thiscmd=commandblocksi[key];
     if(!thiscmd.hasOwnProperty("didcmd")) thiscmd.didcmd=false;
     if(tile.entity.cons.valid()){
       this.super$update(tile);
