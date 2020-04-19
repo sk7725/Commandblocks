@@ -18,6 +18,6 @@ const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating
   removed(tile){
     this.super$removed(tile);
     var key=tile.x+","+tile.y;
-    delete commandblocksi[key];
+    delete commandblocksr[key];
   }
 });

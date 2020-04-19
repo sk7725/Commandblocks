@@ -41,6 +41,6 @@ const commandblockchained = extendContent(MessageBlock, "commandblockchained", {
   removed(tile){
     this.super$removed(tile);
     var key=tile.x+","+tile.y;
-    delete commandblocksi[key];
+    delete commandblocksc[key];
   }
 });

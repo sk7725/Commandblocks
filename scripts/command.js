@@ -222,6 +222,7 @@
 };
 this.global.commandblocks=commandblocks;
 */
+
 const commandblocks={
   tilde(tile,inx,iny){
     var tmpobj={}; tmpobj.x=inx; tmpobj.y=iny;
@@ -306,14 +307,14 @@ const commandblocks={
               //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
               //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
               //ctile.block().removed(ctile);
-              if(args[5]=="destroy"||args[5]=="build"){
-                ctile.block().onDestroyed(ctile);
+              if(args[5]=="build"!!args[5]=="destroy"){
+                Vars.world.tile(cx, cy).block().onDestroyed(Vars.world.tile(cx, cy));
               }
               else{
                 //ctile.preChanged();
                 //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().setDead(true);
                 //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().onDeath();
-                if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().kill();
+                //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().kill();
                 //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
                 //Vars.world.tile(cx, cy).remove();
                 //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().remove();
@@ -327,9 +328,9 @@ const commandblocks={
                 Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
               }
               else{
-                //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
-                Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
-                Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
+                Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
+                //Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
+                Blocks[cblock].placed(Vars.world.tile(cx, cy));
               }
               return true;
               //
