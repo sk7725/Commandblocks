@@ -123,6 +123,7 @@ const commandblocks={
         }
         else throw "Missing params";
       break;
+      /*
       case 'function':
         if(executed&&mytype=="tile"){
           var ret=false;
@@ -161,6 +162,7 @@ const commandblocks={
         }
         else throw "THis command is for /execute only";
       break;
+      */
       case 'execute':
         if(args.length>2){
           if(args[0]=="at"){
