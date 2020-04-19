@@ -293,9 +293,11 @@ const commandblocks={
               }
               else{
                 //ctile.preChanged();
-                if(ctile.ent()) ctile.ent().setDead(true);
-                if(ctile.ent()) ctile.ent().onDeath();
-                //ctile.block().removed(ctile);
+                if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().setDead(true);
+                if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().onDeath();
+                Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
+                Vars.world.tile(cx, cy).remove();
+                if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().remove();
                 //Vars.world.tile(cx, cy).changed();
                 //Call.setTile(Vars.world.tile(cx, cy), Blocks.air, tile.team, 0);
               }
