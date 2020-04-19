@@ -1,4 +1,5 @@
 const commandblocksc=this.global.commandblocks;
+/*
 const commandblockchained = extendContent(MessageBlock, "commandblockchained", { 
 getfacingpos(tx, ty, trot){
 var tmpobj={};
@@ -37,3 +38,4 @@ this.success=false; return;
 } 
 }
 });
+*/
