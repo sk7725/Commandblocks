@@ -40,9 +40,9 @@ const commandblocks={
   },
   command(tile,msg,parentthis,parentcmd,executed,executortype){
     var mytype="tile";
-    //if(tile instanceof Tile) mytype="tile";
-    //if(tile instanceof Block) mytype="block";
-    //if(tile instanceof Unit) mytype="unit";
+    if(tile instanceof Tile) mytype="tile";
+    if(tile instanceof Block) mytype="block";
+    if(tile instanceof Unit) mytype="unit";
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
     var args=[];
@@ -94,7 +94,7 @@ const commandblocks={
               }
               //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
               //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
-              ctile.block().removed(ctile);
+              //ctile.block().removed(ctile);
               if(args[5]=="destroy"){
                 Call.onDeconstructFinish(ctile, ctile.block(), 0);
               }
@@ -106,7 +106,7 @@ const commandblocks={
               Events.fire(new BlockBuildEndEvent(Vars.world.tile(cx, cy), null, cteam, false));
             }
             else if(args[5]=="force"){
-              ctile.block().removed(ctile);
+              //ctile.block().removed(ctile);
               ctile.remove();
               Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, true);
               Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
