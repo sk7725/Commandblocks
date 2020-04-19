@@ -1,5 +1,5 @@
 const commandblocks={
-  command(tile,msg){
+  command(tile,msg,parentthis){
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
     var args=[];
@@ -18,9 +18,10 @@ const commandblocks={
     }
     var cmd = args[0];
     args = args.splice(1);
+  try{
     switch(cmd){
       case 'overwrite':
-        setMessageBlockText(null,tile,args.join(' '));
+        parentthis.setMessageBlockText(null,tile,args.join(' '));
         return true;
       break;
       case 'say':
@@ -34,8 +35,11 @@ const commandblocks={
       default:
         return false;
     }
-  }.catch(err){
+  }
+  catch(err){
     Call.sendMessage(err);
+    return false;
+  }
   }
 };
 this.global.commandblocks=commandblocks;
