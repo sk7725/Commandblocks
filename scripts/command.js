@@ -37,7 +37,7 @@ const commandblocks={
         if(args.length>=3&&args.length<=5){
           var cx=args[0]; var cy=args[1]; var cblock=args[2];
           if(cx>=0&&cy>=0){
-            if(Blocks.hasOwnProperty(cblock)){
+            if(true){
               if(args.length==3) Call.setTile(Vars.world.tile(cx, cy), Blocks[cblock], tile.team, 0);
               if(args.length==4){ 
                 if(args[3]>=0&&args[3]<=3) Call.setTile(Vars.world.tile(cx, cy), Blocks[cblock], tile.team, args[3]);
