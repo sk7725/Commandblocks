@@ -292,8 +292,9 @@ const commandblocks={
                 ctile.block().onDestroyed(ctile);
               }
               else{
-                ctile.preChanged();
-                if(ctile.ent()!=null) ctile.ent().remove();
+                //ctile.preChanged();
+                //if(ctile.ent()!=null) ctile.ent().remove();
+                ctile.block().removed(tile);
                 Vars.world.tile(cx, cy).changed();
               }
               Vars.world.tile(cx, cy).removeNet();
