@@ -17,7 +17,9 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
         thiscmd.didsuccess = commandblocksi.command(tile,entity.message,this);
         thiscmd.didcmd = true;
       }
-
+      else{
+        thiscmd.didsuccess=false;
+      }
     }
     else{
       if(thiscmd.didcmd) thiscmd.didcmd=false;
