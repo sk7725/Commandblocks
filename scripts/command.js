@@ -14,20 +14,25 @@ const commandblocks={
       }
     }
     if(args.length==0){
-      return;
+      return false;
     }
     var cmd = args[0];
     args = args.splice(1);
     switch(cmd){
       case 'overwrite':
         this.setMessageBlockText(null,tile,args.join(' '));
+        return true;
       break;
       case 'say':
         Call.sendMessage(args.join(' '));
+        return true;
       break;
       case 'title':
         Vars.ui.scriptfrag.addMessage(args.join(' '));
+        return false;
       break;
+      default:
+        return false;
     }
   }
 };
