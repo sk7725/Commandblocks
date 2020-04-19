@@ -292,7 +292,7 @@ const commandblocks={
                 Call.onDeconstructFinish(ctile, ctile.block(), 0);
               }
               else{
-                ctile.remove();
+                //ctile.remove();
               }
               Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
               Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
