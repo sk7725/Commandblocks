@@ -23,7 +23,7 @@ this.super$update(tile); //entity.cons.trigger();
 const facepos=this.getfacingpos(tile.x,tile.y,tile.rotation());		
 const x=facepos.x; const y=facepos.y;		
 var near = Vars.world.tile(x,y);
-if(near=="commandblock"||near=="commandblockrepeating"||near="commandblockchained"){
+if(near.block()=="commandblock"||near.block()=="commandblockrepeating"||near.block()="commandblockchained"){
 if(near.success){
 this.success=commandblocks.command(tile,entity.message); 
 }
