@@ -1,5 +1,5 @@
-localizedName: Tile Reader
-description: Gets the information of the tile this block is facing when this block is placed.
+localizedName: Tile Entity Reader
+description: Gets the information of the tile entity this block is facing when this block is placed.
 size: 1
 breakable: true
 update: true

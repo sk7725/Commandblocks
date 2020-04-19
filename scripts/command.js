@@ -263,6 +263,24 @@ const commandblocks={
         Call.sendMessage(args.join(' '));
         return true;
       break;
+      case 'title':
+        //Call.sendMessage(args.join(' '));
+        //return true;
+        if(args.length>=3){
+          var tpos=this.tilde(tile,args[0],args[1]);
+          var cx=0; var cy=0;
+          if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
+            cx=tpos.x; cy=tpos.y;
+          }
+          else throw "Coordinates should be above 0";
+          if(cx>=0&&cy>=0){
+            parentthis.drawPlaceText(args.slice(2).join(" "), cx, cy, true);
+            return true;
+          }
+          else throw "Coordinates should be above 0";
+        }
+        else throw "Missing params";
+      break;
       case 'setblock':
         //Call.setTile(Vars.world.tile(tile.x, tile.y), Blocks.air, tile.team, rot);
         if(args.length>=3&&args.length<=6){
@@ -293,11 +311,12 @@ const commandblocks={
               }
               else{
                 //ctile.preChanged();
-                if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().setDead(true);
-                if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().onDeath();
-                Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
-                Vars.world.tile(cx, cy).remove();
-                if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().remove();
+                //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().setDead(true);
+                //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().onDeath();
+                if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().kill();
+                //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
+                //Vars.world.tile(cx, cy).remove();
+                //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().remove();
                 //Vars.world.tile(cx, cy).changed();
                 //Call.setTile(Vars.world.tile(cx, cy), Blocks.air, tile.team, 0);
               }
@@ -341,10 +360,7 @@ const commandblocks={
             throw "Coordinates should be above 0";
           }
         }
-        else{
-          Call.sendMessage("E:Missing params.");
-          return false;
-        }
+        else throw "Missing params";
       break;
       case 'function':
       break;
