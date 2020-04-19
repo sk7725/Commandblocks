@@ -289,10 +289,10 @@ const commandblocks={
               //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
               //ctile.block().removed(ctile);
               if(args[5]=="destroy"||args[5]=="build"){
-                Call.BlockDestroyEvent(ctile);
+                ctile.block().onDestroyed(ctile);
               }
               else{
-                ctile.block().onDestroyed(ctile);
+                Call.onTileDestroyed(ctile);
               }
               Vars.world.tile(cx, cy).removeNet();
               if(args[5]=="build"){
