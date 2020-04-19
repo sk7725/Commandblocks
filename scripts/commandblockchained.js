@@ -1,4 +1,4 @@
-const commandblocks=this.global.commandblocks;
+const commandblocksc=this.global.commandblocks;
 const commandblockchained = extendContent(MessageBlock, "commandblockchained", { 
 getfacingpos(tx, ty, trot){
 var tmpobj={};
@@ -25,7 +25,7 @@ const x=facepos.x; const y=facepos.y;
 var near = Vars.world.tile(x,y);
 if(near.block()=="commandblock"||near.block()=="commandblockrepeating"||near.block()="commandblockchained"){
 if(true){
-this.success=commandblocks.command(tile,entity.message); 
+this.success=commandblocksc.command(tile,entity.message); 
 }
 else{
 this.success=false;
