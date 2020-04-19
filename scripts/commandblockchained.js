@@ -15,7 +15,7 @@ else{
 tmpobj.x=tx;  tmpobj.y=ty+1;
 }
 return tmpobj;
-  },		
+  },
   update(tile){
     var entity=tile.ent();
     var key=tile.x+","+tile.y;
@@ -23,10 +23,10 @@ return tmpobj;
     thiscmd=commandblocksc[key];
     if(tile.entity.cons.valid()){
       this.super$update(tile);
-      const awaypos=this.getawaypos(tile.x,tile.y,tile.rotation());	
+      const awaypos=this.getawaypos(tile.x,tile.y,tile.rotation());
       const akey=awaypos.x+","+awaypos.y;
       if(commandblocksc.hasOwnProperty(akey)&&commandblocksc[akey].didsuccess){
-        thiscmd.didsuccess = commandblocksc.command(tile,entity.message,this);
+        thiscmd.didsuccess = commandblocksc.command(tile,entity.message,this,entity.message,false);
       }
       else{
       thiscmd.didsuccess=false;
@@ -41,7 +41,7 @@ return tmpobj;
     if(tile.entity.cons.valid()){
       this.super$update(tile);
       //entity.cons.trigger();
-      const awaypos=this.getawaypos(tile.x,tile.y,tile.rotation());	
+      const awaypos=this.getawaypos(tile.x,tile.y,tile.rotation());
       var ax=awaypos.x; var ay=awaypos.y;
       var near = Vars.world.tile(x,y);
       if(near.block instanceof commandblock){
@@ -55,4 +55,3 @@ return tmpobj;
 */
   }
 });
-

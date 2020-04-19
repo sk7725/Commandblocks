@@ -1,5 +1,15 @@
 const commandblocks={
-  command(tile,msg,parentthis){
+  tilde(tile,inx,iny){
+    var tmpobj={};
+    if(inx=="~") tmpobj.x=tile.x;
+    else if(inx.substring(0,1)=="~") tmpobj.x=Number(inx.substring(1,inx.length))+tile.x;
+    if(iny=="~") tmpobj.y=tile.y;
+    else if(iny.substring(0,1)=="~") tmpobj.y=Number(iny.substring(1,iny.length))+tile.y;
+  },
+  targetselect(tile,intarget){
+
+  },
+  command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
     var args=[];
@@ -28,14 +38,15 @@ const commandblocks={
         Call.sendMessage(args.join(' '));
         return true;
       break;
-      case 'title':
-        Vars.ui.scriptfrag.addMessage(args.join(' '));
-        return false;
-      break;
       case 'setblock':
         //Call.setTile(Vars.world.tile(tile.x, tile.y), Blocks.air, tile.team, rot);
         if(args.length>=3&&args.length<=6){
-          var cx=args[0]; var cy=args[1]; var cblock=args[2]; var crot=0; var cteam=tile.team;
+          var tpos=this.tilde(tile,args[0],args[1]); var cblock=args[2]; var crot=0; var cteam=tile.team;
+          var cx=0; var cy=0;
+          if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
+            cx=tpos.x; cy=tpos.y;
+          }
+          else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
             var ctile=Vars.world.tile(cx,cy);
             if(args.length<=5||args[5]=="replace"||args[5]=="destroy"||(args[5]=="keep"&&ctile.block()=="air")){
@@ -50,6 +61,7 @@ const commandblocks={
               }
               //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
               //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
+              ctile.block().removed(ctile);
               if(args[5]=="destroy"){
                 Call.onDeconstructFinish(ctile, ctile.block(), 0);
               }
@@ -61,6 +73,7 @@ const commandblocks={
               Events.fire(new BlockBuildEndEvent(Vars.world.tile(cx, cy), null, cteam, false));
             }
             else if(args[5]=="force"){
+              ctile.block().removed(ctile);
               ctile.remove();
               Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, true);
               Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
@@ -79,6 +92,8 @@ const commandblocks={
           Call.sendMessage("E:Missing params.");
           return false;
         }
+      break;
+      case 'function':
       break;
       default:
         return false;
