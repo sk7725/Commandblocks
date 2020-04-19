@@ -29,14 +29,6 @@ const posreaderblock = extendContent(MessageBlock, "posreaderblock", {
 		}
 		return tmpobj;
 	},
-	tapped(tile, player){
-		this.super$tapped(tile);
-		const facepos=this.getfacingpos(tile.x,tile.y,tile.rotation());
-		const x=facepos.x;
-    const y=facepos.y;
-		var near = Vars.world.tile(x,y);
-    this.setMessageBlockText(null,tile,near.toString());
-  },
 	placed(tile) {
 		this.super$placed(tile);
 		const facepos=this.getfacingpos(tile.x,tile.y,tile.rotation());
