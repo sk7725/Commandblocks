@@ -124,17 +124,17 @@ const commandblocks={
         else throw "Missing params";
       break;
       case 'function':
-        if(executed&&executortype=="tile"){
+        if(executed&&mytype=="tile"){
           var ret=false;
           if(args.length==1){
-            var res=tile.block[args[0]]();
+            var res=tile.block()[args[0]]();
             if(res===undefined) ret=true;
             if(!res) ret=false;
             else ret=true;
           }
           else if(args.length==2){
             args[1]=this.targetselect(tile,this,args[1]);
-            var res=tile.block[args[0]](args[1]);
+            var res=tile.block()[args[0]](args[1]);
             if(res===undefined) ret=true;
             if(!res) ret=false;
             else ret=true;
@@ -142,7 +142,7 @@ const commandblocks={
           else if(args.length==3){
             args[1]=this.targetselect(tile,this,args[1]);
             args[2]=this.targetselect(tile,this,args[2]);
-            var res=tile.block[args[0]](args[1],args[2]);
+            var res=tile.block()[args[0]](args[1],args[2]);
             if(res===undefined) ret=true;
             if(!res) ret=false;
             else ret=true;
@@ -151,7 +151,7 @@ const commandblocks={
             args[1]=this.targetselect(tile,this,args[1]);
             args[2]=this.targetselect(tile,this,args[2]);
             args[3]=this.targetselect(tile,this,args[3]);
-            var res=tile.block[args[0]](args[1],args[2],args[3]);
+            var res=tile.block()[args[0]](args[1],args[2],args[3]);
             if(res===undefined) ret=true;
             if(!res) ret=false;
             else ret=true;
@@ -173,7 +173,13 @@ const commandblocks={
             }
           }
           else if(args[0]=="as"){
-            throw "TBA";
+            if(args.length>=4){
+              var ctile=targetselect(args[1]);
+              if(args[2]=="run"){
+                return this.command(ctile,args.slice(3).join(" "),parentthis,msg,true,mytype);
+              }
+              else throw "Incorrect params";
+            }
           }
           else throw "Incorrect params";
         }
