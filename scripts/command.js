@@ -1,10 +1,11 @@
 const commandblocks={
   tilde(tile,inx,iny){
-    var tmpobj={};
+    var tmpobj={}; tmpobj.x=inx; tmpobj.y=iny;
     if(inx=="~") tmpobj.x=tile.x;
     else if(inx.substring(0,1)=="~") tmpobj.x=Number(inx.substring(1,inx.length))+tile.x;
     if(iny=="~") tmpobj.y=tile.y;
     else if(iny.substring(0,1)=="~") tmpobj.y=Number(iny.substring(1,iny.length))+tile.y;
+    return tmpobj;
   },
   targetselect(tile,intarget){
 
