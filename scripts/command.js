@@ -292,7 +292,7 @@ const commandblocks={
                 ctile.block().onDestroyed(ctile);
               }
               else{
-                ctile.ent().remove();
+                if(ctile.ent()!=null) ctile.ent().remove();
               }
               Vars.world.tile(cx, cy).removeNet();
               if(args[5]=="build"){
