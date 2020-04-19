@@ -35,7 +35,7 @@ const posreaderblock = extendContent(MessageBlock, "posreaderblock", {
 		const x=facepos.x;
     const y=facepos.y;
 		var near = Vars.world.tile(x,y);
-    //this.setMessageBlockText(null,tile,JSON.stringify(near.block()));
+    this.setMessageBlockText(null,tile,near.block().toString());
   },
 	placed(tile) {
 		this.super$placed(tile);
@@ -43,7 +43,8 @@ const posreaderblock = extendContent(MessageBlock, "posreaderblock", {
 		const x=facepos.x;
     const y=facepos.y;
 		var near = Vars.world.tile(x,y);
-    this.setMessageBlockText(null,tile,JSON.stringify(Blocks));
+    //this.setMessageBlockText(null,tile,JSON.stringify(Blocks));
+    this.setMessageBlockText(null,tile,near.block().toString());
 	}
 /*
 	removed(tile) {
