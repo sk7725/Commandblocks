@@ -18,9 +18,10 @@ const commandblocks={
     }
     var cmd = args[0];
     args = args.splice(1);
+    try{
     switch(cmd){
       case 'overwrite':
-        tile.setMessageBlockText(null,tile,args.join(' '));
+        Call.setMessageBlockText(null,tile,args.join(' '));
         return true;
       break;
       case 'say':
@@ -33,6 +34,10 @@ const commandblocks={
       break;
       default:
         return false;
+    }
+    }
+    catch(err){
+      Call.sendMessage(err);
     }
   }
 };
