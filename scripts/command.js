@@ -21,7 +21,7 @@ const commandblocks={
     try{
     switch(cmd){
       case 'overwrite':
-        Call.setMessageBlockText(null,tile,args.join(' '));
+        setMessageBlockText(null,tile,args.join(' '));
         return true;
       break;
       case 'say':
