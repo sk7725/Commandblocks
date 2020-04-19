@@ -300,7 +300,7 @@ const commandblocks={
               ctile.remove();
               Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, true);
               Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
-              Events.fire(new BlockBuildEndEvent(Vars.world.tile(cx, cy), null, cteam, false));
+              Events.fire(new this.BlockBuild.BlockBuildEndEvent(Vars.world.tile(cx, cy), null, cteam, false));
             }
             else if(args[5]=="bruteforce"){
               Call.setNet(Vars.world.tile(cx, cy), Blocks[cblock], cteam, crot);
