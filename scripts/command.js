@@ -293,7 +293,7 @@ const commandblocks={
               }
               else{
                 //ctile.preChanged();
-                //if(ctile.ent()!=null) ctile.ent().remove();
+                if(ctile.ent()!=null) ctile.ent().onDeath();
                 ctile.block().removed(ctile);
                 //Vars.world.tile(cx, cy).changed();
               }
