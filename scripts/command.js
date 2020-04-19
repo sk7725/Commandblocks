@@ -288,7 +288,53 @@ const commandblocks={
               //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
               //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
               //ctile.block().removed(ctile);
-              ctile.block().onDestroyed(ctile);
+              if(args[5]=="destroy"||args[5]=="build"){
+                float x = tile.worldx(), y = tile.worldy();
+                float explosiveness = baseExplosiveness;
+                float flammability = 0f;
+                float power = 0f;
+
+                if(hasItems){
+                    for(Item item : content.items()){
+                        int amount = tile.entity.items.get(item);
+                        explosiveness += item.explosiveness * amount;
+                        flammability += item.flammability * amount;
+                    }
+                }
+
+                if(hasLiquids){
+                    flammability += tile.entity.liquids.sum((liquid, amount) -> liquid.explosiveness * amount / 2f);
+                    explosiveness += tile.entity.liquids.sum((liquid, amount) -> liquid.flammability * amount / 2f);
+                }
+
+                if(consumes.hasPower() && consumes.getPower().buffered){
+                    power += tile.entity.power.status * consumes.getPower().capacity;
+                }
+
+                if(hasLiquids){
+
+                    tile.entity.liquids.each((liquid, amount) -> {
+                        float splash = Mathf.clamp(amount / 4f, 0f, 10f);
+
+                        for(int i = 0; i < Mathf.clamp(amount / 5, 0, 30); i++){
+                            Time.run(i / 2f, () -> {
+                                Tile other = world.tile(tile.x + Mathf.range(size / 2), tile.y + Mathf.range(size / 2));
+                                if(other != null){
+                                    Puddle.deposit(other, liquid, splash);
+                                }
+                            });
+                        }
+                    });
+                }
+
+                Damage.dynamicExplosion(x, y, flammability, explosiveness * 3.5f, power, tilesize * size / 2f, Pal.darkFlame);
+                if(!tile.floor().solid && !tile.floor().isLiquid){
+                    RubbleDecal.create(tile.drawx(), tile.drawy(), size);
+                }
+              }
+              else{
+                ctile.block().onDestroyed(ctile);
+              }
               Vars.world.tile(cx, cy).removeNet();
               if(args[5]=="build"){
                 //Call.onDeconstructFinish(ctile, ctile.block(), 0);
