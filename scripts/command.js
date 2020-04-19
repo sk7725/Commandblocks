@@ -34,21 +34,25 @@ const commandblocks={
       break;
       case 'setblock':
         //Call.setTile(Vars.world.tile(tile.x, tile.y), Blocks.air, tile.team, rot);
-        if(args.length>=3&&args.length<=5){
-          var cx=args[0]; var cy=args[1]; var cblock=args[2];
+        if(args.length>=3&&args.length<=6){
+          var cx=args[0]; var cy=args[1]; var cblock=args[2]; var crot=0; var cteam=tile.team;
           if(cx>=0&&cy>=0){
-            if(true){
-              if(args.length==3) Call.setTile(Vars.world.tile(cx, cy), Blocks[cblock], tile.team, 0);
+            if(args.length<=5||args[5]=="replace"||(args[5]=="keep"&&Vars.world.tile(cx,cy).block()=="air")){
+              //if(args.length==3) Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
               if(args.length==4){ 
-                if(args[3]>=0&&args[3]<=3) Call.setTile(Vars.world.tile(cx, cy), Blocks[cblock], tile.team, args[3]);
+                if(args[3]>=0&&args[3]<=3) crot=args[3];
                 else throw "Rotation should be 0~3";
               }
               if(args.length==5){ 
-                if(args[3]>=0&&args[3]<=3) Call.setTile(Vars.world.tile(cx, cy), Blocks[cblock], args[4], args[3]);
-                else throw "Rotation should be 0~3";
+                if(args[3]>=0&&args[3]<=3&&args[4]>=0&&args[4]<=256){ crot=args[3];cteam=args[4]; }
+                else throw "Rotation should be 0~3 and Team should be 0~256";
               }
+              Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
             }
-            else throw "No such Block or Entity";
+            else if(args[5]=="force"){
+              Call.setTile(Vars.world.tile(cx, cy), Blocks[cblock], cteam, crot);
+            }
+            else throw "Cannot set the block";
           }
           else{
             throw "Coordinates should be above 0";
