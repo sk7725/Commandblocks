@@ -274,7 +274,7 @@ const commandblocks={
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
             var ctile=Vars.world.tile(cx,cy);
-            if(args.length<=5||args[5]=="replace"||args[5]=="destroy"||(args[5]=="keep"&&ctile.block()=="air")){
+            if(args.length<=5||args[5]=="replace"||args[5]=="build"||(args[5]=="keep"&&ctile.block()=="air")){
               //if(args.length==3) Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
               if(args.length==4){
                 if(args[3]>=0&&args[3]<=3) crot=args[3];
@@ -287,17 +287,20 @@ const commandblocks={
               if(cteam!==tile.team) cteam=Team.get(cteam);
               //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
               //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
-              ctile.block().removed(ctile);
-              if(args[5]=="destroy"){
-                Call.onDeconstructFinish(ctile, ctile.block(), 0);
+              //ctile.block().removed(ctile);
+              Vars.world.tile(cx, cy).removeNet();
+              if(args[5]=="build"){
+                //Call.onDeconstructFinish(ctile, ctile.block(), 0);
+                Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
+                Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
               }
               else{
-                //ctile.remove();
+                Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
               }
-              Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
-              Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
-              Events.fire(new BlockBuildEndEvent(Vars.world.tile(cx, cy), null, cteam, false));
+              //
+              //Events.fire(new BlockBuildEndEvent(Vars.world.tile(cx, cy), null, cteam, false));
             }
+/*
             else if(args[5]=="force"){
               crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team;
               if(cteam!==tile.team) cteam=Team.get(cteam);
@@ -305,9 +308,10 @@ const commandblocks={
               ctile.remove();
               Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, true);
               Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
-              Events.fire(new BlockBuildEndEvent(Vars.world.tile(cx, cy), null, cteam, false));
+              //Events.fire(new BlockBuildEndEvent(Vars.world.tile(cx, cy), null, cteam, false));
             }
-            else if(args[5]=="bruteforce"){
+*/
+            else if(args[5]=="force"){
               Call.setNet(Vars.world.tile(cx, cy), Blocks[cblock], cteam, crot);
             }
             else throw "Cannot set the block";
