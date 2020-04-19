@@ -303,6 +303,7 @@ const commandblocks={
               else{
                 Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
               }
+              return true;
               //
               //Events.fire(new BlockBuildEndEvent(Vars.world.tile(cx, cy), null, cteam, false));
             }
@@ -318,7 +319,9 @@ const commandblocks={
             }
 */
             else if(args[5]=="force"){
+              if(ctile.ent()!=null) ctile.ent().remove();
               Call.setNet(Vars.world.tile(cx, cy), Blocks[cblock], cteam, crot);
+              return true;
             }
             else throw "Cannot set the block";
           }
