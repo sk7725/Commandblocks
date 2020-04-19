@@ -1,4 +1,4 @@
-
+commandblocks=this.global.commandblocks;
 const commandblock = extendContent(MessageBlock, "commandblock", {
   init(){
     this.super$init();
@@ -10,7 +10,7 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
       this.super$update(tile);
       //entity.cons.trigger();
       if(!this.didcmd){
-        this.global.commandblocks.command(tile,entity.message);
+        commandblocks.command(tile,entity.message);
         this.didcmd = true;
       }
 
