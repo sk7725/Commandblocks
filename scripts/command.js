@@ -1,4 +1,4 @@
-this.global.commandblocks={
+const commandblocks={
   command(tile,msg){
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
@@ -31,3 +31,4 @@ this.global.commandblocks={
     }
   }
 };
+this.global.commandblocks=commandblocks;
