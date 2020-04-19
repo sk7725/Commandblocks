@@ -62,6 +62,8 @@ return tmpobj;
     if(tile.entity.cons.valid()){
       this.super$update(tile);
       //entity.cons.trigger();
+      const awaypos=this.getawaypos(tile.x,tile.y,tile.rotation());	
+      var ax=awaypos.x; var ay=awaypos.y;
       this.success=commandblocksc.command(tile,entity.message,this);
     }
     else{
