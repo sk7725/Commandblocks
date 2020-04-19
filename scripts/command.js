@@ -47,10 +47,10 @@ const commandblocks={
                 if(args[3]>=0&&args[3]<=3&&args[4]>=0&&args[4]<=256){ crot=args[3];cteam=args[4]; }
                 else throw "Rotation should be 0~3 and Team should be 0~256";
               }
-              Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
+              Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
             }
             else if(args[5]=="force"){
-              Call.setTile(Vars.world.tile(cx, cy), Blocks[cblock], cteam, crot);
+              Call.setNet(Vars.world.tile(cx, cy), Blocks[cblock], cteam, crot);
             }
             else throw "Cannot set the block";
           }
