@@ -306,7 +306,8 @@ const commandblocks={
                 Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
               }
               else{
-                Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
+                //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
+                Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
                 Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
               }
               return true;
