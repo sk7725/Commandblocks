@@ -144,7 +144,7 @@ const commandblocks={
         return true;
       break;
       case 'title':
-        if(args.length>=5){
+        if(args.length>=4){
           var tpos=this.tilde(tile,args[0],args[1]);
           var cx=0; var cy=0;
           if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
@@ -159,6 +159,11 @@ const commandblocks={
             else if(args[2]=="world"){
               ctile=Vars.world.tile(cx, cy);
               Vars.ui.showLabel(args.slice(4).join(" "),args[3],ctile.worldx(),ctile.worldy());
+            }
+            else{
+              if(!Vars.ui.hasOwnProperty(args[2])) throw "No such function";
+              if(args.length==4) Vars.ui[args[2]](args[3]);
+              else Vars.ui[args[2]](args[3],args[4]);
             }
             return true;
           }
