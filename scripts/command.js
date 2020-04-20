@@ -231,7 +231,7 @@ const commandblocks={
   targetselect(ptile,pthis,intarget){
     if(intarget.includes(",")){
       var tmparr=intarget.split(",");
-      if(tmparr.length==2&&){
+      if(tmparr.length==2){
         var ta=this.tilde(ptile,tmparr[0],tmparr[1]);
         if(isNaN(ta.x)&&!isNaN(ta.y)){
           return Vars.world.tile(ta.x,ta.y);
@@ -401,6 +401,16 @@ const commandblocks={
           else throw "Coordinates should be above 0";
         }
         else throw "Missing params";
+      break;
+      case 'function':
+      case 'f':
+        if(executed){
+          if(tile.block() instanceof Block){
+            var cblock=tile.block();
+          }
+          else throw "WIP";
+        }
+        else throw "This command is for /execute only";
       break;
       default:
         return false;
