@@ -1,3 +1,6 @@
+var gamerule={};
+gamerule.commandBlockOutput=true;
+gamerule.commandBlockTitle=false;
 
 if(!this.global.hasOwnProperty("commandcached")) this.global.commandcached={};
 const commandcached=this.global.commandcached;
@@ -151,10 +154,11 @@ const commandblocks={
           if(cx>=0&&cy>=0){
             //Vars.ui.tile(cx,cy).block().drawPlaceText(args.slice(3).join(" "), cx, cy, true);
             if(args[2]=="top"){
-              Vars.ui.showInfoToast(args.slice(4).join(" "),args[3])
+              Vars.ui.showInfoToast(args.slice(4).join(" "),args[3]);
             }
             else if(args[2]=="world"){
-              Vars.ui.showLabel(args.slice(4).join(" "),args[3],tile.worldx(),tile.worldy());
+              ctile=Vars.world.tile(cx, cy);
+              Vars.ui.showLabel(args.slice(4).join(" "),args[3],ctile.worldx(),ctile.worldy());
             }
             return true;
           }
@@ -282,6 +286,15 @@ const commandblocks={
             else throw "Missing params";
             return true;
           }
+          else if(tile instanceof Unit){
+            var cblock=tile;
+            if(args.length==1) cblock[args[0]]();
+            else if(args.length==2) cblock[args[0]](this.settype(tile,parentthis,args[1]));
+            else if(args.length==3) cblock[args[0]](this.settype(tile,parentthis,args[1]),this.settype(tile,parentthis,args[2]));
+            else if(args.length==4) cblock[args[0]](this.settype(tile,parentthis,args[1]),this.settype(tile,parentthis,args[2]),this.settype(tile,parentthis,args[3]));
+            else throw "Missing params";
+            return true;
+          }
           else throw "WIP";
         }
         else throw "This command is for /execute only";
@@ -309,12 +322,22 @@ const commandblocks={
         }
         else throw "Missing params";
       break;
+      case 'gamerule':
+        if(args.length==2){
+          if(gamerule.hasOwnProperty(args[0])){
+            gamerule[args[0]]=args[1];
+          }
+          else throw "No such gamerule";
+        }
+        else throw "Missing params";
+      break;
       default:
         return false;
     }
   }
   catch(err){
-    Call.sendMessage("E:"+err);
+    if(gamerule.commandBlockOutput) Call.sendMessage("E:"+err);
+    if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(err,7);
     return false;
   }
   }
