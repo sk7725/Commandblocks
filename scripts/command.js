@@ -59,7 +59,7 @@ const commandblocks={
       var tmparr=intarget.split(",");
       if(tmparr.length==2){
         var ta=this.tilde(ptile,tmparr[0],tmparr[1]);
-        if(isNaN(ta.x)&&!isNaN(ta.y)){
+        if(!isNaN(ta.x)&&!isNaN(ta.y)){
           return Vars.world.tile(ta.x,ta.y);
         }
         else return tmparr;
