@@ -389,12 +389,10 @@ const commandblocks={
             case 'ts':
             case 'targetselect':
               Call.sendMessage(this.targetselect(tile,parentthis,args[1]));
-              return true;
             break;
             case 'ti':
             case 'tilde':
               Call.sendMessage(this.tilde(tile,args[1],args[2]));
-              return true;
             break;
             default:
               throw "Incorrect params";
