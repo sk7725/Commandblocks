@@ -309,6 +309,7 @@ const commandblocks={
             else if(args.length==2) cblock[args[0]](this.settype(tile,parentthis,args[1]));
             else if(args.length==3) cblock[args[0]](this.settype(tile,parentthis,args[1]),this.settype(tile,parentthis,args[2]));
             else if(args.length==4) cblock[args[0]](this.settype(tile,parentthis,args[1]),this.settype(tile,parentthis,args[2]),this.settype(tile,parentthis,args[3]));
+            else if(args.length==5) cblock[args[0]](this.settype(tile,parentthis,args[1]),this.settype(tile,parentthis,args[2]),this.settype(tile,parentthis,args[3]),this.settype(tile,parentthis,args[4]));
             else throw "Missing params";
             return true;
           }
