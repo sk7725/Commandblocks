@@ -365,7 +365,7 @@ const commandblocks={
           var tpos=this.tilde(tile,args[0],args[1]); var cblock=args[2]; var crot=0; var cteam=tile.team;
           var cx=0; var cy=0;
           if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
-            cx=tpos.x; cy=tpos.y;
+            cx=Math.floor(tpos.x); cy=Math.floor(tpos.y);
           }
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
