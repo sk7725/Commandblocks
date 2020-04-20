@@ -373,7 +373,7 @@ const commandblocks={
         }
         else throw "Missing params";
       break;
-      case 'function':
+      //case 'function':
       case 'f':
         if(executed){
           if(tile instanceof Tile){
