@@ -54,15 +54,15 @@ Fails if the previous block is already the same as the current block.
   sets a new block. crashes the game if the previous block is a tile entity.
 
 ### /execute 
-Executes a command from another tile or entity's perspective.  
+Executes a command from another tile or unit's perspective.  
 + /execute at pos:x pos:y string:command   
   Executs as a tile at x,y.   
-+ /execute as entity:target (detect pos:x pos:y Tile:tile) string:command   
++ /execute as unit:target (detect pos:x pos:y Tile:tile) string:command   
   TBA!
   
 ### /f(/function) string:functionname (arguments)
 Runs a function called functionname.   
-Refer to <https://github.com/Anuken/Mindustry/blob/d6dec002c13d1549acf6d262619e605603197160/core/src/mindustry/world/Tile.java> for the list of functions(if executor is a Tile), or <WIP!>(if executor is an entity).   
+Refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/world/Tile.java,"Anuke's drawer") for the list of functions (if executor is a Tile), or [WIP!](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/entities/type/Unit.java,"Anuke's locker") (if executor is an Unit).   
 Can only be used inside an /execute.   
 + Example   
 ```
