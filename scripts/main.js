@@ -6,5 +6,5 @@ require("posreaderent");
 require("commandblock");
 require("commandblockrepeating");
 require("commandblockchained");
-
+require("commandblockunit");
 require("unitcacher");

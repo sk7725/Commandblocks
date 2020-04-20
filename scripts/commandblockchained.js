@@ -21,7 +21,7 @@ const commandblockchained = extendContent(MessageBlock, "commandblockchained", {
     var key=tile.x+","+tile.y;
     if(!commandblocksc.hasOwnProperty(key)) commandblocksc[key]={};
     thiscmd=commandblocksc[key];
-    if(tile.entity.cons.valid()){
+    if(true){
       this.super$update(tile);
       const awaypos=this.getawaypos(tile.x,tile.y,tile.rotation());
       const akey=awaypos.x+","+awaypos.y;
