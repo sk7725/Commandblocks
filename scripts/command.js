@@ -376,7 +376,7 @@ const commandblocks={
       case 'function':
       case 'f':
         if(executed){
-          if(tile instanceof Tile){
+          if(tile.block() instanceof Block){
             var cblock=tile.block();
           }
           else throw "WIP";
