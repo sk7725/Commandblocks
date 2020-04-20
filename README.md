@@ -7,10 +7,12 @@ This is currently in development.
 + Command Block   
 Executes command once when power requirements are met.   
 + Chained Command Block   
-Executes command when power requirements are met, and the command block it is facing away from has executed successfully.   
+Executes command when the command block it is facing away from has executed successfully.   
 It will execute one tick after the command block it is facing away from.   
 + Repeating Command Block   
 Executes command every tick when power requirements are met.   
++ Unit Command Block   
+Executes command .   
 + Unit Tagger   
 Remembers the last unit that stepped on this tile, using its message as the tag.     
 The unit has to be on this block and not fly, and only a single unit will be tagged.   
@@ -55,7 +57,7 @@ Emits text to all players.
 ### /overwrite string:text  
 Overwrites this command block's content to text.
 
-### /setblock pos:x pos:y Block:block (int:rotation) (int:team) (replace|keep|build|force) 
+### /setblock pos:x pos:y string:block (int:rotation) (int:team) (replace|keep|build|force) 
 Sets the tile at x,y to the specified block.  
 Rotation should be between 0 and 3, default is 0.  
 Team should be -1 and 255, default is -1. When team is -1, the team is set to the executor's team.  
@@ -111,9 +113,24 @@ Can only be used inside an /execute.
 ### /gamerule string:rulename boolean:state   
 Sets the gamerule. Fails if no such gamerule exists.   
   - commandBlockOutput   
-    Whether to log command failures in multiplayer chat.   
+    whether to log command failures in multiplayer chat.   
   - commandBlockTitle   
-    Whether to log command failures as a popup.   
+    whether to log command failures as a popup.   
+
+### /fx(/particle) string:effect (pos:x pos:y) (string:color)   
+Plays particle effects on the given position. Fails if coordinates are below 0.   
+
+### /give string:item (int:amount)
+Gives the executor an amount of an item.   
+If the executor is a tile, amount may be negative.   
+Fails if amount is negative and executor is not a tile, or amount is negative and less than 1 items were removed.   
+
+### /clear      
+Clears the executor of the item. Fails if the executor does not have an inventory.   
+  - /clear string:item   
+    if the executor is a tile. Fails if less then 1 items are removed.   
+  - /clear  
+    if the executor is an unit.   
 
 ## Tilde Notation   
 Using ~ before a number for a coordinate will get the coordinate relative to the executor.   
@@ -121,7 +138,7 @@ All coordinates are based on the tile coordinate, not the world coordinate.
 
 ## Refer a Type   
 For a param that is not a string/int, the following syntax may be used for some commands.   
-`tile:x,y` `team:teamnumber` `block|floor|item|fx:name` `seffect:statuseffectname` `target:targetselector` `js:null|undefined|this`
+`tile:x,y` `team:teamnumber` `block|floor|item|fx|liquid|bullet:name` `seffect:statuseffectname` `target:targetselector` `js:null|undefined|this`
 
 ## Target Selectors   
 `@s` The executor of the command.
