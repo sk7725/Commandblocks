@@ -1,4 +1,43 @@
 /*const commandblocks={
+  tilde(tile,inx,iny){
+    var tmpobj={}; tmpobj.x=inx; tmpobj.y=iny;
+    if(inx=="~") tmpobj.x=tile.x;
+    else if(inx.substring(0,1)=="~") tmpobj.x=Number(inx.substring(1,inx.length))+tile.x;
+    if(iny=="~") tmpobj.y=tile.y;
+    else if(iny.substring(0,1)=="~") tmpobj.y=Number(iny.substring(1,iny.length))+tile.y;
+    return tmpobj;
+  },
+  targetselect(ptile,pthis,intarget){
+    if(intarget.includes("{")){
+      return JSON.parse(intarget);
+    }
+    else if(intarget.includes("[")){
+      //TBA:selector
+    }
+    else if(intarget.includes(",")){
+      var tmparr=intarget.trim().split(",");
+      if(tmparr.length==2&&){
+        var ta=this.tilde(ptile,tmparr[0],tmparr[1]);
+        if(isNaN(ta.x)&&!isNaN(ta.y)){
+          return Vars.world.tile(ta.x,ta.y);
+        }
+        else return tmparr;
+      }
+      else return tmparr;
+    }
+    else{
+      switch(intarget.trim()){
+        case "@s":
+          return ptile;
+        break;
+        case "@t":
+          return pthis;
+        break;
+        default:
+          return intarget;
+      }
+    }
+  },
   command(tile,msg,parentthis,parentcmd,executed,executortype){
     var mytype="tile";
     if(tile instanceof Tile) mytype="tile";
@@ -193,36 +232,8 @@ const commandblocks={
     else if(iny.substring(0,1)=="~") tmpobj.y=Number(iny.substring(1,iny.length))+tile.y;
     return tmpobj;
   },
-  targetselect(ptile,pthis,intarget){
-    if(intarget.includes("{")){
-      return JSON.parse(intarget);
-    }
-    else if(intarget.includes("[")){
-      //TBA:selector
-    }
-    else if(intarget.includes(",")){
-      var tmparr=intarget.trim().split(",");
-      if(tmparr.length==2&&){
-        var ta=this.tilde(ptile,tmparr[0],tmparr[1]);
-        if(isNaN(ta.x)&&!isNaN(ta.y)){
-          return Vars.world.tile(ta.x,ta.y);
-        }
-        else return tmparr;
-      }
-      else return tmparr;
-    }
-    else{
-      switch(intarget.trim()){
-        case "@s":
-          return ptile;
-        break;
-        case "@t":
-          return pthis;
-        break;
-        default:
-          return intarget;
-      }
-    }
+  targetselect(tile,intarget){
+
   },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
@@ -374,11 +385,7 @@ const commandblocks={
         else throw "Missing params";
       break;
       case 'function':
-      case 'f':
-        if(executed){
-          throw "WIP";
-        }
-        else throw "This command is for /execute only";
+      
       break;
       default:
         return false;
