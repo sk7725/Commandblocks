@@ -28,15 +28,15 @@ Is empty if no tile entity is found.
 TileEntity{tile=tile, health=health}
 ```
 
-##Commands
+## Commands
 Commands will fail to work when an error happens, params are invalid , or requirements below are not made.
 <this is a required param>, [this is an optional param]. Skipping optional params is not allowed.
 
-+ /say <string:text>
++ /say <string:text>  
 In multiplayer, sends <text> to all players. This is used if an error occured.
-+ /overwrite <string:text>
++ /overwrite <string:text>  
 Overwrites this command block's content to <text>.
-+ /setblock <pos:x y> <Block:block> [int:rotation] [int:team] [replace|keep|build|force]
++ /setblock <pos:x y> <Block:block> [int:rotation] [int:team] [replace|keep|build|force]  
 Sets the tile at <x y> to the specified <block>.
 [rotation] should be between 0 and 3, default is 0.
 [team] should be -1 and 255, default is -1. When [team] is -1, the team is set to the executor's team.
