@@ -317,7 +317,7 @@ const commandblocks={
                 //Vars.world.tile(cx, cy).removeNet();
               }
               else{
-                if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
+                if(Vars.world.tile(cx, cy).block().hasEntity()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
                 Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
                 //Vars.world.tile(cx, cy).block().onDestroyed(Vars.world.tile(cx, cy));
                 //ctile.preChanged();
