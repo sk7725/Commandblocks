@@ -11,6 +11,11 @@ Executes command when power requirements are met, and the command block it is fa
 It will execute one tick after the command block it is facing away from.
 + Repeating Command Block
 Executes command every tick when power requirements are met.
++ Unit Tagger
+Remembers the last unit that stepped on this tile, using its message as the tag.   
+The unit has to be on this block and not fly, and only a single unit will be tagged.   
+If the block is removed, the tagged unit will be untagged.    
+For more information on tags, refer to `Target Selectors`.   
 + Position Reader
 Gets the x and y coordinates where this block is placed.
 ```
@@ -34,12 +39,19 @@ Starting the command with a / is optional.
 Some params are optional.   
 
 ### /say string:text  
-In multiplayer, sends text to all players. This is used if an error occured.
+In multiplayer, sends text to all players.
+
+### /title pos:x pos:y top|world int:duration string:text   
+Emits text to all players.
+  - top   
+  shows the text as a popup at the top of the screen.   
+  - world   
+  Shows the text as a popup at x,y.   
 
 ### /overwrite string:text  
 Overwrites this command block's content to text.
 
-### /setblock int:x int:y Block:block (int:rotation) (int:team) (replace|keep|build|force) 
+### /setblock pos:x pos:y Block:block (int:rotation) (int:team) (replace|keep|build|force) 
 Sets the tile at x,y to the specified block.  
 Rotation should be between 0 and 3, default is 0.  
 Team should be -1 and 255, default is -1. When team is -1, the team is set to the executor's team.  
@@ -55,20 +67,27 @@ Fails if the previous block is already the same as the current block.
 
 ### /execute 
 Executes a command from another tile or unit's perspective.  
-+ /execute at pos:x pos:y string:command   
-  Executs as a tile at x,y.   
-+ /execute as unit:target (detect pos:x pos:y Tile:tile) string:command   
-  TBA!
+Fails if the executed command fails, or the tile or entity is not found.   
+  + /execute at pos:x pos:y string:command   
+    Executes as a tile at x,y.   
+  + /execute as unit:target string:command   
+    Executes as an unit.
   
 ### /f(/function) string:functionname (arguments)
 Runs a function called functionname.   
-Refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/world/Tile.java) for the list of functions (if executor is a Tile), or [WIP!](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/entities/type/Unit.java) (if executor is an Unit).   
+Refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/world/Tile.java) for the list of functions (if executor is a Tile), or [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/entities/type/Unit.java) (if executor is an Unit).   
 Can only be used inside an /execute.   
-+ Example   
-```
-execute at ~ ~2 function setTeam team:5
-//calls setTeam( Team.get(5) ) of the tile 2 blocks to the north of the executor.
-```
+  + Example   
+  ```
+  execute at ~ ~2 function setTeam team:5
+  //calls setTeam( Team.get(5) ) of the tile 2 blocks to the north of the executor.
+  ```
+### /gamerule string:rulename boolean:state   
+Sets the gamerule. Fails if no such gamerule exists.   
+  - commandBlockOutput   
+    Whether to log command failures in multiplayer chat.   
+  - commandBlockTitle   
+    Whether to log command failures as a popup.   
 
 ## Tilde Notation   
 Using ~ before a number for a coordinate will get the coordinate relative to the executor.  
@@ -77,57 +96,62 @@ Using ~ before a number for a coordinate will get the coordinate relative to the
 For a param that is not a string/int, the following syntax may be used for some commands.   
 `tile:x,y` `team:teamnumber` `block:blockname` `floor:blockname` `array:a,b,c,d`
 
-## Target Selector
+## Target Selectors   
+`@s` The executor of the command.   
+`@t` Is a `this` of the origin command block. Use only when you know what you are doing.   
+`@c[tagname]` A cache of the unit tagged by the Unit Tagger.   
+`x,y` The tile at the position.   
+`@p` WIP!   
 
 ## Block List
 This is the full list of blocks, as of version 104.
-```
-//environment
-air, spawn, deepwater, water, taintedWater, tar, stone, craters, charr, sand, darksand, ice, snow, darksandTaintedWater,
-holostone, rocks, sporerocks, icerocks, cliffs, sporePine, snowPine, pine, shrubs, whiteTree, whiteTreeDead, sporeCluster,
-iceSnow, sandWater, darksandWater, duneRocks, sandRocks, moss, sporeMoss, shale, shaleRocks, shaleBoulder, sandBoulder, grass, salt,
-metalFloor, metalFloorDamaged, metalFloor2, metalFloor3, metalFloor5, ignarock, magmarock, hotrock, snowrocks, rock, snowrock, saltRocks,
-darkPanel1, darkPanel2, darkPanel3, darkPanel4, darkPanel5, darkPanel6, darkMetal,
-pebbles, tendrils,
+  ```
+  //environment
+  air, spawn, deepwater, water, taintedWater, tar, stone, craters, charr, sand, darksand, ice, snow, darksandTaintedWater,
+  holostone, rocks, sporerocks, icerocks, cliffs, sporePine, snowPine, pine, shrubs, whiteTree, whiteTreeDead, sporeCluster,
+  iceSnow, sandWater, darksandWater, duneRocks, sandRocks, moss, sporeMoss, shale, shaleRocks, shaleBoulder, sandBoulder, grass, salt,
+  metalFloor, metalFloorDamaged, metalFloor2, metalFloor3, metalFloor5, ignarock, magmarock, hotrock, snowrocks, rock, snowrock, saltRocks,
+  darkPanel1, darkPanel2, darkPanel3, darkPanel4, darkPanel5, darkPanel6, darkMetal,
+  pebbles, tendrils,
 
-//ores
-oreCopper, oreLead, oreScrap, oreCoal, oreTitanium, oreThorium,
+  //ores
+  oreCopper, oreLead, oreScrap, oreCoal, oreTitanium, oreThorium,
 
-//crafting
-siliconSmelter, kiln, graphitePress, plastaniumCompressor, multiPress, phaseWeaver, surgeSmelter, pyratiteMixer, blastMixer, cryofluidMixer,
-melter, separator, sporePress, pulverizer, incinerator, coalCentrifuge,
+  //crafting
+  siliconSmelter, kiln, graphitePress, plastaniumCompressor, multiPress, phaseWeaver, surgeSmelter, pyratiteMixer, blastMixer, cryofluidMixer,
+  melter, separator, sporePress, pulverizer, incinerator, coalCentrifuge,
 
-//sandbox
-powerSource, powerVoid, itemSource, itemVoid, liquidSource, liquidVoid, message, illuminator,
+  //sandbox
+  powerSource, powerVoid, itemSource, itemVoid, liquidSource, liquidVoid, message, illuminator,
 
-//defense
-copperWall, copperWallLarge, titaniumWall, titaniumWallLarge, plastaniumWall, plastaniumWallLarge, thoriumWall, thoriumWallLarge, door, doorLarge,
-phaseWall, phaseWallLarge, surgeWall, surgeWallLarge, mender, mendProjector, overdriveProjector, forceProjector, shockMine,
-scrapWall, scrapWallLarge, scrapWallHuge, scrapWallGigantic, thruster, //ok, these names are getting ridiculous, but at least I don't have humongous walls yet
+  //defense
+  copperWall, copperWallLarge, titaniumWall, titaniumWallLarge, plastaniumWall, plastaniumWallLarge, thoriumWall, thoriumWallLarge, door, doorLarge,
+  phaseWall, phaseWallLarge, surgeWall, surgeWallLarge, mender, mendProjector, overdriveProjector, forceProjector, shockMine,
+  scrapWall, scrapWallLarge, scrapWallHuge, scrapWallGigantic, thruster, //ok, these names are getting ridiculous, but at least I don't have humongous walls yet
 
-//transport
-conveyor, titaniumConveyor, armoredConveyor, distributor, junction, itemBridge, phaseConveyor, sorter, invertedSorter, router, overflowGate, massDriver,
+  //transport
+  conveyor, titaniumConveyor, armoredConveyor, distributor, junction, itemBridge, phaseConveyor, sorter, invertedSorter, router, overflowGate, massDriver,
 
-//liquids
-mechanicalPump, rotaryPump, thermalPump, conduit, pulseConduit, platedConduit, liquidRouter, liquidTank, liquidJunction, bridgeConduit, phaseConduit,
+  //liquids
+  mechanicalPump, rotaryPump, thermalPump, conduit, pulseConduit, platedConduit, liquidRouter, liquidTank, liquidJunction, bridgeConduit, phaseConduit,
 
-//power
-combustionGenerator, thermalGenerator, turbineGenerator, differentialGenerator, rtgGenerator, solarPanel, largeSolarPanel, thoriumReactor,
-impactReactor, battery, batteryLarge, powerNode, powerNodeLarge, surgeTower, diode,
+  //power
+  combustionGenerator, thermalGenerator, turbineGenerator, differentialGenerator, rtgGenerator, solarPanel, largeSolarPanel, thoriumReactor,
+  impactReactor, battery, batteryLarge, powerNode, powerNodeLarge, surgeTower, diode,
 
-//production
-mechanicalDrill, pneumaticDrill, laserDrill, blastDrill, waterExtractor, oilExtractor, cultivator,
+  //production
+  mechanicalDrill, pneumaticDrill, laserDrill, blastDrill, waterExtractor, oilExtractor, cultivator,
 
-//storage
-coreShard, coreFoundation, coreNucleus, vault, container, unloader, launchPad, launchPadLarge,
+  //storage
+  coreShard, coreFoundation, coreNucleus, vault, container, unloader, launchPad, launchPadLarge,
 
-//turrets
-duo, scatter, scorch, hail, arc, wave, lancer, swarmer, salvo, fuse, ripple, cyclone, spectre, meltdown,
+  //turrets
+  duo, scatter, scorch, hail, arc, wave, lancer, swarmer, salvo, fuse, ripple, cyclone, spectre, meltdown,
 
-//units
-commandCenter, draugFactory, spiritFactory, phantomFactory, wraithFactory, ghoulFactory, revenantFactory, daggerFactory, crawlerFactory, titanFactory,
-fortressFactory, repairPoint,
+  //units
+  commandCenter, draugFactory, spiritFactory, phantomFactory, wraithFactory, ghoulFactory, revenantFactory, daggerFactory, crawlerFactory, titanFactory,
+  fortressFactory, repairPoint,
 
-//upgrades
-dartPad, deltaPad, tauPad, omegaPad, javelinPad, tridentPad, glaivePad;
-```
+  //upgrades
+  dartPad, deltaPad, tauPad, omegaPad, javelinPad, tridentPad, glaivePad;
+  ```
