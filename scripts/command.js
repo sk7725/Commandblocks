@@ -376,10 +376,7 @@ const commandblocks={
       case 'function':
       case 'f':
         if(executed){
-          if(tile.block() instanceof Block){
-            var cblock=tile.block();
-          }
-          else throw "WIP";
+          throw "WIP";
         }
         else throw "This command is for /execute only";
       break;
