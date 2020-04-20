@@ -3,12 +3,23 @@ if(!this.global.hasOwnProperty("commandcached")) this.global.commandcached={};
 const commandcached=this.global.commandcached;
 const commandblocks={
   tilde(tile,inx,iny){
-    var tmpobj={}; tmpobj.x=inx; tmpobj.y=iny;
-    if(inx=="~") tmpobj.x=tile.x;
-    else if(inx.substring(0,1)=="~") tmpobj.x=Number(inx.substring(1,inx.length))+tile.x;
-    if(iny=="~") tmpobj.y=tile.y;
-    else if(iny.substring(0,1)=="~") tmpobj.y=Number(iny.substring(1,iny.length))+tile.y;
-    return tmpobj;
+    if(tile instanceof Tile){
+      var tmpobj={}; tmpobj.x=inx; tmpobj.y=iny;
+      if(inx=="~") tmpobj.x=tile.x;
+      else if(inx.substring(0,1)=="~") tmpobj.x=Number(inx.substring(1,inx.length))+tile.x;
+      if(iny=="~") tmpobj.y=tile.y;
+      else if(iny.substring(0,1)=="~") tmpobj.y=Number(iny.substring(1,iny.length))+tile.y;
+      return tmpobj;
+    }
+    else{
+      var tmpobj={}; tmpobj.x=inx; tmpobj.y=iny;
+      var rtile=Vars.world.tileWorld(tile.x,tile.y);
+      if(inx=="~") tmpobj.x=rtile.x;
+      else if(inx.substring(0,1)=="~") tmpobj.x=Number(inx.substring(1,inx.length))+rtile.x;
+      if(iny=="~") tmpobj.y=rtile.y;
+      else if(iny.substring(0,1)=="~") tmpobj.y=Number(iny.substring(1,iny.length))+rtile.y;
+      return tmpobj;
+    }
   },
   targetselect(ptile,pthis,intarget){
     if(typeof intarget!="string") return intarget;
