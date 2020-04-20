@@ -318,7 +318,7 @@ const commandblocks={
               }
               else{
                 Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
-                Vars.world.tile(cx, cy).block().onDestroyed(Vars.world.tile(cx, cy));
+                //Vars.world.tile(cx, cy).block().onDestroyed(Vars.world.tile(cx, cy));
                 //ctile.preChanged();
                 //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().setDead(true);
                 //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().onDeath();
@@ -333,6 +333,8 @@ const commandblocks={
                 //Call.onDeconstructFinish(ctile, ctile.block(), 0);
                 Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
                 Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
+              }else{
+                
               }
               return true;
               //
