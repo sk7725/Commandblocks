@@ -405,8 +405,8 @@ const commandblocks={
       case 'function':
       case 'f':
         if(executed){
-          if(tile.block() instanceof Block){
-            var cblock=tile.block();
+          if(tile instanceof Tile){
+            var cblock=tile;
             if(args.length==1) cblock[args[0]]();
             else if(args.length==2) cblock[args[0]](this.targetselect(tile,parentthis,args[1]));
             else if(args.length==3) cblock[args[0]](this.targetselect(tile,parentthis,args[1]),this.targetselect(tile,parentthis,args[2]));
