@@ -116,6 +116,11 @@ const commandblocks={
           case "seffect":
             return StatusEffects[tmparr[1]];
           break;
+          case "js":
+            if(tmparr[1]=="null") return null;
+            if(tmparr[1]=="undefined") return;
+            if(tmparr[1]=="this") return this;
+          break;
         }
       }
       else return intarget;
