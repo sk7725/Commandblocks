@@ -311,12 +311,14 @@ const commandblocks={
               //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
               //ctile.block().removed(ctile);
               if(args[5]=="build"||args[5]=="destroy"){
-                Vars.world.tile(cx, cy).block().onDestroyed(Vars.world.tile(cx, cy));
+                //Vars.world.tile(cx, cy).block().onDestroyed(Vars.world.tile(cx, cy));
+                if(Vars.world.tile(cx, cy).hasEntity()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
+                Vars.world.tile(cx, cy).removeNet();
               }
               else{
                 //Vars.world.tile(cx, cy).block().onDestroyed(Vars.world.tile(cx, cy));
                 //ctile.preChanged();
-                if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().damage(ent().health()+1);
+                Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
                 //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().onDeath();
                 //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().kill();
                 //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
@@ -325,16 +327,14 @@ const commandblocks={
                 //Vars.world.tile(cx, cy).changed();
                 //Call.setTile(Vars.world.tile(cx, cy), Blocks.air, tile.team, 0);
               }
-              Vars.world.tile(cx, cy).removeNet();
               if(args[5]=="build"){
                 //Call.onDeconstructFinish(ctile, ctile.block(), 0);
                 Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
                 Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
               }
               else{
-                Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
-                //Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
-                Blocks[cblock].placed(Vars.world.tile(cx, cy));
+                //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
+                //Blocks[cblock].placed(Vars.world.tile(cx, cy));
               }
               return true;
               //
