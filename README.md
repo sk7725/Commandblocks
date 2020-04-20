@@ -50,7 +50,7 @@ Fails if the previous block is already the same as the current block.
   - force
   sets a new block. crashes the game if the previous block is a tile entity.
 
-##Blocks
+## Blocks
 This is the full list of blocks, as of version 104.
 ```
   //environment
