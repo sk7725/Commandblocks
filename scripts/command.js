@@ -71,6 +71,9 @@ const commandblocks={
         case "@s":
           return ptile;
         break;
+        case "@b":
+          return ptile.block();
+        break;
         case "@t":
           return pthis;
         break;
