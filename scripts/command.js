@@ -254,6 +254,10 @@ const commandblocks={
     }
     var cmd = args[0];
     args = args.splice(1);
+    if(cmd=="execute"){
+      cmd = args[0];
+      args = args.splice(1);
+    }
   try{
     switch(cmd){
       case 'overwrite':
@@ -265,8 +269,6 @@ const commandblocks={
         return true;
       break;
       case 'title':
-        //Call.sendMessage(args.join(' '));
-        //return true;
         if(args.length>=3){
           var tpos=this.tilde(tile,args[0],args[1]);
           var cx=0; var cy=0;
@@ -275,7 +277,7 @@ const commandblocks={
           }
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
-            parentthis.drawPlaceText(args.slice(2).join(" "), cx, cy, true);
+            Vars.world.tile(cx,cy).block().drawPlaceText(args.slice(2).join(" "), cx, cy, true);
             return true;
           }
           else throw "Coordinates should be above 0";
@@ -362,6 +364,22 @@ const commandblocks={
           else{
             throw "Coordinates should be above 0";
           }
+        }
+        else throw "Missing params";
+      break;
+      case 'at':
+        if(args.length>=3){
+          var tpos=this.tilde(tile,args[0],args[1]);
+          var cx=0; var cy=0;
+          if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
+            cx=tpos.x; cy=tpos.y;
+          }
+          else throw "Coordinates should be above 0";
+          if(cx>=0&&cy>=0){
+            //parentthis.drawPlaceText(args.slice(2).join(" "), cx, cy, true);
+            return this.command(Vars.world.tile(cx,cy),args.slice(2).join(" "),parentthis,msg,true);
+          }
+          else throw "Coordinates should be above 0";
         }
         else throw "Missing params";
       break;
