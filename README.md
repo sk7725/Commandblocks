@@ -41,12 +41,16 @@ Some params are optional.
 ### /say string:text  
 In multiplayer, sends text to all players.
 
-### /title pos:x pos:y top|world int:duration string:text   
+### /title pos:x pos:y
 Emits text to all players.
-  - top   
-  shows the text as a popup at the top of the screen.   
-  - world   
-  Shows the text as a popup at x,y.   
+  + /title pos:x pos:y top|world int:duration string:text   
+    - top   
+    shows the text as a popup at the top of the screen.   
+    - world   
+    Shows the text as a popup at x,y.   
+  + /title pos:x pos:y string:functionname (arguments)    
+  Runs an UI function called functionname that can show text in various forms.   
+  Refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/core/UI.java) for the list of functions.   
 
 ### /overwrite string:text  
 Overwrites this command block's content to text.
@@ -68,20 +72,42 @@ Fails if the previous block is already the same as the current block.
 ### /execute 
 Executes a command from another tile or unit's perspective.  
 Fails if the executed command fails, or the tile or entity is not found.   
+`execute` is optional, one can start a command with `at/as`
   + /execute at pos:x pos:y string:command   
     Executes as a tile at x,y.   
-  + /execute as unit:target string:command   
-    Executes as an unit.
+  + /execute as target:target string:command   
+    Executes as a target.
   
 ### /f(/function) string:functionname (arguments)
-Runs a function called functionname.   
+Runs a function of the executor called functionname. Fails if the executor is neither a tile nor an unit.     
 Refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/world/Tile.java) for the list of functions (if executor is a Tile), or [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/entities/type/Unit.java) (if executor is an Unit).   
 Can only be used inside an /execute.   
   + Example   
   ```
   execute at ~ ~2 function setTeam team:5
+  //sets the team of the tile 2 blocks to the north of the executor to 5.
   //calls setTeam( Team.get(5) ) of the tile 2 blocks to the north of the executor.
   ```
+### /fb(/functionblock) string:functionname (arguments)
+Runs a function of the block of the executor called functionname. Fails if the executor is not a tile.   
+Refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/world/Block.java) or [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/world/BlockStorage.java) for the list of functions.   
+Can only be used inside an /execute.   
+  + Example   
+  ```
+  execute at ~ ~2 functionblock handleStack item:copper 5 tile:~,~ js:null
+  //gives 5 copper to the block 2 blocks to the north of the executor.
+  ```
+
+### /fe(/functionent) string:functionname (arguments)
+Runs a function of the tile entity of the executor called functionname. Fails if the executor is not a tile.   
+Refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/entities/type/TileEntity.java) for the list of functions.   
+Can only be used inside an /execute.   
+  + Example   
+  ```
+  execute at ~ ~2 functionent damage 50
+  //damages the tile 2 blocks to the north of the executor by 50.
+  ```
+
 ### /gamerule string:rulename boolean:state   
 Sets the gamerule. Fails if no such gamerule exists.   
   - commandBlockOutput   
@@ -90,14 +116,18 @@ Sets the gamerule. Fails if no such gamerule exists.
     Whether to log command failures as a popup.   
 
 ## Tilde Notation   
-Using ~ before a number for a coordinate will get the coordinate relative to the executor.  
+Using ~ before a number for a coordinate will get the coordinate relative to the executor.   
+All coordinates are based on the tile coordinate, not the world coordinate.    
 
 ## Refer a Type   
 For a param that is not a string/int, the following syntax may be used for some commands.   
-`tile:x,y` `team:teamnumber` `block:blockname` `floor:blockname` `array:a,b,c,d`
+`tile:x,y` `team:teamnumber` `block|floor|item|fx:name` `seffect:statuseffectname` `target:targetselector` `js:null|undefined|this`
 
 ## Target Selectors   
-`@s` The executor of the command.   
+`@s` The executor of the command.
+`@sb` The block of the executor of the command.
+`@se` The tile entity of the executor of the command.
+`@a` The player.
 `@t` Is a `this` of the origin command block. Use only when you know what you are doing.   
 `@c[tagname]` A cache of the unit tagged by the Unit Tagger.   
 `x,y` The tile at the position.   
