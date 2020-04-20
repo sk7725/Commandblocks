@@ -445,6 +445,29 @@ const commandblocks={
         }
         else throw "This command is for /execute only";
       break;
+      case 'particle':
+      case 'fx':
+        if(args.length>=3&&args.length<=4){
+          var tpos=this.tilde(tile,args[1],args[2]);
+          var cx=0; var cy=0;
+          if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
+            cx=tpos.x; cy=tpos.y;
+          }
+          else throw "Coordinates should be above 0";
+          if(cx>=0&&cy>=0){
+            //var ctile=Vars.world.tile(cx,cy);
+            if(args.length==4) Effects.effect(Fx[args[0]],Color[args[3]],cx,cy);
+            else Effects.effect(Fx[args[0]],cx,cy);
+            return true;
+          }
+          else throw "Coordinates should be above 0";
+        }
+        else if(args.length==1){
+          Effects.effect(Fx[args[0]],tile.x,tile.y);
+          return true;
+        }
+        else throw "Missing params";
+      break;
       default:
         return false;
     }
