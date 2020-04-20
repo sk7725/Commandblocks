@@ -461,7 +461,9 @@ const commandblocks={
       break;
       case 'as':
         if(args.length>=2){
-          return this.command(this.targetselect(tile,parentthis,args[0]),args.slice(1).join(" "),parentthis,msg,true);
+          var target=this.targetselect(tile,parentthis,args[0]),args.slice(1).join(" ");
+          if(target==null) return false;
+          return this.command(target,parentthis,msg,true);
         }
         else throw "Missing params";
       break;
