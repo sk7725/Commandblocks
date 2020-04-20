@@ -141,7 +141,7 @@ const commandblocks={
         return true;
       break;
       case 'title':
-        if(args.length>=3){
+        if(args.length>=5){
           var tpos=this.tilde(tile,args[0],args[1]);
           var cx=0; var cy=0;
           if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
@@ -149,7 +149,13 @@ const commandblocks={
           }
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
-            Vars.world.tile(cx,cy).block().drawPlaceText(args.slice(2).join(" "), cx, cy, true);
+            //Vars.ui.tile(cx,cy).block().drawPlaceText(args.slice(3).join(" "), cx, cy, true);
+            if(args[2]=="top"){
+              Vars.ui.showInfoToast(args.slice(4).join(" "),args[3])
+            }
+            else if(args[2]=="world"){
+              Vars.ui.showLabel(args.slice(4).join(" "),args[3],tile.worldx(),tile.worldy());
+            }
             return true;
           }
           else throw "Coordinates should be above 0";
