@@ -314,9 +314,9 @@ const commandblocks={
                 Vars.world.tile(cx, cy).block().onDestroyed(Vars.world.tile(cx, cy));
               }
               else{
-                Vars.world.tile(cx, cy).block().onDestroyed(Vars.world.tile(cx, cy));
+                //Vars.world.tile(cx, cy).block().onDestroyed(Vars.world.tile(cx, cy));
                 //ctile.preChanged();
-                //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().setDead(true);
+                if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().damage(ent().health()+1);
                 //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().onDeath();
                 //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().kill();
                 //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
