@@ -253,6 +253,33 @@ const commandblocks={
       }
     }
   },
+  settype(ptile,pthis,intarget){
+    if(intarget.includes(":")){
+      var tmparr=intarget.split(":");
+      if(tmparr.length==2){
+        switch(tmparr[0]){
+          case "array":
+            return this.targetselect(ptile,pthis,tmparr[1]);
+          break;
+          case "tile":
+            var ret=this.targetselect(ptile,pthis,tmparr[1]);
+            if(ret instanceof Tile) return ret;
+            else return null;
+          break;
+          case "team":
+            if(tmparr[1]==-1) return ptile.team;
+            return Team.get(tmparr[1]);
+          break;
+          case "block":
+          case "floor":
+            return Blocks[intarget];
+          break;
+        }
+      }
+      else return intarget;
+    }
+    else return intarget;
+  },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
@@ -408,9 +435,9 @@ const commandblocks={
           if(tile instanceof Tile){
             var cblock=tile;
             if(args.length==1) cblock[args[0]]();
-            else if(args.length==2) cblock[args[0]](this.targetselect(tile,parentthis,args[1]));
-            else if(args.length==3) cblock[args[0]](this.targetselect(tile,parentthis,args[1]),this.targetselect(tile,parentthis,args[2]));
-            else if(args.length==4) cblock[args[0]](this.targetselect(tile,parentthis,args[1]),this.targetselect(tile,parentthis,args[2]),this.targetselect(tile,parentthis,args[3]));
+            else if(args.length==2) cblock[args[0]](this.settype(tile,parentthis,args[1]));
+            else if(args.length==3) cblock[args[0]](this.settype(tile,parentthis,args[1]),this.settype(tile,parentthis,args[2]));
+            else if(args.length==4) cblock[args[0]](this.settype(tile,parentthis,args[1]),this.settype(tile,parentthis,args[2]),this.settype(tile,parentthis,args[3]));
             else throw "Missing params";
             return true;
           }
