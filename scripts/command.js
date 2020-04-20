@@ -74,7 +74,7 @@ const commandblocks={
         case "@t":
           return pthis;
         break;
-        case "@p":
+        case "@a":
           return Vars.player;
         break;
         default:
