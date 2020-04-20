@@ -1,5 +1,5 @@
 localizedName: Unit Tagger
-description: "Remembers the last unit that stepped on this tile, using its message as the tag. Access the unit via @c\[tag\]."
+description: "Remembers the last unit that stepped on this tile, using its message as the tag."
 size: 1
 breakable: true
 update: true
