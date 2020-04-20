@@ -317,7 +317,20 @@ const commandblocks={
                 //Vars.world.tile(cx, cy).removeNet();
               }
               else{
+<<<<<<< HEAD
                 Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
+=======
+                Vars.world.tile(cx, cy).block().onDestroyed(Vars.world.tile(cx, cy));
+                //ctile.preChanged();
+                //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().setDead(true);
+                //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().onDeath();
+                //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().kill();
+                //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
+                //Vars.world.tile(cx, cy).remove();
+                //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().remove();
+                //Vars.world.tile(cx, cy).changed();
+                //Call.setTile(Vars.world.tile(cx, cy), Blocks.air, tile.team, 0);
+>>>>>>> parent of b992b74... Update command.js
               }
               if(args[5]=="build"){
                 //Call.onDeconstructFinish(ctile, ctile.block(), 0);
