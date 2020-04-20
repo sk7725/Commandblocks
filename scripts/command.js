@@ -343,6 +343,10 @@ const commandblocks={
         Call.sendMessage(args.join(' '));
         return true;
       break;
+      case 'getpos':
+        Call.sendMessage(tile.x+","+tile.y);
+        return true;
+      break;
       case 'title':
         if(args.length>=3){
           var tpos=this.tilde(tile,args[0],args[1]);
