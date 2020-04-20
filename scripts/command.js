@@ -102,16 +102,16 @@ const commandblocks={
           break;
           case "block":
           case "floor":
-            return Blocks[intarget];
+            return Blocks[tmparr[1]];
           break;
           case "item":
-            return Items[intarget];
+            return Items[tmparr[1]];
           break;
           case "fx":
-            return Fx[intarget];
+            return Fx[tmparr[1]];
           break;
           case "seffect":
-            return StatusEffects[intarget];
+            return StatusEffects[tmparr[1]];
           break;
         }
       }
