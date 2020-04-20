@@ -71,8 +71,11 @@ const commandblocks={
         case "@s":
           return ptile;
         break;
-        case "@b":
+        case "@sb":
           return ptile.block();
+        break;
+        case "@se":
+          return ptile.ent();
         break;
         case "@t":
           return pthis;
@@ -303,7 +306,7 @@ const commandblocks={
       case 'function':
       case 'f':
         if(executed){
-          if(tile instanceof Tile||tile instanceof Block){
+          if(tile instanceof Tile){
             var cblock=tile;
             if(args.length==1) cblock[args[0]]();
             else if(args.length==2) cblock[args[0]](this.settype(tile,parentthis,args[1]));
@@ -322,7 +325,41 @@ const commandblocks={
             else throw "Missing params";
             return true;
           }
-          else throw "WIP";
+          else throw "Unidentified type";
+        }
+        else throw "This command is for /execute only";
+      break;
+      case 'functionblock':
+      case 'fb':
+        if(executed){
+          if(tile instanceof Tile){
+            var cblock=tile.block();
+            if(args.length==1) cblock[args[0]]();
+            else if(args.length==2) cblock[args[0]](this.settype(tile,parentthis,args[1]));
+            else if(args.length==3) cblock[args[0]](this.settype(tile,parentthis,args[1]),this.settype(tile,parentthis,args[2]));
+            else if(args.length==4) cblock[args[0]](this.settype(tile,parentthis,args[1]),this.settype(tile,parentthis,args[2]),this.settype(tile,parentthis,args[3]));
+            else if(args.length==5) cblock[args[0]](this.settype(tile,parentthis,args[1]),this.settype(tile,parentthis,args[2]),this.settype(tile,parentthis,args[3]),this.settype(tile,parentthis,args[4]));
+            else throw "Missing params";
+            return true;
+          }
+          else throw "Executor must be a Tile type";
+        }
+        else throw "This command is for /execute only";
+      break;
+      case 'functionent':
+      case 'fe':
+        if(executed){
+          if(tile instanceof Tile){
+            var cblock=tile.ent();
+            if(args.length==1) cblock[args[0]]();
+            else if(args.length==2) cblock[args[0]](this.settype(tile,parentthis,args[1]));
+            else if(args.length==3) cblock[args[0]](this.settype(tile,parentthis,args[1]),this.settype(tile,parentthis,args[2]));
+            else if(args.length==4) cblock[args[0]](this.settype(tile,parentthis,args[1]),this.settype(tile,parentthis,args[2]),this.settype(tile,parentthis,args[3]));
+            else if(args.length==5) cblock[args[0]](this.settype(tile,parentthis,args[1]),this.settype(tile,parentthis,args[2]),this.settype(tile,parentthis,args[3]),this.settype(tile,parentthis,args[4]));
+            else throw "Missing params";
+            return true;
+          }
+          else throw "Executor must be a Tile type";
         }
         else throw "This command is for /execute only";
       break;
