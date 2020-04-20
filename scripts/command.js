@@ -456,14 +456,14 @@ const commandblocks={
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
             //var ctile=Vars.world.tile(cx,cy);
-            if(args.length==4) Effects.effect(Fx[args[0]],Color[args[3]],cx,cy);
-            else Effects.effect(Fx[args[0]],cx,cy);
+            if(args.length==4) Effects.effect(Effects.getEffect(args[0]),Color[args[3]],cx,cy);
+            else Effects.effect(Effects.getEffect(args[0]),cx,cy);
             return true;
           }
           else throw "Coordinates should be above 0";
         }
         else if(args.length==1){
-          Effects.effect(Fx[args[0]],tile.x,tile.y);
+          Effects.effect(Effects.getEffect(args[0]),tile.x,tile.y);
           return true;
         }
         else throw "Missing params";
