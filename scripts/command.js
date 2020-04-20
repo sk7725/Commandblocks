@@ -310,6 +310,9 @@ const commandblocks={
       break;
       case 'particle':
       case 'fx':
+        var eff = Vars.effectGroup.all().toArray();
+        if(args.length==0) throw "Missing params";
+        var teff=eff[args[0]];
         if(args.length>=3&&args.length<=4){
           var tpos=this.tilde(tile,args[1],args[2]);
           var cx=0; var cy=0;
@@ -319,14 +322,14 @@ const commandblocks={
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
             //var ctile=Vars.world.tile(cx,cy);
-            if(args.length==4) Effects.effect(Effects.getEffect(args[0]),Color[args[3]],cx,cy);
-            else Effects.effect(Effects.getEffect(args[0]),cx,cy);
+            if(args.length==4) Effects.effect(teff,Color[args[3]],cx,cy);
+            else Effects.effect(teff,cx,cy);
             return true;
           }
           else throw "Coordinates should be above 0";
         }
         else if(args.length==1){
-          Effects.effect(Effects.getEffect(args[0]),tile.x,tile.y);
+          Effects.effect(teff,tile.x,tile.y);
           return true;
         }
         else throw "Missing params";
