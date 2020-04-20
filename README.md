@@ -34,8 +34,10 @@ Commands will fail to work when an error happens, params are invalid , or requir
 ```
 + /say <string:text>  
 In multiplayer, sends <text> to all players. This is used if an error occured.
+
 + /overwrite <string:text>  
 Overwrites this command block's content to <text>.
+
 + /setblock <pos:x y> <Block:block> [int:rotation] [int:team] [replace|keep|build|force]  
 Sets the tile at <x y> to the specified <block>.
 [rotation] should be between 0 and 3, default is 0.
