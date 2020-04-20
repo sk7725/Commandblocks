@@ -113,6 +113,12 @@ const commandblocks={
           case "item":
             return Items[tmparr[1]];
           break;
+          case "bullet":
+            return Bullets[tmparr[1]];
+          break;
+          case "liquid":
+            return Liquids[tmparr[1]];
+          break;
           case "fx":
             return Fx[tmparr[1]];
           break;
@@ -395,6 +401,45 @@ const commandblocks={
             gamerule[args[0]]=args[1];
           }
           else throw "No such gamerule";
+        }
+        else throw "Missing params";
+      break;
+      case 'give':
+        if(args.length>=1&&args.length<=2){
+          if(tile instanceof Tile){
+            var amount=1;
+            if(args.length==2) amount=args[1];
+            if(amount<0){
+              var ret=tile.block().removeStack(tile,Items[args[0]],-1*amount);
+              if(ret>0) return true;
+              else throw "No items to remove";
+            }
+            else{
+              tile.block().handleStack(Items[args[0]],amount,tile,null);
+              return true;
+            }
+          }
+          else if(tile instanceof Unit){
+            var amount=1;
+            if(args.length==2) amount=args[1];
+            if(amount<0) throw "Amount should be above 0";
+            tile.addItem(Items[args[0]],amount);
+          }
+          else throw "This executor cannot receive items.";
+        }
+        else throw "Missing params";
+      break;
+      case 'clear':
+        if(args.length>=0){
+          if(tile instanceof Tile&&args.length==1){
+              var ret=tile.block().removeStack(tile,Items[args[0]],-1*tile.block().itemCapacity);
+              if(ret>0) return true;
+              else throw "No items to remove";
+          }
+          else if(tile instanceof Unit&&args.length==0){
+            tile.clearItem();
+          }
+          else throw "This executor cannot receive items.";
         }
         else throw "Missing params";
       break;
