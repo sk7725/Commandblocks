@@ -125,7 +125,6 @@
         }
         else throw "Missing params";
       break;
-
       case 'function':
         if(executed&&mytype=="tile"){
           var ret=false;
@@ -164,8 +163,6 @@
         }
         else throw "THis command is for /execute only";
       break;
-
-
       case 'execute':
         if(args.length>2){
           if(args[0]=="at"){
@@ -190,7 +187,6 @@
         }
         else throw "Missing params";
       break;
-
       case 'debug':
         if(args.length>0){
           switch(args[0]){
@@ -232,8 +228,36 @@ const commandblocks={
     else if(iny.substring(0,1)=="~") tmpobj.y=Number(iny.substring(1,iny.length))+tile.y;
     return tmpobj;
   },
-  targetselect(tile,intarget){
-
+  targetselect(ptile,pthis,intarget){
+    if(intarget.includes("{")){
+      return JSON.parse(intarget);
+    }
+    else if(intarget.includes("[")){
+      //TBA:selector
+    }
+    else if(intarget.includes(",")){
+      var tmparr=intarget.trim().split(",");
+      if(tmparr.length==2&&){
+        var ta=this.tilde(ptile,tmparr[0],tmparr[1]);
+        if(isNaN(ta.x)&&!isNaN(ta.y)){
+          return Vars.world.tile(ta.x,ta.y);
+        }
+        else return tmparr;
+      }
+      else return tmparr;
+    }
+    else{
+      switch(intarget.trim()){
+        case "@s":
+          return ptile;
+        break;
+        case "@t":
+          return pthis;
+        break;
+        default:
+          return intarget;
+      }
+    }
   },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
@@ -385,7 +409,14 @@ const commandblocks={
         else throw "Missing params";
       break;
       case 'function':
-      
+      case 'f':
+        if(executed){
+          if(tile instanceof Tile){
+            var cblock=tile.block();
+          }
+          else throw "WIP";
+        }
+        else throw "This command is for /execute only";
       break;
       default:
         return false;
