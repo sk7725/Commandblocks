@@ -26,7 +26,7 @@ const commandblocks={
   },
   targetselect(ptile,pthis,intarget){
     if(typeof intarget!="string") return intarget;
-    if(intarget.substring(0,2)=="@p"){
+    if(intarget.substring(0,2)=="@e"){
       var selectors=[];
       var steam=ptile.team; var sr=100;
       if(intarget.substring(0,3)=="@p["&&intarget.substring(intarget.length-1,intarget.length)=="]"){
@@ -74,6 +74,9 @@ const commandblocks={
         case "@t":
           return pthis;
         break;
+        case "@p":
+          return Vars.player;
+        break;
         default:
           return intarget;
       }
@@ -85,6 +88,7 @@ const commandblocks={
       if(tmparr.length==2){
         switch(tmparr[0]){
           case "array":
+          case "target":
             return this.targetselect(ptile,pthis,tmparr[1]);
           break;
           case "tile":
@@ -161,7 +165,7 @@ const commandblocks={
               Vars.ui.showLabel(args.slice(4).join(" "),args[3],ctile.worldx(),ctile.worldy());
             }
             else{
-              if(!Vars.ui.hasOwnProperty(args[2])) throw "No such function";
+              //if(!Vars.ui.hasOwnProperty(args[2])) throw "No such function";
               if(args.length==4) Vars.ui[args[2]](args[3]);
               else Vars.ui[args[2]](args[3],args[4]);
             }
