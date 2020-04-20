@@ -383,23 +383,6 @@ const commandblocks={
         }
         else throw "This command is for /execute only";
       break;
-      case 'debug':
-        if(args.length>0){
-          switch(args[0]){
-            case 'ts':
-            case 'targetselect':
-              Call.sendMessage(this.targetselect(tile,parentthis,args[1]));
-            break;
-            case 'ti':
-            case 'tilde':
-              Call.sendMessage(this.tilde(tile,args[1],args[2]));
-            break;
-            default:
-              throw "Incorrect params";
-          }
-        }
-        else throw  "Missing params";
-      break;
       default:
         return false;
     }
