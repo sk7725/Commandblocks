@@ -229,14 +229,8 @@ const commandblocks={
     return tmpobj;
   },
   targetselect(ptile,pthis,intarget){
-    if(intarget.includes("{")){
-      return JSON.parse(intarget);
-    }
-    else if(intarget.includes("[")){
-      //TBA:selector
-    }
-    else if(intarget.includes(",")){
-      var tmparr=intarget.trim().split(",");
+    if(intarget.includes(",")){
+      var tmparr=intarget.split(",");
       if(tmparr.length==2&&){
         var ta=this.tilde(ptile,tmparr[0],tmparr[1]);
         if(isNaN(ta.x)&&!isNaN(ta.y)){
@@ -247,7 +241,7 @@ const commandblocks={
       else return tmparr;
     }
     else{
-      switch(intarget.trim()){
+      switch(intarget){
         case "@s":
           return ptile;
         break;
@@ -407,16 +401,6 @@ const commandblocks={
           else throw "Coordinates should be above 0";
         }
         else throw "Missing params";
-      break;
-      case 'function':
-      case 'f':
-        if(executed){
-          if(tile instanceof Tile){
-            var cblock=tile.block();
-          }
-          else throw "WIP";
-        }
-        else throw "This command is for /execute only";
       break;
       default:
         return false;
