@@ -229,7 +229,28 @@ const commandblocks={
     return tmpobj;
   },
   targetselect(ptile,pthis,intarget){
-    if(intarget.includes(",")){
+    if(typeof intarget!="string") return intarget;
+    if(intarget.substring(0,2)=="@p"){
+      var selectors=[];
+      var steam=ptile.team; var sr=100;
+      if(intarget.substring(0,3)=="@p["&&intarget.substring(intarget.length-1,intarget.length)=="]"){
+        selectors=intarget.substring(3,intarget.length-1).split(",");
+      }
+      for(var i=0;i<selectors.length;i++){
+        var tmparr=selectors[i].split("=");
+        switch(tmparr[0]){
+          case "team":
+            steam=Team.get(tmparr[1]);
+          break;
+          case "r":
+            sr=tmparr[1];
+          break;
+        }
+      }
+      //return Units.closest(tile.getTeam(), tile.drawx(), tile.drawy(), repairRadius,unit -> unit.health < unit.maxHealth());
+      return Units.closest(steam, tile.drawx(), tile.drawy(), sr,unit -> unit.health <= unit.maxHealth());
+    }
+    else if(intarget.includes(",")){
       var tmparr=intarget.split(",");
       if(tmparr.length==2){
         var ta=this.tilde(ptile,tmparr[0],tmparr[1]);
