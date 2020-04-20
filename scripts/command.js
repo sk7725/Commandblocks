@@ -1,43 +1,4 @@
 /*const commandblocks={
-  tilde(tile,inx,iny){
-    var tmpobj={}; tmpobj.x=inx; tmpobj.y=iny;
-    if(inx=="~") tmpobj.x=tile.x;
-    else if(inx.substring(0,1)=="~") tmpobj.x=Number(inx.substring(1,inx.length))+tile.x;
-    if(iny=="~") tmpobj.y=tile.y;
-    else if(iny.substring(0,1)=="~") tmpobj.y=Number(iny.substring(1,iny.length))+tile.y;
-    return tmpobj;
-  },
-  targetselect(ptile,pthis,intarget){
-    if(intarget.includes("{")){
-      return JSON.parse(intarget);
-    }
-    else if(intarget.includes("[")){
-      //TBA:selector
-    }
-    else if(intarget.includes(",")){
-      var tmparr=intarget.trim().split(",");
-      if(tmparr.length==2&&){
-        var ta=this.tilde(ptile,tmparr[0],tmparr[1]);
-        if(isNaN(ta.x)&&!isNaN(ta.y)){
-          return Vars.world.tile(ta.x,ta.y);
-        }
-        else return tmparr;
-      }
-      else return tmparr;
-    }
-    else{
-      switch(intarget.trim()){
-        case "@s":
-          return ptile;
-        break;
-        case "@t":
-          return pthis;
-        break;
-        default:
-          return intarget;
-      }
-    }
-  },
   command(tile,msg,parentthis,parentcmd,executed,executortype){
     var mytype="tile";
     if(tile instanceof Tile) mytype="tile";
@@ -421,6 +382,25 @@ const commandblocks={
           else throw "WIP";
         }
         else throw "This command is for /execute only";
+      break;
+      case 'debug':
+        if(args.length>0){
+          switch(args[0]){
+            case 'ts':
+            case 'targetselect':
+              Call.sendMessage(this.targetselect(tile,parentthis,args[1]));
+              return true;
+            break;
+            case 'ti':
+            case 'tilde':
+              Call.sendMessage(this.tilde(tile,args[1],args[2]));
+              return true;
+            break;
+            default:
+              throw "Incorrect params";
+          }
+        }
+        else throw  "Missing params";
       break;
       default:
         return false;
