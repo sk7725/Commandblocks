@@ -329,7 +329,7 @@ const commandblocks={
           var tpos=this.tilde(tile,args[1],args[2]);
           var cx=0; var cy=0;
           if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
-            cx=tpos.x; cy=tpos.y;
+            cx=tpos.x*Vars.tilesize; cy=tpos.y*Vars.tilesize;
           }
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
@@ -341,7 +341,7 @@ const commandblocks={
           else throw "Coordinates should be above 0";
         }
         else if(args.length==1){
-          Effects.effect(Fx[args[0]],tile.x,tile.y);
+          Effects.effect(Fx[args[0]],tile.worldx(),tile.worldy());
           return true;
         }
         else throw "Missing params";
