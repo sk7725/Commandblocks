@@ -249,7 +249,7 @@ const commandblocks={
         }
       }
       //return Units.closest(tile.getTeam(), tile.drawx(), tile.drawy(), repairRadius,unit -> unit.health < unit.maxHealth());
-      if(ptile instanceof Tile) ptile.block().Units.closest(steam, ptile.drawx(), ptile.drawy(), sr,true);
+      if(ptile instanceof Tile) return ptile.block().Units.closest(steam, ptile.drawx(), ptile.drawy(), sr,true);
     }
     else if(intarget.substring(0,2)=="@c"){
       var tag="NOTAG";
