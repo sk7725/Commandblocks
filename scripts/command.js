@@ -110,6 +110,9 @@ const commandblocks={
           case "fx":
             return Fx[intarget];
           break;
+          case "seffect":
+            return StatusEffects[intarget];
+          break;
         }
       }
       else return intarget;
