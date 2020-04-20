@@ -12,7 +12,7 @@ It will execute one tick after the command block it is facing away from.
 + Repeating Command Block   
 Executes command every tick when power requirements are met.   
 + Unit Command Block   
-Executes command .   
+: Unit Command Blockdescription: Executes command as an unit, for the unit stepping on this block.   
 + Unit Tagger   
 Remembers the last unit that stepped on this tile, using its message as the tag.     
 The unit has to be on this block and not fly, and only a single unit will be tagged.   
