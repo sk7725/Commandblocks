@@ -30,8 +30,8 @@ TileEntity{tile=tile, health=health}
 
 ## Commands
 Commands will fail to work when an error happens, params are invalid , or requirements below are not made.
-<this is a required param>, [this is an optional param]. Skipping optional params is not allowed.
-
+\<this is a required param\>, \[this is an optional param\]. Skipping optional params is not allowed.
+```
 + /say <string:text>  
 In multiplayer, sends <text> to all players. This is used if an error occured.
 + /overwrite <string:text>  
@@ -49,7 +49,7 @@ Fails if the previous block is already the same as the current block.
   destroys the previous block, and sets a new block, as if a player built it.
   - force
   sets a new block. crashes the game if the previous block is a tile entity.
-
+```
 ## Blocks
 This is the full list of blocks, as of version 104.
 ```
