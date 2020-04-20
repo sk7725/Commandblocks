@@ -4,31 +4,31 @@ This mod adds Minecraft-like Command Blocks, along with other blocks.
 This is currently in development.
 
 ## Blocks
-+ Command Block
-Executes command once when power requirements are met.
-+ Chained Command Block
-Executes command when power requirements are met, and the command block it is facing away from has executed successfully.
-It will execute one tick after the command block it is facing away from.
-+ Repeating Command Block
-Executes command every tick when power requirements are met.
-+ Unit Tagger
-Remembers the last unit that stepped on this tile, using its message as the tag.   
++ Command Block   
+Executes command once when power requirements are met.   
++ Chained Command Block   
+Executes command when power requirements are met, and the command block it is facing away from has executed successfully.   
+It will execute one tick after the command block it is facing away from.   
++ Repeating Command Block   
+Executes command every tick when power requirements are met.   
++ Unit Tagger   
+Remembers the last unit that stepped on this tile, using its message as the tag.     
 The unit has to be on this block and not fly, and only a single unit will be tagged.   
 If the block is removed, the tagged unit will be untagged.    
-For more information on tags, refer to `Target Selectors`.   
-+ Position Reader
-Gets the x and y coordinates where this block is placed.
+For more information on tags, refer to `Target Selectors`.    
++ Position Reader   
+Gets the x and y coordinates where this block is placed.   
 ```
 Pos: ( tile.x , tile.y ) / Rot: tile.rotation()
 ```
-+ Tile Reader
-Gets the information of the tile this block is facing when this block is placed.
++ Tile Reader   
+Gets the information of the tile this block is facing when this block is placed.   
 ```
 floor.name:block.name:overlay[x,y] entity=entity.getClass():getTeam()
 ```
-+ Tile Entity Reader
-Gets the information of the tile entity this block is facing when this block is placed.
-Is empty if no tile entity is found.
++ Tile Entity Reader   
+Gets the information of the tile entity this block is facing when this block is placed.   
+Is empty if no tile entity is found.   
 ```
 TileEntity{tile=tile, health=health}
 ```
