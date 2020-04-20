@@ -1,7 +1,6 @@
 const commandcached=this.global.commandcached;
 const unitcacher = extendContent(MessageBlock, "unitcacher", {
 	unitOn(tile,unit){
-		//this.super$unitOn(tile);
 		var entity=tile.ent();
 		var key="NOTAG";
 		if(entity.message!="") key=entity.message;
