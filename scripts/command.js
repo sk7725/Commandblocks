@@ -385,6 +385,14 @@ const commandblocks={
         else throw "Missing params";
       break;
       case 'function':
+      case 'f':
+        if(executed){
+          if(tile instanceof Tile){
+            var cblock=tile.block();
+          }
+          else throw "WIP";
+        }
+        else throw "This command is for /execute only";
       break;
       default:
         return false;
