@@ -62,7 +62,7 @@ Executes a command from another tile or unit's perspective.
   
 ### /f(/function) string:functionname (arguments)
 Runs a function called functionname.   
-Refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/world/Tile.java,"Anuke's drawer") for the list of functions (if executor is a Tile), or [WIP!](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/entities/type/Unit.java,"Anuke's locker") (if executor is an Unit).   
+Refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/world/Tile.java) for the list of functions (if executor is a Tile), or [WIP!](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/entities/type/Unit.java) (if executor is an Unit).   
 Can only be used inside an /execute.   
 + Example   
 ```
