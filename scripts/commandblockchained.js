@@ -26,7 +26,8 @@ const commandblockchained = extendContent(MessageBlock, "commandblockchained", {
       const awaypos=this.getawaypos(tile.x,tile.y,tile.rotation());
       const akey=awaypos.x+","+awaypos.y;
       if(commandblocksc.hasOwnProperty(akey)&&commandblocksc[akey].didsuccess){
-        thiscmd.didsuccess = commandblocksc.command(tile,entity.message,this,entity.message,false);
+        var res=commandblocksc.command(tile,entity.message,this,entity.message,false);
+        thiscmd.didsuccess = Boolean(res);
       }
       else{
       thiscmd.didsuccess=false;

@@ -136,6 +136,10 @@ const commandblocks={
     }
     else return intarget;
   },
+  report(err){
+    if(gamerule.commandBlockOutput) Call.sendMessage("E:"+err);
+    if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(err,7);
+  },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
@@ -400,7 +404,27 @@ const commandblocks={
           if(gamerule.hasOwnProperty(args[0])){
             gamerule[args[0]]=args[1];
           }
-          else throw "No such gamerule";
+          else if(args[0]=="waveSet"){
+            Vars.state.wave=args[1];
+          }
+          else{
+            Vars.state.rules[args[0]]=args[1];
+          }
+          return true;
+        }
+        else if(args.length==1){
+          if(gamerule.hasOwnProperty(args[0])){
+            this.report(gamerule[args[0]]);
+            return gamerule[args[0]];
+          }
+          else if(args[0]=="waveSet"){
+            this.report(Vars.state.wave);
+            return Vars.state.wave;
+          }
+          else{
+            this.report(Vars.state.rules[args[0]]));
+            return Vars.state.rules[args[0]]);
+          }
         }
         else throw "Missing params";
       break;
