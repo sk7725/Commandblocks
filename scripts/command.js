@@ -233,7 +233,7 @@ const commandblocks={
                 Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
               }
               else{
-                Call.beginBreak(Vars.world.tile(cx, cy).team, cx, cy);
+                //Call.beginBreak(Vars.world.tile(cx, cy).team, cx, cy);
                 Vars.world.tile(cx, cy).block().removed();
                 Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
                 //Vars.world.tile(cx, cy).ent().init(Vars.world.tile(cx, cy),true);
