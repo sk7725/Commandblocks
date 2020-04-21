@@ -237,7 +237,7 @@ const commandblocks={
                 Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
                 var entity=Vars.world.tile(cx, cy).ent();
                 Vars.world.tile(cx, cy).remove();
-                if(Vars.world.tile(cx, cy).block().hasEntity()) entity.remove();
+                if(entity) entity.remove();
                 Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
                 //Vars.world.tile(cx, cy).ent().init(Vars.world.tile(cx, cy),true);
                 //Vars.world.clearTileEntities();
