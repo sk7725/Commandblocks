@@ -393,7 +393,7 @@ const commandblocks={
         if(args.length>=2){
           var target=this.targetselect(tile,parentthis,args[0]);
           if(target==null) return false;
-          else if(!(target instanceof Array)) return this.command(target,args.slice(1).join(" "),parentthis,msg,true);
+          else if(!Array.isArray(target)) return this.command(target,args.slice(1).join(" "),parentthis,msg,true);
           else{
             ret=true;
             target.each(cons(ent => {
@@ -567,7 +567,7 @@ const commandblocks={
         }
         else if(args.length==1){
             var target=this.targetselect(tile,parentthis,args[0]);
-            if(target instanceof Array){
+            if(Array.isArray(target)){
               var res=true;
               target.each(cons(ent => {
                   if (ent instanceof Unit) {
