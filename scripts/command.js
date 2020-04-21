@@ -234,8 +234,8 @@ const commandblocks={
               }
               else{
                 //Call.beginBreak(Vars.world.tile(cx, cy).team, cx, cy);
-                Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
                 var entity=Vars.world.tile(cx, cy).ent();
+                Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
                 Vars.world.tile(cx, cy).remove();
                 if(entity) entity.remove();
                 Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
