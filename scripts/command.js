@@ -394,7 +394,7 @@ const commandblocks={
         if(args.length>=2){
           var target=this.targetselect(tile,parentthis,args[0]);
           if(target==null) return false;
-          else if(!(target instanceof Array<>)) return this.command(target,args.slice(1).join(" "),parentthis,msg,true);
+          else if(!(target instanceof Array)) return this.command(target,args.slice(1).join(" "),parentthis,msg,true);
           else{
             ret=true;
             target.each(cons(ent => {
