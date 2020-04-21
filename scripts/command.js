@@ -230,7 +230,7 @@ const commandblocks={
               if(cteam!==tile.team) cteam=Team.get(cteam);
               if(args[5]=="build"||args[5]=="destroy"){
                 if(Vars.world.tile(cx, cy).block().hasEntity()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
-                Call.onDeconstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
+                Call.onDeconstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0);
                 Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
               }
               else{
