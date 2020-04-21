@@ -28,21 +28,31 @@ const commandblocks={
     if(typeof intarget!="string") return intarget;
     if(intarget.substring(0,2)=="@e"){
       var selectors=[];
-      var steam=ptile.team; var sr=100;
-      if(intarget.substring(0,3)=="@p["&&intarget.substring(intarget.length-1,intarget.length)=="]"){
+      var steam=null; var srm=null; var sr=null; var spos={}; spos.x=null; spos.y=null; var dpos={}; dpos.x=null; dpos.y=null; var stype=null; var scount=null; var sname=null; var srot=null;
+      if(intarget.substring(0,3)=="@e["&&intarget.substring(intarget.length-1,intarget.length)=="]"){
         selectors=intarget.substring(3,intarget.length-1).split(",");
       }
       for(var i=0;i<selectors.length;i++){
         var tmparr=selectors[i].split("=");
-        switch(tmparr[0]){
+        if(tmparr.length!=2) continue;
+        var se=tmparr[1].trim();
+        switch(tmparr[0].trim()){
           case "team":
-            steam=Team.get(tmparr[1]);
+            if(se==-1) steam=ptile.team;
+            else steam=Team.get(se);
           break;
           case "r":
-            sr=tmparr[1];
+            sr=se;
           break;
         }
       }
+      /*
+      Vars.playerGroup.all().each(cons(ent => {
+          if (ent instanceof FlyingUnit) {
+              print("flying " + ent);
+          }
+      }));*/
+      //Vars.unitGroup.all().eachFilter(boolf(e => !true));
       //return Units.closest(tile.getTeam(), tile.drawx(), tile.drawy(), repairRadius,unit -> unit.health < unit.maxHealth());
       //if(ptile instanceof Tile) return ptile.block().Units.closest(steam, ptile.drawx(), ptile.drawy(), sr,true);
       return null;
@@ -80,8 +90,14 @@ const commandblocks={
         case "@t":
           return pthis;
         break;
-        case "@a":
+        case "@p":
           return Vars.player;
+        break;
+        case "@a":
+          var ret=Vars.playerGroup.all();
+          if(ret.length==0) return null;
+          else if(ret.length==1) return ret[0];
+          else return ret;
         break;
         default:
           return intarget;
@@ -377,7 +393,15 @@ const commandblocks={
         if(args.length>=2){
           var target=this.targetselect(tile,parentthis,args[0]);
           if(target==null) return false;
-          return this.command(target,args.slice(1).join(" "),parentthis,msg,true);
+          else if(!(target instanceof Array)) return this.command(target,args.slice(1).join(" "),parentthis,msg,true);
+          else{
+            ret=true;
+            target.each(cons(ent => {
+              var res=this.command(ent,args.slice(1).join(" "),parentthis,msg,true);
+              if(!res) ret=false;
+            }));
+            return ret;
+          }
         }
         else throw "Missing params";
       break;
@@ -543,7 +567,17 @@ const commandblocks={
         }
         else if(args.length==1){
             var target=this.targetselect(tile,parentthis,args[0]);
-            if(target instanceof Unit){
+            if(target instanceof Array){
+              var res=true;
+              target.each(cons(ent => {
+                  if (ent instanceof Unit) {
+                      ent.kill();
+                  }
+                  else res=false;
+              }));
+              return res;
+            }
+            else if(target instanceof Unit){
               target.kill();
               return true;
             }
@@ -598,6 +632,11 @@ const commandblocks={
             this.report("flying " + ent);
           }
         }));
+        return true;
+      break;
+      case 'assert':
+        if(gamerule.commandBlockOutput) Call.sendMessage(tile+" is asserting dominance!");
+        if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(tile+" is asserting dominance!",2);
         return true;
       break;
       default:
