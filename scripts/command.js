@@ -34,7 +34,7 @@ const commandblocks={
       var selectors=[];
       var stype="!tile";
       var types=[];
-      var alltypes=["player","effect","groundEffect","puddle","shield","fire","unit"];//excludes "tile"
+      var alltypes=["player","effect","groundEffect","puddle","shield","fire","unit","bullet"];//excludes "tile"
       //var steam=null; var srm=null; var sr=null; var spos={}; spos.x=null; spos.y=null; var dpos={}; dpos.x=null; dpos.y=null; var stype=null; var scount=null; var sname=null; var srot=null;
       if(intarget.substring(0,3)=="@e["&&intarget.substring(intarget.length-1,intarget.length)=="]"){
         selectors=intarget.substring(3,intarget.length-1).split(",");
@@ -49,7 +49,7 @@ const commandblocks={
       }
 
       print("stype:"+stype+" istrue:"+alltypes.includes(stype)+" all:"+alltypes);
-      if(alltypes.includes(stype)){
+      if(alltypes.indexOf(stype)>-1){
         if(soppo){
           types=alltypes.slice();
           var i=types.indexOf(stype);
