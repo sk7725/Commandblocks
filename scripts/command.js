@@ -551,6 +551,46 @@ const commandblocks={
         }
         else throw "This executor cannot be killed.";
       break;
+      case 'configure':
+        if(args.length>=2&&args.length<=3){
+          var tpos=this.tilde(tile,args[0],args[1]);
+          var cx=0; var cy=0;
+          if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
+            cx=tpos.x; cy=tpos.y;
+          }
+          else throw "Coordinates should be above 0";
+          if(cx>=0&&cy>=0){
+            //Vars.ui.tile(cx,cy).block().drawPlaceText(args.slice(3).join(" "), cx, cy, true);
+            var ctile=Vars.world.tile(cx,cy);
+            if(ctile.block() instanceof Door){
+              if(args.length==2){
+                ctile.block().tapped(ctile,null);
+              }
+              else{
+                if(args[2]=="true"||args[2]=="1"){
+                  if(!ctile.ent().open){
+                    ctile.block().tapped(ctile,null);
+                  }
+                  else throw "Failed to open door";
+                }
+                else{
+                  if(ctile.ent().open){
+                    ctile.block().tapped(ctile,null);
+                  }
+                  else throw "Failed to close door";
+                }
+              }
+              return true;
+            }
+            else if(args.length==3){
+              ctile.block().configured(ctile,null,args[2])
+            }
+            else "Coordinates should be above 0";
+          }
+          else throw "Coordinates should be above 0";
+        }
+        else throw "Missing params";
+      break;
       default:
         return false;
     }
