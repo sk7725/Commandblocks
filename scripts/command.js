@@ -503,7 +503,7 @@ const commandblocks={
       case 'function':
       case 'f':
         if(executed){
-          if(tile instanceof Tile){
+          if(true){
             var cblock=tile;
             if(args.length==1) cblock[args[0]]();
             else if(args.length==2) cblock[args[0]](this.settype(tile,parentthis,args[1]));
