@@ -245,7 +245,6 @@ const commandblocks={
               }
               return true;
             }
-*/
             else if(args[5]=="force"){
               crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team;
               if(cteam!==tile.team) cteam=Team.get(cteam);
