@@ -96,7 +96,7 @@ const commandblocks={
         case "@a":
           var ret=Vars.playerGroup.all();
           if(ret.length==0) return null;
-          else if(ret.length==1) return ret[0];
+          //else if(ret.length==1) return ret[0];
           else return ret;
         break;
         default:
