@@ -592,7 +592,7 @@ const commandblocks={
         else throw "Missing params";
       break;
       case 'getflying':
-        Vars.entityGroup.all().each(cons(ent => {
+        Vars.unitGroup.all().each(cons(ent => {
           if (ent instanceof FlyingUnit) {
             print("flying " + ent);
             this.report("flying " + ent);
