@@ -422,8 +422,8 @@ const commandblocks={
             return Vars.state.wave;
           }
           else{
-            this.report(Vars.state.rules[args[0]]));
-            return Vars.state.rules[args[0]]);
+            this.report(Vars.state.rules[args[0]]);
+            return Vars.state.rules[args[0]];
           }
         }
         else throw "Missing params";
