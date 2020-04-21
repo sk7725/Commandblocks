@@ -137,7 +137,7 @@ const commandblocks={
     else return intarget;
   },
   report(err){
-    if(gamerule.commandBlockOutput) Call.sendMessage("E:"+err);
+    if(gamerule.commandBlockOutput) Call.sendMessage("C:"+err);
     if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(err,7);
   },
   command(tile,msg,parentthis,parentcmd,executed){
