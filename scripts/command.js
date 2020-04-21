@@ -401,6 +401,7 @@ const commandblocks={
       break;
       case 'gamerule':
         if(args.length==2){
+          if(args[1]=="false") args[1]=false;
           if(gamerule.hasOwnProperty(args[0])){
             gamerule[args[0]]=args[1];
           }
