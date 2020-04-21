@@ -99,6 +99,12 @@ const commandblocks={
           else if(ret.toArray().length==1) return ret.toArray()[0];
           else return ret;
         break;
+        case "@u":
+          var ret=Vars.unitGroup.all();
+          if(ret.toArray().length==0) return null;
+          else if(ret.toArray().length==1) return ret.toArray()[0];
+          else return ret;
+        break;
         default:
           return intarget;
       }
