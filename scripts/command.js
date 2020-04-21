@@ -25,7 +25,11 @@ const commandblocks={
     }
   },
   targetselect(ptile,pthis,intarget){
-    if(typeof intarget!="string") return intarget;
+    var obj={}; obj.a=false;
+    if(typeof intarget!="string"){
+      obj.r= intarget;
+      return obj;
+    }
     if(intarget.substring(0,2)=="@e"){
       var selectors=[];
       var steam=null; var srm=null; var sr=null; var spos={}; spos.x=null; spos.y=null; var dpos={}; dpos.x=null; dpos.y=null; var stype=null; var scount=null; var sname=null; var srot=null;
@@ -55,60 +59,67 @@ const commandblocks={
       //Vars.unitGroup.all().eachFilter(boolf(e => !true));
       //return Units.closest(tile.getTeam(), tile.drawx(), tile.drawy(), repairRadius,unit -> unit.health < unit.maxHealth());
       //if(ptile instanceof Tile) return ptile.block().Units.closest(steam, ptile.drawx(), ptile.drawy(), sr,true);
-      return null;
+      obj.r= null;
     }
     else if(intarget.substring(0,2)=="@c"){
       var tag="NOTAG";
       if(intarget.substring(0,3)=="@c["&&intarget.substring(intarget.length-1,intarget.length)=="]"){
         tag=intarget.substring(3,intarget.length-1);
       }
-      if(commandcached.hasOwnProperty(tag)) return commandcached[tag];
-      else return null;
+      if(commandcached.hasOwnProperty(tag)) obj.r= commandcached[tag];
+      else obj.r= null;
     }
     else if(intarget.includes(",")){
       var tmparr=intarget.split(",");
       if(tmparr.length==2){
         var ta=this.tilde(ptile,tmparr[0],tmparr[1]);
         if(!isNaN(ta.x)&&!isNaN(ta.y)){
-          return Vars.world.tile(ta.x,ta.y);
+          obj.r= Vars.world.tile(ta.x,ta.y);
         }
-        else return tmparr;
+        else obj.r= tmparr;
       }
-      else return tmparr;
+      else obj.r= tmparr;
     }
     else{
       switch(intarget){
         case "@s":
-          return ptile;
+          obj.r= ptile;
         break;
         case "@sb":
-          return ptile.block();
+          obj.r= ptile.block();
         break;
         case "@se":
-          return ptile.ent();
+          obj.r= ptile.ent();
         break;
         case "@t":
-          return pthis;
+          obj.r= pthis;
         break;
         case "@p":
-          return Vars.player;
+          obj.r= Vars.player;
         break;
         case "@a":
           var ret=Vars.playerGroup.all();
-          if(ret.toArray().length==0) return null;
-          else if(ret.toArray().length==1) return ret.toArray()[0];
-          else return ret;
+          if(ret.toArray().length==0) obj.r= null;
+          else if(ret.toArray().length==1) obj.r= ret.toArray()[0];
+          else{
+            obj.r= ret;
+            obj.a=true;
+          }
         break;
         case "@u":
           var ret=Vars.unitGroup.all();
-          if(ret.toArray().length==0) return null;
-          else if(ret.toArray().length==1) return ret.toArray()[0];
-          else return ret;
+          if(ret.toArray().length==0) obj.r= null;
+          else if(ret.toArray().length==1) obj.r= ret.toArray()[0];
+          else{
+            obj.r= ret;
+            obj.a=true;
+          }
         break;
         default:
-          return intarget;
+          obj.r= intarget;
       }
     }
+    return obj;
   },
   settype(ptile,pthis,intarget){
     if(intarget.includes(":")){
@@ -117,10 +128,10 @@ const commandblocks={
         switch(tmparr[0]){
           case "array":
           case "target":
-            return this.targetselect(ptile,pthis,tmparr[1]);
+            return this.targetselect(ptile,pthis,tmparr[1]).r;
           break;
           case "tile":
-            var ret=this.targetselect(ptile,pthis,tmparr[1]);
+            var ret=this.targetselect(ptile,pthis,tmparr[1]).r;
             if(ret instanceof Tile) return ret;
             else return null;
           break;
@@ -399,11 +410,11 @@ const commandblocks={
       case 'as':
         if(args.length>=2){
           var target=this.targetselect(tile,parentthis,args[0]);
-          if(target==null) return false;
-          else if(!(target instanceof Array)) return this.command(target,args.slice(1).join(" "),parentthis,msg,true);
+          if(target.r==null) return false;
+          else if(!target.a) return this.command(target.r,args.slice(1).join(" "),parentthis,msg,true);
           else{
             ret=true;
-            target.each(cons(ent => {
+            target.r.each(cons(ent => {
               var res=this.command(ent,args.slice(1).join(" "),parentthis,msg,true);
               if(!res) ret=false;
             }));
@@ -574,9 +585,9 @@ const commandblocks={
         }
         else if(args.length==1){
             var target=this.targetselect(tile,parentthis,args[0]);
-            if(Array.isArray(target)){
+            if(target.a){
               var res=true;
-              target.each(cons(ent => {
+              target.r.each(cons(ent => {
                   if (ent instanceof Unit) {
                       ent.kill();
                   }
@@ -584,8 +595,8 @@ const commandblocks={
               }));
               return res;
             }
-            else if(target instanceof Unit){
-              target.kill();
+            else if(target.r instanceof Unit){
+              target.r.kill();
               return true;
             }
             else throw "This executor cannot be killed.";
