@@ -155,6 +155,7 @@ const commandblocks={
   report(err){
     if(gamerule.commandBlockOutput) Call.sendMessage("C:"+err);
     if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(err,7);
+    print("C:"+err);
   },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
@@ -628,7 +629,7 @@ const commandblocks={
       case 'getflying':
         Vars.unitGroup.all().each(cons(ent => {
           if (ent instanceof FlyingUnit) {
-            print("flying " + ent);
+            //print("flying " + ent);
             this.report("flying " + ent);
           }
         }));
@@ -639,6 +640,12 @@ const commandblocks={
         if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(tile+" is asserting dominance!",2);
         return true;
       break;
+      case 'getinstance':
+        if(gamerule.commandBlockOutput) Call.sendMessage("Instance of:"+tile.constructor);
+        if(gamerule.commandBlockTitle) Vars.ui.showInfoToast("Instance of:"+tile.constructor,2);
+        print("Instance of:"+tile.constructor);
+        return true;
+      break;
       default:
         return false;
     }
@@ -646,6 +653,7 @@ const commandblocks={
   catch(err){
     if(gamerule.commandBlockOutput) Call.sendMessage("E:"+err);
     if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(err,7);
+    print("E:"+err);
     return false;
   }
   }
