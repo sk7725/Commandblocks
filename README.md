@@ -111,12 +111,16 @@ Can only be used inside an /execute.
   //damages the tile 2 blocks to the north of the executor by 50.
   ```
 
-### /gamerule string:rulename boolean:state   
-Sets the gamerule. Fails if no such gamerule exists.   
+### /gamerule string:rulename (boolean|int:state)   
+Sets the gamerule or gets the current gamerule.   
+Fails if no such gamerule exists, or state is not specified and the current state of the gamerule is false or 0.   
   - commandBlockOutput   
     whether to log command failures in multiplayer chat.   
   - commandBlockTitle   
     whether to log command failures as a popup.   
+  - setWave   
+    sets current wave.   
+For more gamerules, refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/game/Rules.java).   
 
 ### /fx(/particle) string:effect (pos:x pos:y) (string:color)   
 Plays particle effects on the given position. Fails if coordinates are below 0.   
@@ -132,6 +136,12 @@ Clears the executor of the item. Fails if the executor does not have an inventor
     if the executor is a tile. Fails if less then 1 items are removed.   
   - /clear  
     if the executor is an unit.   
+    
+### /kill (target:target)      
+Kills the target. The target is the executor if unspecified. Fails if the target is not an unit.   
+
+### /assert      
+The executor asserts dominance.
 
 ## Tilde Notation   
 Using ~ before a number for a coordinate will get the coordinate relative to the executor.   
@@ -145,14 +155,15 @@ For a param that is not a string/int, the following syntax may be used for some 
 `@s` The executor of the command.
 `@sb` The block of the executor of the command.
 `@se` The tile entity of the executor of the command.
-`@a` The player.
+`@p` The player(not to be confused with a single player).   
+`@a` All players.   
 `@t` Is a `this` of the origin command block. Use only when you know what you are doing.   
 `@c[tagname]` A cache of the unit tagged by the Unit Tagger.   
 `x,y` The tile at the position.   
-`@p` WIP!   
+`@e` WIP!   
 
-## Block List
-This is the full list of blocks, as of version 104.
+## Block List   
+This is the full list of blocks, as of version 104.   
   ```
   //environment
   air, spawn, deepwater, water, taintedWater, tar, stone, craters, charr, sand, darksand, ice, snow, darksandTaintedWater,
@@ -203,3 +214,21 @@ This is the full list of blocks, as of version 104.
   //upgrades
   dartPad, deltaPad, tauPad, omegaPad, javelinPad, tridentPad, glaivePad;
   ```
+  
+## Particle List   
+This is the full list of effects, as of version 104.   
+```
+  none, placeBlock, breakBlock, smoke, spawn, tapBlock, select,
+  vtolHover, unitDrop, unitPickup, unitLand, pickup, healWave, heal, landShock, reactorsmoke, nuclearsmoke, nuclearcloud,
+  redgeneratespark, generatespark, fuelburn, plasticburn, pulverize, pulverizeRed, pulverizeRedder, pulverizeSmall, pulverizeMedium,
+  producesmoke, smeltsmoke, formsmoke, blastsmoke, lava, doorclose, dooropen, dooropenlarge, doorcloselarge, purify, purifyoil, purifystone, generate,
+  mine, mineBig, mineHuge, smelt, teleportActivate, teleport, teleportOut, ripple, bubble, launch,
+  healBlock, healBlockFull, healWaveMend, overdriveWave, overdriveBlockFull, shieldBreak, hitBulletSmall, hitFuse,
+  hitBulletBig, hitFlameSmall, hitLiquid, hitLaser, hitLancer, hitMeltdown, despawn, flakExplosion, blastExplosion,
+  plasticExplosion, artilleryTrail, incendTrail, missileTrail, absorb, flakExplosionBig, plasticExplosionFlak, burning, fire,
+  fireSmoke, steam, fireballsmoke, ballfire, freezing, melting, wet, oily, overdriven, dropItem, shockwave,
+  bigShockwave, nuclearShockwave, explosion, blockExplosion, blockExplosionSmoke, shootSmall, shootHeal, shootSmallSmoke, shootBig, shootBig2, shootBigSmoke,
+  shootBigSmoke2, shootSmallFlame, shootPyraFlame, shootLiquid, shellEjectSmall, shellEjectMedium,
+  shellEjectBig, lancerLaserShoot, lancerLaserShootSmoke, lancerLaserCharge, lancerLaserChargeBegin, lightningCharge, lightningShoot,
+  unitSpawn, spawnShockwave, magmasmoke, impactShockwave, impactcloud, impactsmoke, dynamicExplosion, padlaunch, commandSend, coreLand;
+```
