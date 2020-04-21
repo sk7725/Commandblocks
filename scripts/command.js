@@ -95,8 +95,8 @@ const commandblocks={
         break;
         case "@a":
           var ret=Vars.playerGroup.all();
-          if(ret.length==0) return null;
-          //else if(ret.length==1) return ret[0];
+          if(ret.toArray().length==0) return null;
+          else if(ret.toArray().length==1) return ret.toArray()[0];
           else return ret;
         break;
         default:
@@ -394,7 +394,7 @@ const commandblocks={
         if(args.length>=2){
           var target=this.targetselect(tile,parentthis,args[0]);
           if(target==null) return false;
-          else if(!Array.isArray(target)) return this.command(target,args.slice(1).join(" "),parentthis,msg,true);
+          else if(!(target instanceof Iterable)) return this.command(target,args.slice(1).join(" "),parentthis,msg,true);
           else{
             ret=true;
             target.each(cons(ent => {
