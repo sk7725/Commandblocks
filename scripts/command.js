@@ -228,6 +228,64 @@ const commandblocks={
                 else throw "Rotation should be 0~3 and Team should be -1~256";
               }
               if(cteam!==tile.team) cteam=Team.get(cteam);
+              if(args[5]=="build"||args[5]=="destroy"){
+                if(Vars.world.tile(cx, cy).block().hasEntity()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
+                Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
+              }
+              else{
+                Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
+                Vars.world.notifyChanged(Vars.world.tile(cx, cy));
+              }
+              if(args[5]=="build"){
+                //Call.onDeconstructFinish(ctile, ctile.block(), 0);
+                Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
+                Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
+              }else{
+
+              }
+              return true;
+            }
+*/
+            else if(args[5]=="force"){
+              crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team;
+              if(cteam!==tile.team) cteam=Team.get(cteam);
+              //if(ctile.ent()!=null) ctile.ent().remove();
+              Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
+              Vars.world.notifyChanged(Vars.world.tile(cx, cy));
+              //Vars.world.tile(cx, cy).changed();
+              return true;
+            }
+            else throw "Cannot set the block";
+          }
+          else{
+            throw "Coordinates should be above 0";
+          }
+        }
+        else throw "Missing params";
+      break;
+      case 'legacysetblock':
+        //Call.setTile(Vars.world.tile(tile.x, tile.y), Blocks.air, tile.team, rot);
+        if(args.length>=3&&args.length<=6){
+          var tpos=this.tilde(tile,args[0],args[1]); var cblock=args[2]; var crot=0; var cteam=tile.team;
+          var cx=0; var cy=0;
+          if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
+            cx=tpos.x; cy=tpos.y;
+          }
+          else throw "Coordinates should be above 0";
+          if(cx>=0&&cy>=0){
+            var ctile=Vars.world.tile(cx,cy);
+            if(ctile.block()==Blocks[cblock]) throw "Cannot set the block";
+            if(args.length<=5||args[5]=="replace"||args[5]=="build"||args[5]=="destroy"||(args[5]=="keep"&&ctile.block()=="air")){
+              //if(args.length==3) Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
+              if(args.length==4){
+                if(args[3]>=0&&args[3]<=3) crot=args[3];
+                else throw "Rotation should be 0~3";
+              }
+              if(args.length>=5){
+                if(args[3]>=0&&args[3]<=3&&args[4]>=-1&&args[4]<=256){ crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team; }
+                else throw "Rotation should be 0~3 and Team should be -1~256";
+              }
+              if(cteam!==tile.team) cteam=Team.get(cteam);
               //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
               //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
               //ctile.block().removed(ctile);
@@ -467,6 +525,21 @@ const commandblocks={
           else throw "This executor cannot receive items.";
         }
         else throw "Missing params";
+      break;
+      case 'kill':
+        if(tile instanceof Unit&&args.length==0){
+            tile.kill();
+            return true;
+        }
+        else if(args.length==1){
+            var target=this.targetselect(tile,parentthis,args[0]);
+            if(target instanceof Unit){
+              target.kill();
+              return true;
+            }
+            else throw "This executor cannot be killed.";
+        }
+        else throw "This executor cannot be killed.";
       break;
       default:
         return false;
