@@ -47,6 +47,8 @@ const commandblocks={
         stype=stype.substring(1,stype.length);
         soppo=true;
       }
+
+      print("stype:"+stype+" istrue:"+alltypes.includes(stype)+" all:"+alltypes);
       if(alltypes.includes(stype)){
         if(soppo){
           types=alltypes.slice();
