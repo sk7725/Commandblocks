@@ -32,10 +32,78 @@ const commandblocks={
     }
     if(intarget.substring(0,2)=="@e"){
       var selectors=[];
-      var steam=null; var srm=null; var sr=null; var spos={}; spos.x=null; spos.y=null; var dpos={}; dpos.x=null; dpos.y=null; var stype=null; var scount=null; var sname=null; var srot=null;
+      var stype="!tile";
+      var types=[];
+      var alltypes=["player","effect","groundEffect","puddle","shield","fire","unit"];//excludes "tile"
+      //var steam=null; var srm=null; var sr=null; var spos={}; spos.x=null; spos.y=null; var dpos={}; dpos.x=null; dpos.y=null; var stype=null; var scount=null; var sname=null; var srot=null;
       if(intarget.substring(0,3)=="@e["&&intarget.substring(intarget.length-1,intarget.length)=="]"){
         selectors=intarget.substring(3,intarget.length-1).split(",");
       }
+      if(selectors.length>0){
+        stype=selectors.find(e => e.split("=")[0].trim()=="type").split("=")[1].trim();
+      }
+      var soppo=false;
+      if(stype.substring(0,1)=="!"){
+        stype=stype.substring(1,stype.length);
+        soppo=true;
+      }
+      if(alltypes.includes(stype)){
+        if(soppo){
+          types=alltypes.slice();
+          var i=types.indexOf(stype);
+          types.splice(i,1);
+        }
+        else types.push(stype);
+      }
+      else if(stype=="mob"){
+        if(soppo){
+          types=alltypes.slice();
+          var i=types.indexOf("player");
+          types.splice(i,1);
+          i=types.indexOf("unit");
+          types.splice(i,1);
+        }
+        else{
+          types.push("player");
+          types.push("unit");
+        }
+      }
+      else if(stype=="alleffect"){
+        if(soppo){
+          types=alltypes.slice();
+          var i=types.indexOf("effect");
+          types.splice(i,1);
+          i=types.indexOf("groundEffect");
+          types.splice(i,1);
+        }
+        else{
+          types.push("effect");
+          types.push("groundEffect");
+        }
+      }
+      else if(stype=="tile"){
+        if(soppo){
+          types=alltypes.slice();
+        }
+        else{
+          types.push("tile");
+        }
+      }
+      else{
+        obj.r=null;
+        return obj;
+      }
+
+      if(types.length<=0){
+        obj.r=null;
+        return obj;
+      }
+
+      var ret=Vars[types[0]+"Group"].all();
+      for(var i=1;i<types.length;i++){
+        ret.addAll(Vars[types[i]+"Group"].all());
+      }
+      /*
       for(var i=0;i<selectors.length;i++){
         var tmparr=selectors[i].split("=");
         if(tmparr.length!=2) continue;
@@ -50,6 +118,7 @@ const commandblocks={
           break;
         }
       }
+      */
       /*
       Vars.playerGroup.all().each(cons(ent => {
           if (ent instanceof FlyingUnit) {
@@ -59,7 +128,13 @@ const commandblocks={
       //Vars.unitGroup.all().eachFilter(boolf(e => !true));
       //return Units.closest(tile.getTeam(), tile.drawx(), tile.drawy(), repairRadius,unit -> unit.health < unit.maxHealth());
       //if(ptile instanceof Tile) return ptile.block().Units.closest(steam, ptile.drawx(), ptile.drawy(), sr,true);
-      obj.r= null;
+      if(ret.toArray().length==0) obj.r= null;
+      else if(ret.toArray().length==1) obj.r= ret.toArray()[0];
+      else{
+        obj.r= ret;
+        obj.a=true;
+      }
+      return obj;
     }
     else if(intarget.substring(0,2)=="@c"){
       var tag="NOTAG";
