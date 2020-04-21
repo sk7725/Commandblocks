@@ -234,7 +234,7 @@ const commandblocks={
               }
               else{
                 Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
-                Vars.world.notifyChanged(Vars.world.tile(cx, cy));
+                Vars.world.clearTileEntities();
               }
               if(args[5]=="build"){
                 //Call.onDeconstructFinish(ctile, ctile.block(), 0);
