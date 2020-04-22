@@ -309,7 +309,7 @@ const commandblocks={
       var potion = newEffect(25, e => {
         Draw.color(seffcolor);
         Lines.stroke(e.fout() + 0.15);
-        Angles.randLenVectors(e.id, 2, 6, (x, y) => {
+        Angles.randLenVectors(e.id, 2, 6, (x, y) -> {
           Lines.circle(e.x + x, e.y + y, 0.5 + e.fin() * 1.7);
         });
       });
