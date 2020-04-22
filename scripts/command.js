@@ -252,7 +252,7 @@ const commandblocks={
     print("C:"+err);
   },
   cmdeffect(punit,eff,duration,intensity,hidep){
-    var seff= {};
+    var seff= extend(StatusEffect,{});
     var seffcolor= Color.valueOf("ffffff");
     switch(eff.trim()){
       case "speed":
@@ -313,6 +313,7 @@ const commandblocks={
           Lines.circle(e.x + x, e.y + y, 0.5 + e.fin() * 1.7);
         });
       });
+      seff.color=seffcolor;
       seff.effect=potion;
     }
     punit.applyEffect(seff,duration);
