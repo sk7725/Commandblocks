@@ -16,5 +16,5 @@ health: 7000
 solid: false
 targetable: false
 consumes: {
-  power: 0.1
+  power: 0.0
 }

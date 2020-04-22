@@ -7,4 +7,5 @@ require("commandblock");
 require("commandblockrepeating");
 require("commandblockchained");
 require("commandblockunit");
+require("unitreader");
 require("unitcacher");
