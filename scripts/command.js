@@ -306,15 +306,15 @@ const commandblocks={
         return;
     }
     if(!hidep){
-      var potion = newEffect(25, e => {
+      /*var potion = newEffect(25, e => {
         Draw.color(seffcolor);
         Lines.stroke(e.fout() + 0.15);
-        Angles.randLenVectors(e.id, 2, 6, (x, y) -> {
+        Angles.randLenVectors(e.id, 2, 6, (x, y) => {
           Lines.circle(e.x + x, e.y + y, 0.5 + e.fin() * 1.7);
         });
-      });
+      });*/
       seff.color=seffcolor;
-      seff.effect=potion;
+      seff.effect=Fx.bubble;
     }
     punit.applyEffect(seff,duration);
   },
