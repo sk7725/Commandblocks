@@ -29,7 +29,7 @@ const posreaderjson = extendContent(MessageBlock, "posreaderjson", {
     const y=facepos.y;
 		var near = Vars.world.tile(x,y).floor();
     //this.setMessageBlockText(null,tile,JSON.stringify(Blocks));
-    this.setMessageBlockText(null,tile,near.attributes);
+    this.setMessageBlockText(null,tile,JSON.stringify(near.attributes));
 	}
 });
 
