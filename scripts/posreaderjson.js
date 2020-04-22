@@ -27,9 +27,9 @@ const posreaderjson = extendContent(MessageBlock, "posreaderjson", {
 		const facepos=this.getfacingpos(tile.x,tile.y,tile.rotation());
 		const x=facepos.x;
     const y=facepos.y;
-		var near = Vars.world.tile(x,y).block();
+		var near = Vars.world.tile(x,y).floor();
     //this.setMessageBlockText(null,tile,JSON.stringify(Blocks));
-    this.setMessageBlockText(null,tile,near.asFloor().attributes);
+    this.setMessageBlockText(null,tile,near.attributes);
 	}
 });
 
