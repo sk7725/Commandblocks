@@ -2,6 +2,8 @@ var gamerule={};
 gamerule.commandBlockOutput=true;
 gamerule.commandBlockTitle=false;
 
+var seff= extendContent(StatusEffect,"seff",{});
+
 if(!this.global.hasOwnProperty("commandcached")) this.global.commandcached={};
 const commandcached=this.global.commandcached;
 const commandblocks={
@@ -252,7 +254,7 @@ const commandblocks={
     print("C:"+err);
   },
   cmdeffect(punit,eff,duration,intensity,hidep){
-    var seff= extendContent(StatusEffect,"seff",{});
+    
     var seffcolor= Color.valueOf("ffffff");
     switch(eff.trim()){
       case "speed":
