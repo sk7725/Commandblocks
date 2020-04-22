@@ -8,5 +8,5 @@ requirements: [
   surge-alloy/50
 ]
 //buildVisibility: sandboxOnly
-//configurable: false
+configurable: false
 rotate: true
