@@ -1,0 +1,12 @@
+localizedName: JSON Reader
+description: Gets the JSON of the block this block is facing when this block is placed.
+size: 1
+breakable: true
+update: true
+category: effect
+requirements: [
+  surge-alloy/50
+]
+//buildVisibility: sandboxOnly
+//configurable: false
+rotate: true

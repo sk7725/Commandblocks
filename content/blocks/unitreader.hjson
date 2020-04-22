@@ -1,5 +1,5 @@
-localizedName: Unit Tagger
-description: "Remembers the last unit that stepped on this tile, using its message as the tag."
+localizedName: Unit Reader
+description: "Reads the last unit that stepped on this tile."
 size: 1
 breakable: true
 update: true
