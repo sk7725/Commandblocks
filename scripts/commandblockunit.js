@@ -12,6 +12,6 @@ const commandblockunit = extendContent(MessageBlock, "commandblockunit", {
   removed(tile){
     this.super$removed(tile);
     var key=tile.x+","+tile.y;
-    delete commandblocksr[key];
+    delete commandblocksu[key];
   }
 });
