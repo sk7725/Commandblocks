@@ -41,7 +41,7 @@ const posreader = extendContent(MessageBlock, "posreader", {
 		this.super$placed(tile);
 		const x=tile.x
     const y=tile.y
-    this.setMessageBlockText(null,tile,"Pos:("+x+","+y+")/Rot:"+tile.rotation()+"WPos:("+tile.worldx()+","+tile.worldy()+")");
+    this.setMessageBlockText(null,tile,"Pos:("+x+","+y+")/Rot:"+tile.rotation()+"/WPos:("+tile.worldx()+","+tile.worldy()+")");
 	}
 /*
 	removed(tile) {
