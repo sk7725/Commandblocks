@@ -28,7 +28,7 @@ const posreaderjson = extendContent(MessageBlock, "posreaderjson", {
 		const x=facepos.x;
     const y=facepos.y;
 		var near = Vars.world.tile(x,y).block();
-    this.setMessageBlockText(null,tile,near.keys());
+    this.setMessageBlockText(null,tile,"WIP! 독도는 우리땅!");
     //this.setMessageBlockText(null,tile,near.attributes.keys());
 	}
 });
