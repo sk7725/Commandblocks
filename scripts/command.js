@@ -251,6 +251,72 @@ const commandblocks={
     if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(err,7);
     print("C:"+err);
   },
+  cmdeffect(punit,eff,duration,intensity,hidep){
+    var seff= StatusEffects.none;
+    var seffcolor= Color.valueOf("ffffff");
+    switch(eff.trim()){
+      case "speed":
+        seff.speedMultiplier=intensity*0.1+1.1;
+        seffcolor= Color.valueOf("7cafc6");
+      break;
+      case "slowness":
+        seff.speedMultiplier=-1*intensity*0.05+0.95;
+        seffcolor= Color.valueOf("5a6c81");
+      break;
+      case "strength":
+        seff.damageMultiplier=intensity*0.1+1.1;
+        seffcolor= Color.valueOf("932423");
+      break;
+      case "weakness":
+        seff.damageMultiplier=-1*intensity*0.05+0.95;
+        seffcolor= Color.valueOf("484d48");
+      break;
+      case "resistance":
+        seff.armorMultiplier=intensity*0.2+1.1;
+        seffcolor= Color.valueOf("99453a");
+      break;
+      case "pain":
+        seff.armorMultiplier=-1*intensity*0.05+0.95;
+        seffcolor= Color.valueOf("e49a3a");
+      break;
+      case "poison":
+        seff.damage=0.5*intensity+0.5;
+        seffcolor= Color.valueOf("4e9331");
+      break;
+      case "wither":
+        seff.damage=2*intensity+2;
+        seffcolor= Color.valueOf("352a27");
+      break;
+      case "regeneration":
+        seff.damage=-0.5*intensity-0.5;
+        seffcolor= Color.valueOf("cd5cab");
+      break;
+      case "instant_health":
+        duration=1;
+        seff.damage=-10*intensity-10;
+        seffcolor= Color.valueOf("f82423");
+      break;
+      case "instant_damage":
+        duration=1;
+        seff.damage=10*intensity+10;
+        seffcolor= Color.valueOf("430a09");
+      break;
+      default:
+        punit.applyEffect(StatusEffects[eff],duration);
+        return;
+    }
+    if(!hidep){
+      var potion = newEffect(25, e => {
+        Draw.color(seffcolor);
+        Lines.stroke(e.fout() + 0.15);
+        Angles.randLenVectors(e.id, 2, 6, (x, y) => {
+          Lines.circle(e.x + x, e.y + y, 0.5 + e.fin() * 1.7);
+        });
+      });
+      seff.effect=potion;
+    }
+    punit.applyEffect(seff,duration);
+  },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
@@ -574,14 +640,15 @@ const commandblocks={
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
             //var ctile=Vars.world.tile(cx,cy);
-            if(args.length==4) Effects.effect(Fx[args[0]],Color[args[3]],cx,cy);
+            if(args.length==4) Effects.effect(Fx[args[0]],Color.valueOf(args[3]),cx,cy);
             else Effects.effect(Fx[args[0]],cx,cy);
             return true;
           }
           else throw "Coordinates should be above 0";
         }
         else if(args.length==1){
-          Effects.effect(Fx[args[0]],tile.worldx(),tile.worldy());
+          if(tile instanceof Tile) Effects.effect(Fx[args[0]],tile.worldx(),tile.worldy());
+          else Effects.effect(Fx[args[0]],tile.x,tile.y);
           return true;
         }
         else throw "Missing params";
@@ -734,11 +801,30 @@ const commandblocks={
         if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(tile+" is asserting dominance!",2);
         return true;
       break;
-      case 'getinstance':
-        if(gamerule.commandBlockOutput) Call.sendMessage("Instance of:"+tile.constructor);
-        if(gamerule.commandBlockTitle) Vars.ui.showInfoToast("Instance of:"+tile.constructor,2);
-        print("Instance of:"+tile.constructor);
-        return true;
+      case 'effect':
+        if(args.length>=2&&args.length<=5){
+            var target=this.targetselect(tile,parentthis,args[0]);
+            var eff=args[1]; var duration=1800;/* 30초 */ var intensity=0;/* 0레벨 세기 */ var hidep=false;
+            if(args.length>=3) duration=args[2]*60;
+            if(args.length>=4) intensity=Number(args[3]);
+            if(args.length==5&&args[4]=="true") hidep=true; //"false"는 true로 인식되므로!
+            if(target.a){
+              var res=true;
+              target.r.each(cons(ent => {
+                  if (ent instanceof Unit) {
+                      this.cmdeffect(ent,eff,duration,intensity,hidep);
+                  }
+                  else res=false;
+              }));
+              return res;
+            }
+            else if(target.r instanceof Unit){
+              this.cmdeffect(target.r,eff,duration,intensity,hidep);
+              return true;
+            }
+            else throw "This executor cannot be given the effect.";
+        }
+        else throw "This executor cannot be given the effect.";
       break;
       default:
         return false;
