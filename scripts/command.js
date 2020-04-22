@@ -252,7 +252,7 @@ const commandblocks={
     print("C:"+err);
   },
   cmdeffect(punit,eff,duration,intensity,hidep){
-    var seff= StatusEffects.none;
+    var seff= {};
     var seffcolor= Color.valueOf("ffffff");
     switch(eff.trim()){
       case "speed":
