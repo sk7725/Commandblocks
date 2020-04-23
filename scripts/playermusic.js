@@ -10,7 +10,7 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
 			//var muse=Vars.content.getByName(ContentType.unit,"commandblocks-xmusic-"+musename).activeSound;
 			//Vars.control.music.play(muse);
 			//if music=sound(unlikely)
-                        var thismod = Vars.mods.locateMod("commandblocks").file; var musefi=thismod.child(!Vars.ios ? "music-"+musename + ".ogg" :"music-"+ musename + ".mp3");
+                        var thismod = Vars.mods.locateMod("commandblocks").root; var musefi=thismod.child(!Vars.ios ? "music-"+musename + ".ogg" :"music-"+ musename + ".mp3");
 			if(musefi.exists()){
 				//var mpath = Vars.tree.resolve("music-"+musename + ".ogg").exists() && !Vars.ios ? "music-"+musename + ".ogg" :"music-"+ musename + ".mp3";
                                 if(muselist.hasOwnProperty(musename)) return; //already playing
@@ -28,7 +28,7 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
                                 }
 			}
 			else{
-				Vars.ui.showLabel("Cannot find "+thismod.list().toString()+"...",5,tile.worldx(),tile.worldy());
+				Vars.ui.showLabel("Cannot find "+thismod.list()+"...",5,tile.worldx(),tile.worldy());
 			}
 		}
 	},
