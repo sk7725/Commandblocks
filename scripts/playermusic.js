@@ -10,9 +10,11 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
 			//var muse=Vars.content.getByName(ContentType.unit,"commandblocks-xmusic-"+musename).activeSound;
 			//Vars.control.music.play(muse);
 			//if music=sound(unlikely)
-			var mpath = Vars.tree.get("music-"+musename + ".ogg").exists() && !Vars.ios ? musename + ".ogg" : musename + ".mp3";
-			var muse = newMusic(mpath);
-			Vars.control.music.play(muse);
+			if(Vars.tree.get("music-"+musename + ".ogg").exists()){
+				var mpath = Vars.tree.get("music-"+musename + ".ogg").exists() && !Vars.ios ? musename + ".ogg" : musename + ".mp3";
+				var muse = newMusic(mpath);
+				Vars.control.music.play(muse);
+			}
 		}
 	}
 });
