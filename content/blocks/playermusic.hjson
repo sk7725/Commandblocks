@@ -1,0 +1,14 @@
+localizedName: Music Player
+description: "Plays the music via filename. Music should be in this mod and start with music-(but the prefix music- should not be written in this block)."
+size: 2
+breakable: true
+update: true
+category: effect
+requirements: [
+  graphite/50
+  plastanium-45
+  surge-alloy/30
+]
+sync: true
+expanded: true
+health: 250

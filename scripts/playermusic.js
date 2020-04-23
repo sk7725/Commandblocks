@@ -5,7 +5,7 @@ if(entity != null){
     entity.lines = entity.message.split("\n");
 }
 */
-const posreader = extendContent(MessageBlock, "posreader", {
+const playermusic = extendContent(MessageBlock, "playermusic", {
   /*
 	draw(tile) {
 		Draw.rect(Core.atlas.find(this.name + "_" + tile.x % 2),
@@ -34,25 +34,26 @@ const posreader = extendContent(MessageBlock, "posreader", {
 	},
   */
 	buildConfiguration(tile, table){
-
+		this.super$buildConfiguration(tile, table);
+		table.addImageButton(
+			Icon.arrowRightSmall,
+			Styles.clearTransi,
+			run(() => tile.configure(0))
+		).size(40);
 	},
-
-	placed(tile) {
-		this.super$placed(tile);
-		const x=tile.x
-    const y=tile.y
-    this.setMessageBlockText(null,tile,"Pos:("+x+","+y+")/Rot:"+tile.rotation()+"/WPos:("+tile.worldx()+","+tile.worldy()+")");
-	}
-/*
-	removed(tile) {
-		this.super$removed(tile);
-		const x = this.calcOffset(tile);
-		const key = tile.x + "," + tile.y;
-		//Prevent trying to delete the other half infinitely
-		if (alive[key]) {
-			alive[key] = false;
-			Call.setTile(Vars.world.tile(x, tile.y), Blocks.air, tile.team, 0);
+	configured(tile,value){
+		var entity=tile.ent();
+		var musename=entity.message;
+		if(musename==""){
+			Vars.control.music.play(null);
 		}
-	},*/
-	//chad: false
+		else{
+			//var muse=Vars.content.getByName(ContentType.unit,"commandblocks-xmusic-"+musename).activeSound;
+			//Vars.control.music.play(muse);
+			//if music=sound(unlikely)
+			var mpath = Vars.tree.get("music-"+musename + ".ogg").exists() && !Vars.ios ? musename + ".ogg" : musename + ".mp3";
+			var muse = newMusic(mpath);
+			Vars.control.music.play(muse);
+		}
+	}
 });
