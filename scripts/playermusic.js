@@ -13,7 +13,7 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
 				var mpath = Vars.tree.get("music-"+musename + ".ogg").exists() && !Vars.ios ? "music-"+musename + ".ogg" :"music-"+ musename + ".mp3";
 				var muse = newMusic(mpath);
 				Vars.ui.showInfoToast("Playing music-"+musename,7+"...");
-				Vars.control.music.play(muse);
+				Vars.control.music.playOnce(muse);
 			}
 			else{
 				Vars.ui.showInfoToast("Cannot find music-"+musename,7+"!");
@@ -26,13 +26,13 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
 		if(tile.entity.cons.valid()){
       this.super$update(tile);
       //entity.cons.trigger();
-      if(!entity.hasOwnProperty("played")||!entity.played){
-        entity.played=true;
+      if(true){
+        //entity.played=true;
 				this.playmuse(musename);
       }
     }
 		else{
-			entity.played=false;
+			//entity.played=false;
 		}
 	}
 });
