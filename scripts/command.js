@@ -793,6 +793,14 @@ const commandblocks={
         this.report(tile.health);
         return true;
       break;
+      case 'getseffects':
+        this.report(Vars.content.getBy(StatusEffect));
+        return true;
+      break;
+      case 'getblocks':
+        this.report(Vars.content.getBy(Block));
+        return true;
+      break;
       case 'effect':
         if(args.length>=2&&args.length<=5){
             var target=this.targetselect(tile,parentthis,args[0]);
