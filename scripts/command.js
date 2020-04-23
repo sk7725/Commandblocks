@@ -801,6 +801,10 @@ const commandblocks={
         if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(tile+" is asserting dominance!",2);
         return true;
       break;
+      case 'gethp':
+        this.report(tile.health);
+        return true;
+      break;
       case 'effect':
         if(args.length>=2&&args.length<=5){
             var target=this.targetselect(tile,parentthis,args[0]);
