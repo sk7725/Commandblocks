@@ -1,9 +1,10 @@
 var muselist={};
 const playermusic = extendContent(MessageBlock, "playermusic", {
-	playmuse(musename){
+	playmuse(musename,tile){
 		if(!musename){
-			Vars.ui.showInfoToast("Played nothing!",7);
+			//Vars.ui.showInfoToast("Played nothing!",7);
 			//Vars.control.music.play(null);
+                        Vars.ui.showLabel("Playing nothing...",5,tile.worldx(),tile.worldy());
 		}
 		else{
 			//var muse=Vars.content.getByName(ContentType.unit,"commandblocks-xmusic-"+musename).activeSound;
@@ -18,14 +19,16 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
 				//Vars.control.music.playOnce(muse);
                                 if(muse.isPlaying()){
                                         //muse.stop();
+                                        Vars.ui.showLabel("Music music-"+musename+" already playing...",5,tile.worldx(),tile.worldy());
                                 }
                                 else {
                                         muselist[musename]=muse;
                                         muse.play();
+                                        Vars.ui.showLabel("Music music-"+musename+" playing...",5,tile.worldx(),tile.worldy());
                                 }
 			}
 			else{
-				Vars.ui.showInfoToast("Cannot find "+musefi,1);
+				Vars.ui.showLabel("Cannot find "+musefi+"...",5,tile.worldx(),tile.worldy());
 			}
 		}
 	},
@@ -37,7 +40,7 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
       //entity.cons.trigger();
       if(true){
         //entity.played=true;
-				this.playmuse(musename);
+				this.playmuse(musename,tile);
       }
     }
 		else{
