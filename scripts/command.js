@@ -1,6 +1,7 @@
 var gamerule={};
 gamerule.commandBlockOutput=true;
 gamerule.commandBlockTitle=false;
+var effectextended={};
 
 if(!this.global.hasOwnProperty("commandcached")) this.global.commandcached={};
 const commandcached=this.global.commandcached;
@@ -257,6 +258,10 @@ const commandblocks={
       punit.applyEffect(StatusEffects[eff],duration);
       return;
     }
+    if(effectextended.hasOwnProperty(eff+"-"+intensity+"-"+hidep)){
+      punit.applyEffect(effectextended[eff+"-"+intensity+"-"+hidep],duration);//땜빵!
+      return;
+    }
     var seff= extendContent(StatusEffect,eff+"-"+intensity+"-"+hidep,{});
     var seffcolor= Color.valueOf("ffffff");
     switch(eff.trim()){
@@ -324,6 +329,7 @@ const commandblocks={
       seff.color=seffcolor;
       seff.effect=potion;
     }
+    effectextended[eff+"-"+intensity+"-"+hidep]=seff;
     punit.applyEffect(seff,duration);
   },
   command(tile,msg,parentthis,parentcmd,executed){
