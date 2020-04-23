@@ -63,14 +63,10 @@ Sets the tile at x,y to the specified block.
 Rotation should be between 0 and 3, default is 0.  
 Team should be -1 and 255, default is -1. When team is -1, the team is set to the executor's team.  
 Fails if the previous block is already the same as the current block.  
-  - replace
-  destroys the previous block, and sets a new block. (default)
-  - keep
-  only sets the block if previous block is Air.
-  - build
-  destroys the previous block, and sets a new block, as if a player built it.
-  - force
-  sets a new block. crashes the game if the previous block is a tile entity.
+`replace` destroys the previous block, and sets a new block. (default)   
+`keep` only sets the block if previous block is Air.   
+`build` destroys the previous block, and sets a new block, as if a player built it.   
+`force` sets a new block. crashes the game if the previous block is a tile entity.   
 
 ### /execute 
 Executes a command from another tile or unit's perspective.  
@@ -114,16 +110,16 @@ Can only be used inside an /execute.
 ### /gamerule string:rulename (boolean|int:state)   
 Sets the gamerule or gets the current gamerule.   
 Fails if no such gamerule exists, or state is not specified and the current state of the gamerule is false or 0.   
-  - commandBlockOutput   
-    whether to log command failures in multiplayer chat.   
-  - commandBlockTitle   
-    whether to log command failures as a popup.   
-  - setWave   
-    sets current wave.   
+`commandBlockOutput` whether to log command failures in multiplayer chat.   
+`commandBlockTitle` whether to log command failures as a popup.   
+`setWave` sets current wave.   
 For more gamerules, refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/game/Rules.java).   
 
 ### /fx(/particle) string:effect (pos:x pos:y) (string:color)   
 Plays particle effects on the given position. Fails if coordinates are below 0.   
+
+### /playsound string:effect (pos:x pos:y) (int:volume)   
+Plays a sound on the given position. Fails if coordinates are below 0. Default volume is 0.5.   
 
 ### /give string:item (int:amount)
 Gives the executor an amount of an item.   
@@ -137,6 +133,20 @@ Clears the executor of the item. Fails if the executor does not have an inventor
   - /clear  
     if the executor is an unit.   
     
+### /effect target:target string:statuseffect (int:duration) (int:level) (boolean:hideparticle)
+Gives the executor a status effect for the given duration of seconds.   
+Fails if executor is not an unit. Some effects are custom potion effects, which are affected by the given level and hideparticle.   
+`speed` sets speedMultiplier to level\*0.1+1.1.   
+`slowness` sets speedMultiplier to -1\*level\*0.05+0.95.   
+`strength` sets damageMultiplier to level\*0.1+1.1.   
+`weakness` sets damageMultiplier to -1\*level\*0.05+0.95.   
+`resistance` sets armorMultiplier to level\*0.2+1.1.   
+`pain` sets armorMultiplier to -1\*level\*0.05+0.95.   
+`poison` gives damage of 0.05\*level+0.05 every frame. Kills, unlike what it looks like.   
+`wither` gives damage of 0.1\*level+0.1 every frame. Kills.   
+`instant_damage` gives damage of 10\*level+10. Duration is overridden.   
+`burning, freezing, wet, melting, tarred, overdrive, shielded, shocked, corroded, boss` are vanilla status effects. Refer [here](https://simonwoodburyforget.github.io/mindustry-modding/#StatusEffect).   
+
 ### /kill (target:target)      
 Kills the target. The target is the executor if unspecified. Fails if the target is not an unit.   
 
@@ -157,10 +167,18 @@ For a param that is not a string/int, the following syntax may be used for some 
 `@se` The tile entity of the executor of the command.
 `@p` The player(not to be confused with a single player).   
 `@a` All players.   
+`@u` All units except players.   
 `@t` Is a `this` of the origin command block. Use only when you know what you are doing.   
 `@c[tagname]` A cache of the unit tagged by the Unit Tagger.   
 `x,y` The tile at the position.   
-`@e` WIP!   
+`@e` All entities. Tile entities are excluded by default. Target arguments may be used(WIP!).   
+
+### Target Arguments(WIP!)   
+Target arguments filter targets.   
+The format is `[argument1=value,argument2=value,...]`, and `=!` may replace `=` to exclude, not include.   
+Use it next to Target Selectors with no whitespace in between. For example: `@e[type=unit]`.   
++ type   
+`player` `unit`(excludes players) `mob`(players&units) `bullet` `tile`(tile entity, not a tile) `effect` `groundEffect` `alleffect`(effects&groundEffects) `puddle` `shield` `fire`   
 
 ## Block List   
 This is the full list of blocks, as of version 104.   
