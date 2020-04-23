@@ -1,58 +1,18 @@
-/*
-MessageBlockEntity entity = tile.ent();
-if(entity != null){
-    entity.message = result.toString();
-    entity.lines = entity.message.split("\n");
-}
-*/
+//MessageBlock의 딸을 생성한다.
 const posreader = extendContent(MessageBlock, "posreader", {
-  /*
-	draw(tile) {
-		Draw.rect(Core.atlas.find(this.name + "_" + tile.x % 2),
-			tile.drawx(),
-			tile.drawy());
-	},
-
-	generateIcons() {
-		return [Core.atlas.find(this.name)];
-	},
-
-	calcOffset(tile) {
-		var x = tile.x;
-		if (x % 2 == 0) {
-			x++;
-		} else {
-			x--;
-		}
-		return x;
-	},
-
-	canPlaceOn(tile){
-		const x = this.calcOffset(tile);
-		const other = Vars.world.tile(x, tile.y);
-		return other.block() == "air"
-	},
-  */
 	buildConfiguration(tile, table){
-
+		//버튼 비활성화(아마도)
 	},
 
 	placed(tile) {
+		//블럭 설치될때
 		this.super$placed(tile);
-		const x=tile.x
-    const y=tile.y
+		//이거는 부모(메세지블럭)의 유전자? 함수? 를 그대로 옮겨온다.
+		const x=tile.x//요거의 x좌표
+    const y=tile.y//요거의 y좌표
     this.setMessageBlockText(null,tile,"Pos:("+x+","+y+")/Rot:"+tile.rotation()+"/WPos:("+tile.worldx()+","+tile.worldy()+")");
+		// this는 이거 및 이거의 부모의 모든 함수를 가져온다. 이거의 바로 위 부모(이 블럭은 MessageBlock의 딸이고 Block의 손자!)는 setMessageBlockText라는 함수가 있다.
+		// https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/world/blocks/logic/MessageBlock.java 여기에 있다! 
 	}
-/*
-	removed(tile) {
-		this.super$removed(tile);
-		const x = this.calcOffset(tile);
-		const key = tile.x + "," + tile.y;
-		//Prevent trying to delete the other half infinitely
-		if (alive[key]) {
-			alive[key] = false;
-			Call.setTile(Vars.world.tile(x, tile.y), Blocks.air, tile.team, 0);
-		}
-	},*/
-	//chad: false
+	//SOL님 힘내세요!
 });
