@@ -293,14 +293,14 @@ const commandblocks={
         seffcolor= Color.valueOf("352a27");
       break;
       case "regeneration":
-        seff.damage=-0.02*intensity-0.02;
-        if(seff.damage>1) seff.damage=1;
+        seff.damage=-0.01*intensity-0.01;
+        if(seff.damage<-1) seff.damage=-1;
         seffcolor= Color.valueOf("cd5cab");
       break;
       case "instant_health":
         duration=1;
         seff.damage=-0.1*intensity-0.1;
-        if(seff.damage>1) seff.damage=1;
+        if(seff.damage<-1) seff.damage=-1;
         seffcolor= Color.valueOf("f82423");
       break;
       case "instant_damage":
