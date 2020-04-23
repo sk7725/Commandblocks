@@ -254,7 +254,7 @@ const commandblocks={
     print("C:"+err);
   },
   cmdeffect(punit,eff,duration,intensity,hidep){
-    
+
     var seffcolor= Color.valueOf("ffffff");
     switch(eff.trim()){
       case "speed":
@@ -308,15 +308,19 @@ const commandblocks={
         return;
     }
     if(!hidep){
-      /*var potion = newEffect(25, e => {
+      var potion = newEffect(25, e => {
         Draw.color(seffcolor);
         Lines.stroke(e.fout() + 0.15);
+        /*
         Angles.randLenVectors(e.id, 2, 6, (x, y) => {
           Lines.circle(e.x + x, e.y + y, 0.5 + e.fin() * 1.7);
         });
-      });*/
+        */
+        //new Floatc2({get: function(x, y){/*code*/}})
+        Angles.randLenVectors(e.id, 2, 8.2, new Floatc2({get: function(x, y){Lines.circle(e.x + x, e.y + y, 0.5 + e.fin() * 1.8);}}));
+      });
       seff.color=seffcolor;
-      seff.effect=Fx.bubble;
+      //seff.effect=Fx.bubble;
     }
     punit.applyEffect(seff,duration);
   },
@@ -453,7 +457,7 @@ const commandblocks={
         }
         else throw "Missing params";
       break;
-      case 'legacysetblock':
+      case 'setblock2':
         //Call.setTile(Vars.world.tile(tile.x, tile.y), Blocks.air, tile.team, rot);
         if(args.length>=3&&args.length<=6){
           var tpos=this.tilde(tile,args[0],args[1]); var cblock=args[2]; var crot=0; var cteam=tile.team;
@@ -476,28 +480,29 @@ const commandblocks={
                 else throw "Rotation should be 0~3 and Team should be -1~256";
               }
               if(cteam!==tile.team) cteam=Team.get(cteam);
-              //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
-              //Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
-              //ctile.block().removed(ctile);
               if(args[5]=="build"||args[5]=="destroy"){
-                Vars.world.tile(cx, cy).block().onDestroyed(Vars.world.tile(cx, cy));
+                /*
+                if(Vars.world.tile(cx, cy).block().hasEntity()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
+                Call.onDeconstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0);
                 Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
-                //if(Vars.world.tile(cx, cy).hasEntity()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
-                //Vars.world.tile(cx, cy).removeNet();
+                */
+                Call.beginBreak(Vars.world.tile(cx, cy).team, cx, cy);
+                Call.onDeconstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0);
               }
               else{
-                if(Vars.world.tile(cx, cy).block().hasEntity()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
+                //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
+                //Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
+                Call.beginBreak(Vars.world.tile(cx, cy).team, cx, cy);
+                Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0);
+                /*
+                var entity=Vars.world.tile(cx, cy).ent();
+                Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
+                Vars.world.tile(cx, cy).remove();
+                if(entity) entity.sleep();
                 Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
-                //Vars.world.tile(cx, cy).block().onDestroyed(Vars.world.tile(cx, cy));
-                //ctile.preChanged();
-                //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().setDead(true);
-                //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().onDeath();
-                //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().kill();
-                //Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
-                //Vars.world.tile(cx, cy).remove();
-                //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().remove();
-                //Vars.world.tile(cx, cy).changed();
-                //Call.setTile(Vars.world.tile(cx, cy), Blocks.air, tile.team, 0);
+                */
+                //Vars.world.tile(cx, cy).ent().init(Vars.world.tile(cx, cy),true);
+                //Vars.world.clearTileEntities();
               }
               if(args[5]=="build"){
                 //Call.onDeconstructFinish(ctile, ctile.block(), 0);
@@ -507,26 +512,14 @@ const commandblocks={
 
               }
               return true;
-              //
-              //Events.fire(new BlockBuildEndEvent(Vars.world.tile(cx, cy), null, cteam, false));
             }
-/*
             else if(args[5]=="force"){
               crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team;
               if(cteam!==tile.team) cteam=Team.get(cteam);
-              ctile.block().removed(ctile);
-              ctile.remove();
-              Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, true);
-              Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
-              //Events.fire(new BlockBuildEndEvent(Vars.world.tile(cx, cy), null, cteam, false));
-            }
-*/
-            else if(args[5]=="force"){
-              crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team;
-              if(cteam!==tile.team) cteam=Team.get(cteam);
-              if(ctile.ent()!=null) ctile.ent().remove();
+              //if(ctile.ent()!=null) ctile.ent().remove();
               Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
-              Vars.world.tile(cx, cy).changed();
+              Vars.world.notifyChanged(Vars.world.tile(cx, cy));
+              //Vars.world.tile(cx, cy).changed();
               return true;
             }
             else throw "Cannot set the block";
