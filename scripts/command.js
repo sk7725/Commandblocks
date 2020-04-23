@@ -285,20 +285,22 @@ const commandblocks={
         seffcolor= Color.valueOf("e49a3a");
       break;
       case "poison":
-        seff.damage=0.5*intensity+0.5;
+        seff.damage=0.05*intensity+0.05;
         seffcolor= Color.valueOf("4e9331");
       break;
       case "wither":
-        seff.damage=2*intensity+2;
+        seff.damage=0.1*intensity+0.1;
         seffcolor= Color.valueOf("352a27");
       break;
       case "regeneration":
-        seff.damage=-0.5*intensity-0.5;
+        seff.damage=-0.02*intensity-0.02;
+        if(seff.damage>1) seff.damage=1;
         seffcolor= Color.valueOf("cd5cab");
       break;
       case "instant_health":
         duration=1;
-        seff.damage=-10*intensity-10;
+        seff.damage=-0.1*intensity-0.1;
+        if(seff.damage>1) seff.damage=1;
         seffcolor= Color.valueOf("f82423");
       break;
       case "instant_damage":
