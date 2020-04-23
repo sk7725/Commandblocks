@@ -320,7 +320,7 @@ const commandblocks={
         Angles.randLenVectors(e.id, 2, 8.2, new Floatc2({get: function(x, y){Lines.circle(e.x + x, e.y + y, 0.5 + e.fin() * 1.8);}}));
       });
       seff.color=seffcolor;
-      //seff.effect=Fx.bubble;
+      seff.effect=potion;
     }
     punit.applyEffect(seff,duration);
   },
