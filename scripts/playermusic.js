@@ -12,7 +12,6 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
 		var entity=tile.ent();
 		var musename=entity.message;
 		if(!musename){
-			Vars.control.music.play(null);
 			Vars.ui.showInfoToast("Played nothing!",7);
 		}
 		else{
