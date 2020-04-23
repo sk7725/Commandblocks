@@ -34,7 +34,6 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
 	},
   */
 	buildConfiguration(tile, table){
-		this.super$buildConfiguration(tile, table);
 		table.addImageButton(
 			Icon.arrowRightSmall,
 			Styles.clearTransi,
