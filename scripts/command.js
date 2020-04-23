@@ -705,7 +705,7 @@ const commandblocks={
       case 'clear':
         if(args.length>=0){
           if(tile instanceof Tile&&args.length==1){
-              var ret=tile.block().removeStack(tile,Items[args[0]],-1*tile.block().itemCapacity);
+              var ret=tile.block().removeStack(tile,Items[args[0]],tile.block().itemCapacity+10);
               if(ret>0) return true;
               else throw "No items to remove";
           }
