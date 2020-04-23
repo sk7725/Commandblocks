@@ -832,6 +832,29 @@ const commandblocks={
         }
         else throw "This executor cannot be given the effect.";
       break;
+      case 'playsound':
+        if(args.length>=3&&args.length<=4){
+          var tpos=this.tilde(tile,args[1],args[2]);
+          var cx=0; var cy=0;
+          if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
+            cx=tpos.x*Vars.tilesize; cy=tpos.y*Vars.tilesize;
+          }
+          else throw "Coordinates should be above 0";
+          if(cx>=0&&cy>=0){
+            //var ctile=Vars.world.tile(cx,cy);
+            if(args.length==4) Vars.loops.play(Sounds[args[0]],Vec2(cx,cy),args[3]);
+            else Vars.loops.play(Sounds[args[0]],Vec2(cx,cy),0.5);
+            return true;
+          }
+          else throw "Coordinates should be above 0";
+        }
+        else if(args.length==1){
+          if(tile instanceof Tile) Vars.loops.play(Sounds[args[0]],Vec2(tile.worldx(),tile.worldy()),0.5);
+          else Vars.loops.play(Sounds[args[0]],Vec2(tile.x,tile.y),0.5);
+          return true;
+        }
+        else throw "Missing params";
+      break;
       default:
         return false;
     }
