@@ -492,8 +492,9 @@ const commandblocks={
               else{
                 //if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
                 //Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
-                Call.beginBreak(Vars.world.tile(cx, cy).team, cx, cy);
-                Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0);
+                //Vars.player.removeRequest()
+                //Call.beginBreak(Vars.world.tile(cx, cy).team, cx, cy);
+                //Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0,crot,cteam,false);
                 /*
                 var entity=Vars.world.tile(cx, cy).ent();
                 Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
@@ -503,6 +504,7 @@ const commandblocks={
                 */
                 //Vars.world.tile(cx, cy).ent().init(Vars.world.tile(cx, cy),true);
                 //Vars.world.clearTileEntities();
+                Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
               }
               if(args[5]=="build"){
                 //Call.onDeconstructFinish(ctile, ctile.block(), 0);
