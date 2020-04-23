@@ -6,7 +6,7 @@ update: true
 category: effect
 requirements: [
   graphite/50
-  plastanium-45
+  plastanium/45
   surge-alloy/30
 ]
 sync: true
