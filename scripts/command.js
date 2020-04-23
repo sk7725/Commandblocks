@@ -2,8 +2,6 @@ var gamerule={};
 gamerule.commandBlockOutput=true;
 gamerule.commandBlockTitle=false;
 
-var seff= extendContent(StatusEffect,"seff",{});
-
 if(!this.global.hasOwnProperty("commandcached")) this.global.commandcached={};
 const commandcached=this.global.commandcached;
 const commandblocks={
@@ -254,7 +252,12 @@ const commandblocks={
     print("C:"+err);
   },
   cmdeffect(punit,eff,duration,intensity,hidep){
-
+    const potionlist=["speed","wither","slowness","strength","weakness","resistance","pain","poison","regeneration","instant_health","instant_damage"];
+    if(potionlist.indexOf(eff.trim())<0){
+      punit.applyEffect(StatusEffects[eff],duration);
+      return;
+    }
+    var seff= extendContent(StatusEffect,eff+"-"+intensity+"-"+hidep,{});
     var seffcolor= Color.valueOf("ffffff");
     switch(eff.trim()){
       case "speed":
@@ -303,9 +306,6 @@ const commandblocks={
         seff.damage=10*intensity+10;
         seffcolor= Color.valueOf("430a09");
       break;
-      default:
-        punit.applyEffect(StatusEffects[eff],duration);
-        return;
     }
     if(!hidep){
       var potion = newEffect(25, e => {
@@ -504,7 +504,9 @@ const commandblocks={
                 */
                 //Vars.world.tile(cx, cy).ent().init(Vars.world.tile(cx, cy),true);
                 //Vars.world.clearTileEntities();
-                Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
+                ctile.ent().dead=true;
+                ctile.ent().remove();
+                ctile.setBlock(Blocks[cblock], cteam, crot);
               }
               if(args[5]=="build"){
                 //Call.onDeconstructFinish(ctile, ctile.block(), 0);
