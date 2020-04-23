@@ -1,5 +1,13 @@
 
 const playermusic = extendContent(MessageBlock, "playermusic", {
+	buildConfiguration(tile, table){
+		this.super$buildConfiguration(tile, table);
+		table.addImageButton(
+			Icon.arrowRightSmall,
+			Styles.clearTransi,
+			run(() => tile.configure(0))
+		).size(40);
+	},
 	configured(tile,value){
 		var entity=tile.ent();
 		var musename=entity.message;
