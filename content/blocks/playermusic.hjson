@@ -12,3 +12,6 @@ requirements: [
 sync: true
 expanded: true
 health: 250
+consumes: {
+  power: 1
+}
