@@ -9,17 +9,18 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
 			//var muse=Vars.content.getByName(ContentType.unit,"commandblocks-xmusic-"+musename).activeSound;
 			//Vars.control.music.play(muse);
 			//if music=sound(unlikely)
-			if(Vars.tree.resolve("music-"+musename + ".ogg").exists()){
-				var mpath = Vars.tree.resolve("music-"+musename + ".ogg").exists() && !Vars.ios ? "music-"+musename + ".ogg" :"music-"+ musename + ".mp3";
-                                if(muselist.hasOwnProperty(mpath)) return; //already playing
-				var muse = newMusic(mpath);
+                        var thismod = Vars.modDirectory.child("commandblocks"); var musefi=thismod.child("music-"+musename);
+			if(musefi.exists()){
+				//var mpath = Vars.tree.resolve("music-"+musename + ".ogg").exists() && !Vars.ios ? "music-"+musename + ".ogg" :"music-"+ musename + ".mp3";
+                                if(muselist.hasOwnProperty(musename)) return; //already playing
+				var muse = newMusic(musefi);
 				Vars.ui.showInfoToast("Playing music-"+musename,7+"...");
 				//Vars.control.music.playOnce(muse);
                                 if(muse.isPlaying()){
                                         //muse.stop();
                                 }
                                 else {
-                                        muselist[mpath]=muse;
+                                        muselist[musename]=muse;
                                         muse.play();
                                 }
 			}
