@@ -3,7 +3,7 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
 	playmuse(musename){
 		if(!musename){
 			Vars.ui.showInfoToast("Played nothing!",7);
-			Vars.control.music.play(null);
+			//Vars.control.music.play(null);
 		}
 		else{
 			//var muse=Vars.content.getByName(ContentType.unit,"commandblocks-xmusic-"+musename).activeSound;
@@ -13,7 +13,13 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
 				var mpath = Vars.tree.get("music-"+musename + ".ogg").exists() && !Vars.ios ? "music-"+musename + ".ogg" :"music-"+ musename + ".mp3";
 				var muse = newMusic(mpath);
 				Vars.ui.showInfoToast("Playing music-"+musename,7+"...");
-				Vars.control.music.playOnce(muse);
+				//Vars.control.music.playOnce(muse);
+                                if(muse.isPlaying()){
+                                        muse.stop();
+                                }
+                                else {
+                                        muse.play();
+                                }
 			}
 			else{
 				Vars.ui.showInfoToast("Cannot find music-"+musename,7+"!");
