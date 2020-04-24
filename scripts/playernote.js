@@ -4,8 +4,8 @@ const instruments=["piano"];
 const notelength=notes.length;
 
 const soundwave = newEffect(20, e => {
-  color(e.color);
-  stroke(e.fout() + 0.4);
+  Draw.color(e.color);
+  Draw.stroke(e.fout() + 0.4);
   Lines.circle(e.x, e.y, 2.0 + e.fin() * 4.0);
 });
 
@@ -36,7 +36,7 @@ const playernote = extendContent(Block, "playernote", {
 	},
   playnote(tile,notein,instrument){
     //play&fx
-    var ncolor="ffffff";
+    var ncolor="aaaa00";//tmp
     Effects.effect(soundwave,Color.valueOf(ncolor),tile.worldx(),tile.worldy());
   },
   placed(tile) {
