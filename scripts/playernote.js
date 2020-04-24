@@ -1,5 +1,6 @@
 var noteblocks={};
 const notes=["A3","AS3","B3"];
+const instruments=["piano"];
 const notelength=notes.length;
 const playernote = extendContent(Block, "playernote", {
   init(){
@@ -27,8 +28,10 @@ const playernote = extendContent(Block, "playernote", {
     Vars.ui.showInfoToast(notes[noteblocks[key].n],5);
 		//this.itSpin += value;
 	},
-  playnote(tile,notein){
+  playnote(tile,notein,instrument){
     //play&fx
+    var color="ffffff";
+    Effects.effect(Fx.ripple,Color.valueOf(color),tile.worldx(),tile.worldy());
   },
   placed(tile) {
 		this.super$placed(tile);
@@ -47,14 +50,16 @@ const playernote = extendContent(Block, "playernote", {
 	},
   update(tile){
     var entity=tile.ent();
-    var near = Vars.world.tile(tile.x,tile.y-1);
+    var near = Vars.world.tile(tile.x,tile.y-1).block();
     var key=tile.x+","+tile.y;
     var nblock=noteblocks[key];
     if(tile.entity.cons.valid()){
       this.super$update(tile);
       if(!nblock.p){
         noteblocks[key].p=true;
-        this.playnote(tile,nblock.n);
+        var instrument=0;
+        if(near=="copperWall") instrument=1;
+        this.playnote(tile,nblock.n,instrument);
       }
     }
     else if(nblock.p) noteblocks[key].p=false;
