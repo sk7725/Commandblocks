@@ -15,11 +15,11 @@ const playernote = extendContent(Block, "playernote", {
 		//tile.didcmd = false;
 	},
   buildConfiguration(tile, table){
-		table.addImageButton(Icon.upSmall, Styles.clearTransi, run(() => {
+		table.addImageButton(Icon.upOpen, Styles.clearTransi, run(() => {
 			
 			tile.configure(1)
 		})).size(40);
-		table.addImageButton(Icon.downSmall, Styles.clearTransi, run(() => {
+		table.addImageButton(Icon.downOpen, Styles.clearTransi, run(() => {
 			
 			tile.configure(-1)
 		})).size(40);
@@ -32,7 +32,7 @@ const playernote = extendContent(Block, "playernote", {
     noteblocks[key].n+=value;
     if(noteblocks[key].n>=notelength) noteblocks[key].n=0;
     else if(noteblocks[key]<0) noteblocks[key].n=notelength-1;
-    Vars.ui.showInfoToast(notes[noteblocks[key].n],5);
+    Vars.ui.showInfoToast(noteblocks[key].n,5);
 		//this.itSpin += value;
 	},
   playnote(tile,notein,instrument){
