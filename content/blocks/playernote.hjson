@@ -15,3 +15,4 @@ health: 50
 consumes: {
   power: 0.016
 }
+configurable: true
