@@ -9,12 +9,12 @@ const soundwave = newEffect(20, e => {
   Lines.circle(e.x, e.y, 2.0 + e.fin() * 4.0);
 });
 
-const playernote = extendContent(Block, "playernote", {
+const playernote = extendContent(MessageBlock, "playernote", {
   loadkey(tile){
     var key=tile.x+","+tile.y;
     noteblocks[key]={};
     noteblocks[key].p=false;
-    noteblocks[key].n=0;
+    //noteblocks[key].n=0;
   },
   init(){
     this.super$init();
@@ -36,11 +36,13 @@ const playernote = extendContent(Block, "playernote", {
 		//}
     var key=tile.x+","+tile.y;
     if(!noteblocks.hasOwnProperty(key)) this.loadkey(tile);
-    noteblocks[key].n+=value;
-    if(noteblocks[key].n>=notelength) noteblocks[key].n=0;
-    else if(noteblocks[key].n<0) noteblocks[key].n=notelength-1;
-    Vars.ui.showInfoToast((Math.floor((noteblocks[key].n+9)/12)+4)+""+notes[noteblocks[key].n %12],1);
-    this.playnote(tile,noteblocks[key].n);
+    var n=Number(tile.ent().message);
+    n+=value;
+    if(n>=notelength) n=0;
+    else if(n<0) n=notelength-1;
+    this.setMessageBlockText(null,tile,n+"");
+    Vars.ui.showInfoToast((Math.floor((n+9)/12)+4)+""+notes[n %12],1);
+    this.playnote(tile,n);
 	},
   playnote(tile,notein){
     //play&fx
@@ -61,7 +63,8 @@ const playernote = extendContent(Block, "playernote", {
     var key=tile.x+","+tile.y;
     noteblocks[key]={};
     noteblocks[key].p=false;
-    noteblocks[key].n=0;
+    //noteblocks[key].n=0;
+    this.setMessageBlockText(null,tile,"0");
 	},
   removed(tile){
 		this.super$removed(tile);
@@ -83,7 +86,7 @@ const playernote = extendContent(Block, "playernote", {
         noteblocks[key].p=true;
         //var instrument=0;
         //if(near=="copperWall") instrument=1;
-        this.playnote(tile,nblock.n);
+        this.playnote(tile,Number(entity.message));
       }
     }
     else if(nblock.p) noteblocks[key].p=false;
