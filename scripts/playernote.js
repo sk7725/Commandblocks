@@ -2,6 +2,13 @@ var noteblocks={};
 const notes=["A3","AS3","B3"];
 const instruments=["piano"];
 const notelength=notes.length;
+
+const soundwave = newEffect(20, e => {
+  color(e.color);
+  stroke(e.fout() + 0.4);
+  Lines.circle(e.x, e.y, 2.0 + e.fin() * 4.0);
+});
+
 const playernote = extendContent(Block, "playernote", {
   init(){
     this.super$init();
@@ -31,7 +38,7 @@ const playernote = extendContent(Block, "playernote", {
   playnote(tile,notein,instrument){
     //play&fx
     var ncolor="ffffff";
-    Effects.effect(Fx.ripple,Color.valueOf(ncolor),tile.worldx(),tile.worldy());
+    Effects.effect(soundwave,Color.valueOf(ncolor),tile.worldx(),tile.worldy());
   },
   placed(tile) {
 		this.super$placed(tile);
