@@ -10,4 +10,5 @@ require("commandblockchained");
 require("commandblockunit");
 require("unitreader");
 require("unitcacher");
+require("playernote");
 require("playermusic");
