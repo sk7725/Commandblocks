@@ -10,6 +10,12 @@ const soundwave = newEffect(20, e => {
 });
 
 const playernote = extendContent(Block, "playernote", {
+  loadkey(tile){
+    var key=tile.x+","+tile.y;
+    noteblocks[key]={};
+    noteblocks[key].p=false;
+    noteblocks[key].n=0;
+  },
   init(){
     this.super$init();
 		//tile.didcmd = false;
@@ -29,6 +35,7 @@ const playernote = extendContent(Block, "playernote", {
 		//	value = 1;
 		//}
     var key=tile.x+","+tile.y;
+    if(!noteblocks.hasOwnProperty(key)) this.loadkey(tile);
     noteblocks[key].n+=value;
     if(noteblocks[key].n>=notelength) noteblocks[key].n=0;
     else if(noteblocks[key].n<0) noteblocks[key].n=notelength-1;
@@ -68,6 +75,7 @@ const playernote = extendContent(Block, "playernote", {
     var entity=tile.ent();
     
     var key=tile.x+","+tile.y;
+    if(!noteblocks.hasOwnProperty(key)) this.loadkey(tile);
     var nblock=noteblocks[key];
     if(tile.entity.cons.valid()){
       this.super$update(tile);
