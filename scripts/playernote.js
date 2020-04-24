@@ -1,9 +1,9 @@
 var noteblocks={};
-const notes=["A","AS","B","C","CS","D","DS","E","F","FS","G","GS"];
+const notes=["a","as","b","c","cs","d","ds","e","f","fs","g","gs"];
 const instruments=["piano"];
 const notelength=36;
-const soundcontent=Sounds.pew.getContentType();
-
+//const soundcontent=Sounds.pew.getContentType();
+const soundlib="sound-lib";
 const soundwave = newEffect(20, e => {
   Draw.color(e.color);
   Lines.stroke(e.fout() + 0.4);
@@ -52,12 +52,23 @@ const playernote = extendContent(MessageBlock, "playernote", {
     var green=Math.abs(250*(notein-21)/14)-125;
     var blue=-1*Math.abs(250*(notein-28)/14)+250;
     print("colorset");print(red);print(green);print(blue);
-    //try{
     Effects.effect(soundwave,Color.rgb(Math.max(Math.floor(red),0),Math.max(Math.floor(green),0),Math.max(Math.floor(blue),0)),tile.worldx(),tile.worldy());
-    //}
-    //catch(err){
-      //print(err);
-    //}
+    var instnum=0;
+    //if else near block to int
+    var inst=instruments[instnum]; var instalt=false;
+    if(inst.substring(inst.length-4,inst.length)=="-alt"){
+      instalt=true;
+      inst=inst.substring(0,inst.length-4);
+    }
+    try{
+      var soundblock=Vars.content.getByName(ContentType.block,soundlib+"-"+inst+"-"+(Math.floor((notein+9)/12)+4)+""+notes[notein %12]);
+      if(instalt) soundblock.idleSound.play(600);
+      else soundblock.activeSound.play(600);
+    }
+    catch(err){
+      print(err);
+      Vars.ui.showInfoToast(soundlib+" is needed!",1);
+    }
   },
   placed(tile) {
 		this.super$placed(tile);
