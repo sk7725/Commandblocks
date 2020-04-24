@@ -2,6 +2,7 @@ var noteblocks={};
 const notes=["A","AS","B","C","CS","D","DS","E","F","FS","G","GS"];
 const instruments=["piano"];
 const notelength=36;
+const soundcontent=Sounds.pew.getContentType();
 
 const soundwave = newEffect(20, e => {
   Draw.color(e.color);
