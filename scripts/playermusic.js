@@ -29,7 +29,7 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
                                 }
 			}
 			else{
-				Vars.ui.showLabel("Cannot find "+thismod.list()+"...",5,tile.worldx(),tile.worldy());
+				Vars.ui.showLabel("Cannot find "+thismod.list().toArray()+"...",5,tile.worldx(),tile.worldy());
 			}
 		}
 	},
