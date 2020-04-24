@@ -958,7 +958,7 @@ const commandblocks={
   catch(err){
     if(gamerule.commandBlockOutput) Call.sendMessage("E:"+err);
     if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(err,7);
-    print("E:"+err);
+    //print("E:"+err);
     return false;
   }
   }
