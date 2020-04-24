@@ -348,7 +348,7 @@ const commandblocks={
     if(facingrelative) rot=facing;
     else rot=facing-punit.rotation;
     punit.set(cx,cy);
-    if(rot!=0) punit.rotate(rot);
+    //if(rot!=0) punit.rotate(rot);
     if(punit instanceof Player) Core.camera.position.set(punit);
   },
   command(tile,msg,parentthis,parentcmd,executed){
