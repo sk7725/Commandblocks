@@ -213,6 +213,16 @@ const commandblocks={
             if(ret instanceof Tile) return ret;
             else return null;
           break;
+          case "tileent":
+            var ret=this.targetselect(ptile,pthis,tmparr[1]).r;
+            if(ret instanceof Tile) return ret.ent();
+            else return null;
+          break;
+          case "tileblock":
+            var ret=this.targetselect(ptile,pthis,tmparr[1]).r;
+            if(ret instanceof Tile) return ret.block();
+            else return null;
+          break;
           case "team":
             if(tmparr[1]==-1) return ptile.team;
             return Team.get(tmparr[1]);
