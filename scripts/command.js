@@ -349,7 +349,7 @@ const commandblocks={
     else rot=facing-punit.rotation;
     punit.set(cx,cy);
     //if(rot!=0) punit.rotate(rot);
-    if(punit instanceof Player) Core.camera.position.set(punit);
+    if((punit instanceof Player)&&punit==Vars.player) Core.camera.position.set(punit);
   },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
