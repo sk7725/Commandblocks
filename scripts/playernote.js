@@ -15,11 +15,11 @@ const playernote = extendContent(Block, "playernote", {
 		//tile.didcmd = false;
 	},
   buildConfiguration(tile, table){
-		table.addImageButton(Icon.upOpen, Styles.clearTransi, run(() => {
+		table.addImageButton(Icon.upSmall, Styles.clearTransi, run(() => {
 			
 			tile.configure(1)
 		})).size(40);
-		table.addImageButton(Icon.downOpen, Styles.clearTransi, run(() => {
+		table.addImageButton(Icon.downSmall, Styles.clearTransi, run(() => {
 			
 			tile.configure(-1)
 		})).size(40);
@@ -28,6 +28,7 @@ const playernote = extendContent(Block, "playernote", {
 		//if(value != -1&&value!=0){
 		//	value = 1;
 		//}
+    var key=tile.x+","+tile.y;
     noteblocks[key].n+=value;
     if(noteblocks[key].n>=notelength) noteblocks[key].n=0;
     else if(noteblocks[key]<0) noteblocks[key].n=notelength-1;
