@@ -30,8 +30,8 @@ const playernote = extendContent(Block, "playernote", {
 	},
   playnote(tile,notein,instrument){
     //play&fx
-    var color="ffffff";
-    Effects.effect(Fx.ripple,Color.valueOf(color),tile.worldx(),tile.worldy());
+    var ncolor="ffffff";
+    Effects.effect(Fx.ripple,Color.valueOf(ncolor),tile.worldx(),tile.worldy());
   },
   placed(tile) {
 		this.super$placed(tile);
@@ -63,33 +63,5 @@ const playernote = extendContent(Block, "playernote", {
       }
     }
     else if(nblock.p) noteblocks[key].p=false;
-    /*
-    var key=tile.x+","+tile.y;
-    if(!commandblocksi.hasOwnProperty(key)) commandblocksi[key]={};
-    thiscmd=commandblocksi[key];
-    if(!thiscmd.hasOwnProperty("didcmd")) thiscmd.didcmd=false;
-    if(tile.entity.cons.valid()){
-      this.super$update(tile);
-      //entity.cons.trigger();
-      if(!thiscmd.didcmd){
-        var res=commandblocksi.command(tile,entity.message,this,entity.message,false);
-        thiscmd.didsuccess = Boolean(res);
-        thiscmd.didcmd = true;
-      }
-      else{
-        thiscmd.didsuccess=false;
-      }
-    }
-    else{
-      if(thiscmd.didcmd) thiscmd.didcmd=false;
-      thiscmd.didsuccess=false;
-      return;
-    }
-  },
-  removed(tile){
-    this.super$removed(tile);
-    var key=tile.x+","+tile.y;
-    delete commandblocksi[key];
   }
-  */
 });
