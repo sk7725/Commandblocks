@@ -32,7 +32,7 @@ const playernote = extendContent(Block, "playernote", {
     noteblocks[key].n+=value;
     if(noteblocks[key].n>=notelength) noteblocks[key].n=0;
     else if(noteblocks[key].n<0) noteblocks[key].n=notelength-1;
-    Vars.ui.showInfoToast((Math.floor((noteblocks[key].n+9)/12)+4)+""+notes[noteblocks[key].n %12],5);
+    Vars.ui.showInfoToast((Math.floor((noteblocks[key].n+9)/12)+4)+""+notes[noteblocks[key].n %12],1);
     this.playnote(tile,noteblocks[key].n);
 	},
   playnote(tile,notein){
@@ -41,7 +41,7 @@ const playernote = extendContent(Block, "playernote", {
     var red=Math.abs(-250*(notein-14)/14)+250;
     var green=Math.abs(250*(notein-21)/14)-125;
     var blue=Math.abs(-250*(notein-28)/14)+250;
-    print(red);print(green);print(blue);
+    print("colorset");print(red);print(green);print(blue);
     //try{
     Effects.effect(soundwave,Color.rgb(Math.max(Math.floor(red),0),Math.max(Math.floor(green),0),Math.max(Math.floor(blue),0)),tile.worldx(),tile.worldy());
     //}
