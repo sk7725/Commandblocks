@@ -15,12 +15,11 @@ const playernote = extendContent(Block, "playernote", {
 		//tile.didcmd = false;
 	},
   buildConfiguration(tile, table){
-		table.addImageButton(Icon.up, Styles.clearTransi, run(() => {
+		table.addImageButton(Icon.upOpen, Styles.clearTransi, run(() => {
 			// Tell client to spin faster
 			tile.configure(1);
 		})).size(40);
-		table.row();
-		table.addImageButton(Icon.down, Styles.clearTransi, run(() => {
+		table.addImageButton(Icon.downOpen, Styles.clearTransi, run(() => {
 			// Tell client to spin slower
 			tile.configure(-1);
 		})).size(40);
