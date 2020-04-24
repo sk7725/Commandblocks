@@ -5,7 +5,7 @@ const notelength=notes.length;
 
 const soundwave = newEffect(20, e => {
   Draw.color(e.color);
-  Draw.stroke(e.fout() + 0.4);
+  Lines.stroke(e.fout() + 0.4);
   Lines.circle(e.x, e.y, 2.0 + e.fin() * 4.0);
 });
 
@@ -24,7 +24,7 @@ const playernote = extendContent(Block, "playernote", {
 			tile.configure(-1);
 		})).size(40);
 	},
-	configured(tile, player, value){
+	configured(tile, value){
 		if(value != -1&&value!=0){
 			value = 1;
 		}
