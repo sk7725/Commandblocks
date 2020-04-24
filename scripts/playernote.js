@@ -1,7 +1,7 @@
 var noteblocks={};
-const notes=["A3","AS3","B3"];
+const notes=["A","AS","B","C","CS","D","DS","E","F","FS","G","GS"];
 const instruments=["piano"];
-const notelength=notes.length;
+const notelength=36;
 
 const soundwave = newEffect(20, e => {
   Draw.color(e.color);
@@ -31,12 +31,13 @@ const playernote = extendContent(Block, "playernote", {
     var key=tile.x+","+tile.y;
     noteblocks[key].n+=value;
     if(noteblocks[key].n>=notelength) noteblocks[key].n=0;
-    else if(noteblocks[key]<0) noteblocks[key].n=notelength-1;
-    Vars.ui.showInfoToast(noteblocks[key].n,5);
-		//this.itSpin += value;
+    else if(noteblocks[key].n<0) noteblocks[key].n=notelength-1;
+    Vars.ui.showInfoToast((Math.floor((noteblocks[key].n+9)/12)+4)+""+notes[noteblocks[key].n %12],5);
+    this.playnote(tile,noteblocks[key].n);
 	},
-  playnote(tile,notein,instrument){
+  playnote(tile,notein){
     //play&fx
+    var near = Vars.world.tile(tile.x,tile.y-1).block();
     var ncolor="aaaa00";//tmp
     Effects.effect(soundwave,Color.valueOf(ncolor),tile.worldx(),tile.worldy());
   },
@@ -57,16 +58,16 @@ const playernote = extendContent(Block, "playernote", {
 	},
   update(tile){
     var entity=tile.ent();
-    var near = Vars.world.tile(tile.x,tile.y-1).block();
+    
     var key=tile.x+","+tile.y;
     var nblock=noteblocks[key];
     if(tile.entity.cons.valid()){
       this.super$update(tile);
       if(!nblock.p){
         noteblocks[key].p=true;
-        var instrument=0;
-        if(near=="copperWall") instrument=1;
-        this.playnote(tile,nblock.n,instrument);
+        //var instrument=0;
+        //if(near=="copperWall") instrument=1;
+        this.playnote(tile,nblock.n);
       }
     }
     else if(nblock.p) noteblocks[key].p=false;
