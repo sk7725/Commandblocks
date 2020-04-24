@@ -38,16 +38,16 @@ const playernote = extendContent(Block, "playernote", {
   playnote(tile,notein){
     //play&fx
     var near = Vars.world.tile(tile.x,tile.y-1).block();
-    var red=Math.abs(250*(x-14)/14)+250;
-    var green=Math.abs(250*(x-21)/14)-125;
-    var blue=Math.abs(250*(x-28)/14)+250;
+    var red=Math.abs(250*(notein-14)/14)+250;
+    var green=Math.abs(250*(notein-21)/14)-125;
+    var blue=Math.abs(250*(notein-28)/14)+250;
     print(red);print(green);print(blue);
-    try{
+    //try{
     Effects.effect(soundwave,Color.rgb(Math.max(Math.floor(red),0),Math.max(Math.floor(green),0),Math.max(Math.floor(blue),0)),tile.worldx(),tile.worldy());
-    }
-    catch(err){
-      print(err);
-    }
+    //}
+    //catch(err){
+      //print(err);
+    //}
   },
   placed(tile) {
 		this.super$placed(tile);
