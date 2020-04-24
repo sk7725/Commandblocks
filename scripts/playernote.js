@@ -24,7 +24,7 @@ const playernote = extendContent(Block, "playernote", {
 			tile.configure(-1)
 		})).size(40);
 	},
-	configured(tile, value){
+	configured(tile,player, value){
 		//if(value != -1&&value!=0){
 		//	value = 1;
 		//}
