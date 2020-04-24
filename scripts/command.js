@@ -342,6 +342,15 @@ const commandblocks={
     effectextended[eff+"-"+intensity+"-"+hidep]=seff;
     punit.applyEffect(seff,duration);
   },
+  cmdtp(punit,cx,cy,facing,facingrelative){
+    //um...
+    var rot=0;
+    if(facingrelative) rot=facing;
+    else rot=facing-punit.rotation;
+    punit.set(cx,cy);
+    if(rot!=0) punit.rotate(rot);
+    if(punit instanceof Player) Core.camera.position.set(punit);
+  },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
@@ -708,7 +717,7 @@ const commandblocks={
             if(amount<0) throw "Amount should be above 0";
             tile.addItem(Items[args[0]],amount);
           }
-          else throw "This executor cannot receive items.";
+          else throw "This executor cannot receive items";
         }
         else throw "Missing params";
       break;
@@ -722,7 +731,7 @@ const commandblocks={
           else if(tile instanceof Unit&&args.length==0){
             tile.clearItem();
           }
-          else throw "This executor cannot receive items.";
+          else throw "This executor cannot receive items";
         }
         else throw "Missing params";
       break;
@@ -747,9 +756,9 @@ const commandblocks={
               target.r.kill();
               return true;
             }
-            else throw "This executor cannot be killed.";
+            else throw "This executor cannot be killed";
         }
-        else throw "This executor cannot be killed.";
+        else throw "This executor cannot be killed";
       break;
       case 'configure':
         if(args.length>=2&&args.length<=3){
@@ -838,9 +847,9 @@ const commandblocks={
               this.cmdeffect(target.r,eff,duration,intensity,hidep);
               return true;
             }
-            else throw "This executor cannot be given the effect.";
+            else throw "This executor cannot be given the effect";
         }
-        else throw "This executor cannot be given the effect.";
+        else throw "This executor cannot be given the effect";
       break;
       case 'playsound':
         if(args.length>=3&&args.length<=4){
@@ -862,6 +871,83 @@ const commandblocks={
           if(tile instanceof Tile) Vars.loops.play(Sounds[args[0]],Vec2(tile.worldx(),tile.worldy()),0.5);
           else Vars.loops.play(Sounds[args[0]],Vec2(tile.x,tile.y),0.5);
           return true;
+        }
+        else throw "Missing params";
+      break;
+      case 'tp':
+        if(args.length>=2&&args.length<=5){
+            var target=this.targetselect(tile,parentthis,args[0]);
+            var cx=0; var cy=0; var facing=0; var facingrelative=true;
+            //편의상 월드xy 사용(유일)
+            if(args.length==2){
+              //tp target dest
+              var dest=this.targetselect(tile,parentthis,args[1]);
+              if(dest.a) throw "Cannot teleport to multiple destinations";
+              if(dest.r instanceof Tile){
+                cx=dest.r.worldx(); cy=dest.r.worldy();
+              }
+              else{
+                cx=dest.r.x; cy=dest.r.y;
+              }
+            }
+            else{
+              var tpos=this.tilde(tile,args[1],args[2]);
+              if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
+                cx=tpos.x*Vars.tilesize; cy=tpos.y*Vars.tilesize;
+                if(args.length==5&&args[3]=="facing"){
+                  //tp target cx cy facing args[4]
+                  if(args[4].substring(0,1)=="~"){
+                    facing=Number(args[4].substring(1,args[4].length));
+                    facingrelative=true;
+                  }
+                  else{
+                    facing=Number(args[4]);
+                    facingrelative=false;
+                  }
+                }
+                else if(args.length==3){
+                  //tp target cx cy
+                }
+                else throw "Incorrect params";
+              }
+              else if(args[2]=="facing"&&args.length==4){
+                //tp target dest facing args[3]
+                var dest=this.targetselect(tile,parentthis,args[1]);
+                if(dest.a) throw "Cannot teleport to multiple destinations";
+                if(dest.r instanceof Tile){
+                  cx=dest.r.worldx(); cy=dest.r.worldy();
+                }
+                else{
+                  cx=dest.r.x; cy=dest.r.y;
+                }
+                if(args[3].substring(0,1)=="~"){
+                  facing=Number(args[3].substring(1,args[3].length));
+                  facingrelative=true;
+                }
+                else{
+                  facing=Number(args[3]);
+                  facingrelative=false;
+                }
+              }
+              else throw "Incorrect params";
+            }
+            if(isNaN(facing)) throw "Angle has to be a number";
+
+            if(target.a){
+              var res=true;
+              target.r.each(cons(ent => {
+                  if (ent instanceof Unit) {
+                      this.cmdtp(ent,cx,cy,facing,facingrelative);
+                  }
+                  else res=false;
+              }));
+              return res;
+            }
+            else if(target.r instanceof Unit){
+              this.cmdtp(target.r,cx,cy,facing,facingrelative);
+              return true;
+            }
+            else throw "This target is not teleportable";
         }
         else throw "Missing params";
       break;

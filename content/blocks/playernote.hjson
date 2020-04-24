@@ -1,0 +1,17 @@
+localizedName: Note Player
+description: "Plays a note when the power requirement is met. Instrument may change depending on the block under it."
+size: 1
+breakable: true
+update: true
+category: defense
+requirements: [
+  graphite/15
+  plastanium/5
+  silicon/10
+]
+sync: true
+expanded: true
+health: 50
+consumes: {
+  power: 0.016
+}

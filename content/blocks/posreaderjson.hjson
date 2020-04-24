@@ -1,5 +1,5 @@
-localizedName: JSON Reader
-description: Gets the JSON of the block this block is facing when this block is placed.
+localizedName: Mod Reader
+description: Gets the mod info, may change in the future.
 size: 1
 breakable: true
 update: true

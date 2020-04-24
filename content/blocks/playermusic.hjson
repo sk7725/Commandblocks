@@ -3,7 +3,7 @@ description: "Plays the music via filename. Music should be in this mod and star
 size: 2
 breakable: true
 update: true
-category: effect
+category: defense
 requirements: [
   graphite/50
   plastanium/45
