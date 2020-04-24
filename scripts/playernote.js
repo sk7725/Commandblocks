@@ -17,17 +17,17 @@ const playernote = extendContent(Block, "playernote", {
   buildConfiguration(tile, table){
 		table.addImageButton(Icon.upOpen, Styles.clearTransi, run(() => {
 			// Tell client to spin faster
-			tile.configure(1);
+			tile.configure(1)
 		})).size(40);
 		table.addImageButton(Icon.downOpen, Styles.clearTransi, run(() => {
 			// Tell client to spin slower
-			tile.configure(-1);
+			tile.configure(-1)
 		})).size(40);
 	},
 	configured(tile, value){
-		if(value != -1&&value!=0){
-			value = 1;
-		}
+		//if(value != -1&&value!=0){
+		//	value = 1;
+		//}
     noteblocks[key].n+=value;
     if(noteblocks[key].n>=notelength) noteblocks[key].n=0;
     else if(noteblocks[key]<0) noteblocks[key].n=notelength-1;
