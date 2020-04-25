@@ -517,8 +517,8 @@ const commandblocks={
                 Call.onDeconstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0);
               }
               else{
-                ctile.ent().health=-1;
-                ctile.ent().remove();
+                ctile.onRemoved();
+                ctile.ent().onRemoved();
                 Call.setTile(ctile,Blocks[cblock], cteam, crot);
               }
               if(args[5]=="build"){
