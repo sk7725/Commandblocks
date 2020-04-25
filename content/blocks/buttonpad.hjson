@@ -12,6 +12,6 @@ silicon/30
 ]
 sync: true
 expanded: true
-health: 150
+health: 300
 outputsPower: true
 targetable: false
