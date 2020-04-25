@@ -11,6 +11,6 @@ const button = extendContent(Block, "button", {
     return [Core.atlas.find(this.name)];
   },
   tapped(tile,player){
-  
+    tile.ent().timer.reset(timerid,0);
   }
 };
