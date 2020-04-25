@@ -20,3 +20,4 @@ require("playernote");
 require("playermusic");
 
 require("button");
+require("buttonbig");

@@ -20,3 +20,4 @@ const buttonbig = extendContent(Block, "buttonbig", {
   return (tile.ent().timer.check(timerid,presstick)) ? 0: 6;
   }
 });
+//print("big!");
