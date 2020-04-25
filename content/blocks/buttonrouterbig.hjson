@@ -1,0 +1,17 @@
+localizedName: Detecting Distributor
+description: "Produces power when holding items. Spans multiple tiles."
+size: 2
+breakable: true
+//consumesTap: true
+timers: 1
+update: true
+category: power
+requirements: [
+titanium/30
+silicon/150
+]
+sync: true
+expanded: true
+health: 160
+outputsPower: true
+itemCapacity: 1
