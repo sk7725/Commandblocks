@@ -21,3 +21,5 @@ require("playermusic");
 
 require("button");
 require("buttonbig");
+require("buttonpad");
+require("buttonpadbig");
