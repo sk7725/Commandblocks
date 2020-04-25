@@ -1,0 +1,16 @@
+localizedName: Large Button
+description: "Produces power when clicked. Now easier to tap!"
+size: 2
+breakable: true
+consumesTap: true
+timers: 1
+update: true
+category: power
+requirements: [
+titanium/25
+silicon/200
+]
+sync: true
+expanded: true
+health: 150
+outputsPower: true
