@@ -23,3 +23,4 @@ require("button");
 require("buttonbig");
 require("buttonpad");
 require("buttonpadbig");
+require("buttonrouter");
