@@ -1,0 +1,17 @@
+localizedName: Detecting Router
+description: "Produces power when holding items."
+size: 1
+breakable: true
+//consumesTap: true
+timers: 1
+update: true
+category: power
+requirements: [
+titanium/7
+silicon/40
+]
+sync: true
+expanded: true
+health: 40
+outputsPower: true
+itemCapacity: 1
