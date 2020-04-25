@@ -17,6 +17,6 @@ const button = extendContent(Block, "button", {
   }
 */
   getPowerProduction(tile){
-  (tile.ent().timer.check(timerid,presstick)) ? 0: 180;
+  return (tile.ent().timer.check(timerid,presstick)) ? 0: 180;
   }
 });
