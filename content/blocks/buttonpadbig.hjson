@@ -1,0 +1,17 @@
+localizedName: Large Pressure Plate
+description: "Produces power when stepped on.\nSpans multiple tiles."
+size: 2
+breakable: true
+//consumesTap: true
+timers: 1
+update: true
+category: power
+requirements: [
+titanium/50
+silicon/100
+]
+sync: true
+expanded: true
+health: 1200
+outputsPower: true
+targetable: false
