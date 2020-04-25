@@ -8,7 +8,7 @@ update: true
 category: power
 requirements: [
 titanium/10
-silicon/30
+silicon/15
 ]
 sync: true
 expanded: true
