@@ -1,0 +1,17 @@
+localizedName: Pressure Plate
+description: "Produces power when stepped on."
+size: 1
+breakable: true
+//consumesTap: true
+timers: 1
+update: true
+category: power
+requirements: [
+titanium/10
+silicon/30
+]
+sync: true
+expanded: true
+health: 150
+outputsPower: true
+targetable: false
