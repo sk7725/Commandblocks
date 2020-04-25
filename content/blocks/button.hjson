@@ -6,7 +6,10 @@ consumesTap: true
 timers: 1
 update: true
 category: power
-requirements: [ titanium/5 silicon/50]
+requirements: [
+titanium/5
+silicon/50
+]
 sync: true
 expanded: true
 health: 150
