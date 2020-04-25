@@ -1,5 +1,5 @@
 localizedName: Large Pressure Plate
-description: "Produces power when stepped on.\nAlso can detect flying units on top."
+description: "Produces power when stepped on.Also can detect flying units on top.\nSpans multiple tiles."
 size: 2
 breakable: true
 //consumesTap: true
