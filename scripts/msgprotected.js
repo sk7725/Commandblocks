@@ -1,5 +1,5 @@
 const msgprotected = extendContent(MessageBlock, "msgprotected", {
-	public boolean shouldShowConfigure(Tile tile, Player player){
+	shouldShowConfigure(Tile tile, Player player){
     return player.isAdmin;
   }
 });

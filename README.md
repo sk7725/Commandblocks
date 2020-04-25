@@ -1,6 +1,6 @@
-# Commandblocks
-Mindustry Command Block Mod(MCBM)
-This mod adds Minecraft-like Command Blocks, along with other blocks.
+# Commandblocks   
+Mindustry Command Block Mod(MCBM)   
+This mod adds Minecraft-like Command Blocks, along with other blocks.   
 This is currently in development.
 
 ## Blocks
@@ -35,6 +35,23 @@ Is empty if no tile entity is found.
 ```
 TileEntity{tile=tile, health=health}
 ```
++ Mod Reader   
+Gets the information of the mod.   
++ Note Player   
+Plays a note when the power requirement is met. Instrument changes depending on the wall under it.   
++ Music Player   
+Plays an array of notes. First, specify the BPM, then the notes seperated by spaces, using x for rests. End the note with - for double length, and / for half(these may be stacked).   
+```
+150 6e 6d 6c 6d 6e 6e 6e- 6d 6d 6d x 6e 6e 6e-
+```
++ Button(&Large Button)   
+Produces power when clicked.   
++ Pressure Plate(&Large Pressure Plate)   
+Produces power when stepped on. The large pressure plate can detect flying units, too.   
++ Detecting Router(&Detecting Distributor)   
+Produces power when holding items. Works like its original counterpart.   
++ Announcement   
+Works like the Message but it can only be written by the admins.   
 
 ## Commands
 Commands will fail to work when an error happens, params are invalid , or requirements below are not made.   
@@ -71,11 +88,11 @@ Fails if the previous block is already the same as the current block.
 ### /execute 
 Executes a command from another tile or unit's perspective.  
 Fails if the executed command fails, or the tile or entity is not found.   
-`execute` is optional, one can start a command with `at/as`
+`execute` is optional, one can start a command with `at/as`   
   + /execute at pos:x pos:y string:command   
     Executes as a tile at x,y.   
   + /execute as target:target string:command   
-    Executes as a target.
+    Executes as a target.   
   
 ### /f(/function) string:functionname (arguments)
 Runs a function of the executor called functionname. Fails if the executor is neither a tile nor an unit.     
@@ -151,7 +168,20 @@ Fails if executor is not an unit. Some effects are custom potion effects, which 
 Kills the target. The target is the executor if unspecified. Fails if the target is not an unit.   
 
 ### /assert      
-The executor asserts dominance.
+The executor asserts dominance.   
+
+### /configure pos:x pos:y (int|boolean:value)      
+Configures a block at the specified position to a value.   
+Doors accept boolean, others accept intergers. Value may be unspecified for doors(then it will toggle).   
+Fails if the block is not configurable, or if it is a door that is already in the given state.   
+
+### /tp target:target
+Teleports a target to a destination.  
+Fails if the destination is an array of multiple targets.   
+  + /tp target:target target:destination   
+    Teleports to the destination's coordinates. The destination target must specify only one entity.   
+  + /tp target:target pos:x pos:y   
+    Teleports to the specified coordinates.   
 
 ## Tilde Notation   
 Using ~ before a number for a coordinate will get the coordinate relative to the executor.   
