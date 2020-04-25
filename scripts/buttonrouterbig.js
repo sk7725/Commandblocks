@@ -11,7 +11,7 @@ const buttonrouterbig = extendContent(Router, "buttonrouterbig", {
     this.super$update(tile);
     var entity=tile.ent();
     if(tile.entity.items.total()>0) tile.ent().timer.reset(timerid,0);
-    Vars.ui.showInfoToast(entity.time,1);
+    Vars.ui.showInfoToast(tile.entity.time,1);
   },
   getPowerProduction(tile){
   return (tile.ent().timer.check(timerid,presstick)) ? 0: 2;
