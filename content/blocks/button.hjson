@@ -15,3 +15,4 @@ expanded: true
 health: 150
 hasPower: true
 outputsPower: true
+consumesPower: false
