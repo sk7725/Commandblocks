@@ -17,3 +17,4 @@ hasPower: true
 outputsPower: true
 consumesPower: false
 itemCapacity: 1
+solid: true

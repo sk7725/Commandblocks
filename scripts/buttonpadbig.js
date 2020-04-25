@@ -1,4 +1,4 @@
-const presstick=20; const timerid=0;
+const presstick=20; const timerid=0; const blocksize=Vars.tilesize;
 const buttonpadbig = extendContent(Block, "buttonpadbig", {
   placed(tile) {
     this.super$placed(tile);
@@ -13,9 +13,11 @@ const buttonpadbig = extendContent(Block, "buttonpadbig", {
   },
   update(tile){
     this.super$update(tile);
-    if(Units.anyEntities(tile)) this.unitOn(tile,null);
+    Units.nearby(tile.worldx(),tile.worldy(),blocksize,blocksize,cons(e => {
+      this.unitOn(tile,e);
+    }));
   },
   getPowerProduction(tile){
-  return (tile.ent().timer.check(timerid,presstick)) ? 0: 3;
+  return (tile.ent().timer.check(timerid,presstick)) ? 0: 6;
   }
 });

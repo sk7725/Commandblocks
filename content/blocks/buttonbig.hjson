@@ -16,3 +16,4 @@ health: 700
 hasPower: true
 outputsPower: true
 consumesPower: false
+solid: true
