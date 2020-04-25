@@ -1,5 +1,5 @@
 localizedName: Detecting Distributor
-description: "Produces power when holding items. Spans multiple tiles."
+description: "Produces power when holding items. Faster response but output may flicker. \nSpans multiple tiles."
 size: 2
 breakable: true
 //consumesTap: true
