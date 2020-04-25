@@ -13,4 +13,6 @@ silicon/100
 sync: true
 expanded: true
 health: 700
+hasPower: true
 outputsPower: true
+consumesPower: false

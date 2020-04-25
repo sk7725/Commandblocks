@@ -1,5 +1,5 @@
-const presstick=40; const timerid=0;
-const button = extendContent(Block, "button", {
+const presstick=50; const timerid=0;
+const buttonbig = extendContent(Block, "buttonbig", {
   placed(tile) {
     this.super$placed(tile);
     tile.ent().timer.reset(timerid,presstick+1);
@@ -9,7 +9,7 @@ const button = extendContent(Block, "button", {
   },
   tapped(tile,player){
     tile.ent().timer.reset(timerid,0);
-    Sounds.click.at(tile.worldx(),tile.worldy());
+    Sounds.click.at(tile.worldx(),tile.worldy(),0.8);
   },
 /*
   update(tile){
@@ -17,6 +17,6 @@ const button = extendContent(Block, "button", {
   }
 */
   getPowerProduction(tile){
-  return (tile.ent().timer.check(timerid,presstick)) ? 0: 3;
+  return (tile.ent().timer.check(timerid,presstick)) ? 0: 6;
   }
 });

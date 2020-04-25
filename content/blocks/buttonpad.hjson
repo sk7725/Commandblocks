@@ -13,5 +13,7 @@ silicon/15
 sync: true
 expanded: true
 health: 300
+hasPower: true
 outputsPower: true
+consumesPower: false
 targetable: false

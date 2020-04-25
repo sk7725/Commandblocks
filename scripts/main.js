@@ -1,13 +1,18 @@
 
 require("command");
-require("posreader");
-require("posreaderblock");
-require("posreaderent");
-require("posreaderjson");
+
+require("msgprotected");
+
 require("commandblock");
 require("commandblockrepeating");
 require("commandblockchained");
 require("commandblockunit");
+
+require("posreader");
+require("posreaderblock");
+require("posreaderent");
+require("posreaderjson");
+
 require("unitreader");
 require("unitcacher");
 

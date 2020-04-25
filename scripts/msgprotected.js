@@ -1,5 +1,7 @@
-const playermusic = extendContent(MessageBlock, "playermusic", {
-	
+const msgprotected = extendContent(MessageBlock, "msgprotected", {
+	public boolean shouldShowConfigure(Tile tile, Player player){
+    return player.isAdmin;
+  }
 });
 //var muselist={};
 /*

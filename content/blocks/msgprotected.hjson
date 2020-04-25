@@ -1,0 +1,13 @@
+localizedName: Announcement
+description: "Stores a message, only admins may write. Used for announcements from the admins."
+size: 1
+breakable: true
+configurable: true
+update: true
+category: effect
+requirements: [
+copper/1
+graphite/5
+]
+sync: true
+health: 40
