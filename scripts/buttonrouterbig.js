@@ -1,5 +1,5 @@
 const presstick=10; const timerid=0;
-const buttonrouter = extendContent(Router, "buttonrouter", {
+const buttonrouterbig = extendContent(Router, "buttonrouterbig", {
   placed(tile) {
     this.super$placed(tile);
     tile.ent().timer.reset(timerid,presstick+1);
@@ -13,6 +13,6 @@ const buttonrouter = extendContent(Router, "buttonrouter", {
     if(tile.entity.items.total()>0) tile.ent().timer.reset(timerid,0);
   },
   getPowerProduction(tile){
-  return (tile.ent().timer.check(timerid,presstick)) ? 0: 1;
+  return (tile.ent().timer.check(timerid,presstick)) ? 0: 2;
   }
 });
