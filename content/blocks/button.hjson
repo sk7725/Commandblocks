@@ -1,0 +1,12 @@
+localizedName: Button
+description: "Produces power when clicked."
+size: 1
+breakable: true
+consumesTap: true
+timers: 1
+update: true
+category: power
+requirements: [ titanium/5 silicon/50]
+sync: true
+expanded: true
+health: 150
