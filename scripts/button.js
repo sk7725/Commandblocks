@@ -13,4 +13,4 @@ const button = extendContent(Block, "button", {
   tapped(tile,player){
     tile.ent().timer.reset(timerid,0);
   }
-};
+});
