@@ -8,10 +8,10 @@ const buttonrouterbig = extendContent(Router, "buttonrouterbig", {
     Draw.rect(Core.atlas.find(this.name + ((tile.ent().timer.check(timerid,presstick)) ? "":"-trig")), tile.drawx(), tile.drawy());
   },
   update(tile){
-    this.super$update(tile);
     var entity=tile.ent();
     if(tile.entity.items.total()>0) tile.ent().timer.reset(timerid,0);
-    Vars.ui.showInfoToast(tile.entity.time,1);
+    this.super$update(tile);
+    //Vars.ui.showInfoToast(tile.entity.time,1);
   },
   getPowerProduction(tile){
   return (tile.ent().timer.check(timerid,presstick)) ? 0: 2;
