@@ -518,8 +518,8 @@ const commandblocks={
               }
               else{
                 //ctile.onRemoved();
-                ctile.ent().onRemoved();
-                Call.setTile(ctile,Blocks[cblock], cteam, crot);
+                //ctile.ent().onRemoved();
+                ctile.set(Blocks[cblock], cteam, crot);
               }
               if(args[5]=="build"){
                 //Call.onDeconstructFinish(ctile, ctile.block(), 0);
