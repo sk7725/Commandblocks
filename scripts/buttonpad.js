@@ -8,7 +8,7 @@ const buttonpad = extendContent(Block, "buttonpad", {
     Draw.rect(Core.atlas.find(this.name + ((tile.ent().timer.check(timerid,presstick)) ? "":"-trig")), tile.drawx(), tile.drawy());
   },
   unitOn(tile,unit){
-    if(tile.ent().timer.check((timerid,presstick)) Sounds.place.at(tile.worldx(),tile.worldy(),1.2);
+    if(tile.ent().timer.check(timerid,presstick)) Sounds.place.at(tile.worldx(),tile.worldy(),1.2);
     tile.ent().timer.reset(timerid,0);
   },
 /*
