@@ -13,3 +13,4 @@ silicon/50
 sync: true
 expanded: true
 health: 150
+outputsPower: true
