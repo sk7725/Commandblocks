@@ -7,6 +7,6 @@ category: effect
 requirements: [
   surge-alloy/50
 ]
-//buildVisibility: sandboxOnly
+buildVisibility: hidden
 configurable: false
-rotate: true
+//rotate: true
