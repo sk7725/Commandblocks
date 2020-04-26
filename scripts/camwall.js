@@ -13,7 +13,7 @@ const camwall = extendContent(Block, "camwall", {
     Draw.rect(Core.atlas.find(this.name), tile.drawx(), tile.drawy());
     Draw.color(Color.rgb(255,255,255).a(Math.max(0,Math.min(showtick,showdelay+showtick-tile.ent().timer.getTime(showid)))/showtick));
     Draw.rect(Core.atlas.find(this.name+"-top"), tile.drawx(), tile.drawy());
-    Drow.color();
+    Draw.color();
     if(nearplaced) nearplaced=false;
   }
 });
