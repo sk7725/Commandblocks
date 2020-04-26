@@ -8,7 +8,7 @@ const camwall = extendContent(Block, "camwall", {
     nearplaced=true;
   },
   draw(tile) {
-    if(nearplaced&&tile.ent.timer.getTime(showid)==0) nearplaced=false;
+    if(nearplaced&&tile.ent().timer.getTime(showid)==0) nearplaced=false;
     if(nearplaced) tile.ent().timer.reset(showid,0);
     Draw.color(Color.rgb(255,255,255).a(Math.max(0,placetick-tile.ent().timer.getTime(placeid))/placetick));
     Draw.rect(Core.atlas.find(this.name), tile.drawx(), tile.drawy());
