@@ -21,7 +21,7 @@ const camwalldir = extendContent(Block, "camwalldir", {
     Draw.color();
     var cx=Core.camera.position.x; var cy=Core.camera.position.y;
     this.blockcam(tile,cx,cy,tile.worldx(),tile.worldy(),tile.rotation());
-  }
+  },
   blockcam(tile,cx,cy,x,y,r){
     if(r==0&&y<=cy&&cy<=y+tilesize&&cx<x+2*tilesize){
       Core.camera.position.set(x+2*tilesize,cy);
