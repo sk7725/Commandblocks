@@ -18,5 +18,21 @@ const camwall = extendContent(Block, "camwall", {
     Draw.color(Color.rgb(255,255,255).a(Math.max(0,Math.min(showtick,showdelay+showtick-(Time.time()-nearplaced)))/showtick));
     Draw.rect(Core.atlas.find(this.name+"-top"), tile.drawx(), tile.drawy());
     Draw.color();
+    var cx=Core.camera.position.x; var cy=Core.camera.position.y;
+    this.blockcam(tile,cx,cy,tile.worldx(),tile.worldy());
+  },
+  blockcam(tile,cx,cy,x,y){
+    if(r==0&&y<=cy&&cy<=y+tilesize&&x-tilesize<cx&&cx<=x+tilesize/2){
+      Core.camera.position.set(x-tilesize,cy);
+    }
+    else if(y<=cy&&cy<=y+tilesize&&x+tilesize/2<=cx&&cx<x+2*tilesize){
+      Core.camera.position.set(x+2*tilesize,cy);
+    }
+    else if(x<=cx&&cx<=x+tilesize&&y+tilesize/2<=cy&&cy<y+2*tilesize){
+      Core.camera.position.set(cx,y+2*tilesize);
+    }
+    else if(r==3&&x<=cx&&cx<=x+tilesize&&cy>y-tilesize&&cy<=y+tilesize/2){
+      Core.camera.position.set(cx,y-tilesize);
+    }
   }
 });
