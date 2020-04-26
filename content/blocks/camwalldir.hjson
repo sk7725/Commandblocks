@@ -1,0 +1,21 @@
+localizedName: Directional Camera Wall
+description: "Acts as a one-way to the center of the camera. Much more stable. Place it right behind walls to make walls inpassable."
+size: 1
+breakable: true
+//consumesTap: true
+timers: 2
+update: true
+category: defense
+requirements: [
+plastanium/9
+phase-fabric/6
+graphite/3
+]
+sync: true
+expanded: true
+health: 600
+solid: true
+fillesTile: false
+hasShadow: false
+buildVisibility: sandboxOnly
+rotate: true
