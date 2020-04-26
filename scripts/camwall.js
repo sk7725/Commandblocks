@@ -1,5 +1,6 @@
 const placetick=80; const showtick=60; const showdelay=300; const placeid=0; const showid=1;
-var nearplaced=-1*(showtick+showdelay);
+this.global.camwall=-1*(showtick+showdelay);
+nearplaced=this.global.camwall;
 const camwall = extendContent(Block, "camwall", {
   placed(tile) {
     this.super$placed(tile);
@@ -8,8 +9,8 @@ const camwall = extendContent(Block, "camwall", {
     nearplaced=Time.time();
   },
   draw(tile) {
-    if(nearplaced&&tile.ent().timer.getTime(showid)==0) nearplaced=false;
-    if(nearplaced) tile.ent().timer.reset(showid,0);
+    //if(nearplaced&&tile.ent().timer.getTime(showid)==0) nearplaced=false;
+    //if(nearplaced) tile.ent().timer.reset(showid,0);
     Draw.color(Color.rgb(255,255,255).a(Math.max(0,placetick-tile.ent().timer.getTime(placeid))/placetick));
     Draw.rect(Core.atlas.find(this.name), tile.drawx(), tile.drawy());
     Draw.color(Color.rgb(255,255,255).a(Math.max(0,Math.min(showtick,showdelay+showtick-(Time.time()-nearplaced)))/showtick));
