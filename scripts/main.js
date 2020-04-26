@@ -16,6 +16,8 @@ require("posreaderjson");
 require("unitreader");
 require("unitcacher");
 
+require("camwall");
+
 require("playernote");
 require("playermusic");
 
