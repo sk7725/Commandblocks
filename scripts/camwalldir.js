@@ -1,7 +1,7 @@
 const placetick=80; const showtick=60; const showdelay=300; const placeid=0; const showid=1;
 this.global.camwall=-1*(showtick+showdelay);
-nearplaced=this.global.camwall;
-const t=this;
+var nearplaced=this.global.camwall;
+var t=this;
 const camwalldir = extendContent(Block, "camwalldir", {
   placed(tile) {
     this.super$placed(tile);
