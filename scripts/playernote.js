@@ -63,7 +63,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
     try{
       var soundblock=Vars.content.getByName(ContentType.block,soundlib+"-"+inst+"-"+(Math.floor((notein+9)/12)+4)+""+notes[notein %12]);
       if(instalt) soundblock.idleSound.play(600);
-      soundblock.activeSound.at(tile.worldx(),tile.worldy());
+      print("play:"+soundblock.activeSound.play(600));
     }
     catch(err){
       print(err);
