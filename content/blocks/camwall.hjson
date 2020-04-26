@@ -4,7 +4,7 @@ size: 1
 breakable: true
 //consumesTap: true
 timers: 2
-//update: true
+update: true
 category: defense
 requirements: [
 plastanium/6
