@@ -951,6 +951,10 @@ const commandblocks={
         }
         else throw "Missing params";
       break;
+      case 'getcam':
+        this.report((Core.camera.position.x/Vars.tilesize)+","(Core.camera.position.y/Vars.tilesize));
+        return true;
+      break;
       default:
         return false;
     }
