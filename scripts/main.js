@@ -17,6 +17,7 @@ require("unitreader");
 require("unitcacher");
 
 require("camwall");
+require("camwalldir");
 
 require("playernote");
 require("playermusic");
