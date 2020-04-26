@@ -1,0 +1,20 @@
+localizedName: Camera Wall
+description: "Collides with the center of the camera. Place it right behind walls to make walls inpassable."
+size: 1
+breakable: true
+//consumesTap: true
+timers: 2
+//update: true
+category: defense
+requirements: [
+plastanium/6
+phase-fabric/6
+graphite/6
+]
+sync: true
+expanded: true
+health: 600
+solid: true
+fillesTile: false
+hasShadow: false
+buildVisibility: sandboxOnly
