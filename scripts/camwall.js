@@ -22,7 +22,7 @@ const camwall = extendContent(Block, "camwall", {
     this.blockcam(tile,cx,cy,tile.worldx(),tile.worldy());
   },
   blockcam(tile,cx,cy,x,y){
-    if(r==0&&y<=cy&&cy<=y+tilesize&&x-tilesize<cx&&cx<=x+tilesize/2){
+    if(y<=cy&&cy<=y+tilesize&&x-tilesize<cx&&cx<=x+tilesize/2){
       Core.camera.position.set(x-tilesize,cy);
     }
     else if(y<=cy&&cy<=y+tilesize&&x+tilesize/2<=cx&&cx<x+2*tilesize){
@@ -31,7 +31,7 @@ const camwall = extendContent(Block, "camwall", {
     else if(x<=cx&&cx<=x+tilesize&&y+tilesize/2<=cy&&cy<y+2*tilesize){
       Core.camera.position.set(cx,y+2*tilesize);
     }
-    else if(r==3&&x<=cx&&cx<=x+tilesize&&cy>y-tilesize&&cy<=y+tilesize/2){
+    else if(x<=cx&&cx<=x+tilesize&&cy>y-tilesize&&cy<=y+tilesize/2){
       Core.camera.position.set(cx,y-tilesize);
     }
   }
