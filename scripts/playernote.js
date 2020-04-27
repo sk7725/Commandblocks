@@ -7,7 +7,7 @@ const increment=1.05946309;
 const tincrement=0.01;
 //const soundcontent=Sounds.pew.getContentType();
 const soundlib="sound-lib";
-const this=t;
+var t=this;
 
 const soundwave = newEffect(20, e => {
   Draw.color(e.color);
