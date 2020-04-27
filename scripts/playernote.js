@@ -23,11 +23,11 @@ const playernote = extendContent(MessageBlock, "playernote", {
 	},
   buildConfiguration(tile, table){
 		table.addImageButton(Icon.upOpen, Styles.clearTransi, run(() => {
-			
+
 			tile.configure(1)
 		})).size(40);
 		table.addImageButton(Icon.downOpen, Styles.clearTransi, run(() => {
-			
+
 			tile.configure(-1)
 		})).size(40);
 	},
@@ -64,9 +64,9 @@ const playernote = extendContent(MessageBlock, "playernote", {
       var soundblock=Vars.content.getByName(ContentType.block,soundlib+"-"+inst+"-"+(Math.floor((notein+9)/12)+4)+""+notes[notein %12]);
       if(instalt) soundblock.idleSound.play(600);
       else{
-        soundblock.activeSound.play(60);
-        soundblock.activeSound.play(60);
-        soundblock.activeSound.play(60);
+        var sound=soundblock.activeSound;
+        Vars.ui.showInfoToast(sound,1);
+        sound.play(60);
       }
     }
     catch(err){
@@ -92,7 +92,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
 	},
   update(tile){
     var entity=tile.ent();
-    
+
     var key=tile.x+","+tile.y;
     if(!noteblocks.hasOwnProperty(key)) this.loadkey(tile);
     var nblock=noteblocks[key];
