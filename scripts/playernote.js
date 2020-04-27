@@ -49,7 +49,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
 	},
   playnote(tile,notein){
     //play&fx
-    var near = Vars.world.tile(tile.x,tile.y-1);
+    var near = Vars.world.tile(tile.x,tile.y-1).block().name;
     var red=-1*Math.abs(250*(notein-14)/14)+250;
     var green=Math.abs(250*(notein-21)/14)-125;
     var blue=-1*Math.abs(250*(notein-28)/14)+250;
@@ -78,12 +78,12 @@ const playernote = extendContent(MessageBlock, "playernote", {
       Vars.ui.showInfoToast(soundlib+" is needed!",1);
     }
     */
-    if(near=="copperWall") instnum=1;
-    if(near=="titaniumWall") instnum=2;
-    if(near=="plastaniumWall") instnum=3;
-    if(near=="thoriumWall") instnum=4;
-    if(near=="phaseWall") instnum=5;
-    if(near=="surgeWall") instnum=6;
+    if(near=="copper-wall") instnum=1;
+    if(near=="titanium-wall") instnum=2;
+    if(near=="plastanium-wall") instnum=3;
+    if(near=="thorium-wall") instnum=4;
+    if(near=="phase-wall") instnum=5;
+    if(near=="surge-wall") instnum=6;
     if(near=="door") instnum=7;
     var calcpitch=0.5*Math.pow(increment,notein);
     Sounds[instruments[instnum]].at(tile.worldx(),tile.worldy(),calcpitch);
