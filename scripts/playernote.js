@@ -1,7 +1,9 @@
 var noteblocks={};
 const notes=["a","as","b","c","cs","d","ds","e","f","fs","g","gs"];
-const instruments=["piano"];
+//const instruments=["piano"];
+const instruments=["buttonClick","pew","message","bigshot","splash","unlock","click"];
 const notelength=36;
+const increment=1.0594631;
 //const soundcontent=Sounds.pew.getContentType();
 const soundlib="sound-lib";
 const soundwave = newEffect(20, e => {
@@ -55,6 +57,8 @@ const playernote = extendContent(MessageBlock, "playernote", {
     Effects.effect(soundwave,Color.rgb(Math.max(Math.floor(red),0),Math.max(Math.floor(green),0),Math.max(Math.floor(blue),0)),tile.worldx(),tile.worldy());
     var instnum=0;
     //if else near block to int
+    /*
+    //revisit later
     var inst=instruments[instnum]; var instalt=false;
     if(inst.substring(inst.length-4,inst.length)=="-alt"){
       instalt=true;
@@ -73,6 +77,16 @@ const playernote = extendContent(MessageBlock, "playernote", {
       print(err);
       Vars.ui.showInfoToast(soundlib+" is needed!",1);
     }
+    */
+    if(near=="copperWall") instnum=1;
+    if(near=="titaniumWall") instnum=2;
+    if(near=="plastaniumWall") instnum=3;
+    if(near=="thoriumWall") instnum=4;
+    if(near=="phaseWall") instnum=5;
+    if(near=="surgeWall") instnum=6;
+    if(near=="door") instnum=7;
+    var calcpitch=0.5*Math.pow(increment,notein);
+    Sounds[instruments[instnum]].at(tile.worldx(),tile.worldy(),calcpitch);
   },
   placed(tile) {
 		this.super$placed(tile);
