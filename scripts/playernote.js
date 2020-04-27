@@ -1,7 +1,7 @@
 var noteblocks={};
 const notes=["a","as","b","c","cs","d","ds","e","f","fs","g","gs"];
 //const instruments=["piano"];
-const instruments=["buttonClick","pew","message","bigshot","splash","unlock","click"];
+const instruments=["buttonClick","pew","message","bigshot","flame","splash","unlock","click"];
 const notelength=36;
 const increment=1.05946309;
 //const soundcontent=Sounds.pew.getContentType();
