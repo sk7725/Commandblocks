@@ -3,7 +3,7 @@ const notes=["a","as","b","c","cs","d","ds","e","f","fs","g","gs"];
 //const instruments=["piano"];
 const instruments=["buttonClick","pew","message","bigshot","splash","unlock","click"];
 const notelength=36;
-const increment=1.0594631;
+const increment=1.05946309;
 //const soundcontent=Sounds.pew.getContentType();
 const soundlib="sound-lib";
 const soundwave = newEffect(20, e => {
