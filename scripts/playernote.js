@@ -91,7 +91,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
     if(near=="mender") instnum=11;
     if(near=="shock-mine") instnum=12;
     if(near=="liquid-router") instnum=13;
-    if(near=="liquid-junction") instnum=14;oar notes
+    if(near=="liquid-junction") instnum=14;
     var calcpitch=0.5*Math.pow(increment,notein);
     Sounds[instruments[instnum]].at(tile.worldx(),tile.worldy(),calcpitch);
   },
