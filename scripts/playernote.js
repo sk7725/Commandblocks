@@ -49,7 +49,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
 	},
   playnote(tile,notein){
     //play&fx
-    var near = Vars.world.tile(tile.x,tile.y-1).block();
+    var near = Vars.world.tile(tile.x,tile.y-1);
     var red=-1*Math.abs(250*(notein-14)/14)+250;
     var green=Math.abs(250*(notein-21)/14)-125;
     var blue=-1*Math.abs(250*(notein-28)/14)+250;
