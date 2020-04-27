@@ -1,0 +1,13 @@
+
+size: 1
+breakable: true
+update: true
+category: defense
+requirements: [
+  plastanium/10
+  silicon/20
+]
+sync: true
+expanded: true
+health: 50
+configurable: true

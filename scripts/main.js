@@ -20,6 +20,7 @@ require("camwall");
 require("camwalldir");
 
 require("playernote");
+require("playertune");
 require("playermusic");
 
 require("button");
