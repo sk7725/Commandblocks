@@ -1,7 +1,7 @@
 var noteblocks={};
 const notes=["a","as","b","c","cs","d","ds","e","f","fs","g","gs"];
 //const instruments=["piano"];
-const instruments=["buttonClick","pew","message","bigshot","flame","splash","unlock","click"];
+const instruments=["buttonClick","pew","message","bigshot","flame","splash","unlock","door","place","explosion","click","windowHide","laser","artillery","spray"];
 const notelength=36;
 const increment=1.05946309;
 //const soundcontent=Sounds.pew.getContentType();
@@ -85,6 +85,13 @@ const playernote = extendContent(MessageBlock, "playernote", {
     if(near=="phase-wall") instnum=5;
     if(near=="surge-wall") instnum=6;
     if(near=="door") instnum=7;
+    if(near=="router") instnum=8;
+    if(near=="junction") instnum=9;
+    if(near=="sorter") instnum=10;
+    if(near=="mender") instnum=11;
+    if(near=="shock-mine") instnum=12;
+    if(near=="liquid-router") instnum=13;
+    if(near=="liquid-junction") instnum=14;oar notes
     var calcpitch=0.5*Math.pow(increment,notein);
     Sounds[instruments[instnum]].at(tile.worldx(),tile.worldy(),calcpitch);
   },
