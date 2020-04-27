@@ -1,5 +1,4 @@
-name: Camera Wall
-description: "Acts as a wall to the center of the camera. Can be ignored with a fast enough screen swipe. Place it right behind walls to make walls inpassable."
+
 size: 1
 breakable: true
 //consumesTap: true

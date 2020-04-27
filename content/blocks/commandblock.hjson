@@ -1,5 +1,4 @@
-name: Command Block
-description: Executes command once when power requirements are met.
+
 size: 1
 breakable: true
 update: true

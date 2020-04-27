@@ -1,5 +1,4 @@
-name: Announcement
-description: "Stores a message, only admins may write. Used for announcements from the admins."
+
 size: 1
 breakable: true
 configurable: true

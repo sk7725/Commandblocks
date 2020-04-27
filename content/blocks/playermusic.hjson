@@ -1,5 +1,4 @@
-name: Music Player
-description: "Plays an array of notes. First, specify the BPM, then the notes seperated by spaces, using x for rests. End the note with - for double length, and / for half(these may be stacked).\n[red]The mod sound-lib needs to be active to work![]"
+
 size: 2
 breakable: true
 update: true

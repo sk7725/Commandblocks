@@ -1,5 +1,4 @@
-name: Detecting Router
-description: "Produces power when holding items."
+
 size: 1
 breakable: true
 //consumesTap: true
