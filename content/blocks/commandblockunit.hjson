@@ -1,4 +1,4 @@
-localizedName: Unit Command Block
+name: Unit Command Block
 description: Executes command as an unit, for the unit stepping on this block.
 size: 1
 breakable: true

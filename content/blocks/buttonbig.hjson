@@ -1,4 +1,4 @@
-localizedName: Large Button
+name: Large Button
 description: "Produces power when clicked. \nNow easier to tap!"
 size: 2
 breakable: true

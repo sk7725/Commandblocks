@@ -1,4 +1,4 @@
-localizedName: Position Reader
+name: Position Reader
 description: Gets the x and y coordinates where this block is placed.
 size: 1
 breakable: true

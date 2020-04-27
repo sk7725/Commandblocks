@@ -1,4 +1,4 @@
-localizedName: Pressure Plate
+name: Pressure Plate
 description: "Produces power when stepped on."
 size: 1
 breakable: true

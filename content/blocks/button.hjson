@@ -1,4 +1,4 @@
-localizedName: Button
+name: Button
 description: "Produces power when clicked."
 size: 1
 breakable: true

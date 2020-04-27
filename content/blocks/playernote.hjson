@@ -1,4 +1,4 @@
-localizedName: Note Player
+name: Note Player
 description: "Plays a note when the power requirement is met. Instrument changes depending on the wall under it.\n[red]The mod sound-lib needs to be active to work![]"
 size: 1
 breakable: true

@@ -1,4 +1,4 @@
-localizedName: Chained Command Block
+name: Chained Command Block
 description: Executes command when the command block it is facing away from has executed successfully.
 size: 1
 breakable: true

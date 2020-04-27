@@ -1,4 +1,4 @@
-localizedName: Directional Camera Wall
+name: Directional Camera Wall
 description: "Acts as a one-way to the center of the camera. Much more stable. Place it right behind walls to make walls inpassable."
 size: 1
 breakable: true

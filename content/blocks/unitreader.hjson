@@ -1,4 +1,4 @@
-localizedName: Unit Reader
+name: Unit Reader
 description: "Reads the last unit that stepped on this tile."
 size: 1
 breakable: true
