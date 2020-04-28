@@ -278,6 +278,11 @@ This is the full list of blocks, as of version 104.
   //upgrades
   dartPad, deltaPad, tauPad, omegaPad, javelinPad, tridentPad, glaivePad;
   ```
+## Item List   
+This is the full list of items, as of version 104.   
+  ```
+  scrap, copper, lead, graphite, coal, titanium, thorium, silicon, plastanium, phasefabric, surgealloy, sporePod, sand, blastCompound, pyratite, metaglass;   
+  ```
   
 ## Particle List   
 This is the full list of effects, as of version 104.   
