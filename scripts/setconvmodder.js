@@ -33,6 +33,7 @@ const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
   },
   draw(tile){
     var i=Math.floor(Time.time() * t.global.setconvspeed * 8.0 * speedmul) % 4;
+    if(i<0) i=Math.abs(i)%4;
     var n=Number(tile.ent().message);
     //print(n);
     Draw.rect(Core.atlas.find(this.name.substring(0,this.name.length-6)+"-0-"+i), tile.drawx(), tile.drawy());
