@@ -1,5 +1,6 @@
 var gamerule={};
 gamerule.commandBlockOutput=true;
+gamerule.doCommands=true;
 gamerule.commandBlockTitle=false;
 var effectextended={};
 
@@ -424,6 +425,7 @@ const commandblocks={
       args = args.splice(1);
     }
   try{
+    if(gamerule.doCommands==false&&cmd!="gamerule") return false;
     switch(cmd){
       case 'overwrite':
         parentthis.setMessageBlockText(null,tile,args.join(' '));
