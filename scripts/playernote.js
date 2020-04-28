@@ -133,3 +133,20 @@ const playernote = extendContent(MessageBlock, "playernote", {
     else if(nblock.p) noteblocks[key].p=false;
   }
 });
+
+playernote.entityType=prov(()=>extendContent(MessageBlock.MessageBlockEntity,playernote,{
+  config(){
+    return this.message;
+  }
+}));
+
+//itemdet.entityType=prov(()=>extendContent(Sorter.SorterEntity,itemdet,{
+//     getProp(){
+//         return this._prop;
+//     },
+//     setProp(a){
+//         this._prop=a;
+//     },
+//     _prop:false,
+//_tick:0,
+//}))
