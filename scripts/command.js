@@ -323,6 +323,10 @@ const commandblocks={
       return;
     }
     var seff= extendContent(StatusEffect,eff+"-"+intensity+"-"+hidep,{});
+    seff.speedMultiplier=1;
+    seff.damageMultiplier=1;
+    seff.armorMultiplier=1;
+    seff.damage=0;
     var seffcolor= Color.valueOf("ffffff");
     switch(eff.trim()){
       case "speed":
