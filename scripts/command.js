@@ -131,6 +131,43 @@ const commandblocks={
       //Vars.unitGroup.all().eachFilter(boolf(e => !true));
       //return Units.closest(tile.getTeam(), tile.drawx(), tile.drawy(), repairRadius,unit -> unit.health < unit.maxHealth());
       //if(ptile instanceof Tile) return ptile.block().Units.closest(steam, ptile.drawx(), ptile.drawy(), sr,true);
+      var sx=-1; var sy=-1; var dx=1; var dy=1;
+      for(var i=0;i<selectors.length;i++){
+        var tmparr=selectors[i].split("=");
+        if(tmparr.length!=2) continue;
+        var se=tmparr[1].trim();
+        var invert=false;
+        if(se.substring(0,1)=="-"){
+          invert=true;
+          se=se.substring(1,se.length);
+        }
+        switch(tmparr[0].trim()){
+          case "team":
+            var targetteam=this.settype(ptile,pthis,"team:"+se);
+            if(invert) ret.eachFilter(boolf(e=>(e.team==targetteam)));
+            else ret.eachFilter(boolf(e=>(e.team!=targetteam)));
+          break;
+          case "name":
+            if(invert) ret.eachFilter(boolf(e=>(e.team==se)));
+            else ret.eachFilter(boolf(e=>(e.team!=se)));
+          break;
+          case "x":
+            if(Number(se)>=0) sx=Number(se);
+          break;
+          case "y":
+            if(Number(se)>=0) sy=Number(se);
+          break;
+          case "dx":
+            if(Number(se)>=1) dx=Number(se);
+          break;
+          case "dy":
+            if(Number(se)>=1) dy=Number(se);
+          break;
+        }
+      }
+      if(sx>-1) ret.eachFilter(boolf(e=>!(e.x>=sx*Vars.tilesize&&e.x<(sx+dx)*Vars.tilesize)));
+      if(sy>-1) ret.eachFilter(boolf(e=>!(e.x>=sy*Vars.tilesize&&e.x<(sy+dy)*Vars.tilesize)));
+
       if(ret.toArray().length==0) obj.r= null;
       else if(ret.toArray().length==1) obj.r= ret.toArray()[0];
       else{
@@ -172,7 +209,7 @@ const commandblocks={
         case "@t":
           obj.r= pthis;
         break;
-        case "@p":
+        case "@tp":
           obj.r= Vars.player;
         break;
         case "@a":
@@ -194,7 +231,15 @@ const commandblocks={
           }
         break;
         default:
-          obj.r= intarget;
+          var ret=Vars.playerGroup.all();
+          ret.eachFilter(boolf(e=>(e.name!=intarget)));
+          if(ret.toArray().length==0) obj.r= intarget;
+          else if(ret.toArray().length==1) obj.r= ret.toArray()[0];
+          else{
+            obj.r= ret;
+            obj.a=true;
+          }
+          //obj.r= intarget;
       }
     }
     return obj;

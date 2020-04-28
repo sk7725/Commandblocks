@@ -16,6 +16,9 @@ const commandblockchained = extendContent(MessageBlock, "commandblockchained", {
     }
     return tmpobj;
   },
+  shouldShowConfigure(tile, player){
+    return player.isLocal||player.isAdmin;
+  },
   update(tile){
     var entity=tile.ent();
     var key=tile.x+","+tile.y;
@@ -45,3 +48,9 @@ const commandblockchained = extendContent(MessageBlock, "commandblockchained", {
     delete commandblocksc[key];
   }
 });
+
+commandblockchained.entityType=prov(()=>extendContent(MessageBlock.MessageBlockEntity,commandblockchained,{
+  config(){
+    return this.message;
+  }
+}));

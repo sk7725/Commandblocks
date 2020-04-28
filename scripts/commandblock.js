@@ -4,6 +4,9 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
     this.super$init();
 		//tile.didcmd = false;
 	},
+  shouldShowConfigure(tile, player){
+    return player.isLocal||player.isAdmin;
+  },
   update(tile){
     var entity=tile.ent();
     var key=tile.x+","+tile.y;
@@ -34,3 +37,9 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
     delete commandblocksi[key];
   }
 });
+
+commandblock.entityType=prov(()=>extendContent(MessageBlock.MessageBlockEntity,commandblock,{
+  config(){
+    return this.message;
+  }
+}));

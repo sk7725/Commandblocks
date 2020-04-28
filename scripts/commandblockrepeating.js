@@ -16,9 +16,18 @@ const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating
       return;
     }
   },
+  shouldShowConfigure(tile, player){
+    return player.isLocal||player.isAdmin;
+  },
   removed(tile){
     this.super$removed(tile);
     var key=tile.x+","+tile.y;
     delete commandblocksr[key];
   }
 });
+
+commandblockrepeating.entityType=prov(()=>extendContent(MessageBlock.MessageBlockEntity,commandblockrepeating,{
+  config(){
+    return this.message;
+  }
+}));
