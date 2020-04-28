@@ -2,7 +2,7 @@
 
 var t=this;
 const resetspeed=0.2;
-const speedmul=1;
+const speedmul=0.1;
 
 t.global.setconvload=false;
 t.global.setconvspeed=resetspeed;
