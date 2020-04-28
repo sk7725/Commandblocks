@@ -1,7 +1,8 @@
 # Commandblocks   
 Mindustry Command Block Mod(MCBM)   
 This mod adds Minecraft-like Command Blocks, along with other blocks.   
-This is currently in development.
+This is currently in development.   
+`As of 4.0, Command Blocks require you to be an Admin or Local player to edit.`   
 
 ## Blocks
 + Command Block   
@@ -39,6 +40,9 @@ TileEntity{tile=tile, health=health}
 Gets the information of the mod.   
 + Note Player   
 Plays a note when the power requirement is met. Instrument changes depending on the wall under it.   
+All walls, door, router, junction, sorter, mender, shock mine, liquid router and junction, and unloaders have different instruments.   
++ Note Tuner   
+Tunes a note. The instrument that will be tune depends on the block under it.   
 + Music Player   
 Plays an array of notes. First, specify the BPM, then the notes seperated by spaces, using x for rests. End the note with - for double length, and / for half(these may be stacked).   
 ```
@@ -52,6 +56,12 @@ Produces power when stepped on. The large pressure plate can detect flying units
 Produces power when holding items. Works like its original counterpart.   
 + Announcement   
 Works like the Message but it can only be written by the admins.   
++ Camera Wall   
+Acts as a wall to the center of the camera. Can be ignored with a fast enough screen swipe.   
+The hitbox is 3x3, one block to all four directions. Turns off if it is not rendered(minimap open, or out of screen).      
++ Directional Camera Wall   
+Acts as a one-way to the center of the camera. Much more stable.   
+The hitbox is 1 in width, and stretches infinitely to the back, making it more stable.   
 
 ## Commands
 Commands will fail to work when an error happens, params are invalid , or requirements below are not made.   
@@ -202,13 +212,19 @@ For a param that is not a string/int, the following syntax may be used for some 
 `@c[tagname]` A cache of the unit tagged by the Unit Tagger.   
 `x,y` The tile at the position.   
 `@e` All entities. Tile entities are excluded by default. Target arguments may be used(WIP!).   
+A string will refer to a player with that name.   
 
 ### Target Arguments(WIP!)   
 Target arguments filter targets.   
 The format is `[argument1=value,argument2=value,...]`, and `=!` may replace `=` to exclude, not include.   
 Use it next to Target Selectors with no whitespace in between. For example: `@e[type=unit]`.   
-+ type   
-`player` `unit`(excludes players) `mob`(players&units) `bullet` `tile`(tile entity, not a tile) `effect` `groundEffect` `alleffect`(effects&groundEffects) `puddle` `shield` `fire`   
++ type(string)   
+  `player` `unit`(excludes players) `mob`(players&units) `bullet` `tile`(tile entity, not a tile) `effect` `groundEffect` `alleffect`(effects&groundEffects) `puddle` `shield` `fire`   
++ name(string)   
++ team(int)   
+  -1 for the team of the executor.   
++ x y dx dy(pos)
+  filters in a rectangle, refer [here](https://minecraft.gamepedia.com/Commands#Target_selector_arguments).   
 
 ## Block List   
 This is the full list of blocks, as of version 104.   
