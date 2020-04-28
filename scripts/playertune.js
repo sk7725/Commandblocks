@@ -22,11 +22,11 @@ const playertune = extendContent(MessageBlock, "playertune", {
 		//tile.didcmd = false;
 	},
   buildConfiguration(tile, table){
-		table.addImageButton(Icon.upOpen, Styles.clearTransi, run(() => {
+		table.addImageButton(Icon.upOpen, run(() => {
 
 			tile.configure(1)
 		})).size(40);
-		table.addImageButton(Icon.downOpen, Styles.clearTransi, run(() => {
+		table.addImageButton(Icon.downOpen, run(() => {
 
 			tile.configure(-1)
 		})).size(40);
@@ -89,3 +89,9 @@ const playertune = extendContent(MessageBlock, "playertune", {
     }
   }
 });
+
+playertune.entityType=prov(()=>extendContent(MessageBlock.MessageBlockEntity,playertune,{
+  config(){
+    return this.message;
+  }
+}));
