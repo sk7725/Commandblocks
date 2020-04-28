@@ -1,0 +1,12 @@
+
+size: 1
+breakable: true
+update: true
+category: distribution
+requirements: [
+  phase-fabric/10
+  silicon/20
+]
+sync: true
+health: 150
+configurable: true

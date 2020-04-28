@@ -31,3 +31,4 @@ require("buttonrouter");
 require("buttonrouterbig");
 
 require("setconv");
+require("setconvmodder");
