@@ -29,3 +29,5 @@ require("buttonpad");
 require("buttonpadbig");
 require("buttonrouter");
 require("buttonrouterbig");
+
+require("setconv");
