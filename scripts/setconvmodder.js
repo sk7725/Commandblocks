@@ -10,7 +10,7 @@ t.global.setconvspeed=resetspeed;
 const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
   buildConfiguration(tile, table){
     this.super$buildConfiguration(tile,table);
-		table.addImageButton(Icon.undo, Styles.clearTransi, run(() => {
+		table.addImageButton(Icon.undo, run(() => {
 
 			this.setMessageBlockText(null,tile,resetspeed+"");
       t.global.setconvspeed=resetspeed;
