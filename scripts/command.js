@@ -166,7 +166,7 @@ const commandblocks={
         }
       }
       if(sx>-1) ret.eachFilter(boolf(e=>!(e.x>=sx*Vars.tilesize&&e.x<(sx+dx)*Vars.tilesize)));
-      if(sy>-1) ret.eachFilter(boolf(e=>!(e.x>=sy*Vars.tilesize&&e.x<(sy+dy)*Vars.tilesize)));
+      if(sy>-1) ret.eachFilter(boolf(e=>!(e.y>=sy*Vars.tilesize&&e.y<(sy+dy)*Vars.tilesize)));
 
       if(ret.toArray().length==0) obj.r= null;
       else if(ret.toArray().length==1) obj.r= ret.toArray()[0];
