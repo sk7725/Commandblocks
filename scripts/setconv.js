@@ -7,7 +7,7 @@ const setconv = extendContent(Conveyor, "setconv", {
 			print("Speed updated to "+this.speed);
 		}
 		this.super$draw(tile);
-	}
+	},
 	update(tile){
 		if(this.speed!=t.global.setconvspeed*0.1){
 			this.speed=t.global.setconvspeed*0.1;
