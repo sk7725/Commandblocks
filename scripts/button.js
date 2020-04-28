@@ -1,4 +1,4 @@
-const presstick=40; const timerid=0;
+const presstick=15; const timerid=0;
 const button = extendContent(Block, "button", {
   placed(tile) {
     this.super$placed(tile);
