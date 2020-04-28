@@ -151,6 +151,10 @@ const commandblocks={
             if(invert) ret.eachFilter(boolf(e=>(e.team==se)));
             else ret.eachFilter(boolf(e=>(e.team!=se)));
           break;
+          case "tilename":
+            if(invert) ret.eachFilter(boolf(e=>(e.block.name==se)));
+            else ret.eachFilter(boolf(e=>(e.block.name!=se)));
+          break;
           case "x":
             if(Number(se)>=0) sx=Number(se);
           break;
