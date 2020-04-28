@@ -41,7 +41,7 @@ const commandblocks={
         selectors=intarget.substring(3,intarget.length-1).split(",");
       }
       if(selectors.length>0){
-        stype=selectors.find(e => e.split("=")[0].trim()=="type").split("=")[1].trim();
+        if(selectors.find(e => e.split("=")[0].trim()=="type")!=undefined&&selectors.find(e => e.split("=")[0].trim()=="type")!=null) stype=selectors.find(e => e.split("=")[0].trim()=="type").split("=")[1].trim();
       }
       var soppo=false;
       if(stype.substring(0,1)=="!"){
