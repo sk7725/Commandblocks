@@ -1,7 +1,7 @@
 
 
 var t=this;
-const resetspeed=1;
+const resetspeed=0.2;
 const speedmul=1;
 
 t.global.setconvload=false;
@@ -33,6 +33,7 @@ const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
   },
   draw(tile){
     var i=(Time.time() * t.global.setconvspeed * 8.0 * speedmul) % 4;
+    print("setconv-0-"+i);
     Draw.rect(Core.atlas.find("setconv-0-"+i), tile.drawx(), tile.drawy());
     Draw.rect(Core.atlas.find(this.name + "-top"), tile.drawx(), tile.drawy());
   }

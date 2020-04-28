@@ -1,5 +1,5 @@
 var t=this;
-t.global.setconvspeed=1;
+t.global.setconvspeed=0.2;
 const setconv = extendContent(Conveyor, "setconv", {
 	update(tile){
 		this.speed=t.global.setconvspeed;
