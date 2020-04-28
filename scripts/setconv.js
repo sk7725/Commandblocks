@@ -6,3 +6,5 @@ const setconv = extendContent(Conveyor, "setconv", {
 		this.super$update(tile);
 	}
 });
+setconv.idleSound=Sounds.none;
+setconv.idleSoundVolume=0;

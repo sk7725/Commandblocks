@@ -34,8 +34,8 @@ const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
   draw(tile){
     var i=Math.floor(Time.time() * t.global.setconvspeed * 8.0 * speedmul) % 4;
     var n=Number(tile.ent().message);
-    print(n);
-    Draw.rect(Core.atlas.find("setconv-0-"+i), tile.drawx(), tile.drawy());
+    //print(n);
+    Draw.rect(Core.atlas.find(this.name.substring(0,this.name.length-6)+"-0-"+i), tile.drawx(), tile.drawy());
     Draw.rect(Core.atlas.find(this.name + "-top"), tile.drawx(), tile.drawy());
   }
 });
