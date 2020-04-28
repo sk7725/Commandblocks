@@ -102,9 +102,9 @@ const commandblocks={
         return obj;
       }
 
-      var ret=Vars[types[0]+"Group"].all();
+      var ret=Vars[types[0]+"Group"].all().copy();
       for(var i=1;i<types.length;i++){
-        ret.addAll(Vars[types[i]+"Group"].all());
+        ret.addAll(Vars[types[i]+"Group"].all().copy());
       }
       /*
       for(var i=0;i<selectors.length;i++){
@@ -213,7 +213,7 @@ const commandblocks={
           obj.r= Vars.player;
         break;
         case "@a":
-          var ret=Vars.playerGroup.all();
+          var ret=Vars.playerGroup.all().copy();
           if(ret.toArray().length==0) obj.r= null;
           else if(ret.toArray().length==1) obj.r= ret.toArray()[0];
           else{
@@ -222,7 +222,7 @@ const commandblocks={
           }
         break;
         case "@u":
-          var ret=Vars.unitGroup.all();
+          var ret=Vars.unitGroup.all().copy();
           if(ret.toArray().length==0) obj.r= null;
           else if(ret.toArray().length==1) obj.r= ret.toArray()[0];
           else{
@@ -231,7 +231,7 @@ const commandblocks={
           }
         break;
         default:
-          var ret=Vars.playerGroup.all();
+          var ret=Vars.playerGroup.all().copy();
           ret.eachFilter(boolf(e=>(e.name!=intarget)));
           if(ret.toArray().length==0) obj.r= intarget;
           else if(ret.toArray().length==1) obj.r= ret.toArray()[0];
