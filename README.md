@@ -80,7 +80,7 @@ Emits text to all players.
     Shows the text as a popup at x,y.   
   + /title pos:x pos:y string:functionname (arguments)    
   Runs an UI function called functionname that can show text in various forms.   
-  Refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/core/UI.java) for the list of functions.   
+  Refer [here](https://github.com/Anuken/Mindustry/blob/v104.6/core/src/mindustry/core/UI.java) for the list of functions.   
 
 ### /overwrite string:text  
 Overwrites this command block's content to text.
@@ -106,7 +106,7 @@ Fails if the executed command fails, or the tile or entity is not found.
   
 ### /f(/function) string:functionname (arguments)
 Runs a function of the executor called functionname. Fails if the executor is neither a tile nor an unit.     
-Refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/world/Tile.java) for the list of functions (if executor is a Tile), or [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/entities/type/Unit.java) (if executor is an Unit).   
+Refer [here](https://github.com/Anuken/Mindustry/blob/v104.6/core/src/mindustry/world/Tile.java) for the list of functions (if executor is a Tile), or [here](https://github.com/Anuken/Mindustry/blob/v104.6/core/src/mindustry/entities/type/Unit.java) (if executor is an Unit).   
 Can only be used inside an /execute.   
   + Example   
   ```
@@ -116,7 +116,7 @@ Can only be used inside an /execute.
   ```
 ### /fb(/functionblock) string:functionname (arguments)
 Runs a function of the block of the executor called functionname. Fails if the executor is not a tile.   
-Refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/world/Block.java) or [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/world/BlockStorage.java) for the list of functions.   
+Refer [here](https://github.com/Anuken/Mindustry/blob/v104.6/core/src/mindustry/world/Block.java) or [here](https://github.com/Anuken/Mindustry/blob/v104.6/core/src/mindustry/world/BlockStorage.java) for the list of functions.   
 Can only be used inside an /execute.   
   + Example   
   ```
@@ -126,7 +126,7 @@ Can only be used inside an /execute.
 
 ### /fe(/functionent) string:functionname (arguments)
 Runs a function of the tile entity of the executor called functionname. Fails if the executor is not a tile.   
-Refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/entities/type/TileEntity.java) for the list of functions.   
+Refer [here](https://github.com/Anuken/Mindustry/blob/v104.6/core/src/mindustry/entities/type/TileEntity.java) for the list of functions.   
 Can only be used inside an /execute.   
   + Example   
   ```
@@ -140,7 +140,7 @@ Fails if no such gamerule exists, or state is not specified and the current stat
 `commandBlockOutput` whether to log command failures in multiplayer chat.   
 `commandBlockTitle` whether to log command failures as a popup.   
 `setWave` sets current wave.   
-For more gamerules, refer [here](https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/game/Rules.java).   
+For more gamerules, refer [here](https://github.com/Anuken/Mindustry/blob/v104.6/core/src/mindustry/game/Rules.java).   
 
 ### /fx(/particle) string:effect (pos:x pos:y) (string:color)   
 Plays particle effects on the given position. Fails if coordinates are below 0.   
@@ -223,7 +223,7 @@ Use it next to Target Selectors with no whitespace in between. For example: `@e[
 + name(string)   
 + team(int)   
   -1 for the team of the executor.   
-+ x y dx dy(pos)
++ x y dx dy(pos)   
   filters in a rectangle, refer [here](https://minecraft.gamepedia.com/Commands#Target_selector_arguments).   
 
 ## Block List   
