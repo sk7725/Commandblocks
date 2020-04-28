@@ -985,14 +985,14 @@ const commandblocks={
             if(target.a){
               var res=true;
               target.r.each(cons(ent => {
-                  if (ent instanceof Unit) {
+                  if (ent instanceof Unit||ent instanceof Bullet) {
                       this.cmdtp(ent,cx,cy,facing,facingrelative);
                   }
                   else res=false;
               }));
               return res;
             }
-            else if(target.r instanceof Unit){
+            else if(target.r instanceof Unit||ent instanceof Bullet){
               this.cmdtp(target.r,cx,cy,facing,facingrelative);
               return true;
             }
