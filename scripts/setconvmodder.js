@@ -20,16 +20,16 @@ const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
   placed(tile) {
 		this.super$placed(tile);
     this.setMessageBlockText(null,tile,resetspeed+"");
-    var instnum=this.getinst(tile);
     t.global.setconvspeed=resetspeed;
     t.global.setconvload=true;
 	},
   update(tile){
+    var n=Number(tile.ent().message);
     if(!t.global.setconvload){
-      var n=Number(tile.ent().message);
       t.global.setconvspeed=n;
       t.global.setconvload=true;
     }
+    if(t.global.setconvspeed!=n) t.global.setconvspeed=n;
   },
   draw(tile){
     var i=(Time.time() * t.global.setconvspeed * 8.0 * speedmul) % 4;
