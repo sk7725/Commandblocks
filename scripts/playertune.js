@@ -90,7 +90,7 @@ const playertune = extendContent(MessageBlock, "playertune", {
   }
 });
 
-playertune.entityType=prov(()=>extend(MessageBlock.MessageBlockEntity,{
+playertune.entityType=prov(()=>extendContent(MessageBlock.MessageBlockEntity,playernote,{
   config(){
     return this.message;
   }
