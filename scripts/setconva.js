@@ -7,7 +7,7 @@ const setconva = extendContent(ArmoredConveyor, "setconva", {
 		if(t.global.setconvchangeda){
 			this.speed=t.global.setconvspeed*0.1;
 			t.global.setconvchangeda=false;
-			print("speed is now:"+this.speed);
+			//print("speed is now:"+this.speed);
 		}
 		this.super$update(tile);
 	}
