@@ -6,6 +6,8 @@ const speedmul=0.1;
 
 t.global.setconvload=false;
 t.global.setconvspeed=resetspeed;
+t.global.setconvchanged=false;
+t.global.setconvchangeda=false;
 
 const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
   buildConfiguration(tile, table){
@@ -15,19 +17,21 @@ const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
 			this.setMessageBlockText(null,tile,resetspeed+"");
       t.global.setconvspeed=resetspeed;
       t.global.setconvload=true;
+      t.global.setconvchanged=true;
+      t.global.setconvchangeda=true;
 		})).size(40);
 	},
   placed(tile) {
 		this.super$placed(tile);
     this.setMessageBlockText(null,tile,resetspeed+"");
-    t.global.setconvspeed=resetspeed;
-    t.global.setconvload=true;
 	},
   update(tile){
     var n=Number(tile.ent().message);
     if(!t.global.setconvload){
       t.global.setconvspeed=n;
       t.global.setconvload=true;
+      t.global.setconvchanged=true;
+      t.global.setconvchangeda=true;
     }
     if(t.global.setconvspeed!=n) t.global.setconvspeed=n;
   },
