@@ -33,7 +33,11 @@ const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
       t.global.setconvchanged=true;
       t.global.setconvchangeda=true;
     }
-    if(t.global.setconvspeed!=n) t.global.setconvspeed=n;
+    if(Math.floor(t.global.setconvspeed*10000)!=Math.floor(n*10000)){
+      t.global.setconvchanged=true;
+      t.global.setconvchangeda=true;
+      t.global.setconvspeed=n;
+    }
   },
   draw(tile){
     var i=Math.floor(Time.time() * t.global.setconvspeed * 8.0 * speedmul) % 4;
