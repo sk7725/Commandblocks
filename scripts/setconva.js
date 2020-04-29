@@ -1,6 +1,6 @@
 var t=this;
 t.global.setconvspeed=0.2;
-const setconv = extendContent(Conveyor, "setconv", {
+const setconva = extendContent(ArmoredConveyor, "setconva", {
 
 	update(tile){
 		if(this.speed!=t.global.setconvspeed*0.1){
@@ -9,5 +9,5 @@ const setconv = extendContent(Conveyor, "setconv", {
 		this.super$update(tile);
 	}
 });
-setconv.idleSound=Sounds.none;
-setconv.idleSoundVolume=0;
+setconva.idleSound=Sounds.none;
+setconva.idleSoundVolume=0;

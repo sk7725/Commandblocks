@@ -1,0 +1,22 @@
+
+size: 1
+breakable: true
+//configurable: true
+update: true
+category: distribution
+requirements: [
+thorium/1
+silicon/1
+phase-fabric/1
+]
+sync: true
+health: 250
+solid: false
+speed: 5
+layer: overlay
+group: transportation
+itemCapacity: 4
+hasItems: true
+consumeItems: false
+unloadable: false
+rotate: true
