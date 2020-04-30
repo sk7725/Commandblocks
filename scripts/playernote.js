@@ -53,9 +53,9 @@ const playernote = extendContent(MessageBlock, "playernote", {
   playnote(tile,notein){
     //play&fx
     var near = Vars.world.tile(tile.x,tile.y-1).block().name;
-    var red=-1*Math.abs(250*(notein-14)/14)+250;
-    var green=Math.abs(250*(notein-21)/14)-125;
-    var blue=-1*Math.abs(250*(notein-28)/14)+250;
+    var red=-1*Math.abs(250*(0.4*notein-14)/14)+250;
+    var green=Math.abs(250*(0.4*notein-21)/14)-125;
+    var blue=-1*Math.abs(250*(0.4*notein-28)/14)+250;
     print("colorset");print(red);print(green);print(blue);
     Effects.effect(soundwave,Color.rgb(Math.max(Math.floor(red),0),Math.max(Math.floor(green),0),Math.max(Math.floor(blue),0)),tile.worldx(),tile.worldy());
     var instnum=0;
@@ -96,7 +96,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
     if(near=="liquid-router") instnum=13;
     if(near=="liquid-junction") instnum=14;
     if(near=="unloader") instnum=15;
-    var calcpitch=0.25*Math.pow(increment,notein)*(1+tincrement*t.global.transpose[instnum]);
+    var calcpitch=0.125*Math.pow(increment,notein)*(1+tincrement*t.global.transpose[instnum]);
     Sounds[instruments[instnum]].at(tile.worldx(),tile.worldy(),calcpitch);
   },
   placed(tile) {
@@ -105,7 +105,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
     noteblocks[key]={};
     noteblocks[key].p=false;
     //noteblocks[key].n=0;
-    this.setMessageBlockText(null,tile,"0");
+    this.setMessageBlockText(null,tile,"24");
 	},
   removed(tile){
 		this.super$removed(tile);
