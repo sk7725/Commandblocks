@@ -96,7 +96,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
     if(near=="liquid-router") instnum=13;
     if(near=="liquid-junction") instnum=14;
     if(near=="unloader") instnum=15;
-    var calcpitch=0.125*Math.pow(increment,notein)*(1+tincrement*t.global.transpose[instnum]);
+    var calcpitch=0.25*Math.pow(increment,notein)*(1+tincrement*t.global.transpose[instnum]);
     Sounds[instruments[instnum]].at(tile.worldx(),tile.worldy(),calcpitch);
   },
   placed(tile) {
