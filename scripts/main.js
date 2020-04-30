@@ -29,6 +29,7 @@ require("buttonpad");
 require("buttonpadbig");
 require("buttonrouter");
 require("buttonrouterbig");
+require("powerlogic");
 
 require("setconv");
 require("setconva");
