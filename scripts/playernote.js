@@ -2,7 +2,7 @@ var noteblocks={};
 const notes=["a","as","b","c","cs","d","ds","e","f","fs","g","gs"];
 //const instruments=["piano"];
 const instruments=["buttonClick","pew","message","bigshot","flame","splash","unlock","door","place","explosion","click","windowHide","laser","artillery","spray","corexplode"];
-const notelength=36;
+const notelength=72;
 const increment=1.05946309;
 const tincrement=0.01;
 //const soundcontent=Sounds.pew.getContentType();
@@ -47,7 +47,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
     if(n>=notelength) n=0;
     else if(n<0) n=notelength-1;
     this.setMessageBlockText(null,tile,n+"");
-    Vars.ui.showInfoToast((Math.floor((n+9)/12)+4)+""+notes[n %12],1);
+    Vars.ui.showInfoToast((Math.floor((n+9)/12)+2)+""+notes[n %12],1);
     this.playnote(tile,n);
 	},
   playnote(tile,notein){
@@ -96,7 +96,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
     if(near=="liquid-router") instnum=13;
     if(near=="liquid-junction") instnum=14;
     if(near=="unloader") instnum=15;
-    var calcpitch=0.5*Math.pow(increment,notein)*(1+tincrement*t.global.transpose[instnum]);
+    var calcpitch=0.125*Math.pow(increment,notein)*(1+tincrement*t.global.transpose[instnum]);
     Sounds[instruments[instnum]].at(tile.worldx(),tile.worldy(),calcpitch);
   },
   placed(tile) {
