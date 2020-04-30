@@ -8,7 +8,7 @@ const logict=[[1,1],[1,0],[0,1],[0,0]];
 const logicg=["1-1-1-1","1-1-1-0","1-1-0-1","1-0-1-1","0-1-1-1","1-1-0-0","1-0-1-0","1-0-0-1","0-1-1-0","0-1-0-1","0-0-1-1","0-0-0-1","0-0-1-0","0-1-0-0","1-0-0-0","0-0-0-0"];
 const tficon=["commandRallySmall","lineSmall"];
 
-const powerlogic=extendContent(MessageBlock,"powerlogic",{
+const powerlogicg=extendContent(MessageBlock,"powerlogicg",{
     placed(tile) {
         this.super$placed(tile);
         this.setMessageBlockText(null,tile,"1-1-1-0");
@@ -187,7 +187,7 @@ const powerlogic=extendContent(MessageBlock,"powerlogic",{
     //TODO:table, draw
 });
 
-powerlogic.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , powerlogic , {
+powerlogicg.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , powerlogicg , {
   config(){
     var nums=this.message.split("-");
     if(nums.length!=4 || nums[0]>1||nums[1]>1||nums[2]>1||nums[3]>1|| nums[0]<0||nums[1]<0||nums[2]<0||nums[3]<0) return 14;
