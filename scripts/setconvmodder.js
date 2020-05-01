@@ -20,6 +20,12 @@ const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
       t.global.setconvchanged=true;
       t.global.setconvchangeda=true;
 		})).size(40);
+		var myslider=table.addSlider(0,20,0.01,t.global.setconvspeed,null).get();
+		myslider.changed(run(() => {
+			t.global.setconvspeed=myslider.getValue();
+			this.setMessageBlockText(null,tile,t.global.setconvspeed+"");
+		}));
+		//update말고 changed도?
 	},
   placed(tile) {
 		this.super$placed(tile);
