@@ -407,7 +407,7 @@ const commandblocks={
   },
   cmdsummon(ptile,cunit,cx,cy,cteam){
     var unittype=UnitTypes[cunit];
-    var team=settype(ptile,null,"team:"+cteam);
+    var team=this.settype(ptile,null,"team:"+cteam);
     var unit = unittype.create(team); 
     //unit.setSpawner(tile); 
     unit.set(cx, cy); 
