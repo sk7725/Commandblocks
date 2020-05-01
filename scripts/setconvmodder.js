@@ -12,6 +12,7 @@ t.global.setconvchangeda=false;
 const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
   buildConfiguration(tile, table){
     this.super$buildConfiguration(tile,table);
+/*
 		table.addImageButton(Icon.undo, run(() => {
 
 			this.setMessageBlockText(null,tile,resetspeed+"");
@@ -20,9 +21,12 @@ const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
       t.global.setconvchanged=true;
       t.global.setconvchangeda=true;
 		})).size(40);
+*/
 		var myslider=table.addSlider(0,20,0.01,t.global.setconvspeed,null).get();
+		myslider.setStyle(Styles.vSlider);
+		myslider.setWidth(240);
 		myslider.changed(run(() => {
-			t.global.setconvspeed=myslider.getValue();
+			t.global.setconvspeed=myslider.getValue().toFixed(2);
 			this.setMessageBlockText(null,tile,t.global.setconvspeed+"");
 		}));
 		//update말고 changed도?
