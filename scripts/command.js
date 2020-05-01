@@ -1010,6 +1010,32 @@ const commandblocks={
         this.report((Core.camera.position.x/Vars.tilesize)+","+(Core.camera.position.y/Vars.tilesize));
         return true;
       break;
+      case 'summon':
+        if(args.length>=3&&args.length<=4){
+          var tpos=this.tilde(tile,args[1],args[2]);
+          var cx=0; var cy=0;
+          if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
+            cx=tpos.x*Vars.tilesize; cy=tpos.y*Vars.tilesize;
+          }
+          else throw "Coordinates should be above 0";
+          if(cx>=0&&cy>=0){
+            //var ctile=Vars.world.tile(cx,cy);
+            if(args.length==3) this.cmdsummon(tile,args[0],cx,cy,-1);
+            else if(Number(args[3])>=-1&&Number(args[3])<256) this.cmdsummon(tile,args[0],cx,cy,Number(args[3]));
+            else throw "Team should be between -1~255";
+            return true;
+          }
+          else throw "Coordinates should be above 0";
+        }
+        else if(args.length==1){
+          var cx=0; var cy=0;
+          if(tile instanceof Tile){ cx=tile.worldx();cy=tile.worldy();}
+          else{ cx=tile.x; cy=tile.y;}
+          this.cmdsummon(tile,args[0],cx,cy,-1);
+          return true;
+        }
+        else throw "Missing params";
+      break;
       default:
         return false;
     }
