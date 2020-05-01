@@ -413,7 +413,7 @@ const commandblocks={
     unit.set(cx, cy); 
     unit.add(); 
     //unit.velocity().y = factory.launchVelocity; 
-    Events.fire(new UnitCreateEvent(unit));
+    //Events.fire(new UnitCreateEvent(unit));
   },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
