@@ -405,6 +405,16 @@ const commandblocks={
     //if(rot!=0) punit.rotate(rot);
     if((punit instanceof Player)&&punit==Vars.player) Core.camera.position.set(punit);
   },
+  cmdsummon(ptile,cunit,cx,cy,cteam){
+    var unittype=UnitTypes[cunit];
+    var team=settype(ptile,null,"team:"+cteam);
+    var unit = unittype.create(team); 
+    //unit.setSpawner(tile); 
+    unit.set(cx, cy); 
+    unit.add(); 
+    //unit.velocity().y = factory.launchVelocity; 
+    Events.fire(new UnitCreateEvent(unit));
+  },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
