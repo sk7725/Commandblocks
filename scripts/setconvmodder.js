@@ -22,7 +22,7 @@ const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
       t.global.setconvchangeda=true;
 		})).size(40);
 */
-		var myslider=table.addSlider(0,20,0.01,t.global.setconvspeed,null).get();
+		var myslider=table.addSlider(0,20,0.01,t.global.setconvspeed,null).width(240).get();
 		//myslider.setStyle(Styles.vSlider);
 		//myslider.width(240);
 		myslider.changed(run(() => {
