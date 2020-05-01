@@ -105,7 +105,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
     noteblocks[key]={};
     noteblocks[key].p=false;
     //noteblocks[key].n=0;
-    this.setMessageBlockText(null,tile,"24");
+    this.setMessageBlockText(null,tile,"0");
 	},
   removed(tile){
 		this.super$removed(tile);
