@@ -22,12 +22,16 @@ const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
       t.global.setconvchangeda=true;
 		})).size(40);
 */
-		var myslider=table.addSlider(0,20,0.01,t.global.setconvspeed,null).width(240).get();
+		var myslider=table.addSlider(0,6,0.01,t.global.setconvspeed,null).width(240).get();
 		//myslider.setStyle(Styles.vSlider);
 		//myslider.width(240);
 		myslider.changed(run(() => {
+			
+			this.setMessageBlockText(null,tile,myslider.getValue().toFixed(2);+"");
 			t.global.setconvspeed=myslider.getValue().toFixed(2);
-			this.setMessageBlockText(null,tile,t.global.setconvspeed+"");
+			t.global.setconvload=true;
+      			t.global.setconvchanged=true;
+      			t.global.setconvchangeda=true;
 		}));
 		//update말고 changed도?
 	},
