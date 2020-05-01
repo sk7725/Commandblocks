@@ -7,8 +7,9 @@ hasPower: true
 consumesPower: false
 outputsPower: true
 requirements: [
-silicon/25
-surge-alloy/10
+  silicon/16
+  surge-alloy/4
+  bittrium/1
 ]
 insulated: true
 rotate: true

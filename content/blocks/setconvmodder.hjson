@@ -6,6 +6,7 @@ category: distribution
 requirements: [
   phase-fabric/10
   silicon/20
+  bittrium/32
 ]
 sync: true
 health: 150

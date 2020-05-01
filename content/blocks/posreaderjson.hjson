@@ -4,7 +4,9 @@ breakable: true
 update: true
 category: effect
 requirements: [
-  surge-alloy/50
+  graphite/6
+  silicon/5
+  bittrium/2
 ]
 buildVisibility: hidden
 configurable: false
