@@ -27,7 +27,7 @@ const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
 		//myslider.width(240);
 		myslider.changed(run(() => {
 			
-			this.setMessageBlockText(null,tile,myslider.getValue().toFixed(2);+"");
+			this.setMessageBlockText(null,tile,myslider.getValue().toFixed(2)+"");
 			t.global.setconvspeed=myslider.getValue().toFixed(2);
 			t.global.setconvload=true;
       			t.global.setconvchanged=true;
