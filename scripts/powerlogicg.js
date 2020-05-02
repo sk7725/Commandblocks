@@ -194,8 +194,8 @@ const powerlogicg=extendContent(MessageBlock,"powerlogicg",{
       Draw.rect(this.topRegion, tile.drawx(), tile.drawy(),90*tile.rotation());
       Draw.rect(Core.atlas.find(this.name+"-"+tile.ent().message), tile.drawx(), tile.drawy(),90*tile.rotation());
     },
-    drawRequestConfig(req, list){
-      this.super$drawRequestConfig(req,list);
+    drawRequestConfigTop(req, list){
+      this.super$drawRequestConfigTop(req,list);
       //var logicshape=this.numtostr(req.config);
       //Draw.rect(Core.atlas.find(this.name+"-base"), req.drawx(), req.drawy());
       //Draw.rect(Core.atlas.find(this.name+"-top"), req.drawx(), req.drawy(),90*req.rotation);
