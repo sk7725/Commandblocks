@@ -1,6 +1,9 @@
 //my take
 var filtitem=Items.pyratite;//UI later
 var lastitem=null;
+const bitcolor1=Color.valueOf("00e5ff");
+const bitcolor2=Color.valueOf("ff65db");
+const bitcolorspeed=2.0;
 const magicrouter=extendContent(Router,"magicrouter",{
   handleItem(item,tile, source){
         var entity = tile.ent();
@@ -43,8 +46,18 @@ const magicrouter=extendContent(Router,"magicrouter",{
     },
     drawRequestConfig(req, list){
         this.drawRequestConfigCenter(req, Vars.content.item(req.config), "center");
+    },
+    load(){
+      this.super$load();
+      this.region=Core.atlas.find(this.name);
+      this.animRegion=Core.atlas.find(this.name+"-anim");
+    },
+    draw(tile){
+      this.super$draw(tile);
+      Draw.color(bitcolor1.lerp(bitcolor2,(Math.sin(Time.time()*bitcolorspeed)+1)/2));
+      Draw.rect(this.animRegion, tile.drawx(), tile.drawy());
+      Draw.color();
     }
-
 });
 
 magicrouter.entityType=prov(() => extendContent(Router.RouterEntity , magicrouter , {

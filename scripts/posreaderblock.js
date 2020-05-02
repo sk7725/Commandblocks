@@ -35,8 +35,8 @@ const posreaderblock = extendContent(MessageBlock, "posreaderblock", {
 		const x=facepos.x;
     const y=facepos.y;
 		var near = Vars.world.tile(x,y);
-    //this.setMessageBlockText(null,tile,JSON.stringify(Blocks));
-    this.setMessageBlockText(null,tile,near.toString());
+    //Call.setMessageBlockText(null,tile,JSON.stringify(Blocks));
+    Call.setMessageBlockText(null,tile,near.toString());
 	}
 /*
 	removed(tile) {

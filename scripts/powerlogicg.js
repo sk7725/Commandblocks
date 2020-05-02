@@ -11,7 +11,7 @@ const tficon=["commandRallySmall","lineSmall"];
 const powerlogicg=extendContent(MessageBlock,"powerlogicg",{
     placed(tile) {
         this.super$placed(tile);
-        this.setMessageBlockText(null,tile,"1-1-1-0");
+        Call.setMessageBlockText(null,tile,"1-1-1-0");
         tile.ent().timer.reset(timerid,presstick+1);
     },
     drawSelect(tile){
@@ -37,21 +37,22 @@ const powerlogicg=extendContent(MessageBlock,"powerlogicg",{
           if(tile.block().name!=this.name) return;
           tt.replaceImage(Image(Icon[tficon[Number(tile.ent().message.charAt(0))]]));
         }));
-        var tf=table.addImageButton(Icon[tficon[Number(args[1])]],Styles.clearTransi,ts, run(() => {
-          tile.configure(17);
-    		})).get();
-        tf.update(run(() => {
-          if(tile.block().name!=this.name) return;
-          tf.replaceImage(Image(Icon[tficon[Number(tile.ent().message.charAt(2))]]));
-        }));
-        table.row();
-        table.addImage(Icon.commandRallySmall,color2).size(ts);
         var ft=table.addImageButton(Icon[tficon[Number(args[2])]],Styles.clearTransi,ts, run(() => {
           tile.configure(18);
     		})).get();
         ft.update(run(() => {
           if(tile.block().name!=this.name) return;
           ft.replaceImage(Image(Icon[tficon[Number(tile.ent().message.charAt(4))]]));
+        }));
+        table.row();
+        table.addImage(Icon.commandRallySmall,color2).size(ts);
+
+        var tf=table.addImageButton(Icon[tficon[Number(args[1])]],Styles.clearTransi,ts, run(() => {
+          tile.configure(17);
+    		})).get();
+        tf.update(run(() => {
+          if(tile.block().name!=this.name) return;
+          tf.replaceImage(Image(Icon[tficon[Number(tile.ent().message.charAt(2))]]));
         }));
         var ff=table.addImageButton(Icon[tficon[Number(args[3])]],Styles.clearTransi,ts, run(() => {
           tile.configure(19);
@@ -145,11 +146,20 @@ const powerlogicg=extendContent(MessageBlock,"powerlogicg",{
     },
     configured(tile,player,value){
       //if(!value) return;
-      if(value>=0&&value<16) this.setMessageBlockText(null,tile,Math.floor(value/8)%2+"-"+Math.floor(value/4)%2+"-"+Math.floor(value/2)%2+"-"+Math.floor(value)%2);
+      if(value>=0&&value<16) Call.setMessageBlockText(null,tile,Math.floor(value/8)%2+"-"+Math.floor(value/4)%2+"-"+Math.floor(value/2)%2+"-"+Math.floor(value)%2);
       if(value>=16&&value<20){
         var args=tile.ent().message.split("-");
         args[value-16]=1-args[value-16];
-        this.setMessageBlockText(null,tile,args.join("-"));
+        Call.setMessageBlockText(null,tile,args.join("-"));
+      }
+    },
+    load(){
+      this.super$load();
+      this.baseRegion=Core.atlas.find(this.name+"-base");
+      this.topRegion=Core.atlas.find(this.name+"-top");
+      this.logicRegion=[];
+      for(var i=0;i<16;i++){
+        this.logicRegion.push(Core.atlas.find(this.name+"-"+Math.floor(i/8)%2+"-"+Math.floor(i/4)%2+"-"+Math.floor(i/2)%2+"-"+Math.floor(i)%2));
       }
     },
     drawConfigure(tile){
@@ -180,8 +190,8 @@ const powerlogicg=extendContent(MessageBlock,"powerlogicg",{
     },
     draw(tile){
       //this.super$draw(tile);
-      Draw.rect(Core.atlas.find(this.name+"-base"), tile.drawx(), tile.drawy());
-      Draw.rect(Core.atlas.find(this.name+"-top"), tile.drawx(), tile.drawy(),90*tile.rotation());
+      Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
+      Draw.rect(this.topRegion, tile.drawx(), tile.drawy(),90*tile.rotation());
       Draw.rect(Core.atlas.find(this.name+"-"+tile.ent().message), tile.drawx(), tile.drawy(),90*tile.rotation());
     },
     drawRequestConfig(req, list){
@@ -189,7 +199,8 @@ const powerlogicg=extendContent(MessageBlock,"powerlogicg",{
       //var logicshape=this.numtostr(req.config);
       //Draw.rect(Core.atlas.find(this.name+"-base"), req.drawx(), req.drawy());
       //Draw.rect(Core.atlas.find(this.name+"-top"), req.drawx(), req.drawy(),90*req.rotation);
-      Draw.rect(Core.atlas.find(this.name+"-"+Math.floor(req.config/8)%2+"-"+Math.floor(req.config/4)%2+"-"+Math.floor(req.config/2)%2+"-"+Math.floor(req.config)%2), req.drawx(), req.drawy(),90*req.rotation);
+      //Draw.rect(Core.atlas.find(this.name+"-"+Math.floor(req.config/8)%2+"-"+Math.floor(req.config/4)%2+"-"+Math.floor(req.config/2)%2+"-"+Math.floor(req.config)%2), req.drawx(), req.drawy(),90*req.rotation);
+      Draw.rect(this.logicRegion[req.config], req.drawx(), req.drawy(),90*req.rotation);
         //this.drawRequestConfigCenter(req, Vars.content.item(req.config), Core.atlas.find("center"));
     }
     //TODO:table, draw

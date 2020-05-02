@@ -46,7 +46,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
     n+=value;
     if(n>=notelength) n=0;
     else if(n<0) n=notelength-1;
-    this.setMessageBlockText(null,tile,n+"");
+    Call.setMessageBlockText(null,tile,n+"");
     Vars.ui.showInfoToast((Math.floor((n+9)/12)+2)+""+notes[n %12],1);
     this.playnote(tile,n);
 	},
@@ -105,7 +105,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
     noteblocks[key]={};
     noteblocks[key].p=false;
     //noteblocks[key].n=0;
-    this.setMessageBlockText(null,tile,"0");
+    Call.setMessageBlockText(null,tile,"0");
 	},
   removed(tile){
 		this.super$removed(tile);

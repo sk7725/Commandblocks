@@ -57,7 +57,7 @@ const playertune = extendContent(MessageBlock, "playertune", {
     n+=value;
     t.global.transpose[instnum]=n;
     t.global.loadtranspose[instnum]=1;
-    this.setMessageBlockText(null,tile,n+"");
+    Call.setMessageBlockText(null,tile,n+"");
     Vars.ui.showInfoToast(1+n*tincrement,1);
     this.playnote(tile,n);
 	},
@@ -75,7 +75,7 @@ const playertune = extendContent(MessageBlock, "playertune", {
   },
   placed(tile) {
 		this.super$placed(tile);
-    this.setMessageBlockText(null,tile,"0");
+    Call.setMessageBlockText(null,tile,"0");
     var instnum=this.getinst(tile);
     t.global.transpose[instnum]=0;
     t.global.loadtranspose[instnum]=1;

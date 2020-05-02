@@ -26,8 +26,8 @@ const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
 		//myslider.setStyle(Styles.vSlider);
 		//myslider.width(240);
 		myslider.changed(run(() => {
-			
-			this.setMessageBlockText(null,tile,myslider.getValue().toFixed(2)+"");
+
+			Call.setMessageBlockText(null,tile,myslider.getValue().toFixed(2)+"");
 			t.global.setconvspeed=myslider.getValue().toFixed(2);
 			t.global.setconvload=true;
       			t.global.setconvchanged=true;
@@ -37,7 +37,7 @@ const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
 	},
   placed(tile) {
 		this.super$placed(tile);
-    this.setMessageBlockText(null,tile,resetspeed+"");
+    Call.setMessageBlockText(null,tile,resetspeed+"");
 	},
   update(tile){
     var n=Number(tile.ent().message);

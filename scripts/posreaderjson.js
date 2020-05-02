@@ -28,7 +28,7 @@ const posreaderjson = extendContent(MessageBlock, "posreaderjson", {
 		const x=facepos.x;
     const y=facepos.y;
 		var near = Vars.world.tile(x,y).block();
-    this.setMessageBlockText(null,tile,Vars.mods.locateMod("commandblocks").toString());
+    Call.setMessageBlockText(null,tile,Vars.mods.locateMod("commandblocks").toString());
     //this.setMessageBlockText(null,tile,near.attributes.keys());
 	}
 });
