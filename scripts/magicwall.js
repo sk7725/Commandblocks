@@ -14,7 +14,7 @@ const magicwall=extendContent(Wall,"magicwall",{
       this.animRegion=Core.atlas.find(this.name+"-anim");
     },
     handleDamage(tile,amount){
-      this.super$handleDamage(tile,1.0);
+      return 1.0;
     },
     handleBulletHit(entity,bullet){
       entity.damage(1.0);

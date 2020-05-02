@@ -16,6 +16,9 @@ require("posreaderjson");
 require("unitreader");
 require("unitcacher");
 
+require("magicwall");
+require("magicwalllarge");
+
 require("camwall");
 require("camwalldir");
 
@@ -36,5 +39,3 @@ require("setconva");
 require("setconvmodder");
 
 require("magicrouter");
-
-require("magicwall");
