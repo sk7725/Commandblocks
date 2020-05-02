@@ -15,7 +15,7 @@ const magicwall=extendContent(Wall,"magicwall",{
     },
     init(){
       this.super$init();
-      this.replaceWalls=Vars.content.blocks().copy().eachFilter(boolf(e=>(!(e instanceof Wall)))).toArray();
+      this.replaceWalls=Vars.content.blocks().copy().toArray();
       this.thisBlock=Vars.content.getByName(ContentType.block,this.name);
     },
     onDestroyed(tile){
