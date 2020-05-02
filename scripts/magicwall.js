@@ -12,6 +12,9 @@ const magicwall=extendContent(Wall,"magicwall",{
       this.super$load();
       this.region=Core.atlas.find(this.name);
       this.animRegion=Core.atlas.find(this.name+"-anim");
+    },
+    init(){
+      this.super$init();
       this.replaceWalls=Vars.content.blocks().copy().eachFilter(boolf(e=>(!(e instanceof Wall)))).toArray();
       this.thisBlock=Vars.content.getByName(ContentType.block,this.name);
     },
