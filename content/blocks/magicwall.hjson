@@ -1,0 +1,12 @@
+
+size: 1
+breakable: true
+//consumesTap: true
+category: defense
+requirements: [
+bittrium/1
+]
+health: 1024
+solid: true
+targetable: true
+//hasShadow: false
