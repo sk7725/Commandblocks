@@ -34,3 +34,5 @@ require("powerlogicg");
 require("setconv");
 require("setconva");
 require("setconvmodder");
+
+require("magicrouter");
