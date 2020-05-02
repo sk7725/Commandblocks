@@ -38,6 +38,9 @@ const magicrouter=extendContent(Router,"magicrouter",{
     },
     draw(tile){
       this.super$draw(tile);
+      Draw.color(bitcolor1.lerp(bitcolor2,(Math.sin(Time.time()*bitcolorspeed)+1)/2));
+      Draw.rect(this.animRegion, tile.drawx(), tile.drawy());
+      Draw.color();
       var item = tile.ent().getItem();
       if(item == null) return;
       Draw.color(item.color);
@@ -52,12 +55,6 @@ const magicrouter=extendContent(Router,"magicrouter",{
       this.region=Core.atlas.find(this.name);
       this.animRegion=Core.atlas.find(this.name+"-anim");
     },
-    draw(tile){
-      this.super$draw(tile);
-      Draw.color(bitcolor1.lerp(bitcolor2,(Math.sin(Time.time()*bitcolorspeed)+1)/2));
-      Draw.rect(this.animRegion, tile.drawx(), tile.drawy());
-      Draw.color();
-    }
 });
 
 magicrouter.entityType=prov(() => extendContent(Router.RouterEntity , magicrouter , {
