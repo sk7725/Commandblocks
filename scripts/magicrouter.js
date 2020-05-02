@@ -39,7 +39,7 @@ const magicrouter=extendContent(Router,"magicrouter",{
     draw(tile){
       this.super$draw(tile);
       print("Lerp:"+(Math.sin(Time.time()*bitcolorspeed)+1)/2);
-      Draw.color(bitcolor1.lerp(bitcolor2,0));
+      Draw.color(bitcolor1.lerp(bitcolor2,0.5));
       Draw.rect(this.animRegion, tile.drawx(), tile.drawy());
       Draw.color();
       var item = tile.ent().getItem();
