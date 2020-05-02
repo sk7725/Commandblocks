@@ -3,7 +3,7 @@ var filtitem=Items.pyratite;//UI later
 var lastitem=null;
 const bitcolor1=Color.valueOf("00e5ff");
 const bitcolor2=Color.valueOf("ff65db");
-const bitcolorspeed=0.2;
+const bitcolorspeed=0.04;
 const magicrouter=extendContent(Router,"magicrouter",{
   handleItem(item,tile, source){
         var entity = tile.ent();
