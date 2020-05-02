@@ -3,7 +3,7 @@ update: true
 category: distribution
 itemCapacity: 1
 requirements: [
-  pixellium/100
+  bittrium/100
 ]
 configurable: true
 sync: true
