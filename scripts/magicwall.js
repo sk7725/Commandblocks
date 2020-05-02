@@ -15,13 +15,14 @@ const magicwall=extendContent(Wall,"magicwall",{
     },
     init(){
       this.super$init();
-      this.replaceWalls=Vars.content.blocks().copy().eachFilter(boolf(e=>(!(e instanceof Wall)))).toArray();
+
       this.thisBlock=Vars.content.getByName(ContentType.block,this.name);
     },
     onDestroyed(tile){
       this.super$onDestroyed(tile);
       var replacement=this.thisBlock;
       if(Math.random()>0.5){
+        this.replaceWalls=Vars.content.blocks().copy().eachFilter(boolf(e=>(!(e instanceof Wall)))).toArray();
         replacement=this.replaceWalls[Math.floor(Math.random() * this.replaceWalls.length)];
       }
       Vars.world.tile(tile.x, tile.y).setNet(replacement, tile.team, 0);
