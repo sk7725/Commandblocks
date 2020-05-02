@@ -1,0 +1,10 @@
+breakable: true
+update: true
+category: distribution
+itemCapacity: 1
+requirements: [
+  pixellium/100
+]
+configurable: true
+sync: true
+buildVisibility: sandboxOnly
