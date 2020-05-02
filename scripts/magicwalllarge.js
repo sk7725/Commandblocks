@@ -2,7 +2,7 @@
 const bitcolor1=Color.valueOf("00e5ff");
 const bitcolor2=Color.valueOf("ff65db");
 const bitcolorspeed=0.01;
-const magicwall=extendContent(Wall,"magicwall",{
+const magicwalllarge=extendContent(Wall,"magicwalllarge",{
     draw(tile){
       Draw.color(bitcolor1,bitcolor2,(Math.sin(Time.time()*bitcolorspeed)+1)/2);
       Draw.rect(this.animRegion, tile.drawx(), tile.drawy());

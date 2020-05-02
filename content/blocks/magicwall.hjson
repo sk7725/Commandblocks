@@ -6,7 +6,7 @@ category: defense
 requirements: [
 bittrium/1
 ]
-health: 1024
+health: 64
 solid: true
 targetable: true
 //hasShadow: false

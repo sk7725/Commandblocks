@@ -1,12 +1,12 @@
 
-size: 1
+size: 2
 breakable: true
 //consumesTap: true
 category: defense
 requirements: [
 bittrium/4
 ]
-health: 4096
+health: 256
 solid: true
 targetable: true
 //hasShadow: false
