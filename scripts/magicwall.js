@@ -8,10 +8,19 @@ const magicwall=extendContent(Wall,"magicwall",{
       Draw.rect(this.animRegion, tile.drawx(), tile.drawy());
       Draw.color();
     },
-    drawRequestConfig(req, list){
     load(){
       this.super$load();
       this.region=Core.atlas.find(this.name);
       this.animRegion=Core.atlas.find(this.name+"-anim");
+      this.replaceWalls=Vars.content.blocks().copy().eachFilter(boolf(e=>(!(e instanceof Wall)))).toArray();
+      this.thisBlock=Vars.content.getByName(ContentType.block,this.name);
     },
+    onDestroyed(tile){
+      this.super$onDestroyed(tile);
+      var replacement=this.thisBlock;
+      if(Math.random()>0.5){
+        replacement=this.replaceWalls[Math.floor(Math.random() * this.replaceWalls.length)];
+      }
+      Vars.world.tile(tile.x, tile.y).setNet(replacement, tile.team, 0);
+    }
 });
