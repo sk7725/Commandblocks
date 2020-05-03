@@ -1,6 +1,6 @@
 var t=this;
 this.global.colors={};//put it in colorcanvas later
-this.global.colors.brushcolor=Colors.valueOf("000000").rgba();
+this.global.colors.brushcolor=Color.valueOf("000000").rgba();
 const colorpicker = extendContent(Block, "colorpicker", {
   playerPlaced(tile){
     tile.configure(t.global.colors.brushcolor); 
