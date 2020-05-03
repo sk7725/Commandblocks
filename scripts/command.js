@@ -149,12 +149,12 @@ const commandblocks={
             else ret.eachFilter(boolf(e=>(e.team!=targetteam)));
           break;
           case "name":
-            if(invert) ret.eachFilter(boolf(e=>(e.team==se)));
-            else ret.eachFilter(boolf(e=>(e.team!=se)));
+            if(invert) ret.eachFilter(boolf(e=>(e.name==se)));
+            else ret.eachFilter(boolf(e=>(e.name!=se)));
           break;
           case "tilename":
-            if(invert) ret.eachFilter(boolf(e=>(e.block.name==se)));
-            else ret.eachFilter(boolf(e=>(e.block.name!=se)));
+            if(invert) ret.eachFilter(boolf(e=>(e.block().name==se)));
+            else ret.eachFilter(boolf(e=>(e.block().name!=se)));
           break;
           case "x":
             if(Number(se)>=0) sx=Number(se);
@@ -1045,6 +1045,23 @@ const commandblocks={
           return true;
         }
         else throw "Missing params";
+      break;
+      case 'attribute':
+        if(executed){
+          if(tile instanceof Tile){
+            if (args.length==2){
+              tile.block()[args[0]]=args[1];
+              return true;
+            }
+            else if(args.length==1){
+              this.report(tile.block()[args[0]]);
+              return tile.block()[args[0]];
+            }
+            else throw "Missing params";
+          }
+          else throw "Unidentified type";
+        }
+        else throw "This command is for /execute only";
       break;
       default:
         return false;
