@@ -622,7 +622,7 @@ const commandblocks={
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
             //parentthis.drawPlaceText(args.slice(2).join(" "), cx, cy, true);
-            return this.command(Vars.world.tile(cx,cy),args.slice(2).join(" "),parentthis,msg,true);
+            return this.command(Vars.world.tile(cx,cy),'"'+args.slice(2).join('" "')+'"',parentthis,msg,true);
           }
           else throw "Coordinates should be above 0";
         }
@@ -632,11 +632,11 @@ const commandblocks={
         if(args.length>=2){
           var target=this.targetselect(tile,parentthis,args[0]);
           if(target.r==null) return false;
-          else if(!target.a) return this.command(target.r,args.slice(1).join(" "),parentthis,msg,true);
+          else if(!target.a) return this.command(target.r,'"'+args.slice(1).join('" "')+'"',parentthis,msg,true);
           else{
             ret=true;
             target.r.each(cons(ent => {
-              var res=this.command(ent,args.slice(1).join(" "),parentthis,msg,true);
+              var res=this.command(ent,'"'+args.slice(1).join('" "')+'"',parentthis,msg,true);
               if(!res) ret=false;
             }));
             return ret;
