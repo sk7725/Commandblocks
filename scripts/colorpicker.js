@@ -1,4 +1,5 @@
 var t=this;
+this.global.colors{};
 this.global.colors.brushcolor={};
 this.global.colors.brushcolor["U-"+Vars.player.name]=Color.valueOf("000000").rgba();
 const colorpicker = extendContent(Block, "colorpicker", {
