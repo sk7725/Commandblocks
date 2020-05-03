@@ -1,6 +1,6 @@
 var t=this;
 this.global.colors={};
-const colorcanvas = extendContent(Block, "colorcanvas", {
+const colorcanvas = extendContent(LightBlock, "colorcanvas", {
   /*
   playerPlaced(tile){
     tile.configure(t.global.colors.brushcolor["U-"+Vars.player.name]);
@@ -31,9 +31,21 @@ const colorcanvas = extendContent(Block, "colorcanvas", {
   placed(tile){
     this.super$placed(tile);
     tile.ent().color=-1;
+  },
+  drawLight(tile){
+    //
+  },
+  buildConfiguration(tile,table){
+    //
+  },
+  playerPlaced(tile){
+    //
   }
   //save load brush
 });
-
+colorcanvas.hasPower=false;
+colorcanvas.configurable=false;
+/*
 colorcanvas.entityType=prov(() => extendContent(LightBlock.LightEntity , colorcanvas , {
 }));
+*/
