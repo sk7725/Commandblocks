@@ -27,27 +27,12 @@ const colorcanvas = extendContent(Block, "colorcanvas", {
   configured(tile, player, value){
     //tile.ent().color = value;
     tile.ent().setcolor(value);
+  },
+  placed(tile){
+    this.super$placed(tile);
+    tile.ent().color=-1;
   }
   //save load brush
 });
 
-colorcanvas.entityType=prov(() => extendContent(TileEntity , colorcanvas , {
-  config(){
-    return this._color;
-  },
-  write(stream){
-    this.super$write(stream);
-    stream.writeShort(this._color);
-  },
-  read(stream,revision){
-    this.super$read(stream,revision);
-    this._color=stream.readShort();
-  },
-  _color:-1,
-  getcolor(){
-    return this._color;
-  },
-  setcolor(item){
-    this._color=item;
-  }
-}));
+colorcanvas.entityType=LightBlock.LightEntity;
