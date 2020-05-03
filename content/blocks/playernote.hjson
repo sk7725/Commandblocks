@@ -15,3 +15,4 @@ consumes: {
   power: 0.016
 }
 configurable: true
+solid: true

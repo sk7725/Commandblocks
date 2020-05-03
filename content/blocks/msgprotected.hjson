@@ -10,3 +10,4 @@ graphite/5
 ]
 sync: true
 health: 40
+solid: true

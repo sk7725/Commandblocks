@@ -11,3 +11,4 @@ requirements: [
 sync: true
 health: 150
 configurable: true
+solid: true

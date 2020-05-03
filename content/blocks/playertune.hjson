@@ -12,3 +12,4 @@ sync: true
 expanded: true
 health: 50
 configurable: true
+solid: true

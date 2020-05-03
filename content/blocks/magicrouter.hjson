@@ -8,3 +8,4 @@ requirements: [
 configurable: true
 sync: true
 buildVisibility: sandboxOnly
+solid: true

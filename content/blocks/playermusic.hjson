@@ -15,3 +15,4 @@ health: 250
 consumes: {
   power: 1
 }
+solid: true

@@ -39,14 +39,3 @@ const colorpicker = extendContent(Block, "colorpicker", {
   }
   //save load brush
 });
-
-colorpicker.entityType=prov(() => extendContent(TileEntity , colorpicker , {
-  write(stream){
-    this.super$write(stream);
-    stream.writeInt(this.global.colors.brushcolor["U-"+Vars.player.name]);
-  },
-  read(stream,revision){
-    this.super$read(stream,revision);
-    this.global.colors.brushcolor["U-"+Vars.player.name]=stream.readInt();
-  }
-}));
