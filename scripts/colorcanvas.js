@@ -49,7 +49,7 @@ colorcanvas.entityType=prov(() => extendContent(TileEntity , colorcanvas , {
     this.super$read(stream,revision);
     this._color=stream.readShort();
   },
-  _color:0,
+  _color:-1,
   getcolor(){
     return this._color;
   },
