@@ -14,19 +14,19 @@ const colorcanvas = extendContent(Block, "colorcanvas", {
   //super.draw(tile); LightEntity entity = tile.ent(); Draw.blend(Blending.additive); Draw.color(Tmp.c1.set(entity.color), entity.efficiency() * 0.3f); Draw.rect(reg(topRegion), tile.drawx(), tile.drawy()); Draw.color(); Draw.blend();
   //Tmp.c1.set(tile.ent().color)
   //use in draw
-    Draw.color(Tmp.c1.set(tile.ent().getcolor()));
+    Draw.color(Tmp.c1.set(tile.ent().color));
     Draw.rect(this.region, tile.drawx(), tile.drawy());
     Draw.color();
   },
   minimapColor(tile){
-    return tile.ent().getcolor();
+    return tile.ent().color;
   },
   tapped(tile,player){
-    tile.ent().setcolor(t.global.colors.brushcolor["U-"+player]);
+    tile.ent().color=t.global.colors.brushcolor["U-"+player];
   },
   configured(tile, player, value){
     //tile.ent().color = value;
-    tile.ent().setcolor(value);
+    tile.ent().color=value;
   },
   placed(tile){
     this.super$placed(tile);
@@ -35,4 +35,5 @@ const colorcanvas = extendContent(Block, "colorcanvas", {
   //save load brush
 });
 
-colorcanvas.entityType=LightBlock.LightEntity;
+colorcanvas.entityType=prov(() => extendContent(LightBlock.LightEntity , colorcanvas , {
+}));
