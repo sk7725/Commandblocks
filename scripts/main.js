@@ -38,6 +38,6 @@ require("setconv");
 require("setconva");
 require("setconvmodder");
 
-require("magicrouter");
-
 require("colorpicker");
+
+require("magicrouter");
