@@ -22,7 +22,7 @@ const colorpicker = extendContent(Block, "colorpicker", {
   buildConfiguration(tile, table){
     //var entity = tile.ent(); 
     //js-fy this at home
-    table.addImageButton(Icon.settingSmall, run(() => { 
+    table.addImageButton(Icon.pick, run(() => { 
       Vars.ui.picker.show(Tmp.c1.set(t.global.colors.brushcolor), true, cons(res => { 
         t.global.colors.brushcolor = res.rgba(); 
       })); 
