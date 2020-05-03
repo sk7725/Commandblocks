@@ -1050,6 +1050,9 @@ const commandblocks={
         if(executed){
           if(tile instanceof Tile){
             if (args.length==2){
+              args[1]=this.settype(tile,parentthis,args[1]);
+              if(args[1]=="false") args[1]=false;
+              if(args[1]=="true") args[1]=true;
               tile.block()[args[0]]=args[1];
               return true;
             }
