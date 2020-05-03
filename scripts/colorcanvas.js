@@ -22,7 +22,7 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
     return tile.ent().color;
   },
   tapped(tile,player){
-    tile.ent().color=t.global.colors.brushcolor["U-"+player];
+    tile.ent().color=t.global.colors.brushcolor["U-"+player.name];
   },
   configured(tile, player, value){
     //tile.ent().color = value;
