@@ -40,9 +40,15 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
     switch(t.global.colors.brushtype["U-"+player.name]){
       case 0:
         tile.ent().color=t.global.colors.brushcolor["U-"+player.name];
+        if(!Vars.headless){
+          Vars.renderer.minimap.update(tile);
+        }
       break;
       case 1:
         tile.ent().color=-1;
+        if(!Vars.headless){
+          Vars.renderer.minimap.update(tile);
+        }
       break;
       case 2:
         tile.ent().color=t.global.colors.brushcolor["U-"+player.name];
@@ -50,6 +56,9 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
         this.trycolor(Vars.world.tile(tile.x+1,tile.y  ),tile.ent().color);
         this.trycolor(Vars.world.tile(tile.x  ,tile.y-1),tile.ent().color);
         this.trycolor(Vars.world.tile(tile.x-1,tile.y  ),tile.ent().color);
+        if(!Vars.headless){
+          Vars.renderer.minimap.update(tile);
+        }
       break;
       case 3:
         var spraycolor=t.global.colors.brushcolor["U-"+player.name];
@@ -57,6 +66,9 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
           for(var j=-1*sprayrad;j<=sprayrad;j++){
             if(Math.random()<sprayper) this.trycolor(Vars.world.tile(tile.x+i,tile.y+j),spraycolor);
           }
+        }
+        if(!Vars.headless){
+          Vars.renderer.minimap.update(tile);
         }
       break;
       case 6:
@@ -70,19 +82,22 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
         while(q.length>0){
           var last=q.shift();
           //visit.push(last);
-          
+
           for(var i=0;i<4;i++){
             var ctile=Vars.world.tile(last.x+dirs[i][0],last.y+dirs[i][1]);
             if(ctile.block()!=this) continue;
             if(ctile.ent().color==startcolor){
-              print("Fill:"+ctile.x+","+ctile.y);
+              //print("Fill:"+ctile.x+","+ctile.y);
               q.push(Vec2(ctile.x,ctile.y));
               Vars.world.tile(ctile.x,ctile.y).ent().color=newcolor;
             }
             else{
-              print("Fill:border/"+ctile.x+","+ctile.y);
+              //print("Fill:border/"+ctile.x+","+ctile.y);
             }
           }
+        }
+        if(!Vars.headless){
+          Vars.renderer.minimap.update(tile);
         }
       break;
       case 7:
@@ -93,9 +108,6 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
   configured(tile, player, value){
     //tile.ent().color = value;
     tile.ent().color=value;
-    if(!Vars.headless){
-      Vars.renderer.minimap.update(tile);
-    }
   },
   placed(tile){
     this.super$placed(tile);
@@ -109,13 +121,14 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
   },
   playerPlaced(tile){
     //
-  },
+  }
+  /*
   drawRequestRegion(req,list){
     var reg = this.icon(Cicon.full);
     if(req.config!=0) Draw.color(Tmp.c1.set(req.config));
     Draw.rect(this.icon(Cicon.full), req.drawx(), req.drawy(),reg.getWidth() * req.animScale * Draw.scl,reg.getHeight() * req.animScale * Draw.scl,0);
     if(req.config!=0) Draw.color();
-  }
+  }*/
   //save load brush
 });
 colorcanvas.hasPower=false;
