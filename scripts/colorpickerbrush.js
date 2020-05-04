@@ -1,7 +1,8 @@
 var t=this;
 //this.global.colors={};
 this.global.colors.brushtype={};
-const brushes=["pencil","eraser","effect","spray","line","layers","fill","pipette"]
+const brushes=["pencil","eraser","tings","spray","line","effect","fill","pipette"];
+const brushesname=["Pencil","Eraser","Brush: Thick","Brush: Spray","Line","Rectangle","Fill","Pick Color"];
 const colorpickerbrush = extendContent(Block, "colorpickerbrush", {
   /*
   playerPlaced(tile){
@@ -42,7 +43,7 @@ const colorpickerbrush = extendContent(Block, "colorpickerbrush", {
   configured(tile, player, value){
     //tile.ent().color = value;
     t.global.colors.brushtype["U-"+player.name]=value;
-    Vars.ui.showInfoToast(brushes[value],1);
+    Vars.ui.showInfoToast(brushesname[value],1);
   }
   //save load brush
 });
