@@ -40,6 +40,7 @@ require("setconvmodder");
 
 require("colorcanvas");
 require("colorpicker");
+require("colorpickerhex");
 require("colorpickerbrush");
 
 require("magicrouter");
