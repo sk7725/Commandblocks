@@ -28,6 +28,10 @@ const colorpickerhex = extendContent(MessageBlock, "colorpickerhex", {
     t.global.colors.brushcolor["U-"+player.name]=value;
     //Vars.ui.showInfoToast(value,1);
   },
+  drawSelect(tile){
+    var message=tile.ent().message;
+    this.drawPlaceText((message.substring(0,1)=="#")?message:"#"+message,tile.x,tile.y,true);
+  },
   updateTableAlign(tile,table){
     var pos = Core.input.mouseScreen(tile.drawx(), tile.drawy() - tile.block().size * Vars.tilesize / 2 - 1);
     table.setPosition(pos.x, pos.y, Align.top);
