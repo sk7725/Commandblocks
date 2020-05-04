@@ -14,10 +14,8 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
     this.region=Core.atlas.find(this.name);
   },
   draw(tile){
-  //super.draw(tile); LightEntity entity = tile.ent(); Draw.blend(Blending.additive); Draw.color(Tmp.c1.set(entity.color), entity.efficiency() * 0.3f); Draw.rect(reg(topRegion), tile.drawx(), tile.drawy()); Draw.color(); Draw.blend();
-  //Tmp.c1.set(tile.ent().color)
-  //use in draw
-    Draw.color(Tmp.c1.set(tile.ent().color));
+    var entity=tile.ent();
+    Draw.color(Tmp.c1.set(entity.color));
     Draw.rect(this.region, tile.drawx(), tile.drawy());
     Draw.color();
   },
@@ -31,6 +29,9 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
     }
     try{
       tile.ent().color=color;
+      if(!Vars.headless){
+        Vars.renderer.minimap.update(tile);
+      }
     }
     catch(err){
       print("Color:"+err);
@@ -64,11 +65,10 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
         var spraycolor=t.global.colors.brushcolor["U-"+player.name];
         for(var i=-1*sprayrad;i<=sprayrad;i++){
           for(var j=-1*sprayrad;j<=sprayrad;j++){
-            if(Math.random()<sprayper) this.trycolor(Vars.world.tile(tile.x+i,tile.y+j),spraycolor);
+            if(Math.random()<sprayper){
+              this.trycolor(Vars.world.tile(tile.x+i,tile.y+j),spraycolor);
+            }
           }
-        }
-        if(!Vars.headless){
-          Vars.renderer.minimap.update(tile);
         }
       break;
       case 6:
@@ -79,6 +79,9 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
         var q=[]; //var visit=[];
         q.push(Vec2(tile.x,tile.y));
         tile.ent().color=newcolor;
+        if(!Vars.headless){
+          Vars.renderer.minimap.update(tile);
+        }
         while(q.length>0){
           var last=q.shift();
           //visit.push(last);
@@ -90,14 +93,14 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
               //print("Fill:"+ctile.x+","+ctile.y);
               q.push(Vec2(ctile.x,ctile.y));
               Vars.world.tile(ctile.x,ctile.y).ent().color=newcolor;
+              if(!Vars.headless){
+                Vars.renderer.minimap.update(ctile);
+              }
             }
             else{
               //print("Fill:border/"+ctile.x+","+ctile.y);
             }
           }
-        }
-        if(!Vars.headless){
-          Vars.renderer.minimap.update(tile);
         }
       break;
       case 7:
@@ -121,15 +124,13 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
   },
   playerPlaced(tile){
     //
-  }
-  /*
+  },
   drawRequestRegion(req,list){
     var reg = this.icon(Cicon.full);
     if(req.config!=0) Draw.color(Tmp.c1.set(req.config));
     Draw.rect(this.icon(Cicon.full), req.drawx(), req.drawy(),reg.getWidth() * req.animScale * Draw.scl,reg.getHeight() * req.animScale * Draw.scl,0);
     if(req.config!=0) Draw.color();
-  }*/
-  //save load brush
+  }
 });
 colorcanvas.hasPower=false;
 colorcanvas.configurable=false;
