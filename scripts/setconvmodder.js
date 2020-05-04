@@ -39,6 +39,13 @@ const setconvmodder = extendContent(MessageBlock, "setconvmodder", {
 		this.super$placed(tile);
     Call.setMessageBlockText(null,tile,resetspeed+"");
 	},
+  drawSelect(tile){
+    this.drawPlaceText(tile.ent().message,tile.x,tile.y,true);
+  },
+  updateTableAlign(tile,table){
+    var pos = Core.input.mouseScreen(tile.drawx(), tile.drawy() - tile.block().size * Vars.tilesize / 2 - 1);
+    table.setPosition(pos.x, pos.y, Align.top);
+  },
   update(tile){
     var n=Number(tile.ent().message);
     if(!t.global.setconvload){

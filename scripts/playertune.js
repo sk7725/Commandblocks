@@ -22,6 +22,7 @@ const playertune = extendContent(MessageBlock, "playertune", {
 		//tile.didcmd = false;
 	},
   buildConfiguration(tile, table){
+    this.super$buildConfiguration(tile,table);
 		table.addImageButton(Icon.upOpen, run(() => {
 
 			tile.configure(1)
@@ -58,9 +59,17 @@ const playertune = extendContent(MessageBlock, "playertune", {
     t.global.transpose[instnum]=n;
     t.global.loadtranspose[instnum]=1;
     Call.setMessageBlockText(null,tile,n+"");
-    Vars.ui.showInfoToast(1+n*tincrement,1);
+    //Vars.ui.showInfoToast(1+n*tincrement,1);
     this.playnote(tile,n);
 	},
+  drawSelect(tile){
+    var transval=1+Number(tile.ent().message)*tincrement;
+    this.drawPlaceText(tile.ent().message+" ("+transval.toFixed(2)+")",tile.x,tile.y,true);
+  },
+  updateTableAlign(tile,table){
+    var pos = Core.input.mouseScreen(tile.drawx(), tile.drawy() - tile.block().size * Vars.tilesize / 2 - 1);
+    table.setPosition(pos.x, pos.y, Align.top);
+  },
   playnote(tile,notein){
     //play&fx
     var near = Vars.world.tile(tile.x,tile.y-1).block().name;
