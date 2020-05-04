@@ -1,5 +1,7 @@
 var t=this;
 this.global.colors={};
+const sprayrad=3;
+const sprayper=0.2;
 const colorcanvas = extendContent(LightBlock, "colorcanvas", {
   /*
   playerPlaced(tile){
@@ -47,6 +49,14 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
         this.trycolor(Vars.world.tile(tile.x+1,tile.y  ),tile.ent().color);
         this.trycolor(Vars.world.tile(tile.x  ,tile.y-1),tile.ent().color);
         this.trycolor(Vars.world.tile(tile.x-1,tile.y  ),tile.ent().color);
+      break;
+      case 3:
+        var spraycolor=t.global.colors.brushcolor["U-"+player.name];
+        for(var i=-1*sprayrad;i<=sprayrad;i++){
+          for(var j=-1*sprayrad;j<=sprayrad;j++){
+            if(Math.random()<sprayper) this.trycolor(Vars.world.tile(tile.x+i,tile.y+j),spraycolor);
+          }
+        }
       break;
       case 7:
         t.global.colors.brushcolor["U-"+player.name]=tile.ent().color;
