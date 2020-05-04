@@ -9,7 +9,10 @@ const colorpickerhex = extendContent(MessageBlock, "colorpickerhex", {
   draw(tile){
     //if(!t.global.colors.brushcolor.hasOwnProperty("U-"+Vars.player.name)) t.global.colors.brushcolor["U-"+Vars.player.name]=Color.valueOf("000000").rgba();
     this.super$draw(tile);
-    Draw.color(Color.valueOf(tile.ent().message));
+    try{
+      Draw.color(Color.valueOf(tile.ent().message));
+    }
+    catch(err){}
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
     Draw.color();
   },
@@ -24,6 +27,14 @@ const colorpickerhex = extendContent(MessageBlock, "colorpickerhex", {
     if(player==null) return;
     t.global.colors.brushcolor["U-"+player.name]=value;
     //Vars.ui.showInfoToast(value,1);
+  },
+  updateTableAlign(tile,table){
+    var pos = Core.input.mouseScreen(tile.drawx(), tile.drawy() - tile.block().size * Vars.tilesize / 2 - 1);
+    table.setPosition(pos.x, pos.y, Align.top);
+  },
+  placed(tile){
+    this.super$placed(tile);
+    Call.setMessageBlockText(null,tile,"000000");
   }
   //save load brush
 });
