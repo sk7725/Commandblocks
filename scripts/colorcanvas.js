@@ -75,7 +75,7 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
   },
   drawRequestRegion(req,list){
     var reg = this.icon(Cicon.full);
-    Draw.color(Tmp.c1.set(tile.ent().color));
+    Draw.color(Tmp.c1.set(req.config));
     Draw.rect(this.icon(Cicon.full), req.drawx(), req.drawy(),reg.getWidth() * req.animScale * Draw.scl,reg.getHeight() * req.animScale * Draw.scl,0);
     Draw.color();
   }
