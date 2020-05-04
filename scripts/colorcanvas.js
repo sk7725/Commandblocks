@@ -71,7 +71,7 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
           Vars.world.tile(last.x,last.y).ent().color=newcolor;
           for(var i=0;i<4;i++){
             var ctile=Vars.world.tile(last.x+dirs[i][0],last.y+dirs[i][1]);
-            if(ctile.block()!=this||visit.indexOf(last)>-1) continue;
+            if(ctile.block()!=this||visit.indexOf(Vec2(ctile.x,ctile.y))>-1) continue;
             if(ctile.ent().color!=startcolor){
               print("Fill:border");
               continue;
