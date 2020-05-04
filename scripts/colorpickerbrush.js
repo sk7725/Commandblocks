@@ -1,7 +1,7 @@
 var t=this;
 //this.global.colors={};
 this.global.colors.brushtype={};
-const brushes=["pencil","eraser","effect","spray","line","filter","fill","pipette"];
+const brushes=["pencil","eraser","filter","spray","line","effect","fill","pipette"];
 const brushesname=["Pencil","Eraser","Brush: Thick","Brush: Spray","Line","Rectangle","Fill","Pick Color"];
 const colorpickerbrush = extendContent(Block, "colorpickerbrush", {
   /*
