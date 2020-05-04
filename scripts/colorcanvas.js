@@ -2,6 +2,7 @@ var t=this;
 this.global.colors={};
 const sprayrad=3;
 const sprayper=0.15;
+const dirs=[[1,0],[0,1],[-1,0],[0,-1]];
 const colorcanvas = extendContent(LightBlock, "colorcanvas", {
   /*
   playerPlaced(tile){
@@ -25,7 +26,7 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
   },
   trycolor(tile,color){
     if(tile.block()!=this){
-      print("Color:failed");
+      //print("Color:failed");
       return;
     }
     try{
@@ -55,6 +56,27 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
         for(var i=-1*sprayrad;i<=sprayrad;i++){
           for(var j=-1*sprayrad;j<=sprayrad;j++){
             if(Math.random()<sprayper) this.trycolor(Vars.world.tile(tile.x+i,tile.y+j),spraycolor);
+          }
+        }
+      break;
+      case 6:
+      //cannot use recursive funcs
+        var newcolor=t.global.colors.brushcolor["U-"+player.name];
+        var startcolor=tile.ent().color;
+        var q=[]; var visit=[];
+        q.push(Vec2(tile.x,tile.y));
+        while(q.length>0){
+          var last=q.shift();
+          visit.push(last);
+          Vars.world.tile(last.x,last.y).ent().color=newcolor;
+          for(var i=0;i<4;i++){
+            var ctile=Vars.world.tile(last.x+dirs[i][0],last.y+dirs[i][1]);
+            if(ctile.block()!=this||visit.indexOf(last)>-1) continue;
+            if(ctile.ent().color!=startcolor){
+              print("Fill:border");
+              continue;
+            }
+            q.push(Vec2(ctile.x,ctile.y));
           }
         }
       break;
