@@ -21,7 +21,7 @@ const colorpickerbrush = extendContent(Block, "colorpickerbrush", {
   //super.draw(tile); LightEntity entity = tile.ent(); Draw.blend(Blending.additive); Draw.color(Tmp.c1.set(entity.color), entity.efficiency() * 0.3f); Draw.rect(reg(topRegion), tile.drawx(), tile.drawy()); Draw.color(); Draw.blend();
   //Tmp.c1.set(tile.ent().color)
   //use in draw
-    if(!t.globalbcolors.brushtype.hasOwnProperty("U-"+Vars.player.name)) t.global.colors.brushtype["U-"+Vars.player.name]=0;
+    if(!t.global.colors.brushtype.hasOwnProperty("U-"+Vars.player.name)) t.global.colors.brushtype["U-"+Vars.player.name]=0;
     Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
     Draw.color(Tmp.c1.set(t.global.colors.brushcolor["U-"+Vars.player.name]));
     Draw.rect(this.topRegion[t.global.colors.brushtype["U-"+Vars.player.name]], tile.drawx(), tile.drawy());
