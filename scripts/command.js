@@ -735,6 +735,7 @@ const commandblocks={
       break;
       case 'gamerule':
         if(args.length==2){
+          args[1]=this.settype(args[1]);
           if(args[1]=="false") args[1]=false;
           if(args[1]=="true") args[1]=true;
           if(gamerule.hasOwnProperty(args[0])){
