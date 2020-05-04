@@ -1,7 +1,7 @@
 var t=this;
 //this.global.colors={};
 this.global.colors.brushtype={};
-const brushes=["pencil","eraser","effect","spray","line","box","fill","pipette"]
+const brushes=["pencil","eraser","effect","spray","line","layers","fill","pipette"]
 const colorpickerbrush = extendContent(Block, "colorpickerbrush", {
   /*
   playerPlaced(tile){
@@ -30,11 +30,14 @@ const colorpickerbrush = extendContent(Block, "colorpickerbrush", {
   buildConfiguration(tile, table){
     //var entity = tile.ent();
     //js-fy this at home
-    for(var i=0;i<brushes.length;i++){
-      table.addImageButton(Icon[brushes[i]],Styles.clearTransi, run(() => {
-        tile.configure(i)
-      })).size(40);
-    }
+    table.addImageButton(Icon[brushes[0]],Styles.clearTransi, run(() => { tile.configure(0) })).size(40);
+    table.addImageButton(Icon[brushes[1]],Styles.clearTransi, run(() => { tile.configure(1) })).size(40);
+    table.addImageButton(Icon[brushes[2]],Styles.clearTransi, run(() => { tile.configure(2) })).size(40);
+    table.addImageButton(Icon[brushes[3]],Styles.clearTransi, run(() => { tile.configure(3) })).size(40);
+    table.addImageButton(Icon[brushes[4]],Styles.clearTransi, run(() => { tile.configure(4) })).size(40);
+    table.addImageButton(Icon[brushes[5]],Styles.clearTransi, run(() => { tile.configure(5) })).size(40);
+    table.addImageButton(Icon[brushes[6]],Styles.clearTransi, run(() => { tile.configure(6) })).size(40);
+    table.addImageButton(Icon[brushes[7]],Styles.clearTransi, run(() => { tile.configure(7) })).size(40);
   },
   configured(tile, player, value){
     //tile.ent().color = value;
