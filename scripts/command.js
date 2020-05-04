@@ -298,6 +298,8 @@ const commandblocks={
           break;
           case "js":
             if(tmparr[1]=="null") return null;
+            if(tmparr[1]=="true") return true;
+            if(tmparr[1]=="false") return false;
             if(tmparr[1]=="undefined") return;
             if(tmparr[1]=="this") return this;
           break;
@@ -408,11 +410,11 @@ const commandblocks={
   cmdsummon(ptile,cunit,cx,cy,cteam){
     var unittype=UnitTypes[cunit];
     var team=this.settype(ptile,null,"team:"+cteam);
-    var unit = unittype.create(team); 
-    //unit.setSpawner(tile); 
-    unit.set(cx, cy); 
-    unit.add(); 
-    //unit.velocity().y = factory.launchVelocity; 
+    var unit = unittype.create(team);
+    //unit.setSpawner(tile);
+    unit.set(cx, cy);
+    unit.add();
+    //unit.velocity().y = factory.launchVelocity;
     //Events.fire(new UnitCreateEvent(unit));
   },
   command(tile,msg,parentthis,parentcmd,executed){
@@ -734,6 +736,7 @@ const commandblocks={
       case 'gamerule':
         if(args.length==2){
           if(args[1]=="false") args[1]=false;
+          if(args[1]=="true") args[1]=true;
           if(gamerule.hasOwnProperty(args[0])){
             gamerule[args[0]]=args[1];
           }
