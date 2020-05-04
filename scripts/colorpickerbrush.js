@@ -11,7 +11,7 @@ const colorpickerbrush = extendContent(Block, "colorpickerbrush", {
   load(){
     this.super$load();
     this.region=Core.atlas.find(this.name);
-    this.baseRegion=Core.atlas.find(this.name+"base");
+    this.baseRegion=Core.atlas.find(this.name+"-base");
     this.topRegion=[];
     for(var i=0;i<brushes.length;i++){
       this.topRegion.push(Core.atlas.find(this.name+"-top-"+i));
