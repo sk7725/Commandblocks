@@ -13,14 +13,14 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
   load(){
     this.super$load();
     this.region=Core.atlas.find(this.name);
-    this.topRegion=Core.atlas.find(this.name+"-top");
+    this.gridRegion=Core.atlas.find(this.name+"-top");
   },
   draw(tile){
     var entity=tile.ent();
     Draw.color(Tmp.c1.set(entity.color));
     Draw.rect(this.region, tile.drawx(), tile.drawy());
     Draw.color();
-    if(t.global.colors.grid) Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
+    if(t.global.colors.grid) Draw.rect(this.gridRegion, tile.drawx(), tile.drawy());
   },
   minimapColor(tile){
     return tile.ent().color;
