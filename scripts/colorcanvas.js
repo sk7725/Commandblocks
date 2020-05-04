@@ -1,7 +1,7 @@
 var t=this;
 this.global.colors={};
 const sprayrad=3;
-const sprayper=0.2;
+const sprayper=0.15;
 const colorcanvas = extendContent(LightBlock, "colorcanvas", {
   /*
   playerPlaced(tile){
