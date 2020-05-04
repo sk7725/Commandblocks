@@ -23,6 +23,7 @@ const colorpickerbrush = extendContent(Block, "colorpickerbrush", {
   //Tmp.c1.set(tile.ent().color)
   //use in draw
     if(!t.global.colors.brushtype.hasOwnProperty("U-"+Vars.player.name)) t.global.colors.brushtype["U-"+Vars.player.name]=0;
+    if(!t.global.colors.brushcolor.hasOwnProperty("U-"+Vars.player.name)) t.global.colors.brushcolor["U-"+Vars.player.name]=Color.valueOf("000000").rgba();
     Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
     Draw.color(Tmp.c1.set(t.global.colors.brushcolor["U-"+Vars.player.name]));
     Draw.rect(this.topRegion[t.global.colors.brushtype["U-"+Vars.player.name]], tile.drawx(), tile.drawy());
