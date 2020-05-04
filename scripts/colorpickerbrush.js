@@ -1,8 +1,9 @@
 var t=this;
 //this.global.colors={};
 this.global.colors.brushtype={};
-const brushes=["pencil","eraser","filter","spray","line","effect","fill","pipette"];
-const brushesname=["Pencil","Eraser","Brush: Thick","Brush: Spray","Line","Rectangle","Fill","Pick Color"];
+this.global.colors.grid=false;
+const brushes=["pencil","eraser","filter","spray","line","effect","fill","pipette","grid"];
+const brushesname=["Pencil","Eraser","Brush: Thick","Brush: Spray","Line","Rectangle","Fill","Pick Color","Toggle Grid"];
 const colorpickerbrush = extendContent(Block, "colorpickerbrush", {
   /*
   playerPlaced(tile){
@@ -40,9 +41,14 @@ const colorpickerbrush = extendContent(Block, "colorpickerbrush", {
     table.addImageButton(Icon[brushes[5]],Styles.clearTransi, run(() => { tile.configure(5) })).size(40);
     table.addImageButton(Icon[brushes[6]],Styles.clearTransi, run(() => { tile.configure(6) })).size(40);
     table.addImageButton(Icon[brushes[7]],Styles.clearTransi, run(() => { tile.configure(7) })).size(40);
+    table.addImageButton(Icon[brushes[8]],Styles.clearTransi, run(() => { tile.configure(8) })).size(40);
   },
   configured(tile, player, value){
     //tile.ent().color = value;
+    if(value==8){
+      t.global.colors.grid=!t.global.colors.grid;
+      return;
+    }
     if(player==null) return;
     t.global.colors.brushtype["U-"+player.name]=value;
     Vars.ui.showInfoToast(brushesname[value],1);
