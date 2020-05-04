@@ -63,21 +63,25 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
       //cannot use recursive funcs
         var newcolor=t.global.colors.brushcolor["U-"+player.name];
         var startcolor=tile.ent().color;
-        var q=[]; var visit=[];
+        if(newcolor==startcolor) return;
+        var q=[]; //var visit=[];
         q.push(Vec2(tile.x,tile.y));
+        tile.ent().color=newcolor;
         while(q.length>0){
           var last=q.shift();
-          visit.push(last);
-          Vars.world.tile(last.x,last.y).ent().color=newcolor;
+          //visit.push(last);
+          
           for(var i=0;i<4;i++){
             var ctile=Vars.world.tile(last.x+dirs[i][0],last.y+dirs[i][1]);
-            if(ctile.block()!=this||visit.indexOf(Vec2(ctile.x,ctile.y))>-1) continue;
-            if(ctile.ent().color!=startcolor){
-              print("Fill:border/"+ctile.x+","+ctile.y);
-              continue;
+            if(ctile.block()!=this) continue;
+            if(ctile.ent().color==startcolor){
+              print("Fill:"+ctile.x+","+ctile.y);
+              q.push(Vec2(ctile.x,ctile.y));
+              Vars.world.tile(ctile.x,ctile.y).ent().color=newcolor;
             }
-            print("Fill:"+ctile.x+","+ctile.y);
-            q.push(Vec2(ctile.x,ctile.y));
+            else{
+              print("Fill:border/"+ctile.x+","+ctile.y);
+            }
           }
         }
       break;
