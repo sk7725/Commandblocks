@@ -29,6 +29,9 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
       case 1:
         tile.ent().color=-1;
       break;
+      case 2:
+        tile.ent().color=t.global.colors.brushcolor["U-"+player.name];
+      break;
       case 7:
         t.global.colors.brushcolor["U-"+player.name]=tile.ent().color;
       break;
@@ -53,6 +56,12 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
   },
   playerPlaced(tile){
     //
+  },
+  drawRequestRegion(req,list){
+    var reg = this.icon(Cicon.full);
+    Draw.color(Tmp.c1.set(tile.ent().color));
+    Draw.rect(this.icon(Cicon.full), req.drawx(), req.drawy(),reg.getWidth() * req.animScale * Draw.scl,reg.getHeight() * req.animScale * Draw.scl,0);
+    Draw.color();
   }
   //save load brush
 });

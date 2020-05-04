@@ -42,6 +42,7 @@ const colorpickerbrush = extendContent(Block, "colorpickerbrush", {
   },
   configured(tile, player, value){
     //tile.ent().color = value;
+    if(player==null) return;
     t.global.colors.brushtype["U-"+player.name]=value;
     Vars.ui.showInfoToast(brushesname[value],1);
   }
