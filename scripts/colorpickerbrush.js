@@ -11,6 +11,7 @@ const colorpickerbrush = extendContent(Block, "colorpickerbrush", {
   load(){
     this.super$load();
     this.region=Core.atlas.find(this.name);
+    this.baseRegion=Core.atlas.find(this.name+"base");
     this.topRegion=[];
     for(var i=0;i<brushes.length;i++){
       this.topRegion.push(Core.atlas.find(this.name+"-top-"+i));
@@ -21,7 +22,7 @@ const colorpickerbrush = extendContent(Block, "colorpickerbrush", {
   //Tmp.c1.set(tile.ent().color)
   //use in draw
     if(!t.globalbcolors.brushtype.hasOwnProperty("U-"+Vars.player.name)) t.global.colors.brushtype["U-"+Vars.player.name]=0;
-    this.super$draw(tile);
+    Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
     Draw.color(Tmp.c1.set(t.global.colors.brushcolor["U-"+Vars.player.name]));
     Draw.rect(this.topRegion[t.global.colors.brushtype["U-"+Vars.player.name]], tile.drawx(), tile.drawy());
     Draw.color();

@@ -3,8 +3,8 @@ breakable: true
 update: true
 category: distribution
 requirements: [
-  graphite/10
-  surge-alloy/20
+  graphite/20
+  surge-alloy/10
   bittrium/16
 ]
 sync: true

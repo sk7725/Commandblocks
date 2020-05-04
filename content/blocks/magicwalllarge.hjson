@@ -4,9 +4,9 @@ breakable: true
 //consumesTap: true
 category: defense
 requirements: [
-bittrium/4
+  bittrium/4
 ]
-health: 512
+health: 256
 solid: true
 targetable: true
 //hasShadow: false

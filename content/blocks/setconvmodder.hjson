@@ -4,8 +4,8 @@ breakable: true
 update: true
 category: distribution
 requirements: [
-  phase-fabric/10
   silicon/20
+  phase-fabric/10
   bittrium/32
 ]
 sync: true

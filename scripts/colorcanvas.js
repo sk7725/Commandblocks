@@ -29,6 +29,9 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
       case 1:
         tile.ent().color=-1;
       break;
+      case 7:
+        t.global.colors.brushcolor["U-"+player.name]=tile.ent().color;
+      break;
     }
   },
   configured(tile, player, value){

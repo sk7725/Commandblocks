@@ -1,18 +1,14 @@
-
 size: 1
 breakable: true
 update: true
-category: defense
+category: distribution
 requirements: [
-  graphite/15
-  silicon/10
-  plastanium/5
+  graphite/10
+  surge-alloy/20
+  bittrium/16
 ]
 sync: true
 expanded: true
-health: 50
-consumes: {
-  power: 0.016
-}
+health: 100
 configurable: true
 solid: true

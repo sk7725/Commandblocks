@@ -4,9 +4,9 @@ breakable: true
 update: true
 category: effect
 requirements: [
-  bittrium/128
-  surge-alloy/16
   silicon/256
+  surge-alloy/16
+  bittrium/128
 ]
 maxTextLength: 32000
 maxNewlines: 0

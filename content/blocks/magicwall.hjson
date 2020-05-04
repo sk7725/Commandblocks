@@ -4,7 +4,7 @@ breakable: true
 //consumesTap: true
 category: defense
 requirements: [
-bittrium/1
+  bittrium/1
 ]
 health: 128
 solid: true

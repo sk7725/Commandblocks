@@ -6,9 +6,9 @@ timers: 2
 update: true
 category: defense
 requirements: [
-plastanium/9
-phase-fabric/6
-graphite/3
+  graphite/3
+  plastanium/9
+  phase-fabric/6
 ]
 sync: true
 expanded: true

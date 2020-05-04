@@ -5,8 +5,8 @@ configurable: true
 update: true
 category: effect
 requirements: [
-copper/1
-graphite/5
+  copper/1
+  graphite/5
 ]
 sync: true
 health: 40

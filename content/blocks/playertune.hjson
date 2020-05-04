@@ -4,8 +4,8 @@ breakable: true
 update: true
 category: defense
 requirements: [
-  plastanium/10
   silicon/20
+  plastanium/10
   surge-alloy/16
 ]
 sync: true
