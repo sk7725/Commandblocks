@@ -21,6 +21,18 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
   minimapColor(tile){
     return tile.ent().color;
   },
+  trycolor(tile,color){
+    if(tile.block()!=this){
+      print("Color:failed");
+      return;
+    }
+    try{
+      tile.ent().color=color;
+    }
+    catch(err){
+      print("Color:"+err);
+    }
+  },
   tapped(tile,player){
     switch(t.global.colors.brushtype["U-"+player.name]){
       case 0:
@@ -31,6 +43,10 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
       break;
       case 2:
         tile.ent().color=t.global.colors.brushcolor["U-"+player.name];
+        this.trycolor(Vars.world.tile(tile.x  ,tile.y+1),tile.ent().color);
+        this.trycolor(Vars.world.tile(tile.x+1,tile.y  ),tile.ent().color);
+        this.trycolor(Vars.world.tile(tile.x  ,tile.y-1),tile.ent().color);
+        this.trycolor(Vars.world.tile(tile.x-1,tile.y  ),tile.ent().color);
       break;
       case 7:
         t.global.colors.brushcolor["U-"+player.name]=tile.ent().color;
