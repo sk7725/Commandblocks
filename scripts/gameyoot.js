@@ -103,7 +103,7 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
       Draw.rect(this.animRegion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y,yoot.rot);
     },
     drawYoot(tile,key,yoot){
-      Draw.rect(this.animRegion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y+yoot.h,yoot.rot);
+      //Draw.rect(this.animRegion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y+yoot.h,yoot.rot);
     },
     drawLayer(tile){
       for(var i=0;i<4;i++){
@@ -129,8 +129,8 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     x:0,
     y:0,
     h:0,
-    xv:10,
-    yv:2,
+    xv:1,
+    yv:0.2,
     hv:45,
     rot:20,
   },
@@ -138,8 +138,8 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     x:0,
     y:0,
     h:0,
-    xv:5,
-    yv:-10,
+    xv:0.5,
+    yv:-1,
     hv:50,
     rot:-45,
   },
@@ -147,8 +147,8 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     x:0,
     y:0,
     h:0,
-    xv:-6,
-    yv:4,
+    xv:-0.6,
+    yv:0.4,
     hv:55,
     rot:80,
   },
@@ -156,8 +156,8 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     x:0,
     y:0,
     h:0,
-    xv:-9,
-    yv:-1,
+    xv:-0.9,
+    yv:-0.1,
     hv:45,
     rot:-75,
   },
