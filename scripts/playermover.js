@@ -21,29 +21,32 @@ const playermover=extendContent(MessageBlock,"playermover",{
       try{
         table.add().size(ts);
         table.addImageButton(Icon.upOpen,Styles.clearTransi,ts, run(() => {
-          tile.configure(0);
+          tile.configure(2);
     		}));
         table.add().size(ts);
         table.row();
 
         table.addImageButton(Icon.leftOpen,Styles.clearTransi,ts, run(() => {
-        tile.configure(1);
+        tile.configure(3);
         }));
 
         table.add().size(ts);
         table.addImageButton(Icon.rightOpen,Styles.clearTransi,ts, run(() => {
-          tile.configure(2);
+          tile.configure(1);
         }));
         table.row();
 
         table.add().size(ts);
         table.addImageButton(Icon.downOpen,Styles.clearTransi,ts, run(() => {
-          tile.configure(3);
+          tile.configure(4);
     	}));
         table.add().size(ts);
         table.row();
         table.addImageButton(Icon.players,run(() => {
-          tile.configure(-1);
+          tile.configure(5);
+        })).size(ts);
+        table.addImageButton(Icon.commandRally,run(() => {
+          tile.configure(0);
         })).size(ts);
         //table.row();
         //table.add().size(ts);
@@ -63,14 +66,15 @@ const playermover=extendContent(MessageBlock,"playermover",{
 	 },
     configured(tile,player,value){
       //if(!value) return;
-      if(value==0) tile.ent().movePos(0,1);
-      if(value==1) tile.ent().movePos(-1,0);
-      if(value==2) tile.ent().movePos(1,0);
-      if(value==3) tile.ent().movePos(0,-1);
-      if(value==-1){
+      if(value==2) tile.ent().movePos(0,1);
+      if(value==3) tile.ent().movePos(-1,0);
+      if(value==1) tile.ent().movePos(1,0);
+      if(value==4) tile.ent().movePos(0,-1);
+      if(value==5){
         if(tile.ent().message==color1) Call.setMessageBlockText(null,tile,color2);
         else Call.setMessageBlockText(null,tile,color1);
       }
+      if(value==0) tile.ent().setPos(0,0);
     },
     load(){
       this.super$load();
@@ -114,6 +118,12 @@ const playermover=extendContent(MessageBlock,"playermover",{
       Draw.rect(this.playerRegion, tile.drawx()+offset.x*Vars.tilesize, tile.drawy()+offset.y*Vars.tilesize);
       Draw.color();
       //Draw.rect(Core.atlas.find(this.name+"-"+tile.ent().message), tile.drawx(), tile.drawy(),90*tile.rotation());
+    },
+    update(tile){
+      this.super$update(tile);
+      var offset=tile.ent().getPos();
+      var tileon=Vars.world.tile(tile.x+offset.x,tile.y+offset.y);
+      if(tileon.block().name=="buttonpad") tileon.block().unitOn(tileon,null);
     }
     //TODO:table, draw
 });
