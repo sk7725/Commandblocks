@@ -115,15 +115,23 @@ const playermover=extendContent(MessageBlock,"playermover",{
       try{Draw.color(Color.valueOf(tile.ent().message));}
       catch(err){}
       Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
-      Draw.rect(this.playerRegion, tile.drawx()+offset.x*Vars.tilesize, tile.drawy()+offset.y*Vars.tilesize);
+      //Draw.rect(this.playerRegion, tile.drawx()+offset.x*Vars.tilesize, tile.drawy()+offset.y*Vars.tilesize);
       Draw.color();
       //Draw.rect(Core.atlas.find(this.name+"-"+tile.ent().message), tile.drawx(), tile.drawy(),90*tile.rotation());
+    },
+    drawLayer(tile){
+      try{Draw.color(Color.valueOf(tile.ent().message));}
+      catch(err){}
+      //Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
+      Draw.rect(this.playerRegion, tile.drawx()+offset.x*Vars.tilesize, tile.drawy()+offset.y*Vars.tilesize);
+      Draw.color();
     },
     update(tile){
       this.super$update(tile);
       var offset=tile.ent().getPos();
       var tileon=Vars.world.tile(tile.x+offset.x,tile.y+offset.y);
       if(tileon.block().name=="commandblocks-buttonpad") tileon.block().unitOn(tileon,null);
+      if(tileon.block().rotate) tile.ent().movePos(((tileon.block().rotation()-1)%2)*-1,((tileon.block().rotation()-2)%2)*-1);
     }
     //TODO:table, draw
 });
