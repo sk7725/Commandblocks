@@ -182,7 +182,7 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     if(yoot.h>0||yoot.hv>0){ yoot.h+=yoot.hv; yoot.hv+=this._g; }
     if(yoot.h<0){
       yoot.h=0;
-      if(yoot.hv<-2) yoot.hv*=-0.3;
+      if(yoot.hv<-1) yoot.hv*=-0.3;
     }
   },
   rollYoot(i,str){
