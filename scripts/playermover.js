@@ -42,9 +42,9 @@ const playermover=extendContent(MessageBlock,"playermover",{
     	}));
         table.add().size(ts);
         table.row();
-        table.addImageButton(Icon.players,ts, run(() => {
+        table.addImageButton(Icon.players,run(() => {
           tile.configure(-1);
-        }));
+        })).size(ts);
         //table.row();
         //table.add().size(ts);
         this.super$buildConfiguration(tile,table);
