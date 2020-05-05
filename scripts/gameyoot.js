@@ -2,7 +2,7 @@
 const color1="ffaa5f"; const color2="84f491";//color of pyratite and mender
 const ts=40;//table size
 const shadowcolor=new Color(0,0,0,0.71);
-const throwstr=20;
+const throwstr=5;
 const landframe=95;
 const topchance=0.4;
 
@@ -101,9 +101,11 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
     drawYootShadow(tile,key,yoot){
       Draw.color(shadowcolor);
       Draw.rect(this.animRegion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y,yoot.rot);
+      //print("DrawShad:"+tile.drawx()+yoot.x+","+tile.drawy()+yoot.y);
     },
     drawYoot(tile,key,yoot){
-      //Draw.rect(this.animRegion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y+yoot.h,yoot.rot);
+      Draw.rect(this.animRegion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y+yoot.h,yoot.rot);
+      //print("Draw:"+tile.drawx()+yoot.x+","+tile.drawy()+yoot.y+yoot.h);
     },
     drawLayer(tile){
       for(var i=0;i<4;i++){
@@ -123,42 +125,42 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
 });
 
 gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , gameyoot , {
-  _friction:0.95,
+  _friction:0.99,
   _g:-0.3,
   _yoot0:{
     x:0,
     y:0,
     h:0,
-    xv:1,
-    yv:0.2,
-    hv:45,
+    xv:0,
+    yv:0,
+    hv:0,
     rot:20,
   },
   _yoot1:{
     x:0,
     y:0,
     h:0,
-    xv:0.5,
-    yv:-1,
-    hv:50,
+    xv:0,
+    yv:0,
+    hv:0,
     rot:-45,
   },
   _yoot2:{
     x:0,
     y:0,
     h:0,
-    xv:-0.6,
-    yv:0.4,
-    hv:55,
+    xv:0,
+    yv:0,
+    hv:0,
     rot:80,
   },
   _yoot3:{
     x:0,
     y:0,
     h:0,
-    xv:-0.9,
-    yv:-0.1,
-    hv:45,
+    xv:0,
+    yv:0,
+    hv:0,
     rot:-75,
   },
   getYoot0(){
@@ -177,12 +179,12 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     var yoot=this["_yoot"+i];
     yoot.x+=yoot.xv; yoot.y+=yoot.yv;
     yoot.xv*=this._friction; yoot.yv*=this._friction;
-    if(yoot.h>0){ yoot.h+=yoot.hv; yoot.hv+=this._g; }
+    if(yoot.h>0||yoot.hv>0){ yoot.h+=yoot.hv; yoot.hv+=this._g; }
     if(yoot.h<0) yoot.h=0;
   },
   rollYoot(i,str){
     var yoot=this["_yoot"+i];
-    yoot.hv=str*10;
+    yoot.hv=str*5;
     yoot.h=0;
     yoot.x=0; yoot.y=0;
     yoot.xv=str*(Math.random()*2-1)*0.15;
