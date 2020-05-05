@@ -122,7 +122,7 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
     update(tile){
       this.super$update(tile);
       for(var i=0;i<4;i++){
-        tile.ent().updateYoot(i);
+        tile.ent().updateYoot(i,tile);
       }
     }
 });
@@ -178,7 +178,7 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
   getYoot3(){
     return this._yoot3;
   },
-  updateYoot(i){
+  updateYoot(i,tile){
     var yoot=this["_yoot"+i];
     yoot.x+=yoot.xv; yoot.y+=yoot.yv;
     yoot.xv*=this._friction; yoot.yv*=this._friction;
@@ -186,6 +186,7 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     if(yoot.h<0){
       yoot.h=0;
       if(yoot.hv<-1) yoot.hv*=-0.3;
+      Sounds.artillery.at(tile.worldx()+yoot.x,tile.worldy()+yoot.y,6);
     }
   },
   rollYoot(i,str){
