@@ -7,3 +7,4 @@ requirements: [
   silicon/16
 ]
 configurable: true
+layer: overlay
