@@ -1,4 +1,4 @@
-type: Wall
+//type: Wall
 size: 1
 breakable: true
 //update: true
