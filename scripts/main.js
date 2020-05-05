@@ -45,3 +45,4 @@ require("colorpickerbrush");
 
 require("magicrouter");
 require("playermover");
+require("gameyoot");
