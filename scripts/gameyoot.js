@@ -96,18 +96,20 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
       var offset=tile.ent().getPos();
       Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
     },
-    drawYootShadow(tile,yoot){
-    
+    drawYootShadow(tile,key,yoot){
+      Draw.color(shadowcolor);
+      Draw.rect(this.animregion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y,yoot.rot);
     },
     drawYoot(tile,key,yoot){
-      
+      Draw.rect(this.animregion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y+yoot.h,yoot.rot);
     },
     drawLayer(tile){
       for(var i=0;i<4;i++){
-        this.drawYootShadow(tile,tile.ent()["getYoot"+i]());
+        this.drawYootShadow(tile,0,tile.ent()["getYoot"+i]());
       }
+      Draw.color();
       for(var i=0;i<4;i++){
-        this.drawYoot(tile,tile.ent().message,tile.ent()["getYoot"+i]());
+        this.drawYoot(tile,0,tile.ent()["getYoot"+i]());
       }
     },
     update(tile){
