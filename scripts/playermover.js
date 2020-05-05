@@ -1,12 +1,12 @@
 //crash it if you can idk
-const color1=Color.valueOf("ffaa5f"); const color2=Color.valueOf("84f491");//color of pyratite and mender
+const color1="ffaa5f"; const color2="84f491";//color of pyratite and mender
 const ts=40;//table size
 //var logict=[1,1,1,0];//TT TF FT FF
 //abuse tables, hmm
 const playermover=extendContent(MessageBlock,"playermover",{
     placed(tile) {
         this.super$placed(tile);
-        Call.setMessageBlockText(null,tile,"ffaa5f");
+        Call.setMessageBlockText(null,tile,color1);
     },
     drawSelect(tile){
       //kill the words
@@ -39,11 +39,14 @@ const playermover=extendContent(MessageBlock,"playermover",{
         table.add().size(ts);
         table.addImageButton(Icon.downOpen,Styles.clearTransi,ts, run(() => {
           tile.configure(3);
-    		}));
+    	}));
         table.add().size(ts);
         table.row();
-        table.row();
-        table.add().size(ts);
+        table.addImageButton(Icon.players,ts, run(() => {
+          tile.configure(-1);
+        }));
+        //table.row();
+        //table.add().size(ts);
         this.super$buildConfiguration(tile,table);
       }
       catch(err){
@@ -64,6 +67,10 @@ const playermover=extendContent(MessageBlock,"playermover",{
       if(value==1) tile.ent().movePos(-1,0);
       if(value==2) tile.ent().movePos(1,0);
       if(value==3) tile.ent().movePos(0,-1);
+      if(value==-1){
+        if(tile.ent().message==color1) Call.setMessageBlockText(null,tile,color2);
+        else Call.setMessageBlockText(null,tile,color1);
+      }
     },
     load(){
       this.super$load();
@@ -122,5 +129,15 @@ playermover.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity 
     this._py+=dy;
   },
   _px:0,
-  _py:0
+  _py:0,
+  write(stream){
+    this.super$write(stream);
+    stream.writeShort(this._px);
+    stream.writeShort(this._py);
+  },
+  read(stream,revision){
+    this.super$read(stream,revision);
+    this._px=stream.readShort();
+    this._py=stream.readShort();
+  }
 }));
