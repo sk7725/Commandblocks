@@ -76,6 +76,7 @@ const playermover=extendContent(MessageBlock,"playermover",{
       this.super$load();
       this.baseRegion=Core.atlas.find(this.name+"-base");
       this.topRegion=Core.atlas.find(this.name+"-top");
+      this.playerRegion=Core.atlas.find(this.name+"-player");
     },
     /*drawConfigure(tile){
       var tx1=0; var ty1=0; var tx2=0; var ty2=0;
@@ -109,7 +110,8 @@ const playermover=extendContent(MessageBlock,"playermover",{
       Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
       try{Draw.color(Color.valueOf(tile.ent().message));}
       catch(err){}
-      Draw.rect(this.topRegion, tile.drawx()+offset.x*Vars.tilesize, tile.drawy()+offset.y*Vars.tilesize);
+      Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
+      Draw.rect(this.playerRegion, tile.drawx()+offset.x*Vars.tilesize, tile.drawy()+offset.y*Vars.tilesize);
       Draw.color();
       //Draw.rect(Core.atlas.find(this.name+"-"+tile.ent().message), tile.drawx(), tile.drawy(),90*tile.rotation());
     }
