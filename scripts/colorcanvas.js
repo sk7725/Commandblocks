@@ -139,7 +139,7 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
   }
 });
 
-
+/*
 colorcanvas.entityType=prov(() => extendContent(TileEntity , colorcanvas , {
   config(){
     return this._color.rgba();
@@ -160,7 +160,7 @@ colorcanvas.entityType=prov(() => extendContent(TileEntity , colorcanvas , {
     this._color=item;
   }
 }));
-
+*/
 
 colorcanvas.hasPower=false;
 colorcanvas.configurable=false;
