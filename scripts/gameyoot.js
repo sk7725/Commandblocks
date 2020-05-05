@@ -93,7 +93,6 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
     },
     draw(tile){
       //this.super$draw(tile);
-      var offset=tile.ent().getPos();
       Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
     },
     drawYootShadow(tile,key,yoot){
