@@ -423,7 +423,7 @@ const commandblocks={
     var bultype=Bullets[cbullet];
     var team=this.settype(ptile,null,"team:"+cteam);
     var owner=null; if(ptile instanceof Unit) owner=ptile;
-    Bullet.create(bultype, owner, team, cx, cy, crot, vle,life);
+    Bullet.create(bultype, owner, team, cx, cy, crot, vel,life);
   },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
