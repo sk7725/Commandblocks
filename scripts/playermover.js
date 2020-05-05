@@ -11,7 +11,7 @@ const playermover=extendContent(MessageBlock,"playermover",{
     drawSelect(tile){
       //kill the words
     },
-    /
+    
     updateTableAlign(tile,table){
       var pos = Core.input.mouseScreen(tile.drawx(), tile.drawy()  - tile.block().size * Vars.tilesize / 2 - 1);
       table.setPosition(pos.x, pos.y, Align.top);
