@@ -1,8 +1,10 @@
 type: Wall
 size: 1
 breakable: true
-update: true
+//update: true
 category: effect
 requirements: [
   silicon/16
 ]
+hasShadow: false
+rotate: true
