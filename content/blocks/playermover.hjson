@@ -1,0 +1,9 @@
+
+size: 1
+breakable: true
+update: true
+category: effect
+requirements: [
+  silicon/16
+]
+configurable: true

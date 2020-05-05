@@ -44,3 +44,4 @@ require("colorpickerhex");
 require("colorpickerbrush");
 
 require("magicrouter");
+require("playermover");
