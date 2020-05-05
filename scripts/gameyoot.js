@@ -123,7 +123,7 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
 });
 
 gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , gameyoot , {
-  _friction:0.7,
+  _friction:0.95,
   _g:-0.3,
   _yoot0:{
     x:0,
@@ -177,7 +177,7 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     var yoot=this["_yoot"+i];
     yoot.x+=yoot.xv; yoot.y+=yoot.yv;
     yoot.xv*=this._friction; yoot.yv*=this._friction;
-    if(yoot.h>0){ yoot.h+=yoot.hv; yoot.hv-=this._g; }
+    if(yoot.h>0){ yoot.h+=yoot.hv; yoot.hv+=this._g; }
     if(yoot.h<0) yoot.h=0;
   },
   rollYoot(i,str){
@@ -185,8 +185,8 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     yoot.hv=str*10;
     yoot.h=0;
     yoot.x=0; yoot.y=0;
-    yoot.xv=str*(Math.random()*2-1);
-    yoot.yv=str*(Math.random()*2-1);
+    yoot.xv=str*(Math.random()*2-1)*0.15;
+    yoot.yv=str*(Math.random()*2-1)*0.15;
     yoot.rot=Math.random()*360;
   }
 }));
