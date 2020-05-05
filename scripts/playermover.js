@@ -11,7 +11,13 @@ const playermover=extendContent(MessageBlock,"playermover",{
     drawSelect(tile){
       //kill the words
     },
-    
+    drawConfigure(tile){
+      var offset=tile.ent().getPos();
+      try{Draw.color(Color.valueOf(tile.ent().message));}
+      catch(err){}
+      Lines.square(tile.drawx()+offset.x*Vars.tilesize, tile.drawy()+offset.y*Vars.tilesize,1 * Vars.tilesize / 2 + 1);
+      this.super$drawConfigure(tile);
+    },
     updateTableAlign(tile,table){
       var pos = Core.input.mouseScreen(tile.drawx(), tile.drawy()  - tile.block().size * Vars.tilesize / 2 - 1);
       table.setPosition(pos.x, pos.y, Align.top);
