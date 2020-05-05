@@ -120,6 +120,7 @@ const playermover=extendContent(MessageBlock,"playermover",{
       //Draw.rect(Core.atlas.find(this.name+"-"+tile.ent().message), tile.drawx(), tile.drawy(),90*tile.rotation());
     },
     drawLayer(tile){
+      var offset=tile.ent().getPos();
       try{Draw.color(Color.valueOf(tile.ent().message));}
       catch(err){}
       //Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
