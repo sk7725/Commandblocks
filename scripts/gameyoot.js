@@ -1,7 +1,7 @@
 
 const color1="ffaa5f"; const color2="84f491";//color of pyratite and mender
 const ts=40;//table size
-const shadowcolor=new Color(0,0,0,0.71);
+const shadowcolor=new Color(0,0,0,0.22);
 const throwstr=8;
 const landframe=200;
 const topchance=0.4;
