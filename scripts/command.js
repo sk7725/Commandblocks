@@ -417,6 +417,14 @@ const commandblocks={
     //unit.velocity().y = factory.launchVelocity;
     //Events.fire(new UnitCreateEvent(unit));
   },
+  cmdfire(ptile,cbullet,cx,cy,crot,cteam,vel,life){
+    //Bullet.create(type, tile.entity, tile.getTeam(), tile.drawx() + tr.x, tile.drawy() + tr.y, angle);
+    //Bullet create(BulletType type, Entity owner, Team team, float x, float y, float angle, float velocityScl, float lifetimeScl){ return create(type, owner, team, x, y, angle, velocityScl, lifetimeScl, null); }
+    var bultype=Bullets[cbullet];
+    var team=this.settype(ptile,null,"team:"+cteam);
+    var owner=null; if(ptile instanceof Unit) owner=ptile;
+    Bullet.create(bultype, owner, team, cx, cy, crot, vle,life);
+  },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
@@ -1070,6 +1078,47 @@ const commandblocks={
         }
         else throw "This command is for /execute only";
       break;
+      case 'shoot':
+      case 'fire':
+      //cmdfire(ptile,cbullet,cx,cy,crot,cteam,vel,life)
+        if(args.length>=3&&args.length<=7){
+          var tpos=this.tilde(tile,args[1],args[2]);
+          var cx=0; var cy=0;
+          if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
+            cx=tpos.x*Vars.tilesize; cy=tpos.y*Vars.tilesize;
+          }
+          else throw "Coordinates should be above 0";
+          if(cx>=0&&cy>=0){
+            var crot=0; var cteam=-1; var vel=1; var life=1;
+            if(args.length>=4){
+              if(args[3].substring(0,1)=="~"){
+                args[3]=args[3].substring(1,args[3].length);
+                var current=0;
+                if(tile instanceof Tile) current=tile.rotation()*90;
+                else current=tile.rotatiom;
+                if(args[3]=="") args[3]=0;
+                args[3]=Number(args[3]);
+                crot=(args[3]+current)%360;
+              }
+              else crot=Number(args[3])%360;
+            }
+            if(args.length>=5) cteam=args[4];
+            if(args.length>=6) vel=args[5];
+            if(args.length>=7) life=args[6];
+            this.cmdfire(tile,args[0],cx,cy,crot,cteam,vel,life);
+          }
+          else throw "Coordinates should be above 0";
+        }
+        else if(args.length==1){
+          var cx=0; var cy=0; var crot=0;
+          if(tile instanceof Tile){ cx=tile.worldx();cy=tile.worldy(); crot=tile.rotation()*90; }
+          else{ cx=tile.x; cy=tile.y; crot=tile.rotatiom; }
+          this.cmdfire(tile,args[0],cx,cy,crot,-1,1,1);
+          return true;
+        }
+        else throw "Missing params";
+      break;
+
       default:
         return false;
     }
