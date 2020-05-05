@@ -895,6 +895,10 @@ const commandblocks={
         this.report(tile.health);
         return true;
       break;
+      case 'getrot':
+        this.report(tile.rotation);
+        return true;
+      break;
       case 'getseffects':
         this.report(Vars.content.getBy(StatusEffect));
         return true;
@@ -1095,7 +1099,7 @@ const commandblocks={
                 args[3]=args[3].substring(1,args[3].length);
                 var current=0;
                 if(tile instanceof Tile) current=tile.rotation()*90;
-                else current=tile.rotatiom;
+                else current=tile.rotation;
                 if(args[3]=="") args[3]=0;
                 args[3]=Number(args[3]);
                 crot=(args[3]+current)%360;
@@ -1112,7 +1116,7 @@ const commandblocks={
         else if(args.length==1){
           var cx=0; var cy=0; var crot=0;
           if(tile instanceof Tile){ cx=tile.worldx();cy=tile.worldy(); crot=tile.rotation()*90; }
-          else{ cx=tile.x; cy=tile.y; crot=tile.rotatiom; }
+          else{ cx=tile.x; cy=tile.y; crot=tile.rotation; }
           this.cmdfire(tile,args[0],cx,cy,crot,-1,1,1);
           return true;
         }
