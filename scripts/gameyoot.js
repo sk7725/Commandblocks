@@ -186,7 +186,7 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     if(yoot.h<0){
       yoot.h=0;
       if(yoot.hv<-1) yoot.hv*=-0.3;
-      if(yoot.hv<-3) Sounds.artillery.at(tile.worldx()+yoot.x,tile.worldy()+yoot.y,14);
+      if(yoot.hv<-1) Sounds.artillery.at(tile.worldx()+yoot.x,tile.worldy()+yoot.y,10);
     }
   },
   rollYoot(i,str){
