@@ -8,8 +8,11 @@ const topchance=0.4;
 
 const gameyoot=extendContent(MessageBlock,"gameyoot",{
     placed(tile) {
-        this.super$placed(tile);
-        //Call.setMessageBlockText(null,tile,color1);
+      this.super$placed(tile);
+      //Call.setMessageBlockText(null,tile,color1);
+      for(var i=0;i<4;i++){
+        tile.ent().rollYoot(i,throwstr/4);
+      }
     },
     drawSelect(tile){
       //kill the words
