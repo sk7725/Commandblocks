@@ -35,6 +35,12 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
     this.super$removed(tile);
     var key=tile.x+","+tile.y;
     delete commandblocksi[key];
+  },
+  handleDamage(tile,amount){
+    return 0;
+  },
+  handleBulletHit(entity,bullet){
+    entity.damage(0);
   }
 });
 

@@ -23,6 +23,12 @@ const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating
     this.super$removed(tile);
     var key=tile.x+","+tile.y;
     delete commandblocksr[key];
+  },
+  handleDamage(tile,amount){
+    return 0;
+  },
+  handleBulletHit(entity,bullet){
+    entity.damage(0);
   }
 });
 
