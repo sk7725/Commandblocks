@@ -81,6 +81,9 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
       //if(!value) return;
       if(value==1){
         //roll yoot
+        for(var i=0;i<4;i++){
+          tile.ent().rollYoot(i,throwstr);
+        }
       }
     },
     load(){
@@ -97,10 +100,10 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
     },
     drawYootShadow(tile,key,yoot){
       Draw.color(shadowcolor);
-      Draw.rect(this.animregion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y,yoot.rot);
+      Draw.rect(this.animRegion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y,yoot.rot);
     },
     drawYoot(tile,key,yoot){
-      Draw.rect(this.animregion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y+yoot.h,yoot.rot);
+      Draw.rect(this.animRegion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y+yoot.h,yoot.rot);
     },
     drawLayer(tile){
       for(var i=0;i<4;i++){
@@ -176,5 +179,13 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     yoot.xv*=this._friction; yoot.yv*=this._friction;
     if(yoot.h>0){ yoot.h-=yoot.hv; yoot.hv-=this._g; }
     if(yoot.h<0) yoot.h=0;
+  },
+  rollYoot(i,str){
+    var yoot=this["_yoot"+i];
+    yoot.hv=str;
+    yoot.x=0; yoot.y=0;
+    yoot.xv=str*(Math.random()*2-1);
+    yoot.yv=str*(Math.random()*2-1);
+    yoot.rot=Math.random()*360;
   }
 }));
