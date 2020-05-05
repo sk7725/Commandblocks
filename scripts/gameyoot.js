@@ -182,12 +182,12 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     if(yoot.h>0||yoot.hv>0){ yoot.h+=yoot.hv; yoot.hv+=this._g; }
     if(yoot.h<0){
       yoot.h=0;
-      if(yoot.hv<-2) yoot.hv*=-0.5;
+      if(yoot.hv<-2) yoot.hv*=-0.3;
     }
   },
   rollYoot(i,str){
     var yoot=this["_yoot"+i];
-    yoot.hv=str*0.6*(Math.random()+0.5);
+    yoot.hv=str*0.5*(Math.random()+0.5);
     yoot.h=0;
     yoot.x=0; yoot.y=0;
     yoot.xv=str*(Math.random()*2-1)*0.35;
