@@ -2,7 +2,7 @@
 const color1="ffaa5f"; const color2="84f491";//color of pyratite and mender
 const ts=40;//table size
 const shadowcolor=new Color(0,0,0,0.71);
-const throwstr=80;
+const throwstr=20;
 const landframe=95;
 const topchance=0.4;
 
@@ -177,12 +177,13 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     var yoot=this["_yoot"+i];
     yoot.x+=yoot.xv; yoot.y+=yoot.yv;
     yoot.xv*=this._friction; yoot.yv*=this._friction;
-    if(yoot.h>0){ yoot.h-=yoot.hv; yoot.hv-=this._g; }
+    if(yoot.h>0){ yoot.h+=yoot.hv; yoot.hv-=this._g; }
     if(yoot.h<0) yoot.h=0;
   },
   rollYoot(i,str){
     var yoot=this["_yoot"+i];
-    yoot.hv=str;
+    yoot.hv=str*10;
+    yoot.h=0;
     yoot.x=0; yoot.y=0;
     yoot.xv=str*(Math.random()*2-1);
     yoot.yv=str*(Math.random()*2-1);
