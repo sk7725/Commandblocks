@@ -132,7 +132,7 @@ const playermover=extendContent(MessageBlock,"playermover",{
       var offset=tile.ent().getPos();
       var tileon=Vars.world.tile(tile.x+offset.x,tile.y+offset.y);
       if(tileon.block().name=="commandblocks-buttonpad") tileon.block().unitOn(tileon,null);
-      if(tileon.block().rotate) tile.ent().movePos(((tileon.block().rotation()-1)%2)*-1,((tileon.block().rotation()-2)%2)*-1);
+      if(tileon.block().rotate) tile.ent().movePos(((tileon.rotation()-1)%2)*-1,((tileon.rotation()-2)%2)*-1);
     }
     //TODO:table, draw
 });
