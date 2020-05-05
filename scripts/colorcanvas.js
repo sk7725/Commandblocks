@@ -138,6 +138,30 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
     if(req.config!=0) Draw.color();
   }
 });
+
+
+colorcanvas.entityType=prov(() => extendContent(TileEntity , colorcanvas , {
+  config(){
+    return this._color.rgba();
+  },
+  _color:new Color(1,1,1,1),
+  write(stream){
+    this.super$write(stream);
+    stream.writeInt(this._color.rgba());
+  },
+  read(stream,revision){
+    this.super$read(stream,revision);
+    this._color=Tmp.c1.set(stream.readInt());
+  },
+  getColor(){
+    return this._color;
+  },
+  setitem(item){
+    this._color=item;
+  }
+}));
+
+
 colorcanvas.hasPower=false;
 colorcanvas.configurable=false;
 /*
