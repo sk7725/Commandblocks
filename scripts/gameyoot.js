@@ -4,7 +4,7 @@ const ts=40;//table size
 const shadowcolor=new Color(0,0,0,0.22);
 const throwstr=8;
 const landframe=130;
-const topchance=0.4;
+const topchance=0.45;
 
 const gameyoot=extendContent(MessageBlock,"gameyoot",{
     placed(tile) {
@@ -87,7 +87,7 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
         tile.ent().timer.reset(timerid,0);
         var res=[];
         for(var i=0;i<4;i++){
-          if(Math.random()>topchance){
+          if(Math.random()>topchance||(i==0&&Math.random()>0.35)){
             //flat side
             res.push(Math.floor(Math.random()*4)*2+1)
           }
@@ -169,7 +169,7 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
     update(tile){
       this.super$update(tile);
       if(tile.ent().message!=""&&tile.ent().timer.check(timerid,landframe+60)) return;
-      
+
       if(tile.ent().message!=""&&tile.ent().timer.check(timerid,landframe+59)){
         var outcome=tile.ent().getOutcome();
         var res=this.yootres(tile,outcome);
