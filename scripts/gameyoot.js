@@ -3,7 +3,7 @@ const color1="ffaa5f"; const color2="84f491";//color of pyratite and mender
 const ts=40;//table size
 const shadowcolor=new Color(0,0,0,0.22);
 const throwstr=8;
-const landframe=200;
+const landframe=130;
 const topchance=0.4;
 
 const gameyoot=extendContent(MessageBlock,"gameyoot",{
@@ -168,7 +168,7 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
     },
     update(tile){
       this.super$update(tile);
-      if(tile.ent().message!=""&&tile.ent().timer.getTime(timerid)==landframe){
+      if(tile.ent().message!=""&&tile.ent().timer.getTime(timerid)>=landframe){
         var outcome=tile.ent().getOutcome();
         var res=this.yootres(tile,outcome);
         for(var i=0;i<4;i++){
@@ -188,7 +188,7 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
           }
         }
       }
-      if(tile.ent().message!=""&&tile.ent().timer.check(timerid,landframe)) return;
+      if(tile.ent().message!=""&&tile.ent().timer.check(timerid,landframe+3)) return;
       for(var i=0;i<4;i++){
         tile.ent().updateYoot(i,tile);
       }
