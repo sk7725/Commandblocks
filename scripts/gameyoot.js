@@ -168,9 +168,10 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
     },
     update(tile){
       this.super$update(tile);
-      if(tile.ent().message!=""&&tile.ent().timer.getTime(timerid)>=landframe){
+      if(tile.ent().message!=""&&tile.ent().timer.check(timerid,landframe+59)){
         var outcome=tile.ent().getOutcome();
         var res=this.yootres(tile,outcome);
+        print("Yootres:"+res);
         for(var i=0;i<4;i++){
           var yoot=tile.ent()["getYoot"+i];
           switch(res){
@@ -188,7 +189,7 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
           }
         }
       }
-      if(tile.ent().message!=""&&tile.ent().timer.check(timerid,landframe+3)) return;
+      if(tile.ent().message!=""&&tile.ent().timer.check(timerid,landframe+60)) return;
       for(var i=0;i<4;i++){
         tile.ent().updateYoot(i,tile);
       }
