@@ -72,6 +72,7 @@ const playermover=extendContent(MessageBlock,"playermover",{
 	 },
     configured(tile,player,value){
       //if(!value) return;
+      if(value>=1&&value<=4) tile.ent().setLast(value);
       if(value==2) tile.ent().movePos(0,1);
       if(value==3) tile.ent().movePos(-1,0);
       if(value==1) tile.ent().movePos(1,0);
@@ -139,6 +140,8 @@ const playermover=extendContent(MessageBlock,"playermover",{
       var tileon=Vars.world.tile(tile.x+offset.x,tile.y+offset.y);
       if(tileon.block().name=="commandblocks-buttonpad") tileon.block().unitOn(tileon,null);
       if(tileon.block().rotate) tile.ent().movePos(((tileon.rotation()-1)%2)*-1,((tileon.rotation()-2)%2)*-1);
+      var floor=tileon.floor().name;
+      if(floor=="ice"||floor=="snow"||floor=="ice-snow") tile.configure(tile.ent().getLast());
     }
     //TODO:table, draw
 });
@@ -155,8 +158,15 @@ playermover.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity 
     this._px+=dx;
     this._py+=dy;
   },
+  setLast(a){
+    this._plast=a;
+  },
+  getLast(){
+    return this._plast;
+  },
   _px:0,
   _py:0,
+  _plast:0,
   write(stream){
     this.super$write(stream);
     stream.writeShort(this._px);
