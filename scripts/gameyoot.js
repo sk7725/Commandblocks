@@ -109,6 +109,11 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
       for(var i=0;i<8;i++){
         this.animRegion.push(Core.atlas.find(this.name+"-"+i));
       }
+      this.animBackdoRegion=[];
+      for(var i=0;i<8;i++){
+        if(i>=3&&i<=5) this.animBackdoRegion.push(Core.atlas.find(this.name+"-"+i+"-1"));
+        else this.animBackdoRegion.push(Core.atlas.find(this.name+"-"+i));
+      }
     },
     draw(tile){
       //this.super$draw(tile);
@@ -119,17 +124,31 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
       Draw.rect(this.animRegion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y,yoot.rot);
       //print("DrawShad:"+tile.drawx()+yoot.x+","+tile.drawy()+yoot.y);
     },
-    drawYoot(tile,key,yoot){
-      Draw.rect(this.animRegion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y+yoot.h,yoot.rot);
+    drawYoot(tile,key,yoot,i){
+      if(i==0) Draw.rect(this.animBackdoRegion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y+yoot.h,yoot.rot);
+      else Draw.rect(this.animRegion[key],tile.drawx()+yoot.x, tile.drawy()+yoot.y+yoot.h,yoot.rot);
       //print("Draw:"+tile.drawx()+yoot.x+","+tile.drawy()+yoot.y+yoot.h);
     },
+    calckey(x,a,b){
+      if(a==0) return 0;
+      var res=0;
+      if(x<0.25*b) res=(8*a*x)/(5*b);
+      else if(x<0.5*b) res=(7*a*x)/(5*b)+a/20;
+      else res=(a*x)/(2*b)+a/2;
+      return Math.floor(res)%8;
+    },
     drawLayer(tile){
+      var keys=[];
+      var res=tile.ent().getOutcome();
       for(var i=0;i<4;i++){
-        this.drawYootShadow(tile,0,tile.ent()["getYoot"+i]());
+        keys.push(this.calckey((tile.ent().timers.check(timerid,landframe-2*i))?landframe-2*i:tile.ent().timers.getTime(timerid),res[i]*8,landframe-2*i))
+      }
+      for(var i=0;i<4;i++){
+        this.drawYootShadow(tile,keys[i],tile.ent()["getYoot"+i]());
       }
       Draw.color();
       for(var i=0;i<4;i++){
-        this.drawYoot(tile,0,tile.ent()["getYoot"+i]());
+        this.drawYoot(tile,keys[i],tile.ent()["getYoot"+i](),i);
       }
     },
     yootres(tile,yoots){
@@ -191,7 +210,7 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     xv:0,
     yv:0,
     hv:0,
-    rot:20,
+    rot:20
   },
   _yoot1:{
     x:0,
@@ -200,7 +219,7 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     xv:0,
     yv:0,
     hv:0,
-    rot:-45,
+    rot:-45
   },
   _yoot2:{
     x:0,
@@ -209,7 +228,7 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     xv:0,
     yv:0,
     hv:0,
-    rot:80,
+    rot:80
   },
   _yoot3:{
     x:0,
@@ -218,7 +237,7 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     xv:0,
     yv:0,
     hv:0,
-    rot:-75,
+    rot:-75
   },
   getYoot0(){
     return this._yoot0;
