@@ -168,6 +168,8 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
     },
     update(tile){
       this.super$update(tile);
+      if(tile.ent().message!=""&&tile.ent().timer.check(timerid,landframe+60)) return;
+      
       if(tile.ent().message!=""&&tile.ent().timer.check(timerid,landframe+59)){
         var outcome=tile.ent().getOutcome();
         var res=this.yootres(tile,outcome);
@@ -176,10 +178,10 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
           var yoot=tile.ent()["getYoot"+i];
           switch(res){
             case "mo":
-              Effects.effect(Fx.teleportOut,Color.valueOf("7457ce"),tile.drawx()+yoot.x, tile.drawy()+yoot.y);
+              Effects.effect(Fx.teleportActivate,Color.valueOf("7457ce"),tile.drawx()+yoot.x, tile.drawy()+yoot.y);
             break;
             case "yoot":
-              Effects.effect(Fx.teleportOut,Color.valueOf("6ecdec"),tile.drawx()+yoot.x, tile.drawy()+yoot.y);
+              Effects.effect(Fx.teleportActivate,Color.valueOf("6ecdec"),tile.drawx()+yoot.x, tile.drawy()+yoot.y);
             break;
             case "backdo":
               if(outcome[i]%2==1) Effects.effect(Fx.teleportOut,Color.valueOf("ff795e"),tile.drawx()+yoot.x, tile.drawy()+yoot.y);
@@ -189,7 +191,6 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
           }
         }
       }
-      if(tile.ent().message!=""&&tile.ent().timer.check(timerid,landframe+60)) return;
       for(var i=0;i<4;i++){
         tile.ent().updateYoot(i,tile);
       }
