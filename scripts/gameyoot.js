@@ -1,4 +1,4 @@
-
+const timerid=0;
 const color1="ffaa5f"; const color2="84f491";//color of pyratite and mender
 const ts=40;//table size
 const shadowcolor=new Color(0,0,0,0.22);
@@ -84,6 +84,19 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
       //if(!value) return;
       if(value==1){
         //roll yoot
+        tile.ent().timers.reset(timerid,0);
+        var res=[];
+        for(var i=0;i<4;i++){
+          if(Math.random()>topchance){
+            //flat side
+            res.push((Math.random()>0.4)?1:3);
+          }
+          else{
+            //x side
+            res.push((Math.random()>0.4)?2:0);
+          }
+        }
+        Call.setMessageBlockText(null,tile,res.join("-"));
         for(var i=0;i<4;i++){
           tile.ent().rollYoot(i,throwstr);
         }
@@ -119,10 +132,51 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
         this.drawYoot(tile,0,tile.ent()["getYoot"+i]());
       }
     },
+    yootres(tile,yoots){
+      var topcnt=0; var flatcnt=0;
+      for(var i=0;i<4;i++){
+        if(yoots[i]%2==0) topcnt++;
+        else flatcnt++;
+      }
+      if(topcnt==4) return "mo";
+      if(flatcnt==4) return "yoot";
+      if(flatcnt==3) return "gul";
+      if(flatcnt==2) return "gae";
+      if(flatcnt==1){
+        if(yoots[0]%2==1) return "backdo";
+        else return "do";
+      }
+    },
     update(tile){
       this.super$update(tile);
+      if(tile.ent().timers.getTime(timerid)==landframe){
+        var outcome=tile.ent().getOutcome();
+        var res=this.yootres(tile,outcome);
+        for(var i=0;i<4;i++){
+          var yoot=tile.ent()["getYoot"+i];
+          switch(res){
+            case "mo":
+              Effects.effect(Fx.teleportOut,Color.valueOf("7457ce"),tile.drawx()+yoot.x, tile.drawy()+yoot.y);
+            break;
+            case "yoot":
+              Effects.effect(Fx.teleportOut,Color.valueOf("6ecdec"),tile.drawx()+yoot.x, tile.drawy()+yoot.y);
+            break;
+            case "backdo":
+              if(outcome[i]%2==1) Effects.effect(Fx.teleportOut,Color.valueOf("ff795e"),tile.drawx()+yoot.x, tile.drawy()+yoot.y);
+            break;
+            default:
+              if(outcome[i]%2==1) Effects.effect(Fx.teleportOut,Color.valueOf("ffffff"),tile.drawx()+yoot.x, tile.drawy()+yoot.y);
+          }
+        }
+      }
+      if(tile.ent().timers.check(timerid,landframe)) return;
       for(var i=0;i<4;i++){
         tile.ent().updateYoot(i,tile);
+      }
+      var message=tile.ent().message;
+      if(message!=""&&message!=tile.ent().getOutcome().join("-")){
+        var tmparr=message.split("-");
+        tile.ent().setOutcome(tmparr);
       }
     }
 });
@@ -197,5 +251,12 @@ gameyoot.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , g
     yoot.xv=str*(Math.random()*2-1)*0.35;
     yoot.yv=str*(Math.random()*2-1)*0.35;
     yoot.rot=Math.random()*360;
+  },
+  _outcomes:[0,0,0,0],
+  setOutcome(a){
+    this._outcomes=a
+  },
+  getOutcome(){
+    return this._outcomes;
   }
 }));
