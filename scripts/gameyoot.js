@@ -141,7 +141,7 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
       var keys=[];
       var res=tile.ent().getOutcome();
       for(var i=0;i<4;i++){
-        keys.push(this.calckey((tile.ent().timer.check(timerid,landframe-2*i))?landframe-2*i:tile.ent().timer.getTime(timerid),res[i]*8,landframe-2*i))
+        keys.push(this.calckey((tile.ent().timer.check(timerid,landframe-2*i))?landframe-2*i:tile.ent().timer.getTime(timerid),res[i]*4,landframe-2*i))
       }
       for(var i=0;i<4;i++){
         this.drawYootShadow(tile,keys[i],tile.ent()["getYoot"+i]());
