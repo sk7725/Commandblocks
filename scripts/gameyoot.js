@@ -89,11 +89,11 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
         for(var i=0;i<4;i++){
           if(Math.random()>topchance){
             //flat side
-            res.push((Math.random()>0.4)?1:3);
+            res.push(Math.floor(Math.random()*4)*2+1)
           }
           else{
             //x side
-            res.push((Math.random()>0.4)?2:0);
+            res.push(Math.floor(Math.random()*4)*2);
           }
         }
         Call.setMessageBlockText(null,tile,res.join("-"));
@@ -173,9 +173,9 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
       if(tile.ent().message!=""&&tile.ent().timer.check(timerid,landframe+59)){
         var outcome=tile.ent().getOutcome();
         var res=this.yootres(tile,outcome);
-        print("Yootres:"+res);
+        //print("Yootres:"+res);
         for(var i=0;i<4;i++){
-          var yoot=tile.ent()["getYoot"+i];
+          var yoot=tile.ent()["getYoot"+i]();
           switch(res){
             case "mo":
               Effects.effect(Fx.teleportActivate,Color.valueOf("7457ce"),tile.drawx()+yoot.x, tile.drawy()+yoot.y);
