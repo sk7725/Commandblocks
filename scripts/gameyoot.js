@@ -84,7 +84,7 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
       //if(!value) return;
       if(value==1){
         //roll yoot
-        tile.ent().timers.reset(timerid,0);
+        tile.ent().timer.reset(timerid,0);
         var res=[];
         for(var i=0;i<4;i++){
           if(Math.random()>topchance){
@@ -141,7 +141,7 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
       var keys=[];
       var res=tile.ent().getOutcome();
       for(var i=0;i<4;i++){
-        keys.push(this.calckey((tile.ent().timers.check(timerid,landframe-2*i))?landframe-2*i:tile.ent().timers.getTime(timerid),res[i]*8,landframe-2*i))
+        keys.push(this.calckey((tile.ent().timer.check(timerid,landframe-2*i))?landframe-2*i:tile.ent().timer.getTime(timerid),res[i]*8,landframe-2*i))
       }
       for(var i=0;i<4;i++){
         this.drawYootShadow(tile,keys[i],tile.ent()["getYoot"+i]());
@@ -168,7 +168,7 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
     },
     update(tile){
       this.super$update(tile);
-      if(tile.ent().message!=""&&tile.ent().timers.getTime(timerid)==landframe){
+      if(tile.ent().message!=""&&tile.ent().timer.getTime(timerid)==landframe){
         var outcome=tile.ent().getOutcome();
         var res=this.yootres(tile,outcome);
         for(var i=0;i<4;i++){
@@ -188,7 +188,7 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
           }
         }
       }
-      if(tile.ent().message!=""&&tile.ent().timers.check(timerid,landframe)) return;
+      if(tile.ent().message!=""&&tile.ent().timer.check(timerid,landframe)) return;
       for(var i=0;i<4;i++){
         tile.ent().updateYoot(i,tile);
       }
