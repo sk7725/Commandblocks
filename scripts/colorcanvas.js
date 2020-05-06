@@ -126,10 +126,11 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
     //
   },
   playerPlaced(tile){
+    /*
     tile.ent().color=t.global.colors.brushcolor["U-"+Vars.player.name];
     if(!Vars.headless){
       Vars.renderer.minimap.update(tile);
-    }
+    }*/
   },
   drawRequestRegion(req,list){
     var reg = this.icon(Cicon.full);
