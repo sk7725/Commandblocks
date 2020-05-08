@@ -170,7 +170,7 @@ const gameyoot=extendContent(MessageBlock,"gameyoot",{
       this.super$update(tile);
       if(tile.ent().message!=""&&tile.ent().timer.check(timerid,landframe*5+80)) return;
 
-      if(tile.ent().message!=""&&tile.ent().timer.check(timerid)==landframe+79){
+      if(tile.ent().message!=""&&tile.ent().timer.getTime(timerid)==landframe+79){
         var outcome=tile.ent().getOutcome();
         var res=this.yootres(tile,outcome);
         //print("Yootres:"+res);
