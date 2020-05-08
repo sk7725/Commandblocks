@@ -14,3 +14,4 @@ consumes: {
 }
 health: 40
 solid: false
+consumesTap: true
