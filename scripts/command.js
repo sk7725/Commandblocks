@@ -149,13 +149,15 @@ const commandblocks={
             else ret.eachFilter(boolf(e=>(e.team!=targetteam)));
           break;
           case "name":
-            if(invert) ret.eachFilter(boolf(e=>(e.name==se)));
-            else ret.eachFilter(boolf(e=>(e.name!=se)));
+            if(invert) ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:e.name)==se)));
+            else ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:e.name)!=se)));
           break;
-          case "tilename":
-            if(invert) ret.eachFilter(boolf(e=>(e.block().name==se)));
-            else ret.eachFilter(boolf(e=>(e.block().name!=se)));
+          /*
+          case "data":
+            if(invert) ret.eachFilter(boolf(e=>(e.block.name==se)));
+            else ret.eachFilter(boolf(e=>(e.block.name!=se)));
           break;
+          */
           case "x":
             if(Number(se)>=0) sx=Number(se);
           break;
@@ -167,6 +169,10 @@ const commandblocks={
           break;
           case "dy":
             if(Number(se)>=1) dy=Number(se);
+          break;
+          case "r":
+            var tmpx=(ptile instanceof Tile)?ptile.worldx():ptile.x;
+            var tmpy=(ptile instanceof Tile)?ptile.worldy():ptile.y;
           break;
         }
       }
