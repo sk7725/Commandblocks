@@ -404,8 +404,8 @@ const commandblocks={
     if(facingrelative) rot=facing;
     else rot=facing-punit.rotation;
     punit.set(cx,cy);
-    //if(rot!=0) punit.rotate(rot);
     if((punit instanceof Player)&&punit==Vars.player) Core.camera.position.set(punit);
+    if(rot!=0&& (punit instanceof BaseUnit)) punit.rotate(rot);
   },
   cmdsummon(ptile,cunit,cx,cy,cteam){
     var unittype=UnitTypes[cunit];
@@ -589,17 +589,19 @@ const commandblocks={
                 Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
                 */
                 Call.beginBreak(Vars.world.tile(cx, cy).team, cx, cy);
-                Call.onDeconstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0);
+                //Call.onDeconstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0);
               }
               else{
                 //ctile.onRemoved();
                 //ctile.ent().onRemoved();
+                ctile.ent().removeFromProximity();
+
                 ctile.set(Blocks[cblock], cteam, crot);
               }
               if(args[5]=="build"){
                 //Call.onDeconstructFinish(ctile, ctile.block(), 0);
-                Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
-                Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
+                //Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
+                //Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
               }else{
 
               }
@@ -609,8 +611,8 @@ const commandblocks={
               crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team;
               if(cteam!==tile.team) cteam=Team.get(cteam);
               //if(ctile.ent()!=null) ctile.ent().remove();
-              Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
-              Vars.world.notifyChanged(Vars.world.tile(cx, cy));
+              //Vars.world.tile(cx, cy).removeNet()
+              Call.setTile(Vars.world.tile(cx, cy), Blocks.air, tile.team, 0);
               //Vars.world.tile(cx, cy).changed();
               return true;
             }
@@ -1123,7 +1125,10 @@ const commandblocks={
         }
         else throw "Missing params";
       break;
-
+      case 'getunitname':
+        this.report(tile.getType().name);
+        return true;
+      break;
       default:
         return false;
     }

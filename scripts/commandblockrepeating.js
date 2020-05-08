@@ -17,7 +17,7 @@ const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating
     }
   },
   shouldShowConfigure(tile, player){
-    return player.isLocal||player.isAdmin;
+    return (!Vars.net.active())||player.isAdmin;
   },
   removed(tile){
     this.super$removed(tile);

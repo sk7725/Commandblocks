@@ -17,7 +17,7 @@ const commandblockchained = extendContent(MessageBlock, "commandblockchained", {
     return tmpobj;
   },
   shouldShowConfigure(tile, player){
-    return player.isLocal||player.isAdmin;
+    return (!Vars.net.active())||player.isAdmin;
   },
   update(tile){
     var entity=tile.ent();

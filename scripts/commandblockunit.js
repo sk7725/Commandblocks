@@ -10,7 +10,7 @@ const commandblockunit = extendContent(MessageBlock, "commandblockunit", {
     thiscmd.didsuccess = Boolean(res);
   },
   shouldShowConfigure(tile, player){
-    return player.isLocal||player.isAdmin;
+    return (!Vars.net.active())||player.isAdmin;
   },
   removed(tile){
     this.super$removed(tile);

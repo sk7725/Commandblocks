@@ -5,7 +5,7 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
 		//tile.didcmd = false;
 	},
   shouldShowConfigure(tile, player){
-    return player.isLocal||player.isAdmin;
+    return (!Vars.net.active())||player.isAdmin;
   },
   update(tile){
     var entity=tile.ent();
