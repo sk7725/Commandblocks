@@ -1,7 +1,11 @@
 const signblock = extendContent(MessageBlock, "signblock", {
   tapped(tile,player){
-    if(!tile.entity.cons.valid()&&player==Vars.player&&tile.ent().message!=""){
-      Vars.ui.showInfo(tile.ent().message);
+    if((!tile.entity.cons.valid())&&tile.ent().message!=""){
+      if(player==Vars.player){
+        Vars.ui.showInfo(tile.ent().message);
+        print("Sign:shown");
+      }
+      print("Sign:tapped");
     }
   }
 });
