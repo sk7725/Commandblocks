@@ -7,5 +7,13 @@ const signblock = extendContent(MessageBlock, "signblock", {
       }
       print("Sign:tapped");
     }
+  },
+  update(tile){
+    if((!tile.entity.cons.valid())&&tile.ent().message!=""){
+      if(this.configurable) this.configurable=false;
+    }
+    else{
+      if(!this.configurable) this.configurable=true;
+    }
   }
 });
