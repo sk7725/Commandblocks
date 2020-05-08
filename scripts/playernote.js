@@ -36,14 +36,15 @@ const playernote = extendContent(MessageBlock, "playernote", {
 			tile.configure(-1)
 		})).size(40);
 	},
-	configured(tile,player, value){
+  configured(tile,player, value){
 		//if(value != -1&&value!=0){
 		//	value = 1;
 		//}
     var key=tile.x+","+tile.y;
     if(!noteblocks.hasOwnProperty(key)) this.loadkey(tile);
     var n=Number(tile.ent().message);
-    n+=value;
+    if(n>1) n=value;
+    else n+=value;
     if(n>=notelength) n=0;
     else if(n<0) n=notelength-1;
     Call.setMessageBlockText(null,tile,n+"");
