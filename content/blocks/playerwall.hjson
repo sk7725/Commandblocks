@@ -8,3 +8,4 @@ requirements: [
 ]
 hasShadow: false
 rotate: true
+buildVisibility: debugOnly
