@@ -16,3 +16,4 @@ health: 40
 solid: false
 consumesTap: true
 update: true
+configurable: true
