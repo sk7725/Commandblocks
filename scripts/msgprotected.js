@@ -1,5 +1,5 @@
 const msgprotected = extendContent(MessageBlock, "msgprotected", {
 	shouldShowConfigure(tile, player){
-    return player.isLocal||player.isAdmin;
+    return !Vars.net.server||player.isAdmin;
   }
 });
