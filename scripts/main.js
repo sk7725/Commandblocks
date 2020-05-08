@@ -44,5 +44,7 @@ require("colorpickerhex");
 require("colorpickerbrush");
 
 require("magicrouter");
+require("signblock");
+
 require("playermover");
 require("gameyoot");
