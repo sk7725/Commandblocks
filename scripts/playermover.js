@@ -141,7 +141,7 @@ const playermover=extendContent(MessageBlock,"playermover",{
       if(tileon.block().name=="commandblocks-buttonpad") tileon.block().unitOn(tileon,null);
       if(tileon.block().rotate) tile.ent().movePos(((tileon.rotation()-1)%2)*-1,((tileon.rotation()-2)%2)*-1);
       var floor=tileon.floor().name;
-      if(floor=="ice"||floor=="snow"||floor=="ice-snow") tile.configure(tile.ent().getLast());
+      if(floor=="ice"||floor=="snow"||floor=="ice-snow") this.configured(tile,null,tile.ent().getLast());
     }
     //TODO:table, draw
 });
