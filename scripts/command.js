@@ -173,7 +173,7 @@ const commandblocks={
           case "r":
             var tmpx=(ptile instanceof Tile)?ptile.worldx():ptile.x;
             var tmpy=(ptile instanceof Tile)?ptile.worldy():ptile.y;
-            var tmpr=se*se;
+            var tmpr=se*se*64;
             if(invert) ret.eachFilter(boolf(e=>(((tmpx-e.x)*(tmpx-e.x)+(tmpy-e.y)*(tmpy-e.y))<=tmpr)));
             else ret.eachFilter(boolf(e=>(((tmpx-e.x)*(tmpx-e.x)+(tmpy-e.y)*(tmpy-e.y))>tmpr)));
           break;
