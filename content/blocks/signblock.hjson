@@ -1,0 +1,16 @@
+
+size: 1
+breakable: true
+category: effect
+requirements: [
+  copper/6
+  lead/1
+  graphite/3
+]
+sync: true
+expanded: true
+consumes: {
+  power: 0.3
+}
+health: 40
+solid: false
