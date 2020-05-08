@@ -589,7 +589,7 @@ const commandblocks={
                 Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
                 */
                 //Call.beginBreak(Vars.world.tile(cx, cy).team, cx, cy);
-                Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0,rot,team,false);
+                Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0,crot,cteam,false);
               }
               else{
                 //ctile.onRemoved();
