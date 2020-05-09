@@ -1,0 +1,16 @@
+health: 100
+speed: 0
+maxVelocity: 1
+drag: 0
+range: 0
+attackLength: 0
+shootCone: 360
+mass: 1
+hitsize: 7
+flying: false
+engineSize: 0
+engineOffset: 0
+rotateWeapon: false
+rotatespeed: 1
+baseRotateSpeed: 1
+//weaponOffsetY: 0
