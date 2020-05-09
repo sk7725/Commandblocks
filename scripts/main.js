@@ -1,4 +1,4 @@
-
+require("armorstand");
 require("command");
 
 require("msgprotected");
