@@ -61,7 +61,7 @@ armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
 
     //Draw.rect(this.type.baseRegion, this.x, this.y, this.rotation - 90);
 
-    Draw.rect(this.type.legRegion, this.x, this.y+2.5);
+    Draw.rect(this.type.legRegion, this.x, this.y+2);
 
     Draw.mixcol();
   //  Draw.color();
