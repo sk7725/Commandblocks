@@ -149,8 +149,8 @@ const commandblocks={
             else ret.eachFilter(boolf(e=>(e.team!=targetteam)));
           break;
           case "name":
-            if(invert) ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:e.name)==se)));
-            else ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:e.name)!=se)));
+            if(invert) ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:((e instanceof Bullet)?e.getBulletType().name:e.name))==se)));
+            else ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:((e instanceof Bullet)?e.getBulletType().name:e.name))!=se)));
           break;
           /*
           case "data":
@@ -410,11 +410,12 @@ const commandblocks={
   cmdtp(punit,cx,cy,facing,facingrelative){
     //um...
     var rot=0;
-    if(facingrelative) rot=facing;
-    else rot=facing-punit.rotation;
+    if(facingrelative) rot=(punit instanceof Bullet)?(punit.rot()+facing):facing;
+    else rot=(punit instanceof Bullet)?facing:(facing-punit.rotation);
     punit.set(cx,cy);
     if((punit instanceof Player)&&punit==Vars.player) Core.camera.position.set(punit);
     if(rot!=0&& (punit instanceof BaseUnit)) punit.rotate(rot);
+    if((punit instanceof Bullet)&&rot!=punit.rot()) punit.rot(rot);
   },
   cmdsummon(ptile,cunit,cx,cy,cteam){
     var unittype=UnitTypes[cunit];
@@ -1136,6 +1137,10 @@ const commandblocks={
       break;
       case 'getunitname':
         this.report(tile.getType().name);
+        return true;
+      break;
+      case 'getbulletname':
+        this.report(tile.getBulletType().name);
         return true;
       break;
       default:
