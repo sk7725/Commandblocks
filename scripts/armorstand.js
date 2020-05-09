@@ -1,3 +1,16 @@
+/*
+const noweapon = extendContent(Weapon, "noweapon", {
+});
+
+noweapon.reload = 60;
+noweapon.alternate = false;
+noweapon.length = 0;
+noweapon.width = 0;
+noweapon.recoil = 0;
+noweapon.bullet = Bullets.waterShot;
+noweapon.shootSound = Sounds.empty;
+noweapon.minPlayerDist = 20;
+*/
 
 const armorstand = extendContent(UnitType, "armorstand", {
   load(){
@@ -7,10 +20,13 @@ const armorstand = extendContent(UnitType, "armorstand", {
     this.topRegion=Core.atlas.find(this.name+"-top");
   }
 });
-
+armorstand.weapon=UnitTypes.draug.weapon;
 armorstand.create(prov(() => new JavaAdapter(BaseUnit, {
   behavior(){
     //just..stands
+  },
+  targetClosest(){
+
   },
   update(){
     this.super$update();
