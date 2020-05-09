@@ -411,10 +411,10 @@ const commandblocks={
   },
   cmdtp(punit,cx,cy,facing,facingrelative){
     //um...
-    if(gamerule.sendCommandFeedback) this.report("Command_tp pos:("+cx+","+cy+") rot:"+facing+" relative:"+facingrelative+"executed to "+punit);
+    if(gamerule.sendCommandFeedback) this.report("Command_tp pos:("+cx+","+cy+") rot:"+facing+" relative:"+facingrelative+" executed to "+punit);
     var rot=0;
-    if(facingrelative) rot=(punit instanceof Bullet)?(punit.rot()+facing):facing;
-    else rot=(punit instanceof Bullet)?facing:(facing-punit.rotation);
+    if(facingrelative) rot=(punit instanceof Bullet)?(punit.rot()+facing):punit.rotation+facing;
+    else rot=facing;
     punit.set(cx,cy);
     if((punit instanceof Player)&&punit==Vars.player) Core.camera.position.set(punit);
     if(rot!=0&& (punit instanceof BaseUnit)) punit.rotate(rot);
