@@ -35,6 +35,14 @@ armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
   countsAsEnemy(){
     return false;
   },
+  drawStats(){
+    this.drawBackItems(this.item.amount > 0 ? 1 : 0, false);
+    this.drawLight();
+  },
+  drawShadow(offsetX, offsetY){
+    //Draw.rect(getIconRegion(), x + offsetX, y + offsetY, rotation - 90);
+    Draw.rect(this.type.shadowRegion, this.x+offsetX, this.y-4+offsetY);
+  },
   draw(){
     Draw.mixcol(Color.white, this.hitTime / this.hitDuration);
 
@@ -53,8 +61,8 @@ armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
     Draw.rect(this.type.topRegion, this.x, this.y+2.5);
 
     Draw.mixcol();
-    Draw.color();
-    Draw.rect(this.type.shadowRegion, this.x, this.y-4);
+  //  Draw.color();
+
   }
 })));
 this.global.armorstand=armorstand;
