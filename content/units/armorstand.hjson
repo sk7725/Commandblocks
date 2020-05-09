@@ -1,4 +1,8 @@
 type: GroundUnit
+weapon: {
+		name: "you have incurred my wrath. prepare to die."
+		bullet: "lancerLaser"
+}
 health: 100
 speed: 0
 maxVelocity: 1
@@ -15,7 +19,3 @@ rotateWeapon: false
 rotatespeed: 1
 baseRotateSpeed: 1
 //weaponOffsetY: 0
-weapon: {
-		name: "you have incurred my wrath. prepare to die."
-		bullet: "lancerLaser"
-}
