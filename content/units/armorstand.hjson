@@ -1,3 +1,4 @@
+type: GroundUnit
 health: 100
 speed: 0
 maxVelocity: 1
