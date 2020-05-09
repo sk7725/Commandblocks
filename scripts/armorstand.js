@@ -21,7 +21,7 @@ const armorstand = extendContent(UnitType, "armorstand", {
     this.topRegion=Core.atlas.find(this.name+"-top");
   }
 });
-armorstand.weapon=UnitTypes.draug.getWeapon();
+armorstand.weapon=UnitTypes.draug.weapon;
 armorstand.create(prov(() => new JavaAdapter(BaseUnit, {
   behavior(){
     //just..stands
