@@ -2,9 +2,10 @@
 Mindustry Command Block Mod(MCBM)   
 This mod adds Minecraft-like Command Blocks, along with other blocks.   
 This is currently in development.   
-`As of 4.0, Command Blocks require you to be an Admin or Local player to edit.`   
+`As of 4.8, Command Blocks require you to be an Admin to edit.`   
 
-## Blocks
+## Blocks   
+`Blocks that need further descriptions.`   
 + Command Block   
 Executes command once when power requirements are met.   
 + Chained Command Block   
@@ -42,20 +43,12 @@ Gets the information of the mod.
 Plays a note when the power requirement is met. Instrument changes depending on the wall under it.   
 All walls, door, router, junction, sorter, mender, shock mine, liquid router and junction, and unloaders have different instruments.   
 + Note Tuner   
-Tunes a note. The instrument that will be tune depends on the block under it.   
+Tunes a note. The instrument that will be tuned depends on the block under it.   
 + Music Player   
-Plays an array of notes. First, specify the BPM, then the notes seperated by spaces, using x for rests. End the note with - for double length, and / for half(these may be stacked).   
+Plays an array of notes. First, specify the BPM, then the notes seperated by spaces, using x for rests. End the note with - for double length, and / for half(these may be stacked). This is not done yet.   
 ```
-150 6e 6d 6c 6d 6e 6e 6e- 6d 6d 6d x 6e 6e 6e-
+150 6e 6d 6c 6d 6e 6e 6e- 6d 6d 6d x 6e 6e 6e-   
 ```
-+ Button(&Large Button)   
-Produces power when clicked.   
-+ Pressure Plate(&Large Pressure Plate)   
-Produces power when stepped on. The large pressure plate can detect flying units, too.   
-+ Detecting Router(&Detecting Distributor)   
-Produces power when holding items. Works like its original counterpart.   
-+ Announcement   
-Works like the Message but it can only be written by the admins.   
 + Camera Wall   
 Acts as a wall to the center of the camera. Can be ignored with a fast enough screen swipe.   
 The hitbox is 3x3, one block to all four directions. Turns off if it is not rendered(minimap open, or out of screen).      
@@ -86,10 +79,10 @@ Emits text to all players.
 Overwrites this command block's content to text.
 
 ### /setblock pos:x pos:y string:block (int:rotation) (int:team) (replace|keep|build|force) 
-Sets the tile at x,y to the specified block.  
-Rotation should be between 0 and 3, default is 0.  
-Team should be -1 and 255, default is -1. When team is -1, the team is set to the executor's team.  
-Fails if the previous block is already the same as the current block.  
+Sets the tile at x,y to the specified block.   
+Rotation should be between 0 and 3, default is 0.   
+Team should be -1 and 255, default is -1. When team is -1, the team is set to the executor's team.   
+Fails if the previous block is already the same as the current block.   
 `replace` destroys the previous block, and sets a new block. (default)   
 `keep` only sets the block if previous block is Air.   
 `build` destroys the previous block, and sets a new block, as if a player built it.   
@@ -140,6 +133,8 @@ Fails if no such gamerule exists, or state is not specified and the current stat
 `commandBlockOutput` whether to log command failures in multiplayer chat.   
 `commandBlockTitle` whether to log command failures as a popup.   
 `setWave` sets current wave.   
+`sendCommandFeedback` whether to log extra descriptive command outputs.   
+`doCommands` whether to run commands at all, `/gamerule` will bypass this rule but other commands will be blocked.    
 For more gamerules, refer [here](https://github.com/Anuken/Mindustry/blob/v104.6/core/src/mindustry/game/Rules.java).   
 
 ### /fx(/particle) string:effect (pos:x pos:y) (string:color)   
@@ -173,6 +168,7 @@ Fails if executor is not an unit. Some effects are custom potion effects, which 
 `wither` gives damage of 0.1\*level+0.1 every frame. Kills.   
 `instant_damage` gives damage of 10\*level+10. Duration is overridden.   
 `burning, freezing, wet, melting, tarred, overdrive, shielded, shocked, corroded, boss` are vanilla status effects. Refer [here](https://simonwoodburyforget.github.io/mindustry-modding/#StatusEffect).   
+`SPEED MULTIPLIERS ARE NOT SUPPOSED TO WORK FOR PLAYERS, MAY RESULT IN UNEXPECTED BEHAVIORS SUCH AS CRASHES.`   
 
 ### /kill (target:target)      
 Kills the target. The target is the executor if unspecified. Fails if the target is not an unit.   
@@ -188,18 +184,37 @@ Fails if the block is not configurable, or if it is a door that is already in th
 ### /tp target:target
 Teleports a target to a destination.  
 Fails if the destination is an array of multiple targets.   
-  + /tp target:target target:destination   
+  + /tp target:target target:destination (facing) (float:angle)   
     Teleports to the destination's coordinates. The destination target must specify only one entity.   
-  + /tp target:target pos:x pos:y   
+    Angle may use tilde notation to add to the current rotation.   
+  + /tp target:target pos:x pos:y (facing) (float:angle)   
     Teleports to the specified coordinates.   
+    Angle may use tilde notation to add to the current rotation.   
+
+### /summon string:unittype (pos:x pos:y) (int:team)   
+Summons an unit at the specified position. Fails if coordinates are below 0.   
+Team should be -1 and 255, default is -1. When team is -1, the team is set to the executor's team.   
+Only vanilla units may be summoned with the exception of the armor stand, which can be summoned with `armorstand`.   
+
+### /fire(/shoot) string:bullet (pos:x pos:y) (float:angle) (int:team) (float:velocity) (float:lifetime) (boolean:bind)   
+Fires a bullet at the specified position. Fails if coordinates are below 0.   
+Angle may use tilde notation to add to the current rotation.    
+Team should be -1 and 255, default is -1. When team is -1, the team is set to the executor's team.   
+Velocity and lifetime are multipliers, and defalts are 1.   
+Bind is whether the executor becomes the owner of the bullet, default is false.   
+
+### /attribute string:attributename (boolean|int|type:state)   
+Sets an attribute or gets an attribute of the executor. Fails if the executor is not a tile.   
+Can only be used inside an /execute.   
+Refer [here](https://github.com/Anuken/Mindustry/blob/v104.6/core/src/mindustry/world/Block.java) for the list of attributes.   
 
 ## Tilde Notation   
 Using ~ before a number for a coordinate will get the coordinate relative to the executor.   
 All coordinates are based on the tile coordinate, not the world coordinate.    
 
 ## Refer a Type   
-For a param that is not a string/int, the following syntax may be used for some commands.   
-`tile:x,y` `team:teamnumber` `block|floor|item|fx|liquid|bullet:name` `seffect:statuseffectname` `target:targetselector` `js:null|undefined|this`
+For a param that is not a string/int, the following syntax is used in `/f(and its counterparts)`, `/gamerule`, and `/attribute`.   
+`tile|tileblock|tileent:x,y` `team:teamnumber` `block|floor|item|fx|liquid|bullet:name` `seffect:statuseffectname` `target:targetselector` `js:null|undefined|this|true|false`
 
 ## Target Selectors   
 `@s` The executor of the command.
@@ -211,10 +226,10 @@ For a param that is not a string/int, the following syntax may be used for some 
 `@t` Is a `this` of the origin command block. Use only when you know what you are doing.   
 `@c[tagname]` A cache of the unit tagged by the Unit Tagger.   
 `x,y` The tile at the position.   
-`@e` All entities. Tile entities are excluded by default. Target arguments may be used(WIP!).   
+`@e` All entities. Tile entities are excluded by default. Target arguments may be used.   
 A string will refer to a player with that name.   
 
-### Target Arguments(WIP!)   
+### Target Arguments   
 Target arguments filter targets.   
 The format is `[argument1=value,argument2=value,...]`, and `=!` may replace `=` to exclude, not include.   
 Use it next to Target Selectors with no whitespace in between. For example: `@e[type=unit]`.   
@@ -225,6 +240,8 @@ Use it next to Target Selectors with no whitespace in between. For example: `@e[
   -1 for the team of the executor.   
 + x y dx dy(pos)   
   filters in a rectangle, refer [here](https://minecraft.gamepedia.com/Commands#Target_selector_arguments).   
++ r(float)
+  filters in a circle, the radius is in tiles.   
 
 ## Block List   
 This is the full list of blocks, as of version 104.   
