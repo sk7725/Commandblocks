@@ -16,6 +16,6 @@ flying: false
 engineSize: 0
 engineOffset: 0
 rotateWeapon: false
-rotatespeed: 360
-baseRotateSpeed: 360
+rotatespeed: 1
+baseRotateSpeed: 1
 //weaponOffsetY: 0
