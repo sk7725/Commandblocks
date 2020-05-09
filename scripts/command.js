@@ -1105,7 +1105,7 @@ const commandblocks={
           }
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
-            var crot=0; var cteam=-1; var vel=1; var life=1; var bind=true;
+            var crot=0; var cteam=-1; var vel=1; var life=1; var bind=false;
             if(args.length>=4){
               if(args[3].substring(0,1)=="~"){
                 args[3]=args[3].substring(1,args[3].length);
@@ -1121,7 +1121,7 @@ const commandblocks={
             if(args.length>=5) cteam=args[4];
             if(args.length>=6) vel=args[5];
             if(args.length>=7) life=args[6];
-            if(args.length>=8&&args[7]=="false") bind=false;
+            if(args.length>=8&&args[7]=="true") bind=true;
             this.cmdfire(tile,args[0],cx,cy,crot,cteam,vel,life,bind);
           }
           else throw "Coordinates should be above 0";
@@ -1130,7 +1130,7 @@ const commandblocks={
           var cx=0; var cy=0; var crot=0;
           if(tile instanceof Tile){ cx=tile.worldx();cy=tile.worldy(); crot=tile.rotation()*90; }
           else{ cx=tile.x; cy=tile.y; crot=tile.rotation; }
-          this.cmdfire(tile,args[0],cx,cy,crot,-1,1,1,true);
+          this.cmdfire(tile,args[0],cx,cy,crot,-1,1,1,false);
           return true;
         }
         else throw "Missing params";
