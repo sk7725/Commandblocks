@@ -6,7 +6,7 @@ weapon: {
 health: 100
 speed: 0
 maxVelocity: 1
-drag: 0
+drag: 0.01
 range: 0
 attackLength: 0
 shootCone: 360
@@ -16,6 +16,6 @@ flying: false
 engineSize: 0
 engineOffset: 0
 rotateWeapon: false
-rotatespeed: 1
-baseRotateSpeed: 1
+rotatespeed: 360
+baseRotateSpeed: 360
 //weaponOffsetY: 0
