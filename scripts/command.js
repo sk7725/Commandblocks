@@ -7,6 +7,7 @@ var effectextended={};
 
 if(!this.global.hasOwnProperty("commandcached")) this.global.commandcached={};
 const commandcached=this.global.commandcached;
+const armorstandtype=this.global.armorstand;
 const commandblocks={
   tilde(tile,inx,iny){
     if(tile instanceof Tile){
@@ -419,7 +420,7 @@ const commandblocks={
     if((punit instanceof Bullet)&&rot!=punit.rot()) punit.rot(rot);
   },
   cmdsummon(ptile,cunit,cx,cy,cteam){
-    var unittype=UnitTypes[cunit];
+    var unittype=(cunit=="armorstand")?armorstandtype:UnitTypes[cunit];
     var team=this.settype(ptile,null,"team:"+cteam);
     var unit = unittype.create(team);
     //unit.setSpawner(tile);

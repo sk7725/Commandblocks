@@ -6,7 +6,7 @@ range: 0
 attackLength: 0
 shootCone: 360
 mass: 1
-hitsize: 7
+hitsize: 4
 flying: false
 engineSize: 0
 engineOffset: 0
