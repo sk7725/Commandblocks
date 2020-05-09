@@ -4,9 +4,9 @@ weapon: {
 		bullet: "lancerLaser"
 }
 health: 100
-speed: 0
+speed: 0.1
 maxVelocity: 1
-drag: 0.01
+drag: 0.05
 range: 0
 attackLength: 0
 shootCone: 360
