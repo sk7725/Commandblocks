@@ -15,3 +15,7 @@ rotateWeapon: false
 rotatespeed: 1
 baseRotateSpeed: 1
 //weaponOffsetY: 0
+weapon: {
+		name: "you have incurred my wrath. prepare to die."
+		bullet: "lancerLaser"
+}
