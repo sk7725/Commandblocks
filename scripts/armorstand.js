@@ -40,11 +40,11 @@ armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
     this.drawBackItems(this.item.amount > 0 ? 1 : 0, false);
     this.drawLight();
   },
-  drawShadow(offsetX, offsetY){
+  drawUnder(){
     //Draw.rect(getIconRegion(), x + offsetX, y + offsetY, rotation - 90);
 
     Draw.rect(this.type.baseRegion, this.x, this.y, this.rotation - 90);
-    Draw.rect(Core.atlas.find(spritename+"-shadow"), this.x+offsetX, this.y-4+offsetY);
+    Draw.rect(Core.atlas.find(spritename+"-shadow"), this.x, this.y-4);
   },
   draw(){
     Draw.mixcol(Color.white, this.hitTime / this.hitDuration);
