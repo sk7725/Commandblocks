@@ -22,7 +22,7 @@ const armorstand = extendContent(UnitType, "armorstand", {
   }
 });
 armorstand.weapon=UnitTypes.draug.weapon;
-armorstand.create(prov(() => new JavaAdapter(BaseUnit, {
+armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
   behavior(){
     //just..stands
   },
