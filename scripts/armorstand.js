@@ -30,12 +30,14 @@ armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
   targetClosest(){
 
   },
+  /*
   interpolate(){
     this.interpolator.update();
 
     this.x = this.interpolator.pos.x;
     this.y = this.interpolator.pos.y;
   },
+  */
   rotate(angle){
     this.rotation+=angle;
   },
@@ -55,7 +57,7 @@ armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
   drawUnder(){
     //Draw.rect(getIconRegion(), x + offsetX, y + offsetY, rotation - 90);
 
-    Draw.rect(Core.atlas.find(spritename+"-base"), this.x, this.y, this.rotation - 90);
+    Draw.rect(this.type.baseRegion, this.x, this.y, this.rotation - 90);
     Draw.rect(Core.atlas.find(spritename+"-shadow"), this.x, this.y-4);
   },
   draw(){
