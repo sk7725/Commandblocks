@@ -73,7 +73,7 @@ armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
     }
 
     //GroundUnit
-    this.stuckTime = !this.vec.set(x, y).sub(this.lastPosition()).isZero(0.0001) ? 0 : this.stuckTime + Time.delta();
+    this.stuckTime = !this.vec.set(this.x, this.y).sub(this.lastPosition()).isZero(0.0001) ? 0 : this.stuckTime + Time.delta();
     if(!this.velocity.isZero()){
       this.baseRotation = Mathf.slerpDelta(this.baseRotation, this.velocity.angle(), 0.05);
     }
