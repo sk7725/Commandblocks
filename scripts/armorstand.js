@@ -30,6 +30,12 @@ armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
   targetClosest(){
 
   },
+  interpolate(){
+    this.interpolator.update();
+
+    this.x = this.interpolator.pos.x;
+    this.y = this.interpolator.pos.y;
+  },
   rotate(angle){
     this.rotation+=angle;
   },
