@@ -52,7 +52,7 @@ const commandblocks={
         soppo=true;
       }
 
-      print("stype:"+stype+" istrue:"+alltypes.includes(stype)+" all:"+alltypes);
+      //print("stype:"+stype+" istrue:"+alltypes.includes(stype)+" all:"+alltypes);
       if(alltypes.indexOf(stype)>-1){
         if(soppo){
           types=alltypes.slice();
@@ -323,7 +323,7 @@ const commandblocks={
   report(err){
     if(gamerule.commandBlockOutput) Call.sendMessage("C:"+err);
     if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(err,7);
-    print("C:"+err);
+    //print("C:"+err);
   },
   cmdeffect(punit,eff,duration,intensity,hidep){
     const potionlist=["speed","wither","slowness","strength","weakness","resistance","pain","poison","regeneration","instant_health","instant_damage"];
