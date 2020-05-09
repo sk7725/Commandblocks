@@ -27,9 +27,6 @@ armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
   behavior(){
     //just..stands
   },
-  targetClosest(){
-
-  },
   /*
   interpolate(){
     this.interpolator.update();
