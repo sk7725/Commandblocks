@@ -14,7 +14,8 @@ noweapon.minPlayerDist = 20;
 
 const armorstand = extendContent(UnitType, "armorstand", {
   load(){
-    this.super$load();
+    //this.super$load();
+    this.region=Core.atlas.find(this.name);
     this.baseRegion=Core.atlas.find(this.name+"-base");
     this.shadowRegion=Core.atlas.find(this.name+"-shadow");
     this.topRegion=Core.atlas.find(this.name+"-top");
