@@ -2,6 +2,7 @@ var gamerule={};
 gamerule.commandBlockOutput=true;
 gamerule.doCommands=true;
 gamerule.commandBlockTitle=false;
+gamerule.sendCommandFeedback=false;
 var effectextended={};
 
 if(!this.global.hasOwnProperty("commandcached")) this.global.commandcached={};
@@ -460,6 +461,7 @@ const commandblocks={
     }
   try{
     if(gamerule.doCommands==false&&cmd!="gamerule") return false;
+    if(gamerule.sendCommandFeedback) this.report("Command "+msg+" executed by "+tile);
     switch(cmd){
       case 'overwrite':
         parentthis.setMessageBlockText(null,tile,args.join(' '));
