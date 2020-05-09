@@ -1,4 +1,4 @@
-const presstick=20; const timerid=0; const blocksize=Vars.tilesize;
+const presstick=8; const timerid=0; const blocksize=Vars.tilesize;
 const buttonpadbig = extendContent(Block, "buttonpadbig", {
   placed(tile) {
     this.super$placed(tile);

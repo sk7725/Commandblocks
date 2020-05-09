@@ -1,4 +1,4 @@
-const presstick=15; const timerid=0;
+const presstick=4; const timerid=0;
 const buttonpad = extendContent(Block, "buttonpad", {
   placed(tile) {
     this.super$placed(tile);

@@ -1,5 +1,5 @@
 const presstick=4; const timerid=0;
-const button = extendContent(Block, "button", {
+const buttonswitch = extendContent(Block, "buttonswitch", {
   placed(tile) {
     this.super$placed(tile);
     tile.ent().timer.reset(timerid,presstick+1);
