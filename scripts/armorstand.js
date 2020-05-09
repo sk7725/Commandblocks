@@ -11,14 +11,15 @@ noweapon.bullet = Bullets.waterShot;
 noweapon.shootSound = Sounds.empty;
 noweapon.minPlayerDist = 20;
 */
-
+const spritename="commandblocks-armorstand";
 const armorstand = extendContent(UnitType, "armorstand", {
   load(){
     //this.super$load();
     this.region=Core.atlas.find(this.name);
     this.baseRegion=Core.atlas.find(this.name+"-base");
-    this.shadowRegion=Core.atlas.find(this.name+"-shadow");
-    this.topRegion=Core.atlas.find(this.name+"-top");
+    //this.shadowRegion=Core.atlas.find(this.name+"-shadow");
+    //this.topRegion=Core.atlas.find(this.name+"-top");
+    this.legRegion = Core.atlas.find(this.name+"-top");
   }
 });
 armorstand.weapon=UnitTypes.draug.weapon;
@@ -41,7 +42,9 @@ armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
   },
   drawShadow(offsetX, offsetY){
     //Draw.rect(getIconRegion(), x + offsetX, y + offsetY, rotation - 90);
-    Draw.rect(this.type.shadowRegion, this.x+offsetX, this.y-4+offsetY);
+
+    Draw.rect(this.type.baseRegion, this.x, this.y, this.rotation - 90);
+    Draw.rect(Core.atlas.find(spritename+"-shadow"), this.x+offsetX, this.y-4+offsetY);
   },
   draw(){
     Draw.mixcol(Color.white, this.hitTime / this.hitDuration);
@@ -56,9 +59,9 @@ armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
       Draw.color(Color.white);
     }
 
-    Draw.rect(this.type.baseRegion, this.x, this.y, this.rotation - 90);
+    //Draw.rect(this.type.baseRegion, this.x, this.y, this.rotation - 90);
 
-    Draw.rect(this.type.topRegion, this.x, this.y+2.5);
+    Draw.rect(this.type.legRegion, this.x, this.y+2.5);
 
     Draw.mixcol();
   //  Draw.color();
