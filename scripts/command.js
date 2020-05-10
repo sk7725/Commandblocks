@@ -422,8 +422,8 @@ const commandblocks={
   },
   cmdtptarget(punit,cx,cy,funit){
     if(gamerule.sendCommandFeedback) this.report("Command_tptarget pos:("+cx+","+cy+") facing:"+funit+" executed to "+punit);
-    var fvec=(funit instanceof Tile)?Vec2(funit.worldx(),funit.worldy()):Vec2(funit.x,funit.y);
-    var rot=fvec.angle(Vec2(cx,cy));
+    var fvec=(funit instanceof Tile)?Vec2(funit.worldx()-cx,funit.worldy()-cy):Vec2(funit.x-cx,funit.y-cy);
+    var rot=fvec.angle();
     //if(facingrelative) rot=(punit instanceof Bullet)?(punit.rot()+facing):punit.rotation+facing;
     //else rot=facing;
     punit.set(cx,cy);
