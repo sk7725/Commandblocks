@@ -1043,7 +1043,7 @@ const commandblocks={
               else throw "Incorrect params";
             }
             if(isNaN(facing)&&atarget==null) throw "Angle has to be a number or a valid target";
-            else if(isNaN(facing)&&(atarget.a||typeof atarget.r == "string")) throw "Angle has to be a valid single target":
+            else if(isNaN(facing)&&(atarget.a||typeof atarget.r == "string")) throw "Angle has to be a valid single target";
             if(target.a){
               var res=true;
               target.r.each(cons(ent => {
