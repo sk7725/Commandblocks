@@ -1057,7 +1057,7 @@ const commandblocks={
             }
             else if(target.r instanceof Unit||ent instanceof Bullet){
               if(atarget==null) this.cmdtp(target.r,cx,cy,facing,facingrelative);
-              else this.cmdtptarget(ent,cx,cy,atarget.r);
+              else this.cmdtptarget(target.r,cx,cy,atarget.r);
               return true;
             }
             else throw "This target is not teleportable";
