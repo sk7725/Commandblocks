@@ -1012,7 +1012,7 @@ const commandblocks={
                   else{
                     facing=Number(args[4]);
                     facingrelative=false;
-                    if(isNaN(facing)) atarget=this.settype(tile,parentthis,"target:"+args[4]);
+                    if(isNaN(facing)) atarget=this.targetselect(tile,parentthis,args[4]);
                   }
                 }
                 else if(args.length==3){
@@ -1037,7 +1037,7 @@ const commandblocks={
                 else{
                   facing=Number(args[3]);
                   facingrelative=false;
-                  if(isNaN(facing)) atarget=this.settype(tile,parentthis,"target:"+args[3]);
+                  if(isNaN(facing)) atarget=this.targetselect(tile,parentthis,args[3]);
                 }
               }
               else throw "Incorrect params";
