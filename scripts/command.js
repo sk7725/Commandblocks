@@ -417,7 +417,18 @@ const commandblocks={
     else rot=facing;
     punit.set(cx,cy);
     if((punit instanceof Player)&&punit==Vars.player) Core.camera.position.set(punit);
-    if(rot!=0&& (punit instanceof BaseUnit)) punit.rotate(rot);
+    if(rot!=punit.rotation&& (punit instanceof BaseUnit)) punit.rotate(rot);
+    if((punit instanceof Bullet)&&rot!=punit.rot()) punit.rot(rot);
+  },
+  cmdtptarget(punit,cx,cy,funit){
+    if(gamerule.sendCommandFeedback) this.report("Command_tptarget pos:("+cx+","+cy+") facing:"+funit+" executed to "+punit);
+    var fvec=(funit instanceof Tile)?Vec2(funit.worldx(),funit.worldy()):Vec2(funit.x,funit.y);
+    var rot=fvec.angle(Vec2(cx,cy));
+    //if(facingrelative) rot=(punit instanceof Bullet)?(punit.rot()+facing):punit.rotation+facing;
+    //else rot=facing;
+    punit.set(cx,cy);
+    if((punit instanceof Player)&&punit==Vars.player) Core.camera.position.set(punit);
+    if(rot!=punit.rotation&& (punit instanceof BaseUnit)) punit.rotate(rot);
     if((punit instanceof Bullet)&&rot!=punit.rot()) punit.rot(rot);
   },
   cmdsummon(ptile,cunit,cx,cy,cteam){
