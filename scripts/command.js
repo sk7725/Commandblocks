@@ -321,7 +321,7 @@ const commandblocks={
     else return intarget;
   },
   report(err){
-    if(gamerule.commandBlockOutput) Call.sendMessage("C:"+err);
+    if(gamerule.commandBlockOutput) Call.sendMessage("[lightgray]C:"+err+"[]");
     if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(err,7);
     //print("C:"+err);
   },
@@ -1168,8 +1168,8 @@ const commandblocks={
     }
   }
   catch(err){
-    if(gamerule.commandBlockOutput) Call.sendMessage("E:"+err);
-    if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(err,7);
+    if(gamerule.commandBlockOutput) Call.sendMessage("[scarlet]E:"+err+"[]");
+    if(gamerule.commandBlockTitle) Vars.ui.showInfoToast("[scarlet]"+err+"[]",7);
     //print("E:"+err);
     return false;
   }

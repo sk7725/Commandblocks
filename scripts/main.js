@@ -1,5 +1,6 @@
 require("armorstand");
 require("command");
+require("commandargs");
 
 require("msgprotected");
 
