@@ -33,6 +33,7 @@ const commandargs=[
 
 this.global.commandargs=commandargs;
 const commandblockf = this.global.commandblocks;
+
 for(let i=0;i<commandargs.length;i++){
   //String text, String params, String description, Cons<String[]> runner
   let a=commandargs[i];
@@ -45,4 +46,4 @@ for(let i=0;i<commandargs.length;i++){
     var ret=commandblockf.command(player,commandname+'"'+arg.join('" "')+'"',null,commandname+'"'+arg.join('" "')+'"',false);
     if(ret) player.sendMessage("[green]Command successfully executed.[]");
   }));
-}
+};
