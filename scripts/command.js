@@ -417,7 +417,18 @@ const commandblocks={
     else rot=facing;
     punit.set(cx,cy);
     if((punit instanceof Player)&&punit==Vars.player) Core.camera.position.set(punit);
-    if(rot!=0&& (punit instanceof BaseUnit)) punit.rotate(rot);
+    if(rot!=punit.rotation&& (punit instanceof BaseUnit)) punit.rotate(rot);
+    if((punit instanceof Bullet)&&rot!=punit.rot()) punit.rot(rot);
+  },
+  cmdtptarget(punit,cx,cy,funit){
+    if(gamerule.sendCommandFeedback) this.report("Command_tptarget pos:("+cx+","+cy+") facing:"+funit+" executed to "+punit);
+    var fvec=(funit instanceof Tile)?Vec2(funit.worldx()-cx,funit.worldy()-cy):Vec2(funit.x-cx,funit.y-cy);
+    var rot=fvec.angle();
+    //if(facingrelative) rot=(punit instanceof Bullet)?(punit.rot()+facing):punit.rotation+facing;
+    //else rot=facing;
+    punit.set(cx,cy);
+    if((punit instanceof Player)&&punit==Vars.player) Core.camera.position.set(punit);
+    if(rot!=punit.rotation&& (punit instanceof BaseUnit)) punit.rotate(rot);
     if((punit instanceof Bullet)&&rot!=punit.rot()) punit.rot(rot);
   },
   cmdsummon(ptile,cunit,cx,cy,cteam){
@@ -975,6 +986,7 @@ const commandblocks={
         if(args.length>=2&&args.length<=5){
             var target=this.targetselect(tile,parentthis,args[0]);
             var cx=0; var cy=0; var facing=0; var facingrelative=true;
+            var atarget=null;
             //편의상 월드xy 사용(유일)
             if(args.length==2){
               //tp target dest
@@ -1000,6 +1012,7 @@ const commandblocks={
                   else{
                     facing=Number(args[4]);
                     facingrelative=false;
+                    if(isNaN(facing)) atarget=this.targetselect(tile,parentthis,args[4]);
                   }
                 }
                 else if(args.length==3){
@@ -1024,24 +1037,27 @@ const commandblocks={
                 else{
                   facing=Number(args[3]);
                   facingrelative=false;
+                  if(isNaN(facing)) atarget=this.targetselect(tile,parentthis,args[3]);
                 }
               }
               else throw "Incorrect params";
             }
-            if(isNaN(facing)) throw "Angle has to be a number";
-
+            if(isNaN(facing)&&atarget==null) throw "Angle has to be a number or a valid target";
+            else if(isNaN(facing)&&(atarget.a||typeof atarget.r == "string")) throw "Angle has to be a valid single target";
             if(target.a){
               var res=true;
               target.r.each(cons(ent => {
                   if (ent instanceof Unit||ent instanceof Bullet) {
-                      this.cmdtp(ent,cx,cy,facing,facingrelative);
+                      if(atarget==null) this.cmdtp(ent,cx,cy,facing,facingrelative);
+                      else this.cmdtptarget(ent,cx,cy,atarget.r);
                   }
                   else res=false;
               }));
               return res;
             }
             else if(target.r instanceof Unit||ent instanceof Bullet){
-              this.cmdtp(target.r,cx,cy,facing,facingrelative);
+              if(atarget==null) this.cmdtp(target.r,cx,cy,facing,facingrelative);
+              else this.cmdtptarget(target.r,cx,cy,atarget.r);
               return true;
             }
             else throw "This target is not teleportable";
