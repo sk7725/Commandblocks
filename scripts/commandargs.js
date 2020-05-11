@@ -34,16 +34,19 @@ const commandargs=[
 this.global.commandargs=commandargs;
 const commandblockf = this.global.commandblocks;
 
-for(let i=0;i<commandargs.length;i++){
-  //String text, String params, String description, Cons<String[]> runner
-  let a=commandargs[i];
+function addcmd(i,a){
   Vars.netServer.clientCommands.register(a.name,a.params,a.description,run((arg,player)=>{
-    let commandname=a.name;
     if(!player.isAdmin){
       player.sendMessage("[scarlet]You're not admin![]");
       return;
     }
-    var ret=commandblockf.command(player,commandname+'"'+arg.join('" "')+'"',null,commandname+'"'+arg.join('" "')+'"',false);
+    var ret=commandblockf.command(player,a.name+'"'+arg.join('" "')+'"',null,a.name+'"'+arg.join('" "')+'"',false);
     if(ret) player.sendMessage("[green]Command successfully executed.[]");
   }));
+}
+
+for(var i=0;i<commandargs.length;i++){
+  //String text, String params, String description, Cons<String[]> runner
+  let a=commandargs[i];
+  addcmd(i,a);
 };
