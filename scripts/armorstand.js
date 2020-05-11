@@ -11,7 +11,10 @@ noweapon.bullet = Bullets.waterShot;
 noweapon.shootSound = Sounds.empty;
 noweapon.minPlayerDist = 20;
 */
+var t=this;
+t.global.armorstanda=100;
 const spritename="commandblocks-armorstand";
+const white=Color.valueOf("ffffff");
 const armorstand = extendContent(UnitType, "armorstand", {
   load(){
     //this.super$load();
@@ -85,26 +88,36 @@ armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
     return false;
   },
   drawStats(){
-    this.drawBackItems(this.item.amount > 0 ? 1 : 0, false);
-    this.drawLight();
+    if(t.global.armorstanda>0){
+      this.drawBackItems(this.item.amount > 0 ? 1 : 0, false);
+      this.drawLight();
+    }
   },
   drawUnder(){
     //Draw.rect(getIconRegion(), x + offsetX, y + offsetY, rotation - 90);
-
+    Draw.color(white.a(t.global.armorstanda/100));
     Draw.rect(this.type.baseRegion, this.x, this.y, this.rotation - 90);
-    Draw.rect(Core.atlas.find(spritename+"-shadow"), this.x, this.y-4);
+    Draw.color();
+    if((t.global.armorstanda>0){
+      Draw.rect(Core.atlas.find(spritename+"-shadow"), this.x, this.y-4);
+    }
+  },
+  drawShadow(offsetX,offsetY){
+    if(t.global.armorstanda>0){
+      this.super$drawShadow(offsetX,offsetY);
+    }
   },
   draw(){
-    Draw.mixcol(Color.white, this.hitTime / this.hitDuration);
+    Draw.mixcol(white.a(t.global.armorstanda/100), this.hitTime / this.hitDuration);
 
     var floor = this.getFloorOn();
     if(floor.isLiquid){
-      Draw.color(Color.white, floor.color, 0.5);
+      Draw.color(white.a(t.global.armorstanda/100), floor.color.a(t.global.armorstanda/100), 0.5);
     }
     if(floor.isLiquid){
-      Draw.color(Color.white, floor.color, this.drownTime * 0.4);
+      Draw.color(white.a(t.global.armorstanda/100), floor.color.a(t.global.armorstanda/100), this.drownTime * 0.4);
     }else{
-      Draw.color(Color.white);
+      Draw.color(white.a(t.global.armorstanda/100));
     }
 
     //Draw.rect(this.type.baseRegion, this.x, this.y, this.rotation - 90);

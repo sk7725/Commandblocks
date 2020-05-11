@@ -1,0 +1,14 @@
+
+size: 1
+breakable: true
+update: true
+category: units
+requirements: [
+  metaglass/32
+  silicon/16
+  bittrium/16
+]
+sync: true
+health: 150
+configurable: true
+solid: true
