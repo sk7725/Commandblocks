@@ -134,12 +134,17 @@ const playermover=extendContent(MessageBlock,"playermover",{
       Draw.rect(this.playerRegion, tile.drawx()+offset.x*Vars.tilesize, tile.drawy()+offset.y*Vars.tilesize);
       Draw.color();
     },
+    reverse(i){
+      if(i%2==1) return 4-i;
+      else return 5-i+1;
+    },
     update(tile){
       this.super$update(tile);
       var offset=tile.ent().getPos();
       var tileon=Vars.world.tile(tile.x+offset.x,tile.y+offset.y);
       if(tileon.block().name=="commandblocks-buttonpad") tileon.block().unitOn(tileon,null);
       if(tileon.block().rotate) tile.ent().movePos(((tileon.rotation()-1)%2)*-1,((tileon.rotation()-2)%2)*-1);
+      if(tileon.block() instanceof Wall) this.configured(tile,null,this.reverse(tile.ent().getLast()));
       var floor=tileon.floor().name;
       if(floor=="ice"||floor=="snow"||floor=="ice-snow") this.configured(tile,null,tile.ent().getLast());
     }

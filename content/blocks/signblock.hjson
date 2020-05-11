@@ -17,3 +17,4 @@ solid: false
 consumesTap: true
 update: true
 configurable: true
+buildVisibility: debugOnly
