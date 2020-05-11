@@ -34,8 +34,8 @@ const commandargs=[
 this.global.commandargs=commandargs;
 const commandblockf = this.global.commandblocks;
 
-function addcmd(i,a){
-  Vars.netServer.clientCommands.register(a.name,a.params,a.description,run((arg,player)=>{
+function addcmd(i,a,handler){
+  handler.register(a.name,a.params,a.description,run((arg,player)=>{
     if(!player.isAdmin){
       player.sendMessage("[scarlet]You're not admin![]");
       return;
@@ -49,3 +49,12 @@ for(var i=0;i<commandargs.length;i++){
   //String text, String params, String description, Cons<String[]> runner
   addcmd(i,commandargs[i]);
 };
+
+const mod=prov(()=>extend(Mod,{
+  registerClientCommands(handler){
+    for(var i=0;i<commandargs.length;i++){
+      //String text, String params, String description, Cons<String[]> runner
+      addcmd(i,commandargs[i],handler);
+    };
+  }
+}));
