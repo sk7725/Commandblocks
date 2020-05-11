@@ -1163,6 +1163,59 @@ const commandblocks={
         this.report(tile.getBulletType().name);
         return true;
       break;
+      case 'draw':
+      //name x y rot color w h ox oy
+        if(args.length>=3&&args.length<=9){
+          var tpos=this.tilde(tile,args[1],args[2]);
+          var cx=0; var cy=0;
+          if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
+            cx=tpos.x*Vars.tilesize; cy=tpos.y*Vars.tilesize;
+          }
+          else throw "Coordinates should be above 0";
+          if(cx>=0&&cy>=0){
+            var crot=0; var dcolor=Color.white; var cw=-1; var ch=-1; var ox=-1; var oy=-1;
+            if(args.length>=4){
+              if(args[3].substring(0,1)=="~"){
+                args[3]=args[3].substring(1,args[3].length);
+                var current=0;
+                if(tile instanceof Tile) current=tile.rotation()*90;
+                else current=tile.rotation;
+                if(args[3]=="") args[3]=0;
+                args[3]=Number(args[3]);
+                crot=(args[3]+current)%360;
+              }
+              else crot=Number(args[3])%360;
+            }
+            if(args.length>=5) dcolor=Color.valueOf(args[4]);
+            if(args.length>=6&&Number(args[5])>-1) cw=Number(args[5]);
+            if(args.length>=7&&Number(args[6])>-1) ch=Number(args[6]);
+            if(args.length>=8&&Number(args[7])>-1) ox=Number(args[7]);
+            if(args.length>=9&&Number(args[8])>-1) oy=Number(args[8]);
+            if(cw==-1||ch==-1){
+              Draw.color(dcolor);
+              Draw.rect(Core.atlas.find(args[0]),cx,cy,crot);
+            }
+            else if(ox==-1||oy==-1){
+              Draw.color(dcolor);
+              Draw.rect(Core.atlas.find(args[0]),cx,cy,cw,ch,crot);
+            }
+            else{
+              Draw.color(dcolor);
+              Draw.rect(Core.atlas.find(args[0]),cx,cy,cw,ch,ox,oy,crot);
+            }
+            Draw.color();
+          }
+          else throw "Coordinates should be above 0";
+        }
+        else if(args.length==1){
+          var cx=0; var cy=0;
+          if(tile instanceof Tile){ cx=tile.worldx();cy=tile.worldy(); }
+          else{ cx=tile.x; cy=tile.y; }
+          Draw.rect(Core.atlas.find(args[0]),cx,cy);
+          return true;
+        }
+        else throw "Missing params";
+      break;
       default:
         return false;
     }
