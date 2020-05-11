@@ -98,7 +98,7 @@ armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
     Draw.color(white.a(t.global.armorstanda/100));
     Draw.rect(this.type.baseRegion, this.x, this.y, this.rotation - 90);
     Draw.color();
-    if((t.global.armorstanda>0){
+    if(t.global.armorstanda>0){
       Draw.rect(Core.atlas.find(spritename+"-shadow"), this.x, this.y-4);
     }
   },
