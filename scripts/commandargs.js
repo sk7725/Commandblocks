@@ -44,12 +44,13 @@ function addcmd(i,a,handler){
     if(ret) player.sendMessage("[green]Command successfully executed.[]");
   }));
 }
-
+/*
 for(var i=0;i<commandargs.length;i++){
   //String text, String params, String description, Cons<String[]> runner
   addcmd(i,commandargs[i]);
 };
-
+*/
+/*
 const mod=prov(()=>extend(Mod,{
   registerClientCommands(handler){
     for(var i=0;i<commandargs.length;i++){
@@ -57,4 +58,12 @@ const mod=prov(()=>extend(Mod,{
       addcmd(i,commandargs[i],handler);
     };
   }
+}));
+*/
+const mod = Vars.mods.locateMod("commandblocks");
+mod.registerClientCommands(prov(handler=>{
+  for(var i=0;i<commandargs.length;i++){
+    //String text, String params, String description, Cons<String[]> runner
+    addcmd(i,commandargs[i],handler);
+  };
 }));
