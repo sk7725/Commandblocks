@@ -47,6 +47,5 @@ function addcmd(i,a){
 
 for(var i=0;i<commandargs.length;i++){
   //String text, String params, String description, Cons<String[]> runner
-  let a=commandargs[i];
-  addcmd(i,a);
+  addcmd(i,commandargs[i]);
 };
