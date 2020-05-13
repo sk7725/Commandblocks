@@ -547,7 +547,7 @@ const commandblocks={
               else{
                 if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
                 Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
-                Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
+                //Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
                 //Call.beginBreak(Vars.world.tile(cx, cy).team, cx, cy);
                 /*
                 var entity=Vars.world.tile(cx, cy).ent();
