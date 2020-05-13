@@ -61,10 +61,12 @@ armorstand.create(prov(() => new JavaAdapter(GroundUnit, {
       return;
     }
     if(!this.isFlying() && (Vars.world.tileWorld(this.x, this.y) != null && !(Vars.world.tileWorld(this.x,this.y).block() instanceof BuildBlock) && Vars.world.tileWorld(this.x, this.y).solid())){
-      this.kill();
+      //when it is stuck in a WALL
+      //this.kill();
     }
     this.avoidOthers();
     if(this.spawner != this.noSpawner && (Vars.world.tile(this.spawner) == null || !(Vars.world.tile(this.spawner).entity instanceof UnitFactoryEntity))){
+      //when its factory is in a COFFIN
       this.kill();
     }
     this.updateTargeting();
