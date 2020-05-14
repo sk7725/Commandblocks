@@ -52,4 +52,5 @@ require("signblock");
 
 require("playermover");
 require("gameyoot");
+require("powerswitch");
 //require("potion");

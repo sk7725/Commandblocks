@@ -1,0 +1,15 @@
+
+size: 1
+breakable: true
+update: true
+category: power
+hasPower: true
+consumesPower: false
+outputsPower: false
+requirements: [
+  silicon/16
+  surge-alloy/4
+  bittrium/1
+]
+consumesTap: true
+layer: power
