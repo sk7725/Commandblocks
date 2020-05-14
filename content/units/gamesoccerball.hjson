@@ -11,7 +11,8 @@ range: 0
 attackLength: 0
 shootCone: 360
 mass: 0.2
-hitsize: 4
+hitsize: 12
+//hitsizeTile: 8
 flying: true
 engineSize: 2
 engineOffset: 5
