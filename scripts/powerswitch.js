@@ -223,7 +223,7 @@ powerswitch.entityType=prov(() => extend(TileEntity , {
     this.super$write(stream);
     stream.writeShort(this._offlink.length);
     for(var i=0;i<this._offlink.length;i++){
-      straem.writeInt(this._offlink[i]);
+      stream.writeInt(this._offlink[i]);
     }
     stream.writeBoolean(this._state);
   },
