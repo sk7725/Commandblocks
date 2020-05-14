@@ -1,4 +1,4 @@
-var kickpower=0.6;
+var kickpower=0.25;
 const spritename="commandblocks-gamesoccerball";
 const white=Color.valueOf("ffffff");
 const gamesoccerball = extendContent(UnitType, "gamesoccerball", {
