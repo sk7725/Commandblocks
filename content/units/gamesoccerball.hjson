@@ -10,7 +10,7 @@ drag: 0.02
 range: 0
 attackLength: 0
 shootCone: 360
-mass: 0.45
+mass: 0.7
 hitsize: 12
 //hitsizeTile: 8
 flying: true
