@@ -1,4 +1,5 @@
 require("armorstand");
+require("gamesoccerball");
 require("command");
 //require("commandargs");
 
