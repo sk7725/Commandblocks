@@ -92,7 +92,7 @@ gamesoccerball.create(prov(() => new JavaAdapter(FlyingUnit, {
         this.velocity().add(kickpower*dist*(this.x-owner.x)*Time.delta(),kickpower*dist*(this.y-owner.y)*Time.delta());
       }
     }
-  }
+  },
   //just use mass
   
   avoidOthers(){
