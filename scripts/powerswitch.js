@@ -136,7 +136,7 @@ const powerswitch=extendContent(PowerBlock,"powerswitch",{
     tile.ent().toggleState();
   },
   update(tile){
-    //this.super$update(tile);
+    this.super$update(tile);
 
     if(tile.ent().getState()){
       //reconnect
@@ -159,7 +159,7 @@ const powerswitch=extendContent(PowerBlock,"powerswitch",{
         }
       }
     }
-    this.super$update(tile);
+    //this.super$update(tile);
   },
   drawLaser(tile,target){
     var opacityPercentage = Core.settings.getInt("lasersopacity");
