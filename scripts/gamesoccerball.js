@@ -94,7 +94,7 @@ gamesoccerball.create(prov(() => new JavaAdapter(FlyingUnit, {
     }
   },
   //just use mass
-  
+  /*
   avoidOthers(){
     var radScl = 1.5;
     var fsize = this.getSize() / radScl;
@@ -102,9 +102,10 @@ gamesoccerball.create(prov(() => new JavaAdapter(FlyingUnit, {
     var cx = this.x - fsize/2; var cy = this.y - fsize/2;
     this.avoid(Vars.unitGroup.intersect(cx, cy, fsize, fsize));
     
-    avoid(Vars.playerGroup.intersect(cx, cy, fsize, fsize));
+    this.avoid(Vars.playerGroup.intersect(cx, cy, fsize, fsize));
     
     this.velocity.add(this.moveVector.x / this.mass * Time.delta(), this.moveVector.y / this.mass * Time.delta());
   }
+  */
 })));
 this.global.gamesoccerball=gamesoccerball;
