@@ -1218,6 +1218,10 @@ const commandblocks={
         }
         else throw "Missing params";
       break;
+      //Core.net.openURI(
+      case 'link':
+        return Core.net.openURI(args.join(' '));
+      break;
       default:
         return false;
     }
