@@ -79,6 +79,7 @@ gamesoccerball.create(prov(() => new JavaAdapter(FlyingUnit, {
   //  Draw.color();
   },
   damage(amount){
+    this.super$damage(0);
     this.hitTime =this.hitDuration;
   },
   onHit(entity){
