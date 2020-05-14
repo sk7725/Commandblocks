@@ -151,7 +151,7 @@ const powerswitch=extendContent(PowerBlock,"powerswitch",{
       //disconnect
       var links=tile.entity.power.links;//links.get(i), links.size
       for(var i=0;i<links.size;i++){
-        if(links.get(i)==tile.pos()) continue;
+        //if(links.get(i)==tile.pos()) continue;
         var other=Vars.world.tile(links.get(i));
         if(other.block() instanceof PowerNode){
           other.block().configured(other,null,tile.pos());
