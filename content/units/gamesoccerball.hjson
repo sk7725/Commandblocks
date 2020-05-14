@@ -1,20 +1,20 @@
-type: GroundUnit
+type: FlyingUnit
 weapon: {
 		name: "you have incurred my wrath. prepare to die."
 		bullet: "lancerLaser"
 }
 health: 100
 speed: 0.1
-maxVelocity: 1
-drag: 0.05
+maxVelocity: 10
+drag: 0.02
 range: 0
 attackLength: 0
 shootCone: 360
-mass: 1
+mass: 0.2
 hitsize: 4
-flying: false
-engineSize: 0
-engineOffset: 0
+flying: true
+engineSize: 2
+engineOffset: 5
 rotateWeapon: false
 rotatespeed: 1
 baseRotateSpeed: 1
