@@ -1,0 +1,21 @@
+type: GroundUnit
+weapon: {
+		name: "you have incurred my wrath. prepare to die."
+		bullet: "lancerLaser"
+}
+health: 100
+speed: 0.1
+maxVelocity: 1
+drag: 0.05
+range: 0
+attackLength: 0
+shootCone: 360
+mass: 1
+hitsize: 4
+flying: false
+engineSize: 0
+engineOffset: 0
+rotateWeapon: false
+rotatespeed: 1
+baseRotateSpeed: 1
+//weaponOffsetY: 0
