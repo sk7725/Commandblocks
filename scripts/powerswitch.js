@@ -149,13 +149,13 @@ const powerswitch=extendContent(PowerBlock,"powerswitch",{
     }
     else{
       //disconnect
-      var links=tile.entity.power.links;//links.get(i), links.size
-      for(var i=0;i<links.size;i++){
+      var links=tile.entity.power.links.toArray();//links.get(i), links.size
+      for(var i=0;i<links.length;i++){
         //if(links.get(i)==tile.pos()) continue;
-        var other=Vars.world.tile(links.get(i));
+        var other=Vars.world.tile(links[i]);
         if(other.block() instanceof PowerNode){
           other.block().configured(other,null,tile.pos());
-          tile.ent().toggleOffLink(other.pos());
+          tile.ent().toggleOffLink(links[i]);
         }
       }
     }
