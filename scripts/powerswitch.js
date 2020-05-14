@@ -155,7 +155,7 @@ const powerswitch=extendContent(PowerBlock,"powerswitch",{
         var other=Vars.world.tile(links.get(i));
         if(other.block() instanceof PowerNode){
           other.block().configured(other,null,tile.pos());
-          tile.ent().addOffLink(other.pos());
+          tile.ent().toggleOffLink(other.pos());
         }
       }
     }
@@ -204,6 +204,11 @@ powerswitch.entityType=prov(() => extend(TileEntity , {
   },
   addOffLink(a){
     if(this._offlink.indexOf(a)<0) this._offlink.push(a);
+  },
+  toggleOffLink(a){
+    var i=this._offlink.indexOf(a);
+    if(i<0) this._offlink.push(a);
+    else this._offlink.splice(i,1);
   },
   resetOffLink(){
     this._offlink=[];
