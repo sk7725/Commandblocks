@@ -43,7 +43,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
     var key=tile.x+","+tile.y;
     if(!noteblocks.hasOwnProperty(key)) this.loadkey(tile);
     var n=Number(tile.ent().message);
-    if(n>1) n=value;
+    if(value>1) n=value;
     else n+=value;
     if(n>=notelength) n=0;
     else if(n<0) n=notelength-1;
