@@ -1,4 +1,4 @@
-var kickpower=0.25;
+var kickpower=0.22;
 const spritename="commandblocks-gamesoccerball";
 const white=Color.valueOf("ffffff");
 const gamesoccerball = extendContent(UnitType, "gamesoccerball", {
@@ -88,7 +88,7 @@ gamesoccerball.create(prov(() => new JavaAdapter(FlyingUnit, {
       //kick
       var owner=entity.getOwner();
       var dist=Vec2(this.x,this.y).dst2(owner.x,owner.y);
-      if(dist<580){
+      if(dist<45000){
         this.velocity().add(kickpower*dist*(this.x-owner.x)*Time.delta(),kickpower*dist*(this.y-owner.y)*Time.delta());
       }
     }
@@ -101,9 +101,9 @@ gamesoccerball.create(prov(() => new JavaAdapter(FlyingUnit, {
     this.moveVector.setZero();
     var cx = this.x - fsize/2; var cy = this.y - fsize/2;
     this.avoid(Vars.unitGroup.intersect(cx, cy, fsize, fsize));
-    
+
     this.avoid(Vars.playerGroup.intersect(cx, cy, fsize, fsize));
-    
+
     this.velocity.add(this.moveVector.x / this.mass * Time.delta(), this.moveVector.y / this.mass * Time.delta());
   }
   */
