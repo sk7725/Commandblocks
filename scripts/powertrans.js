@@ -135,8 +135,9 @@ const powertrans=extendContent(PowerBlock,"powertrans",{
       tx1=1; ty1=1;
     }
     var in1=Vars.world.tile(tile.x+tx1,tile.y+ty1);
-    if(!(in1.ent().hasOwnProperty("power"))) return false;
+    //if(!(in1.ent().hasOwnProperty("power"))) return false;
     try{
+      in1=in1.ent().power.graph;
       if(in1.getPowerProduced()-in1.getPowerNeeded()>0) return true;
       else return false;
     }
