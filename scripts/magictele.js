@@ -19,6 +19,7 @@ const magictele=extendContent(Router,"magictele",{
     }
   },
   update(tile){
+    this.super$update(tile);
     var entity=tile.ent();
     if(entity.lastItem!=null){
       Vars.ui.showInfoToast("notNULL",1);
@@ -35,7 +36,7 @@ const magictele=extendContent(Router,"magictele",{
         }
       }
     }
-    this.super$update(tile);
+
   },
   setBars(){
     this.super$setBars();
