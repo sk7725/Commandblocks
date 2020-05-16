@@ -80,6 +80,7 @@ const magictele=extendContent(Router,"magictele",{
     this.super$drawConfigure(tile);
     if(!tile.ent().getConnected()) return;
     var other=Vars.world.tile(tile.ent().getConf());
+    if(other==null|| !other.block().hasItems) return;
     Draw.color(Pal.place);
     Lines.square(other.drawx(), other.drawy(),other.block().size * Vars.tilesize / 2 + 1);
     Draw.color();
