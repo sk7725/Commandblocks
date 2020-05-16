@@ -60,7 +60,7 @@ const magictele=extendContent(Router,"magictele",{
     var other=Vars.world.tile(value);
     if(tile==other) tile.ent().setConnected(false);
     else if(tile.ent().getConf()==other.pos()&&tile.ent().getConnected()) tile.ent().setConnected(false);
-    else if(other.block().hasItems){
+    else if(other.block().hasItems&&!(other.block() instanceof this)){
       tile.ent().setConf(value);
       tile.ent().setConnected(true);
     }
