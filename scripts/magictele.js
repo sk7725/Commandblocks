@@ -66,6 +66,9 @@ const magictele=extendContent(Router,"magictele",{
     this.super$load();
     this.region=Core.atlas.find(this.name);
     this.animRegion=Core.atlas.find(this.name+"-anim");
+    this.laser=Core.atlas.find("laser");
+    this.laserEnd=Core.atlas.find("laser-end");
+    this.t1=new Vec2(); this.t2=new Vec2();
   },
   drawLaser(tile,target){
     var opacityPercentage = Core.settings.getInt("lasersopacity");
