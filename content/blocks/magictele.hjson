@@ -1,0 +1,11 @@
+breakable: true
+update: true
+category: distribution
+itemCapacity: 1
+requirements: [
+  bittrium/100
+]
+configurable: true
+sync: true
+buildVisibility: sandboxOnly
+solid: true

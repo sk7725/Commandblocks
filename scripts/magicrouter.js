@@ -55,7 +55,7 @@ const magicrouter=extendContent(Router,"magicrouter",{
       this.super$load();
       this.region=Core.atlas.find(this.name);
       this.animRegion=Core.atlas.find(this.name+"-anim");
-    },
+    }
 });
 
 magicrouter.entityType=prov(() => extendContent(Router.RouterEntity , magicrouter , {

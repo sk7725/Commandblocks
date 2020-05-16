@@ -48,8 +48,9 @@ require("colorpicker");
 require("colorpickerhex");
 require("colorpickerbrush");
 
-require("magicrouter");
 require("armorstandmodder");
+require("magicrouter");
+require("magictele");
 
 require("signblock");
 require("playermover");
