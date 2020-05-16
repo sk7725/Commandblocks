@@ -60,7 +60,7 @@ const magictele=extendContent(Router,"magictele",{
     var other=Vars.world.tile(value);
     if(tile==other) tile.ent().setConnected(false);
     else if(tile.ent().getConf()==other.pos()&&tile.ent().getConnected()) tile.ent().setConnected(false);
-    else if(other.block().hasItems&&!(other.block() instanceof this)){
+    else if(other.block().hasItems&&other.block()!=tile.block()){
       tile.ent().setConf(value);
       tile.ent().setConnected(true);
     }
@@ -127,7 +127,7 @@ const magictele=extendContent(Router,"magictele",{
     if(Core.settings.getInt("lasersopacity") == 0) return;
     if(!tile.ent().getConnected()) return;
     var link=Vars.world.tile(tile.ent().getConf());
-    if(link!=null){
+    if(link!=null&&link.block().hasItems){
       this.drawLaser(tile, link);
       Draw.reset();
     }
