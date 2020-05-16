@@ -2,7 +2,7 @@ const presstick=1; const timerid=0; const loopthresh=150;
 var gloops=500;//crash it if you can idk
 const color1=Color.valueOf("ffaa5f"); const color2=Color.valueOf("84f491");//color of pyratite and mender
 const coloroff=Color.valueOf("6974c4");
-const powerswitch=extendContent(PowerBlock,"powerswitch",{
+const powertrans=extendContent(PowerBlock,"powertrans",{
   placed(tile) {
       this.super$placed(tile);
   },
@@ -213,7 +213,7 @@ const powerswitch=extendContent(PowerBlock,"powerswitch",{
   }
 });
 
-powerswitch.entityType=prov(() => extend(TileEntity , {
+powertrans.entityType=prov(() => extend(TileEntity , {
   getOffLink(){
     return this._offlink;
   },

@@ -7,8 +7,11 @@ hasPower: true
 consumesPower: false
 outputsPower: false
 requirements: [
-  lead/16
-  silicon/4
+  silicon/16
+  surge-alloy/4
+  bittrium/1
 ]
-consumesTap: true
+configurable: true
 layer: power
+insulated: true
+rotate: true

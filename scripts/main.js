@@ -34,7 +34,10 @@ require("buttonpad");
 require("buttonpadbig");
 require("buttonrouter");
 require("buttonrouterbig");
+
+require("powerswitch");
 require("powerlogicg");
+require("powertrans");
 
 require("setconv");
 require("setconva");
@@ -49,8 +52,6 @@ require("magicrouter");
 require("armorstandmodder");
 
 require("signblock");
-
 require("playermover");
 require("gameyoot");
-require("powerswitch");
 //require("potion");
