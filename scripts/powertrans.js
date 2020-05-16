@@ -98,47 +98,62 @@ const powerswitch=extendContent(PowerBlock,"powerswitch",{
     this.laserEnd=Core.atlas.find("laser-end");
     this.t1=new Vec2(); this.t2=new Vec2();
   },
-  /*
   drawConfigure(tile){
-    var tx1=0; var ty1=0; var tx2=0; var ty2=0;
+    var tx1=0; var ty1=0;
     if(tile.rotation()==0){
       tx1=-1; ty1=1;
-      tx2=-1; ty2=-1;
     }
     else if(tile.rotation()==1){
       tx1=-1; ty1=-1;
-      tx2=1; ty2=-1;
     }
     else if(tile.rotation()==2){
       tx1=1; ty1=-1;
-      tx2=1; ty2=1;
     }
     else if(tile.rotation()==3){
       tx1=1; ty1=1;
-      tx2=-1; ty2=1;
     }
     var in1=Vars.world.tile(tile.x+tx1,tile.y+ty1);
-    var in2=Vars.world.tile(tile.x+tx2,tile.y+ty2);
+    //var in2=Vars.world.tile(tile.x+tx2,tile.y+ty2);
     Draw.color(color1);
     Lines.square(in1.drawx(), in1.drawy(),1 * Vars.tilesize / 2 + 1);
-    Draw.color(color2);
-    Lines.square(in2.drawx(), in2.drawy(),1 * Vars.tilesize / 2 + 1);
+    //Draw.color(color2);
+    //Lines.square(in2.drawx(), in2.drawy(),1 * Vars.tilesize / 2 + 1);
     this.super$drawConfigure(tile);
   },
-  */
+  checkState(tile){
+    var tx1=0; var ty1=0;
+    if(tile.rotation()==0){
+      tx1=-1; ty1=1;
+    }
+    else if(tile.rotation()==1){
+      tx1=-1; ty1=-1;
+    }
+    else if(tile.rotation()==2){
+      tx1=1; ty1=-1;
+    }
+    else if(tile.rotation()==3){
+      tx1=1; ty1=1;
+    }
+    var in1=Vars.world.tile(tile.x+tx1,tile.y+ty1);
+    if(!(in1.ent().hasOwnProperty("power"))) return false;
+    try{
+      if(in1.getPowerProduced()-in1.getPowerNeeded()>0) return true;
+      else return false;
+    }
+    catch(err){
+      return false;
+    }
+  },
   draw(tile){
     //this.super$draw(tile);
     Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
-    Draw.rect((tile.ent().getState())?this.topRegion:this.topRegionOff, tile.drawx(), tile.drawy());
+    Draw.rect((tile.ent().getState())?this.topRegion:this.topRegionOff, tile.drawx(), tile.drawy(),90*tile.rotation());
     //Draw.rect(Core.atlas.find(this.name+"-"+tile.ent().message), tile.drawx(), tile.drawy(),90*tile.rotation());
   },
-  tapped(tile,player){
-    tile.ent().toggleState();
-  },
   update(tile){
-    this.super$update(tile);
-
-    if(tile.ent().getState()){
+    //this.super$update(tile);
+    var state=this.checkState(tile);
+    if(state){
       //reconnect
       var links=tile.ent().getOffLink();
       for(var i=0;i<links.length;i++){
@@ -159,7 +174,7 @@ const powerswitch=extendContent(PowerBlock,"powerswitch",{
         }
       }
     }
-    //this.super$update(tile);
+    this.super$update(tile);
   },
   drawLaser(tile,target){
     var opacityPercentage = Core.settings.getInt("lasersopacity");
@@ -214,23 +229,13 @@ powerswitch.entityType=prov(() => extend(TileEntity , {
     this._offlink=[];
   },
   _offlink:[],
-  getState(){
-    return this._state;
-  },
-  setState(a){
-    this._state=a;
-  },
-  toggleState(){
-    this._state=!(this._state);
-  },
-  _state:true,
   write(stream){
     this.super$write(stream);
     stream.writeShort(this._offlink.length);
     for(var i=0;i<this._offlink.length;i++){
       stream.writeInt(this._offlink[i]);
     }
-    stream.writeBoolean(this._state);
+    //stream.writeBoolean(this._state);
   },
   read(stream,revision){
     this.super$read(stream,revision);
@@ -239,6 +244,6 @@ powerswitch.entityType=prov(() => extend(TileEntity , {
     for(var i=0;i<amount;i++){
       this.addOffLink(stream.readInt());
     }
-    this._state=stream.readBoolean();
+    //this._state=stream.readBoolean();
   }
 }));
