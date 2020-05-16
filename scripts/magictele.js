@@ -18,6 +18,14 @@ const magictele=extendContent(Router,"magictele",{
       }
     }
   },
+  acceptItem(item,tile, source){
+    if(!tile.ent().getConnected()) return false;//this.super$handleItem(item,tile,source);
+    else{
+      var other=Vars.world.tile(tile.ent().getConf());
+      return other.block().acceptItem(item,other,tile);
+    }
+  },
+  /*
   update(tile){
     this.super$update(tile);
     var entity=tile.ent();
@@ -38,6 +46,7 @@ const magictele=extendContent(Router,"magictele",{
     }
 
   },
+  */
   setBars(){
     this.super$setBars();
   //initialize
