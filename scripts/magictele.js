@@ -1,7 +1,7 @@
 const presstick=10; const timerid=0;
 const bitcolor1=Color.valueOf("00e5ff");
 const bitcolor2=Color.valueOf("ff65db");
-const lasercolor=Color.valueOf("333333"); const white=Color.valueOf("ffffff");
+const lasercolor=Color.valueOf("777777"); const white=Color.valueOf("ffffff");
 const bitcolorspeed=0.01;
 const magictele=extendContent(Router,"magictele",{
   handleItem(item,tile, source){
@@ -17,6 +17,23 @@ const magictele=extendContent(Router,"magictele",{
         this.super$handleItem(item,tile,source);
       }
     }
+  },
+  update(tile){
+    var entity=tile.ent();
+    if(entity.lastItem!=null){
+      if(entity.getConnected()){
+        var other=Vars.world.tile(entity.getConf());
+        var item=entity.lastItem;
+        if(other.block().acceptItem(item,other,tile)){
+          other.block().handleItem(item,other,tile);
+          tile.ent().timer.reset(timerid,0);
+          tile.ent().setColor(item.color);
+          entity.items.remove(entity.lastItem, 1);
+          entity.lastItem = null;
+        }
+      }
+    }
+    this.super$update(tile);
   },
   setBars(){
     this.super$setBars();
