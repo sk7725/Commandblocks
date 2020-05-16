@@ -16,14 +16,22 @@ const magictele=extendContent(Router,"magictele",{
   configured(tile, player, value){
     var other=Vars.world.tile(value);
     if(tile==other) tile.ent().setConnected(false);
-    else if(tile.ent().getConf()==other.pos()) tile.ent().setConnected(false);
+    else if(tile.ent().getConf()==other.pos()&&tile.ent().getConnected()) tile.ent().setConnected(false);
     else if(other.block().hasItems){
       tile.ent().setConf(value);
       tile.ent().setConnected(true);
     }
   },
   onConfigureTileTapped(tile,other){
-    tile.configure(other.pos());
+    if(tile==other){
+      tile.configure(other.pos());
+      return false;
+    }
+    else if(other.block().hasItems){
+      tile.configure(other.pos());
+      return false;
+    }
+    else return true;
   },
   drawConfigure(tile){
     this.super$drawConfigure(tile);

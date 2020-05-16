@@ -9,3 +9,5 @@ configurable: true
 sync: true
 buildVisibility: sandboxOnly
 solid: true
+timers: 1
+layer: power
