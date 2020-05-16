@@ -1,9 +1,23 @@
-//my take
+const presstick=10; const timerid=0;
 const bitcolor1=Color.valueOf("00e5ff");
 const bitcolor2=Color.valueOf("ff65db");
-const lasercolor=Color.valueOf("333333");
+const lasercolor=Color.valueOf("333333"); const white=Color.valueOf("ffffff");
 const bitcolorspeed=0.01;
 const magictele=extendContent(Router,"magictele",{
+  handleItem(item,tile, source){
+    if(!tile.ent().getConnected()) this.super$handleItem(item,tile,source);
+    else{
+      var other=Vars.world.tile(tile.ent().getConf());
+      if(other.block().acceptItem(item,other,tile)){
+        other.block().handleItem(item,other,tile);
+        tile.ent().timer.reset(timerid,0);
+        tile.ent().setColor(item.color);
+      }
+      else{
+        this.super$handleItem(item,tile,source);
+      }
+    }
+  },
   setBars(){
     this.super$setBars();
   //initialize
@@ -71,8 +85,8 @@ const magictele=extendContent(Router,"magictele",{
     y2 += this.t2.y;
 
     //float fract = 1f - tile.entity.power.graph.getSatisfaction();
-
-    Draw.color(Color.white, lasercolor, 0.86);
+    var nowtick=tile.ent().timer.getTime(timerid);
+    Draw.color(tile.ent().getColor(), lasercolor, (nowtick>=presstick)?1:nowtick/presstick);
     Draw.alpha(opacity);
     Drawf.laser(this.laser, this.laserEnd, x1, y1, x2, y2, 0.25);
     Draw.color();
@@ -112,5 +126,12 @@ magictele.entityType=prov(() => extendContent(Router.RouterEntity , magictele , 
   },
   setConnected(a){
     this._connected=a;
-  }
+  },
+  getColor(){
+    return this._color;
+  },
+  setColor(a){
+    this._color=a;
+  },
+  _color:white
 }));
