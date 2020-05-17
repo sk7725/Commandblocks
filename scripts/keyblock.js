@@ -2,7 +2,7 @@ const presstick=4; const timerid=0;
 const keyblock = extendContent(MessageBlock, "keyblock", {
   placed(tile) {
     this.super$placed(tile);
-    Call.setMessageBlockText(null,tile,"dash");
+    Call.setMessageBlockText(null,tile,"q");
     //tile.ent().timer.reset(timerid,presstick+1);
   },
   /*
@@ -17,7 +17,7 @@ const keyblock = extendContent(MessageBlock, "keyblock", {
 */
   getPowerProduction(tile){
     try{
-      return (Core.input.keyDown(Binding[tile.ent().message])) ? 3: 0;
+      return (Core.input.keyDown(Arc.input.KeyCode[tile.ent().message])) ? 3: 0;
     }
     catch(err){
       print(err);
