@@ -11,3 +11,4 @@ buildVisibility: sandboxOnly
 solid: true
 timers: 1
 layer: power
+expanded: true
