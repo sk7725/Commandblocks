@@ -17,7 +17,7 @@ const keyblock = extendContent(MessageBlock, "keyblock", {
 */
   getPowerProduction(tile){
     try{
-      return (Core.input.keyDown(KeyCode[tile.ent().message])) ? 3: 0;
+      return (Core.input.keyDown(Core.input.KeyCode[tile.ent().message])) ? 3: 0;
     }
     catch(err){
       print(err);
