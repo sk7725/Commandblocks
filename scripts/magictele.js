@@ -8,8 +8,8 @@ const magictele=extendContent(Router,"magictele",{
     if(!tile.ent().getConnected()) return;//this.super$handleItem(item,tile,source);
     else{
       var other=Vars.world.tile(tile.ent().getConf());
-      if(other.block().acceptItem(item,other,tile)){
-        other.block().handleItem(item,other,tile);
+      if(other.block().acceptItem(item,other,null)){
+        other.block().handleItem(item,other,null);
         tile.ent().timer.reset(timerid,0);
         tile.ent().setColor(item.color);
       }
@@ -22,7 +22,7 @@ const magictele=extendContent(Router,"magictele",{
     if(!tile.ent().getConnected()) return false;//this.super$handleItem(item,tile,source);
     else{
       var other=Vars.world.tile(tile.ent().getConf());
-      return other.block().acceptItem(item,other,tile);
+      return other.block().acceptItem(item,other,null);
     }
   },
   /*
@@ -132,6 +132,12 @@ const magictele=extendContent(Router,"magictele",{
       this.drawLaser(tile, link);
       Draw.reset();
     }
+  },
+  update(tile){
+    this.super$update(tile);
+    if(!tile.ent().getConnected()) return;
+    var link=Vars.world.tile(tile.ent().getConf());
+    if(link==null||(!link.block().hasItems)) tile.ent().setConnected(false);
   }
 });
 
