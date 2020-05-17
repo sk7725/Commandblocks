@@ -56,3 +56,4 @@ require("signblock");
 require("playermover");
 require("gameyoot");
 //require("potion");
+require("keyblock");
