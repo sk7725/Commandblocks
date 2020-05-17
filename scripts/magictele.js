@@ -57,6 +57,7 @@ const magictele=extendContent(Router,"magictele",{
     //hm
   },
   configured(tile, player, value){
+    if(value<=0) return;
     var other=Vars.world.tile(value);
     if(tile==other) tile.ent().setConnected(false);
     else if(tile.ent().getConf()==other.pos()&&tile.ent().getConnected()) tile.ent().setConnected(false);
@@ -135,6 +136,7 @@ const magictele=extendContent(Router,"magictele",{
   },
   update(tile){
     this.super$update(tile);
+    if(tile.ent().getInit()==-1) tile.ent().setInit(tile.pos());
     if(!tile.ent().getConnected()) return;
     var link=Vars.world.tile(tile.ent().getConf());
     if(link==null||(!link.block().hasItems)) tile.ent().setConnected(false);
@@ -172,5 +174,17 @@ magictele.entityType=prov(() => extendContent(Router.RouterEntity , magictele , 
   setColor(a){
     this._color=a;
   },
-  _color:white
+  _color:white,
+  _thispos:-1,
+  config(){
+    if(!this._connected) return 0;
+    //var pos=this.tile.pos();
+    return Pos.get(Pos.x(this._telepos)-Pos.x(this._thispos)+this.tile.x,Pos.y(this._telepos)-Pos.y(this._thispos)+this.tile.y);
+  },
+  getInit(){
+    return this._thispos;
+  },
+  setInit(a){
+    this._thispos=a;
+  }
 }));
