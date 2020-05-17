@@ -1,4 +1,4 @@
-var kickpower=0.22;
+var kickpower=0.22; var dribpower=0.05;
 const spritename="commandblocks-gamesoccerball";
 const white=Color.valueOf("ffffff");
 const gamesoccerball = extendContent(UnitType, "gamesoccerball", {
@@ -94,6 +94,15 @@ gamesoccerball.create(prov(() => new JavaAdapter(FlyingUnit, {
     }
   },
   //just use mass
+  avoidOthers(){
+    this.super$avoidOthers();
+    /*
+    var radScl = 1.5;
+    var fsize = this.getSize() / radScl;
+    var cx = this.x - fsize/2; var cy = this.y - fsize/2;
+    this.dribble(Vars.playerGroup.intersect(cx,cy,fsize,fsize));
+    */
+  }
   /*
   avoidOthers(){
     var radScl = 1.5;
