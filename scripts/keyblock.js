@@ -6,16 +6,19 @@ const keyblock = extendContent(MessageBlock, "keyblock", {
     Call.setMessageBlockText(null,tile,"Q");
     //tile.ent().timer.reset(timerid,presstick+1);
   },
+  drawSelect(tile){
+    //kill the words
+  },
   draw(tile) {
     //this.super$draw(tile);
 
     //Draw.rect(Core.atlas.find(this.name + (Core.input.keyDown(KeyCode[message])) ? "":"-trig")), tile.drawx(), tile.drawy());
     Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
     try{
-      this.drawPlaceText(tile.ent().message.toUpperCase(),tile.x,tile.y,Core.input.keyDown(KeyCode[tile.ent().message.toUpperCase()]));
+      this.drawPlaceText(tile.ent().message.toUpperCase(),tile.x,tile.y-1,Core.input.keyDown(KeyCode[tile.ent().message.toUpperCase()]));
     }
     catch(err){
-      this.drawPlaceText("⚠️",tile.x,tile.y,false);
+      this.drawPlaceText("??",tile.x,tile.y-1,false);
     }
 
   },
