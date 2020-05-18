@@ -101,7 +101,8 @@ gamesoccerball.create(prov(() => new JavaAdapter(FlyingUnit, {
     var cx = this.x - fsize/2; var cy = this.y - fsize/2;
     Vars.playerGroup.intersect(cx,cy,fsize,fsize).each(cons(ent => {
       if ((ent instanceof Player)&&ent.getTeam()!=this.getTeam()) {
-        this.velocity().add(dribpower*(this.x-ent.x)*Time.delta(),dribpower*(this.y-ent.y)*Time.delta());
+        this.velocity().add(0.02*(this.x-ent.x)*Time.delta(),0.02*(this.y-ent.y)*Time.delta());
+        this.velocity().add(dribpower*(ent.velocity().x)*Time.delta(),dribpower*(ent.velocity().y)*Time.delta());
       }
     }));
   }
