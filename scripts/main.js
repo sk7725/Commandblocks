@@ -57,3 +57,4 @@ require("playermover");
 require("gameyoot");
 //require("potion");
 require("keyblock");
+require("boostpad");

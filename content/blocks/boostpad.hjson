@@ -1,0 +1,19 @@
+
+size: 2
+breakable: true
+//consumesTap: true
+timers: 1
+update: true
+category: power
+requirements: [
+  metaglass/30
+  phase-fabric/50
+]
+sync: true
+expanded: true
+health: 300
+hasPower: true
+outputsPower: true
+consumesPower: false
+targetable: false
+solid: false
