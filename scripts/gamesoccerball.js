@@ -1,45 +1,45 @@
-var kickpower=10; var dribpower=0.6;
+var kickpower=15; var dribpower=0.3;
 const mechpower={
   "alpha-mech":{
-    drib:0.4,
-    kick:13
+    drib:0.2,
+    kick:18
   },
   "delta-mech":{
-    drib:1,
-    kick:-7
+    drib:0.5,
+    kick:-10
   },
   "tau-mech":{
-    drib:0.9,
+    drib:0.45,
     kick:0
   },
   "omega-mech":{
-    drib:0.8,
-    kick:3
+    drib:0.4,
+    kick:5
   },
   "trident-ship":{
-    drib:0.5,
-    kick:4
+    drib:0.25,
+    kick:6
   },
   "glaive-ship":{
-    drib:0.3,
-    kick:2
+    drib:0.15,
+    kick:4
   },
   "javelin-ship":{
     drib:0,
-    kick:16
+    kick:20
   },
   "dart-ship":{
-    drib:0.6,
-    kick:10
+    drib:0.3,
+    kick:15
   }
 }
 
 //yoinked from anuke-concept-mod
-const balltrail = newEffect(90, e => {
+const balltrail = newGroundEffect(25, e => {
 	const lightRegion = Core.atlas.find("commandblocks-gamesoccerball");
 
 	Draw.blend(Blending.additive);
-	Draw.color(Color.valueOf("722a18"), Color.valueOf("36080230"), e.fin());
+	Draw.color(Color.valueOf("722a18"), Color.valueOf("36080210"), e.fin());
 	Draw.rect(lightRegion, e.x, e.y, e.rotation - 90);
 	Draw.blend();
 
