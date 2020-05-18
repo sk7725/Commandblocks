@@ -35,7 +35,7 @@ const mechpower={
 }
 
 //yoinked from anuke-concept-mod
-const balltrail = newGroundEffect(25, e => {
+const balltrail = newEffect(25, e => {
 	const lightRegion = Core.atlas.find("commandblocks-gamesoccerball");
 
 	Draw.blend(Blending.additive);
@@ -102,7 +102,7 @@ gamesoccerball.create(prov(() => new JavaAdapter(FlyingUnit, {
     if(!Vars.net.client()){
       this.updateRotation();
     }
-    Effects.effect(balltrail, this.x, this.y, this.rotation);
+    //Effects.effect(balltrail, this.x, this.y, this.rotation);
   },
   countsAsEnemy(){
     return false;
