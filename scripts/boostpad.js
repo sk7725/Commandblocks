@@ -25,7 +25,7 @@ const boostpad = extendContent(Block, "boostpad", {
   },
   unitOn(tile,unit){
     if(tile.ent().timer.check(timerid,presstick)){
-      this.activeSound.at(tile.worldx(),tile.worldy());
+      Sounds.corexplode.at(tile.worldx(),tile.worldy(),0.7);
       Effects.effect(boostblock, tile.drawx(), tile.drawy());
     }
     tile.ent().timer.reset(timerid,0);
