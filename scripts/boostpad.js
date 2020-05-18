@@ -1,9 +1,10 @@
 const presstick=20; const timerid=0; const blocksize=Vars.tilesize*1.5;
 const animspeed=40;
-const boostcolor=Color.valueOf("ffaa5f");
-const boostblock = newEffect(10, e => {
-  Lines.stroke(e.fout() * 1.6);
-  Lines.square(e.x, e.y, e.fin() * 8);
+const boostcolor=Color.valueOf("ffbb77");
+const boostblock = newEffect(20, e => {
+  Draw.color(boostcolor);
+  Lines.stroke(e.fout() * 4);
+  Lines.square(e.x, e.y, e.fin() * 11.5);
 });
 const boostpad = extendContent(Block, "boostpad", {
   placed(tile) {
