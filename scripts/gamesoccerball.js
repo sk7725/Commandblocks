@@ -144,7 +144,7 @@ gamesoccerball.create(prov(() => new JavaAdapter(FlyingUnit, {
     Vars.playerGroup.intersect(cx,cy,fsize,fsize).each(cons(ent => {
       if ((ent instanceof Player)&&ent.getTeam()!=this.getTeam()) {
         this.velocity().add(0.02*(this.x-ent.x)*Time.delta(),0.02*(this.y-ent.y)*Time.delta());
-        this.velocity().add(mechpower[owner.mech.name].drib*(ent.velocity().x)*Time.delta(),mechpower[owner.mech.name].drib*(ent.velocity().y)*Time.delta());
+        this.velocity().add(mechpower[ent.mech.name].drib*(ent.velocity().x)*Time.delta(),mechpower[ent.mech.name].drib*(ent.velocity().y)*Time.delta());
       }
     }));
   }
