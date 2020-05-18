@@ -1,4 +1,4 @@
-const presstick=20; const timerid=0; const blocksize=Vars.tilesize;
+const presstick=20; const timerid=0; const blocksize=Vars.tilesize*1.5;
 const animspeed=40;
 const boostcolor=Color.valueOf("ffaa5f");
 const boostblock = newEffect(10, e => {
@@ -22,11 +22,11 @@ const boostpad = extendContent(Block, "boostpad", {
     }
     */
   },
-  shouldActiveSound(tile){
-    return !tile.ent().timer.check(timerid,1);
-  },
   unitOn(tile,unit){
-    if(tile.ent().timer.check(timerid,presstick)) Sounds.place.at(tile.worldx(),tile.worldy());
+    if(tile.ent().timer.check(timerid,presstick)){
+      this.activeSound.at(tile.worldx(),tile.worldy());
+      Effects.effect(boostblock, tile.drawx(), tile.drawy());
+    }
     tile.ent().timer.reset(timerid,0);
   },
   update(tile){
