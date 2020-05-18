@@ -140,7 +140,7 @@ gamesoccerball.create(prov(() => new JavaAdapter(FlyingUnit, {
       var power=kickpower;
       if(owner instanceof Player) power=(mechpower.hasOwnProperty(owner.mech.name))?mechpower[owner.mech.name].kick:kickpower;
       if(dist<45000){
-        this.velocity().add(power*(this.x-owner.x)/dist*Time.delta(),power*(this.y-owner.y)/dist*Time.delta());
+        this.velocity().add(4*power*(this.x-owner.x)/dist*Time.delta(),4*power*(this.y-owner.y)/dist*Time.delta());
       }
     }
   },
