@@ -7,13 +7,16 @@ const keyblock = extendContent(MessageBlock, "keyblock", {
     //tile.ent().timer.reset(timerid,presstick+1);
   },
   draw(tile) {
-    this.super$draw(tile);
+    //this.super$draw(tile);
+
     //Draw.rect(Core.atlas.find(this.name + (Core.input.keyDown(KeyCode[message])) ? "":"-trig")), tile.drawx(), tile.drawy());
+    Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
     this.drawPlaceText(tile.ent().message,tile.x,tile.y,Core.input.keyDown(KeyCode[tile.ent().message]));
   },
   setMessageBlockText(player,tile,text){
+    text=text.toUpperCase();
     if(!KeyCode.hasOwnProperty(text)) text="ANY_KEY";
-    this.super$setMessageBlockText(player,tile,text.toUpperCase());
+    this.super$setMessageBlockText(player,tile,text);
   },
 /*
   update(tile){
@@ -29,4 +32,8 @@ const keyblock = extendContent(MessageBlock, "keyblock", {
       return 0;
     }
   },
+  load(){
+    this.super$load();
+    this.baseRegion=Core.atlas.find(this.name+"-base");
+  }
 });
