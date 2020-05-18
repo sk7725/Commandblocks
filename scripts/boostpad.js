@@ -29,6 +29,7 @@ const boostpad = extendContent(Block, "boostpad", {
       Effects.effect(boostblock, tile.drawx(), tile.drawy());
     }
     tile.ent().timer.reset(timerid,0);
+    unit.velocity().add(unit.velocity().x*Time.delta()*3,unit.velocity().y*Time.delta()*3);
   },
   update(tile){
     this.super$update(tile);
