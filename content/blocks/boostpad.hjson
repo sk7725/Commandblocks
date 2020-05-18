@@ -4,7 +4,7 @@ breakable: true
 //consumesTap: true
 timers: 1
 update: true
-category: power
+category: effect
 requirements: [
   metaglass/30
   phase-fabric/50
