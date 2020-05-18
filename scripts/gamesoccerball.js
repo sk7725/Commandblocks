@@ -1,5 +1,4 @@
 var kickpower=10; var dribpower=0.6;
-
 const mechpower={
   "alpha-mech":{
     drib:0.4,
@@ -34,6 +33,19 @@ const mechpower={
     kick:10
   }
 }
+
+//yoinked from anuke-concept-mod
+const balltrail = newEffect(90, e => {
+	const lightRegion = Core.atlas.find("commandblocks-gamesoccerball");
+
+	Draw.blend(Blending.additive);
+	Draw.color(Color.valueOf("722a18"), Color.valueOf("36080230"), e.fin());
+	Draw.rect(lightRegion, e.x, e.y, e.rotation - 90);
+	Draw.blend();
+
+	//Draw.color(Color.valueOf("ffffff"));
+	//Fill.circle(e.x, e.y, (1 * e.fout()) * (e.rotation / 1.3));
+});
 
 const spritename="commandblocks-gamesoccerball";
 const white=Color.valueOf("ffffff");
@@ -90,6 +102,7 @@ gamesoccerball.create(prov(() => new JavaAdapter(FlyingUnit, {
     if(!Vars.net.client()){
       this.updateRotation();
     }
+    Effects.effect(balltrail, this.x, this.y, this.rotation);
   },
   countsAsEnemy(){
     return false;
