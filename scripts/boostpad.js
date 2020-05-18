@@ -1,5 +1,10 @@
 const presstick=20; const timerid=0; const blocksize=Vars.tilesize;
 const animspeed=40;
+const boostcolor=Color.valueOf("ffaa5f");
+const boostblock = newEffect(10, e => {
+  Lines.stroke(e.fout() * 1.6);
+  Lines.square(e.x, e.y, e.fin() * 8);
+});
 const boostpad = extendContent(Block, "boostpad", {
   placed(tile) {
     this.super$placed(tile);
@@ -7,11 +12,15 @@ const boostpad = extendContent(Block, "boostpad", {
   },
   draw(tile) {
     Draw.rect(this.animRegion[Mathf.floorPositive((Time.time()%160)/animspeed)], tile.drawx(), tile.drawy());
+    /*
     if(!tile.ent().timer.check(timerid,presstick)){
-      Draw.alpha((presstick-tile.ent().timer.getTime(timerid))/presstick);
+      Draw.blend(Blending.additive);
+      Draw.alpha((presstick-tile.ent().timer.getTime(timerid))/presstick/1.5);
       Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
       Draw.color();
+      Draw.blend();
     }
+    */
   },
   unitOn(tile,unit){
     if(tile.ent().timer.check(timerid,presstick)) Sounds.place.at(tile.worldx(),tile.worldy());
