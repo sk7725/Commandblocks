@@ -22,6 +22,9 @@ const boostpad = extendContent(Block, "boostpad", {
     }
     */
   },
+  shouldActiveSound(tile){
+    return !tile.ent().timer.check(timerid,1);
+  },
   unitOn(tile,unit){
     if(tile.ent().timer.check(timerid,presstick)) Sounds.place.at(tile.worldx(),tile.worldy());
     tile.ent().timer.reset(timerid,0);
