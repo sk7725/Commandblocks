@@ -16,8 +16,8 @@ const colorcanvas = extendContent(LightBlock, "colorcanvas", {
     this.gridRegion=Core.atlas.find(this.name+"-top");
   },
   draw(tile){
-    var entity=tile.ent();
-    Draw.color(Tmp.c1.set(entity.color));
+    //var entity=tile.ent();
+    Draw.color(Tmp.c1.set(tile.ent().color));
     Draw.rect(this.region, tile.drawx(), tile.drawy());
     Draw.color();
     if(t.global.colors.grid) Draw.rect(this.gridRegion, tile.drawx(), tile.drawy());
