@@ -1,0 +1,13 @@
+
+size: 1
+breakable: true
+consumesTap: true
+timers: 1
+update: true
+category: upgrade
+requirements: [
+thorium/666
+]
+sync: true
+health: 2000
+solid: true

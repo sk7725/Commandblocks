@@ -53,8 +53,12 @@ require("magicrouter");
 require("magictele");
 
 require("signblock");
-require("playermover");
-require("gameyoot");
+
 //require("potion");
 require("keyblock");
 require("boostpad");
+
+require("playermover");
+require("gameyoot");
+
+require("buttongg");
