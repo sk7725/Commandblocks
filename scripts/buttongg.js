@@ -12,7 +12,7 @@ const buttongg = extendContent(Block, "buttongg", {
     //Draw.rect(Core.atlas.find(this.name + ((tile.ent().timer.check(timerid,presstick)) ? "":"-trig")), tile.drawx(), tile.drawy());
   },
   tapped(tile,player){
-    if(!(!Vars.net.active())||player.isAdmin)) return;
+    if(!((!Vars.net.active())||player.isAdmin)) return;
     tile.ent().timer.reset(timerid,0);
     Sounds.corexplode.at(tile.worldx(),tile.worldy());
     this.boom(tile,Vars.playerGroup.random());
