@@ -35,13 +35,14 @@ const commandblocks={
       obj.r= intarget;
       return obj;
     }
-    if(intarget.substring(0,2)=="@e"){
+    if(intarget.substring(0,2)=="@e"||intarget.substring(0,2)=="@r"){
+      var randomp=false; if(intarget.substring(0,2)=="@r") randomp=true;
       var selectors=[];
       var stype="!tile";
       var types=[];
       var alltypes=["player","effect","groundEffect","puddle","shield","fire","unit","bullet"];//excludes "tile"
       //var steam=null; var srm=null; var sr=null; var spos={}; spos.x=null; spos.y=null; var dpos={}; dpos.x=null; dpos.y=null; var stype=null; var scount=null; var sname=null; var srot=null;
-      if(intarget.substring(0,3)=="@e["&&intarget.substring(intarget.length-1,intarget.length)=="]"){
+      if(intarget.substring(2,3)=="["&&intarget.substring(intarget.length-1,intarget.length)=="]"){
         selectors=intarget.substring(3,intarget.length-1).split(",");
       }
       if(selectors.length>0){
@@ -180,6 +181,12 @@ const commandblocks={
             if(invert) ret.eachFilter(boolf(e=>(((tmpx-e.x)*(tmpx-e.x)+(tmpy-e.y)*(tmpy-e.y))<=tmpr)));
             else ret.eachFilter(boolf(e=>(((tmpx-e.x)*(tmpx-e.x)+(tmpy-e.y)*(tmpy-e.y))>tmpr)));
           break;
+          case "state":
+            if(se=="flying"){
+              if(invert) ret.eachFilter(boolf(e=>((e instanceof Unit)&&e.isFlying())));
+              else ret.eachFilter(boolf(e=>( !(!(e instanceof Unit)||e.isFlying()) )));
+            }
+          break;
         }
       }
       if(sx>-1) ret.eachFilter(boolf(e=>!(e.x>=sx*Vars.tilesize&&e.x<(sx+dx)*Vars.tilesize)));
@@ -188,8 +195,13 @@ const commandblocks={
       if(ret.toArray().length==0) obj.r= null;
       else if(ret.toArray().length==1) obj.r= ret.toArray()[0];
       else{
-        obj.r= ret;
-        obj.a=true;
+        if(randomp){
+          obj.r=ret.random();
+        }
+        else{
+          obj.r= ret;
+          obj.a=true;
+        }
       }
       return obj;
     }
