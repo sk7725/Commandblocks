@@ -16,7 +16,7 @@ const boostfire = newEffect(50, e => {
 });
 
 const boosted= extendContent(StatusEffect,"boosted",{});
-boosted.speedMultiplier=1.4;
+boosted.speedMultiplier=1.55;
 boosted.color=boostcolor;
 boosted.effect=boostfire;
 
@@ -43,7 +43,7 @@ const boostpad = extendContent(Block, "boostpad", {
       Effects.effect(boostblock, tile.drawx(), tile.drawy());
     }
     tile.ent().timer.reset(timerid,0);
-    unit.velocity().add(unit.velocity().x*Time.delta()*3,unit.velocity().y*Time.delta()*3);
+    if(!(unit instanceof Player)) unit.velocity().add(unit.velocity().x*Time.delta()*1,unit.velocity().y*Time.delta()*1);
     unit.applyEffect(boosted,effectdur);
   },
   update(tile){
