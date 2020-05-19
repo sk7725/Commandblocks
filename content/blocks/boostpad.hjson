@@ -10,7 +10,6 @@ requirements: [
   phase-fabric/50
 ]
 sync: true
-expanded: true
 health: 300
 targetable: false
 solid: false
