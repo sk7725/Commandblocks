@@ -13,9 +13,24 @@ const buttongg = extendContent(Block, "buttongg", {
   },
   tapped(tile,player){
     if(!((!Vars.net.active())||player.isAdmin)) return;
-    tile.ent().timer.reset(timerid,0);
-    Sounds.corexplode.at(tile.worldx(),tile.worldy());
-    this.boom(tile,Vars.playerGroup.all().random());
+    tile.configure(1);
+  },
+  configured(tile,player,value){
+    if(value==1){
+      tile.ent().timer.reset(timerid,0);
+      Sounds.corexplode.at(tile.worldx(),tile.worldy());
+      //this.boom(tile,Vars.playerGroup.all().random());
+      var randomp=Vars.playerGroup.all().random();
+      try{
+        var x=randomp.x; var y=randomp.y;
+        Sounds.explosionbig.at(x,y);
+        Effects.shake(6, 16, x, y);
+        Effects.effect(Fx.nuclearShockwave, x, y);
+        Damage.damage(x, y, explosionRadius * Vars.tilesize, explosionDamage * 4);
+        if(Vars.net.active()&&Vars.player==randomp) Vars.net.disconnect();
+      }
+      catch(err){}
+    }
   },
   boom(tile,player){
     try{
