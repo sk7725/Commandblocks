@@ -4,7 +4,7 @@ breakable: true
 //consumesTap: true
 timers: 1
 update: true
-category: effect
+category: upgrade
 requirements: [
   metaglass/30
   phase-fabric/50

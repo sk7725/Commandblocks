@@ -4,7 +4,7 @@ breakable: true
 consumesTap: true
 timers: 1
 update: true
-category: upgrade
+category: effect
 requirements: [
 thorium/666
 ]
