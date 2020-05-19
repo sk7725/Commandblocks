@@ -16,7 +16,7 @@ const boostfire = newEffect(50, e => {
 });
 
 const boosted= extendContent(StatusEffect,"boosted",{});
-boosted.speedMultiplier=2;
+boosted.speedMultiplier=1.4;
 boosted.color=boostcolor;
 boosted.effect=boostfire;
 
