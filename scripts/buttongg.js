@@ -15,7 +15,7 @@ const buttongg = extendContent(Block, "buttongg", {
     if(!((!Vars.net.active())||player.isAdmin)) return;
     tile.ent().timer.reset(timerid,0);
     Sounds.corexplode.at(tile.worldx(),tile.worldy());
-    this.boom(tile,Vars.playerGroup.random());
+    this.boom(tile,Vars.playerGroup.all().random());
   },
   boom(tile,player){
     try{
