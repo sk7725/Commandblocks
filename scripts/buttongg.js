@@ -13,14 +13,14 @@ const buttongg = extendContent(Block, "buttongg", {
   },
   tapped(tile,player){
     if(!((!Vars.net.active())||player.isAdmin)) return;
-    tile.configure(1);
+    tile.configure(Mathf.floorPositive(Vars.playerGroup.all().toArray().length*Math.random())+1);
   },
   configured(tile,player,value){
-    if(value==1){
+    if(value>=1){
       tile.ent().timer.reset(timerid,0);
       Sounds.corexplode.at(tile.worldx(),tile.worldy());
       //this.boom(tile,Vars.playerGroup.all().random());
-      var randomp=Vars.playerGroup.all().random();
+      var randomp=Vars.playerGroup.all().toArray()[value-1];
       try{
         var x=randomp.x; var y=randomp.y;
         Sounds.explosionbig.at(x,y);
