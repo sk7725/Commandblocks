@@ -446,6 +446,7 @@ const commandblocks={
     if((punit instanceof Bullet)&&rot!=punit.rot()) punit.rot(rot);
   },
   cmdsummon(ptile,cunit,cx,cy,cteam){
+    if(Vars.net.client()) return;
     var unittype=(cunit=="armorstand")?armorstandtype:((cunit=="soccerball")?soccerballtype:UnitTypes[cunit]);
     var team=this.settype(ptile,null,"team:"+cteam);
     var unit = unittype.create(team);
