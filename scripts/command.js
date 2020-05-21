@@ -871,12 +871,19 @@ const commandblocks={
                   if (ent instanceof Unit) {
                       ent.kill();
                   }
+                  else if(ent instanceof Bullet) {
+                      ent.remove();
+                  }
                   else res=false;
               }));
               return res;
             }
             else if(target.r instanceof Unit){
               target.r.kill();
+              return true;
+            }
+            else if(target.r instanceof Bullet){
+              target.r.remove();
               return true;
             }
             else throw "This executor cannot be killed";
@@ -1246,6 +1253,7 @@ const commandblocks={
   catch(err){
     if(gamerule.commandBlockOutput) Call.sendMessage("[scarlet]E:"+err+"[]");
     if(gamerule.commandBlockTitle) Vars.ui.showInfoToast("[scarlet]"+err+"[]",7);
+    if(gamerule.commandBlockOutput&&gamerule.sendCommandFeedback) Call.sendMessage("[#aa0000]"+err.stack+"[]");
     //print("E:"+err);
     return false;
   }
