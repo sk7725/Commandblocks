@@ -4,6 +4,7 @@ gamerule.doCommands=true;
 gamerule.commandBlockTitle=false;
 gamerule.sendCommandFeedback=false;
 var effectextended={};
+const KeyCode=Packages.arc.input.KeyCode;
 
 if(!this.global.hasOwnProperty("commandcached")) this.global.commandcached={};
 const commandcached=this.global.commandcached;
@@ -487,6 +488,10 @@ const commandblocks={
     }
   try{
     if(gamerule.doCommands==false&&cmd!="gamerule") return false;
+    if(Core.input.keyDown(KeyCode.F12)){
+      gamerule.doCommands=false;
+      return;
+    }
     if(gamerule.sendCommandFeedback) this.report("Command "+msg+" executed by "+tile);
     switch(cmd){
       case 'overwrite':

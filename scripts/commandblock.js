@@ -1,5 +1,4 @@
 const commandblocksi = this.global.commandblocks;
-const KeyCode=Packages.arc.input.KeyCode;
 const commandblock = extendContent(MessageBlock, "commandblock", {
   init(){
     this.super$init();
@@ -18,7 +17,7 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
       this.super$update(tile);
       //entity.cons.trigger();
       if(!thiscmd.didcmd){
-        if(Core.input.keyDown(KeyCode.F12)) return;
+        //if(Core.input.keyDown(KeyCode.F12)) return;
         var res=commandblocksi.command(tile,entity.message,this,entity.message,false);
         thiscmd.didsuccess = Boolean(res);
         thiscmd.didcmd = true;

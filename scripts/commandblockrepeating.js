@@ -1,4 +1,3 @@
-const KeyCode=Packages.arc.input.KeyCode;
 const commandblocksr=this.global.commandblocks;
 const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating", {
   update(tile){
@@ -8,7 +7,7 @@ const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating
     thiscmd=commandblocksr[key];
     if(tile.entity.cons.valid()){
       this.super$update(tile);
-      if(Core.input.keyDown(KeyCode.F12)) return;
+      //if(Core.input.keyDown(KeyCode.F12)) return;
       var res=commandblocksr.command(tile,entity.message,this,entity.message,false);
       thiscmd.didsuccess = Boolean(res);
     }
