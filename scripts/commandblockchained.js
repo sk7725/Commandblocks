@@ -1,4 +1,5 @@
 const commandblocksc=this.global.commandblocks;
+const KeyCode=Packages.arc.input.KeyCode;
 const commandblockchained = extendContent(MessageBlock, "commandblockchained", {
   getawaypos(tx, ty, trot){
     var tmpobj={};
@@ -29,6 +30,7 @@ const commandblockchained = extendContent(MessageBlock, "commandblockchained", {
       const awaypos=this.getawaypos(tile.x,tile.y,tile.rotation());
       const akey=awaypos.x+","+awaypos.y;
       if(commandblocksc.hasOwnProperty(akey)&&commandblocksc[akey].didsuccess){
+        if(Core.input.keyDown(KeyCode.F12)) return;
         var res=commandblocksc.command(tile,entity.message,this,entity.message,false);
         thiscmd.didsuccess = Boolean(res);
       }
