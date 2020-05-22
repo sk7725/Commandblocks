@@ -1,4 +1,4 @@
-const presstick=20; const timerid=0; const blocksize=Vars.tilesize*1.7;
+const presstick=20; const timerid=0; const blocksize=Vars.tilesize*1.9;
 
 const slimeblock = extendContent(DeflectorWall, "slimeblock", {
   placed(tile) {
