@@ -6,7 +6,7 @@ const slimeblock = extendContent(DeflectorWall, "slimeblock", {
     tile.ent().timer.reset(timerid,presstick+1);
   },
   draw(tile) {
-    var size=Vars.tilesize*2+(tile.ent().timer.check(timerid,presstick)?0:presstick-tile.ent().timer.getTime())*0.2;
+    var size=Vars.tilesize*2+(tile.ent().timer.check(timerid,presstick)?0:presstick-tile.ent().timer.getTime(timerid))*0.2;
     Draw.rect(this.region, tile.drawx(), tile.drawy(),size,size);
     /*
     if(!tile.ent().timer.check(timerid,presstick)){
