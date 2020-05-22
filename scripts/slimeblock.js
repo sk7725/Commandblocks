@@ -63,11 +63,13 @@ const slimeblock = extendContent(DeflectorWall, "slimeblock", {
     }
 
     if(penX > penY){
-      unit.velocity().x *= -1.2;
+      unit.velocity().x *= -1;
     }else{
-      unit.velocity().y *= -1.2;
+      unit.velocity().y *= -1;
     }
-    if(unit.velocity().len()<10) unit.velocity()=unit.velocity().setLength(10);
+    var avec=Vec2(unit.x-entity.x,unit.y-entity.y);
+    avec.scl(2,2);
+    unit.velocity().add(avec.x*Time.delta(),avec.y*Time.delta());
   },
   update(tile){
     this.super$update(tile);
