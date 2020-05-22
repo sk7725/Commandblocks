@@ -40,6 +40,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
 		//if(value != -1&&value!=0){
 		//	value = 1;
 		//}
+    if(Vars.net.client()&&value<2) return;
     var key=tile.x+","+tile.y;
     if(!noteblocks.hasOwnProperty(key)) this.loadkey(tile);
     var n=Number(tile.ent().message);

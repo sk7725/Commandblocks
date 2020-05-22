@@ -18,21 +18,24 @@ const slimeblock = extendContent(DeflectorWall, "slimeblock", {
     }
     */
   },
-  setvec(v){
-    if(Math.abs(v.x)>Math.abs(v.y)){
+  setvec(v,unitv){
+    if(Math.abs(unitv.x)>Math.abs(unitv.y)){
+      if(unitv.x*v.x>0) return Vec2(0,0);
       return Vec2(v.x,0);
     }
+    if(unitv.y*v.y>0) return Vec2(0,0);
     return Vec2(0,v.y);
   },
   unitOn(tile,unit){
     if(tile.ent().timer.check(timerid,presstick)){
-      Sounds.flame.at(tile.worldx(),tile.worldy(),0.3);
+      Sounds.artillery.at(tile.worldx(),tile.worldy(),2.5);
     }
     tile.ent().timer.reset(timerid,0);
     var entity=tile.ent();
     var dvec=Vec2(unit.x-entity.x,unit.y-entity.y);
-    var dist=dvec.len();
-    var avec=this.setvec(dvec).scl(2*dist,2*dist);
+    //var dist=dvec.len();
+    var originv=unit.velocity().len();
+    var avec=this.setvec(dvec,unit.velocity()).scl(2*originv,2*originv);
     unit.velocity().add(avec.x*Time.delta(),avec.y*Time.delta());
   },
   update(tile){
