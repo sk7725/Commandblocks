@@ -55,7 +55,7 @@ const slimeblock = extendContent(DeflectorWall, "slimeblock", {
       unit.y - unit.velocity().y*Time.delta(),
       unit.x + unit.velocity().x*Time.delta(),
       unit.y + unit.velocity().y*Time.delta(),
-      this.rect.setSize(this.size * Vars.tilesize + this.rect2.width*2 + this.rect2.height*2).setCenter(entity.x, entity.y)
+      this.rect.setSize(this.size * blocksize + this.rect2.width*2 + this.rect2.height*2).setCenter(entity.x, entity.y)
     );
 
     if(position != null){
