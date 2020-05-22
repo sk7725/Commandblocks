@@ -489,7 +489,7 @@ const commandblocks={
     }
   try{
     if(gamerule.doCommands==false&&cmd!="gamerule") return false;
-    if(Core.input.keyDown(KeyCode.F12)){
+    if(Core.input.keyDown(KeyCode.F10)){
       gamerule.doCommands=false;
       return;
     }
