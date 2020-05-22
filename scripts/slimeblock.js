@@ -27,7 +27,7 @@ const slimeblock = extendContent(DeflectorWall, "slimeblock", {
     return Vec2(0,v.y);
   },
   unitOn(tile,unit){
-    if(tile.ent().timer.check(timerid,presstick)){
+    if(tile.ent().timer.check(timerid,presstick/3)){
       Sounds.artillery.at(tile.worldx(),tile.worldy(),2.5);
     }
     tile.ent().timer.reset(timerid,0);
@@ -35,7 +35,7 @@ const slimeblock = extendContent(DeflectorWall, "slimeblock", {
     var dvec=Vec2(unit.x-entity.x,unit.y-entity.y);
     //var dist=dvec.len();
     var originv=unit.velocity().len();
-    var avec=this.setvec(dvec,unit.velocity()).scl(2*originv,2*originv);
+    var avec=this.setvec(dvec,unit.velocity()).scl(1.2*originv,1.2*originv);
     unit.velocity().add(avec.x*Time.delta(),avec.y*Time.delta());
   },
   update(tile){
