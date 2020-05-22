@@ -67,9 +67,11 @@ const slimeblock = extendContent(DeflectorWall, "slimeblock", {
     }else{
       unit.velocity().y *= -1;
     }
-    var avec=Vec2(unit.x-entity.x,unit.y-entity.y);
-    avec.scl(2,2);
-    unit.velocity().add(avec.x*Time.delta(),avec.y*Time.delta());
+    if(unit.velocity().len()<15){
+      var avec=Vec2(unit.x-entity.x,unit.y-entity.y);
+      avec.scl(2,2);
+      unit.velocity().add(avec.x*Time.delta(),avec.y*Time.delta());
+    }
   },
   update(tile){
     this.super$update(tile);
