@@ -19,13 +19,14 @@ const slimeblock = extendContent(DeflectorWall, "slimeblock", {
     */
   },
   setvec(v,unitv){
-    if(Math.abs(unitv.x)>Math.abs(unitv.y)){
+    if(Math.abs(v.x)>Math.abs(v.y)){
       if(unitv.x*v.x>0) return Vec2(0,0);
       return Vec2(v.x,0);
     }
     if(unitv.y*v.y>0) return Vec2(0,0);
     return Vec2(0,v.y);
   },
+  /*
   unitOn(tile,unit){
     if(tile.ent().timer.check(timerid,presstick/3)){
       Sounds.artillery.at(tile.worldx(),tile.worldy(),2.5);
@@ -38,11 +39,45 @@ const slimeblock = extendContent(DeflectorWall, "slimeblock", {
     var avec=this.setvec(dvec,unit.velocity()).scl(1.2*originv,1.2*originv);
     unit.velocity().add(avec.x*Time.delta(),avec.y*Time.delta());
   },
+  */
+  unitOn(tile,unit){
+    if(tile.ent().timer.check(timerid,presstick/3)){
+      Sounds.artillery.at(tile.worldx(),tile.worldy(),2.5);
+    }
+    tile.ent().timer.reset(timerid,0);
+    var entity=tile.ent();
+    var penX = Math.abs(entity.x - unit.x); var penY = Math.abs(entity.y - unit.y);
+
+    //unit.hitbox(rect2);
+
+    var position = Geometry.raycastRect(
+      unit.x - unit.velocity().x*Time.delta(),
+      unit.y - unit.velocity().y*Time.delta(),
+      unit.x + unit.velocity().x*Time.delta(),
+      unit.y + unit.velocity().y*Time.delta(),
+      this.rect.setSize(this.size * Vars.tilesize + this.rect2.width*2 + this.rect2.height*2).setCenter(entity.x, entity.y)
+    );
+
+    if(position != null){
+      unit.set(position.x, position.y);
+    }
+
+    if(penX > penY){
+      unit.velocity().x *= -1.2;
+    }else{
+      unit.velocity().y *= -1.2;
+    }
+  },
   update(tile){
     this.super$update(tile);
-    Units.nearby(tile.worldx(),tile.worldy(),blocksize,blocksize,cons(e => {
+    Units.nearby(tile.worldx()-(blocksize-Vars.tilesize)/2,tile.worldy()-(blocksize-Vars.tilesize)/2,blocksize,blocksize,cons(e => {
       this.unitOn(tile,e);
     }));
+  },
+  load(){
+    this.super$load();
+    this.rect=new Rect();
+    this.rect2=new Rect();
   }
 });
 
