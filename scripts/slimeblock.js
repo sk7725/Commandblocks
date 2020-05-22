@@ -67,6 +67,7 @@ const slimeblock = extendContent(DeflectorWall, "slimeblock", {
     }else{
       unit.velocity().y *= -1.2;
     }
+    if(unit.velocity().len()<10) unit.velocity()=unit.velocity().setLength(10);
   },
   update(tile){
     this.super$update(tile);
