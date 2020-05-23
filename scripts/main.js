@@ -59,6 +59,8 @@ require("keyblock");
 require("boostpad");
 require("slimeblock");
 
+require("blockcopy");
+
 require("playermover");
 require("gameyoot");
 
