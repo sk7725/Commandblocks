@@ -41,7 +41,7 @@ const blockcopy = extendContent(MessageBlock, "blockcopy", {
 			return tile.floor().name;
 		}
 		if(tile.isLinked()){
-			return.tile.link().block().name;
+			return tile.link().block().name;
 		}
 		return tile.block().name;
 	},
