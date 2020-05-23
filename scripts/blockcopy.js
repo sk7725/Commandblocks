@@ -40,11 +40,18 @@ const blockcopy = extendContent(MessageBlock, "blockcopy", {
 		if(tile.block()=="air"){
 			return tile.floor().name;
 		}
+		if(tile.isLinked()){
+			return.tile.link().block().name;
+		}
 		return tile.block().name;
 	},
 	drawSelect(tile){
 		var uni=Fonts.getUnicode(tile.ent().message);
     this.drawPlaceText((uni>0)?String.fromCharCode(uni):"??",tile.x,tile.y,uni>0);
 		this.super$drawSelect(tile);
+  },
+	updateTableAlign(tile,table){
+    var pos = Core.input.mouseScreen(tile.drawx(), tile.drawy() - tile.block().size * Vars.tilesize / 2 - 6);
+    table.setPosition(pos.x, pos.y, Align.top);
   },
 });
