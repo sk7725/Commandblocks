@@ -19,7 +19,11 @@ const blockcopy = extendContent(MessageBlock, "blockcopy", {
 					}
 				}
 				else{
-					if(Fonts.getUnicode(msg)>0){
+					if(msg=="우파루파"){
+						Core.app.setClipboardText("🤔");
+						Vars.ui.showInfoFade("Copied?");
+					}
+					else if(Fonts.getUnicode(msg)>0){
 						Core.app.setClipboardText(String.fromCharCode(Fonts.getUnicode(msg)) + "");
 						Vars.ui.showInfoFade("Copied!");
 					}
@@ -47,7 +51,7 @@ const blockcopy = extendContent(MessageBlock, "blockcopy", {
 	},
 	drawSelect(tile){
 		var uni=Fonts.getUnicode(tile.ent().message);
-    this.drawPlaceText((uni>0)?(String.fromCharCode(uni)+" "+tile.ent().message):"??",tile.x,tile.y,uni>0);
+    this.drawPlaceText((uni>0)?(String.fromCharCode(uni)+" "+tile.ent().message):((tile.ent().message=="우파루파")?"[#ff76a6]우[#f68fb5]파[#faa6c4]루[#fdbdd2]파":"??"),tile.x,tile.y,uni>0||tile.ent().message=="우파루파");
 		//this.super$drawSelect(tile);
   },
 	updateTableAlign(tile,table){
