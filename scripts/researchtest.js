@@ -207,7 +207,7 @@ const researchtest = extendContent(Block, "researchtest", {
 				}));
 				t.row();
 			}
-			if(obj.hasOwnProperty("parent")&&type!="researched"){
+			if(obj.hasOwnProperty("parent")&&type=="noparent"){
 				t.table(cons(c =>{
 					c.add(((type!="noparent")?"[white]"+Core.bundle.get("research.parent")+": []":"[scarlet]"+Core.bundle.get("research.parent")+": []")+obj.parent).growX();
 				}));
