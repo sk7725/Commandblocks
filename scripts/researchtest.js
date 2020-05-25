@@ -6,6 +6,9 @@ const root={
 		displayName:"Coal Bomb",
 		type:"Attack Skill",
 		shortDesc:"Throws a bomb foward.",
+		description:"Thows a bomb foward, which explodes when it hits the ground. Low damage but better that nothing.",
+		tier:1,
+		cooltime:1.5,
 		uses:{
 			item:"coal",
 			amount:3
@@ -25,6 +28,9 @@ const root={
 		displayName:"Quick Escape",
 		type:"Movement Skill",
 		shortDesc:"Teleports to a near random location.",
+		description:"Teleports to a ramdom location selected in a radius of 16 blocks. Useful for dodging bullets or escaping in a hunch.",
+		tier:1,
+		cooltime:1,
 		uses:{
 			item:"phase-fabric",
 			amount:1
@@ -71,6 +77,10 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
       table.row();
 
       table.left().defaults().fillX();
+			if(obj.hasOwnProperty("tier")){
+				table.add(Core.bundle.format("skill.tier")+": "+obj.cooltime);
+        table.row();
+			}
 			if(obj.hasOwnProperty("cooltime")){
 				table.add(Core.bundle.format("skill.cooltime")+": "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
         table.row();
@@ -91,7 +101,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 				//title.add().growX();
 
 				title.addImageButton(Icon.infoCircle, Styles.cleari, run(() => {
-						//
+						this.makeinfo(tile,obj);
 				})).size(50);
 
 				if(type!="researched"){
@@ -125,7 +135,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 
 			if(obj.hasOwnProperty("cost")&&type!="researched"){
 				t.table(cons(c =>{
-					c.add((type!="cannotres")?"[white]Research Cost : []":"[scarlet]Research Cost : []").growX();
+					c.add((type!="cannotres")?"[white]"+Core.bundle.get("research.cost")+" : []":"[scarlet]"+Core.bundle.get("research.cost")+" : []").growX();
 					for(var i=0;i<obj.cost.length;i++){
 						var item=Vars.content.getByName(ContentType.item,obj.cost[i].item);
 						c.add(" [white]" + obj.cost[i].amount);
