@@ -3,7 +3,7 @@ const customtree=extendContent(FloatingDialog,"CustomTreeDialog",{
     this.nodesize=Scl.scl(60);
     this.nodes={};
     this.root=root;
-    this.bounds=new Rect();
+    //this.bounds=new Rect();
     this.items=new ItemsDisplay();
     this.view=new View();
 
