@@ -1,4 +1,4 @@
-const ticknow=0;
+var ticknow=0;
 const color1=Color.valueOf("ffaa5f"); const color2=Color.valueOf("84f491");
 const root={
 	"coalbomb":{
@@ -330,7 +330,7 @@ const researchtest = extendContent(Block, "researchtest", {
 			return true;
 			*/
 			var inc=Time.time()-ticknow;
-			Vars.ui.showInfoToast("T:"+Time.time()+" N:"+ticknow,0);
+			//Vars.ui.showInfoToast("T:"+Time.time()+" N:"+ticknow,0);
 			return (inc>10||inc<-10);
 		}
 		else return false;
