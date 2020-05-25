@@ -1,6 +1,5 @@
 
 const color1=Color.valueOf("ffaa5f"); const color2=Color.valueOf("84f491");
-const customtree=this.global.customtree;
 const root={
 	"coalbomb":{
 		type:"skill.atk",
@@ -70,37 +69,57 @@ const researchtest = extendContent(Block, "researchtest", {
 	load(){
 		this.super$load();
 		var uparr=Object.keys(root);
+		//load languages
 		for(var i=0;i<uparr.length;i++){
+			root[uparr[i]].n=i;
 			root[uparr[i]].name=uparr[i];
 			root[uparr[i]].displayName=Core.bundle.get("skill."+uparr[i]+".name");
 			root[uparr[i]].shortDesc=Core.bundle.get("skill."+uparr[i]+".short");
 			root[uparr[i]].description=Core.bundle.get("skill."+uparr[i]+".description");
 		}
 	},
+	configured(tile,player,value){
+		//research in sync
+		if(value<=0) return;
+		var obj=root[Object.keys(root)[value-1]];
+		if(obj==null) return;
+		//use up cost
+		var arr=obj.cost;
+		var core=Vars.state.teams.get(Vars.player.getTeam()).cores.first();
+		for(var i=0;i<arr.length;i++){
+			var item=Vars.content.getByName(ContentType.item,arr[i].item);
+			core.items.remove(item,arr[i].amount);
+		}
+		//tba
+	},
 	canresearch(tile,obj,name){
 		if(!obj.hasOwnProperty("cost")&&!obj.hasOwnProperty("parent")) return true;
-		var arr=obj.cost;
+		//test whether items are sufficient
 		if(obj.hasOwnProperty("cost")){
+			var arr=obj.cost;
 			for(var i=0;i<arr.length;i++){
 				var item=Vars.content.getByName(ContentType.item,arr[i].item);
 				var camount=Vars.state.teams.get(Vars.player.getTeam()).cores.first().items.get(item);
 				if(camount<arr[i].amount) return false;
 			}
 		}
+		//test whether parent is researched
 		if(obj.hasOwnProperty("parent")){
-			return this.isresearched(tile,name);
+			return this.isresearched(tile,obj.parent);
 		}
 		return true;
 	},
 	isresearched(tile,name){
+		//tba
 		return false;
 	},
 	makeinfo(tile,obj){
+		//ubgradable info
 		const infod = new FloatingDialog(Core.bundle.get("info.title"));
 		infod.cont.pane(cons(table=>{
 			table.margin(10);
 			//var item=(obj.hasOwnProperty("uses"))?Vars.content.getByName(ContentType.item,obj.uses.item):Vars.content.getByName(ContentType.block,obj.icon);
-			table.table(cons(title => {
+			table.table(cons(title=>{
         if(obj.hasOwnProperty("uses")) title.addImage(Vars.content.getByName(ContentType.item,obj.uses.item).icon(Cicon.xlarge)).size(8 * 6);
         title.add("[accent]" + obj.displayName).padLeft(5);
       }));
@@ -153,6 +172,7 @@ const researchtest = extendContent(Block, "researchtest", {
 		infod.show();
 	},
 	makesingle(tile,dialog,table,obj,type){
+		//makes a single block of the research list
 		table.table(Styles.black6, cons(t => {
 			t.defaults().pad(2).left().top();
 			t.margin(14).left();
@@ -169,7 +189,11 @@ const researchtest = extendContent(Block, "researchtest", {
 
 				if(type!="researched"){
 					title.addImageButton(Icon.hammer, Styles.clearTransi, run(() => {
-						if(false){}
+						if(this.canresearch(tile,obj,obj.name)){
+							Vars.ui.showConfirm(obj.displayName,Core.bundle.get("research.confirmdialog"),null,run(()=>{
+								tile.configure(obj.n+1);
+							}));
+						}
 						else this.makelist(tile,dialog);
 					})).size(50).disabled(type!="canres");
 				}
