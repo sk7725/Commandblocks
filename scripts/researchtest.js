@@ -111,7 +111,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 			var cannotres=[];
 			var researched=[];
 			for(var i=0;i<uparr.length;i++){
-				if(false){
+				if(true){
 					researched.push(root[uparr[i]]);
 				}
 				else if(this.canresearch(tile,root[uparr[i]])){
