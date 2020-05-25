@@ -307,6 +307,7 @@ const researchtest = extendContent(Block, "researchtest", {
     })).size(40);
 		//this.super$buildConfiguration(tile,table);
 	},
+	/*
 	canPlaceOn(tile){
 		if(this.super$canPlaceOn(tile)){
 			var tiles=Vars.world.getTiles();
@@ -321,6 +322,22 @@ const researchtest = extendContent(Block, "researchtest", {
 		}
 		else return false;
 	},
+	*/
+	isBuildable(){
+		if(this.super$isBuildable()){
+			var tiles=Vars.world.getTiles();
+			var h=tiles.length;
+			for(var i=0;i<h;i++){
+				var w=tiles[i].length;
+				for(var j=0;j<w;j++){
+					if(tiles[i][j].block().name==this.name) return false;
+				}
+			}
+			return true;
+		}
+		else return false;
+	},
+
 	canBreak(tile){
 		return tile.ent().getRes().length<=0;
 	}
