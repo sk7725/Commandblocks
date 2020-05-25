@@ -18,7 +18,7 @@ const customtree=extendContent(FloatingDialog,"CustomTreeDialog",{
       //this.treeLayout();
     });*/
 
-    this.addCloseButton();
+    //this.addCloseButton();
 
     this.addListener(new InputListener(){
       scrolled(event, x, y, amountX, amountY){
