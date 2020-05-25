@@ -24,6 +24,29 @@ const root={
 			}
 		]
 	},
+	"coalfire":{
+		displayName:"Molotov Cocktail",
+		type:"Attack Skill",
+		shortDesc:"Throws a flaming bomb foward.",
+		description:"Thows a bomb foward, which explodes and lights on fire when it hits the ground. Watch as the world burns.",
+		tier:2,
+		cooltime:2.5,
+		uses:{
+			item:"coal",
+			amount:3
+		},
+		cost:[
+			{
+				item:"titanium",
+				amount:60
+			},
+			{
+				item:"metaglass",
+				amount:200
+			}
+		],
+		parent:"coalbomb"
+	},
 	"phasetp":{
 		displayName:"Quick Escape",
 		type:"Movement Skill",
@@ -53,15 +76,23 @@ const root={
 };
 
 const researchtest = extendContent(Block, "researchtest", {
-	canresearch(tile,obj){
-		if(!obj.hasOwnProperty("cost")) return true;
+	canresearch(tile,obj,name){
+		if(!obj.hasOwnProperty("cost")&&!obj.hasOwnProperty("parent")) return true;
 		var arr=obj.cost;
-		for(var i=0;i<arr.length;i++){
-			var item=Vars.content.getByName(ContentType.item,arr[i].item);
-			var camount=Vars.state.teams.get(Vars.player.getTeam()).cores.first().items.get(item);
-			if(camount<arr[i].amount) return false;
+		if(obj.hasOwnProperty("cost"){
+			for(var i=0;i<arr.length;i++){
+				var item=Vars.content.getByName(ContentType.item,arr[i].item);
+				var camount=Vars.state.teams.get(Vars.player.getTeam()).cores.first().items.get(item);
+				if(camount<arr[i].amou	nt) return false;
+			}
+		}
+		if(obj.hasOwnProperty("parent")){
+			return this.isresearched(tile,name);
 		}
 		return true;
+	},
+	isresearched(tile,name){
+		return false;
 	},
 	makeinfo(tile,obj){
 		const infod = new FloatingDialog(Core.bundle.get("info.title"));
@@ -167,12 +198,18 @@ const researchtest = extendContent(Block, "researchtest", {
 
 			if(obj.hasOwnProperty("cost")&&type!="researched"){
 				t.table(cons(c =>{
-					c.add((type!="cannotres")?"[white]"+Core.bundle.get("research.cost")+" : []":"[scarlet]"+Core.bundle.get("research.cost")+" : []").growX();
+					c.add((type!="cannotres")?"[white]"+Core.bundle.get("research.cost")+": []":"[scarlet]"+Core.bundle.get("research.cost")+": []").growX();
 					for(var i=0;i<obj.cost.length;i++){
 						var item=Vars.content.getByName(ContentType.item,obj.cost[i].item);
 						c.add(" [white]" + obj.cost[i].amount);
 						c.addImage(item.icon(Cicon.small)).size(8 * 3);
 					}
+				}));
+				t.row();
+			}
+			if(obj.hasOwnProperty("parent")&&type!="researched"){
+				t.table(cons(c =>{
+					c.add(((type!="noparent")?"[white]"+Core.bundle.get("research.parent")+": []":"[scarlet]"+Core.bundle.get("research.parent")+": []")+obj.parent).growX();
 				}));
 				t.row();
 			}
@@ -188,10 +225,10 @@ const researchtest = extendContent(Block, "researchtest", {
 			var cannotres=[];
 			var researched=[];
 			for(var i=0;i<uparr.length;i++){
-				if(false){
+				if(this.isresearched(tile,uparr[i])){
 					researched.push(root[uparr[i]]);
 				}
-				else if(this.canresearch(tile,root[uparr[i]])){
+				else if(this.canresearch(tile,root[uparr[i]],uparr[i])){
 					canres.push(root[uparr[i]]);
 				}
 				else{
@@ -222,7 +259,7 @@ const researchtest = extendContent(Block, "researchtest", {
 				table.addImage().growX().height(3).pad(6).color(Pal.accent);
 				table.row();
 				for(var i=0;i<cannotres.length;i++){
-					this.makesingle(tile,dialog,table,cannotres[i],"cannotres");
+					this.makesingle(tile,dialog,table,cannotres[i],(cannotres[i].hasOwnProperty("parent")&&(!this.isresearched(tile,cannotres[i].parent)))?"noparent":"cannotres");
 				}
 			}
 		}));
