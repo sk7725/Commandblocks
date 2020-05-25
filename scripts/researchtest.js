@@ -91,6 +91,7 @@ const researchtest = extendContent(Block, "researchtest", {
 			core.items.remove(item,arr[i].amount);
 		}
 		//tba
+		tile.ent().pushRes(value-1);
 	},
 	canresearch(tile,obj,name){
 		if(!obj.hasOwnProperty("cost")&&!obj.hasOwnProperty("parent")) return true;
@@ -111,7 +112,7 @@ const researchtest = extendContent(Block, "researchtest", {
 	},
 	isresearched(tile,name){
 		//tba
-		return false;
+		return tile.ent().getRes().indexOf(root[name].n)>-1;
 	},
 	makeinfo(tile,obj){
 		//ubgradable info
@@ -306,3 +307,36 @@ const researchtest = extendContent(Block, "researchtest", {
 		//this.super$buildConfiguration(tile,table);
 	}
 });
+
+researchtest.entityType=prov(() => extend(TileEntity , {
+  getRes(){
+    return this._resarr;
+  },
+  setRes(a){
+    this._resarr=a;
+  },
+  pushRes(a){
+    this._resarr.push(a);
+  },
+  resetRes(){
+    this._resarr=[];
+  },
+  _resarr:[],
+  write(stream){
+    this.super$write(stream);
+    stream.writeShort(this._resarr.length);
+    for(var i=0;i<this._resarr.length;i++){
+      stream.writeShort(this._resarr[i]);
+    }
+    //stream.writeBoolean(this._state);
+  },
+  read(stream,revision){
+    this.super$read(stream,revision);
+    this.resetRes();
+    var amount=stream.readShort();
+    for(var i=0;i<amount;i++){
+      this.pushRes(stream.readShort());
+    }
+    //this._state=stream.readBoolean();
+  }
+}));
