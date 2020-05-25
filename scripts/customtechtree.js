@@ -7,7 +7,7 @@ const customtree=extendContent(FloatingDialog,"CustomTreeDialog",{
     this.items=new ItemsDisplay();
     this.view=prov(()=>extend(TechTreeDialog.View,{}));
 
-    this.super("");
+    //this.super("");
     this.titleTable.remove();
     this.margin(0).marginBottom(8);
     this.stack=cont.stack(view,items).grow().get();
