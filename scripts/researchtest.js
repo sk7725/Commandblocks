@@ -24,7 +24,7 @@ const root={
 	"phasetp":{
 		displayName:"Quick Escape",
 		type:"Movement Skill",
-		shortDesc:"Teleports to a near random location.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+		shortDesc:"Teleports to a near random location.",
 		uses:{
 			item:"phase-fabric",
 			amount:1
@@ -56,6 +56,8 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 			t.margin(14).left();
 			t.table(cons(title => {
 				title.left();
+				//table.add(new ItemDisplay(stack.item, stack.amount, displayName)).padRight(5);
+				if(obj.hasOwnProperty("uses")) title.add(new ItemDisplay(uses.item, uses.amount, false)).padRight(5);
 				title.add(obj.displayName+ "\n[accent]"+obj.type+"[]").growX().wrap();
 				//title.add().growX();
 
@@ -78,7 +80,8 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 			t.row();
 			if(obj.hasOwnProperty("shortDesc")){
 				t.table(cons(desc => {
-					desc.add("[lightgray]" + obj.shortDesc).growX();
+					desc.labelWrap("[lightgray]" + obj.shortDesc).growX();
+					/*
 					if(obj.hasOwnProperty("uses")){
 						//t.add("[lightgray]Uses : []");
 						var item=Vars.content.getByName(ContentType.item,obj.uses.item);
@@ -86,6 +89,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 						desc.addImage(item.icon(Cicon.small)).size(8 * 3);
 						//t.row();
 					}
+					*/
 				}));
 				t.row();
 			}
