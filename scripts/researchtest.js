@@ -24,7 +24,7 @@ const root={
 	"phasetp":{
 		displayName:"Quick Escape",
 		type:"Movement Skill",
-		shortDesc:"Teleports to a near random location.",
+		shortDesc:"Teleports to a near random location.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
 		uses:{
 			item:"phase-fabric",
 			amount:1
@@ -78,7 +78,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 			t.row();
 			if(obj.hasOwnProperty("shortDesc")){
 				t.table(cons(desc => {
-					desc.labelWrap("[lightgray]" + obj.shortDesc).growX();
+					desc.add("[lightgray]" + obj.shortDesc).growX();
 					if(obj.hasOwnProperty("uses")){
 						//t.add("[lightgray]Uses : []");
 						var item=Vars.content.getByName(ContentType.item,obj.uses.item);
