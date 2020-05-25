@@ -5,12 +5,14 @@ if(entity != null){
     entity.lines = entity.message.split("\n");
 }
 */
+const customtree=this.global.customtree;
+const root={};
 const researchtest = extendContent(MessageBlock, "researchtest", {
 	buildConfiguration(tile, table){
 		var entity=tile.ent();
 		table.addImageButton(Icon.book, run(() => {
       try{
-				const dialog = new TechTreeDialog();
+				const dialog = customtree.TechTreeDialog(root);
 				// Show it
 				dialog.show();
       }

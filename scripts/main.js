@@ -65,4 +65,6 @@ require("playermover");
 require("gameyoot");
 
 require("buttongg");
+
+require("customtechtree");
 require("researchtest");
