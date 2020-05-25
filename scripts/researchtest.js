@@ -12,8 +12,9 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 		var entity=tile.ent();
 		table.addImageButton(Icon.book, run(() => {
       try{
-				const dialog = customtree.CustomTreeDialog(root);
+				const dialog = new FloatingDialog("Research");
 				// Show it
+				dialog.addCloseButton();
 				dialog.show();
       }
       catch(err){
