@@ -3,7 +3,7 @@ const color1=Color.valueOf("ffaa5f"); const color2=Color.valueOf("84f491");
 const customtree=this.global.customtree;
 const root={
 	"coalbomb":{
-		displayName:"Coal Bomb",
+		displayName:"Coal Bomb",
 		type:"Attack Skill",
 		shortDesc:"Throws a bomb foward.",
 		uses:{
@@ -22,7 +22,7 @@ const root={
 		]
 	},
 	"phasetp":{
-		displayName:"Quick Escape",
+		displayName:"Quick Escape",
 		type:"Movement Skill",
 		shortDesc:"Teleports to a near random location.",
 		uses:{
