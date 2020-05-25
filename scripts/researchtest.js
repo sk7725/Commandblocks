@@ -86,7 +86,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 				t.table(cons(items => {
           items.add("    [royal]" + obj.uses.amount);
           items.addImage(item.icon(Cicon.small)).size(8 * 3).pad(4);
-        })).left();
+        }));
 				t.row();
 			}
 			if(obj.hasOwnProperty("cost")&&type!="researched"){
@@ -96,7 +96,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 					t.table(cons(items => {
 	          items.add("    [white]" + obj.cost[i].amount);
 	          items.addImage(item.icon(Cicon.small)).size(8 * 3).pad(4);
-	        })).left();
+	        }));
 				}
 				t.row();
 			}
