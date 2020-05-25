@@ -30,7 +30,7 @@ const root={
 		displayName:"Quick Escape",
 		type:"Movement Skill",
 		shortDesc:"Teleports to a near random location.",
-		uses:{
+		usesa:{
 			item:"phase-fabric",
 			amount:1
 		},
