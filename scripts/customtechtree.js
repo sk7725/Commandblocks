@@ -10,7 +10,7 @@ const customtree=extendContent(FloatingDialog,"CustomTreeDialog",{
     //this.super("");
     this.titleTable.remove();
     this.margin(0).marginBottom(8);
-    this.stack=cont.stack(view,items).grow().get();
+    this.stack=this.cont.stack(view,items).grow().get();
 
     this.shown(() => {
       //this.checkNodes(root);
