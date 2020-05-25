@@ -88,6 +88,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 			if(obj.hasOwnProperty("tier")){
 				table.table(cons(t=>{
 					t.add("[lightgray]"+Core.bundle.format("skill.tier")+":[] "+obj.tier);
+					t.left();
 				}));
 				//table.add(Core.bundle.format("skill.tier")+": "+obj.tier);
         table.row();
@@ -95,6 +96,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 			if(obj.hasOwnProperty("cooltime")){
 				table.table(cons(t=>{
 					t.add("[lightgray]"+Core.bundle.format("skill.cooltime")+":[] "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
+					t.left();
 				})).left();
 				//table.add(Core.bundle.format("skill.cooltime")+": "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
         table.row();
