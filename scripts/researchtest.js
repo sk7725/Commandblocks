@@ -56,8 +56,8 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 			t.margin(14).left();
 			t.table(cons(title => {
 				title.left();
-				title.add(obj.displayName+ "\n[accent]"+obj.type+"[]").width(260).wrap();
-				title.add().growX();
+				title.add(obj.displayName+ "\n[accent]"+obj.type+"[]").growX().wrap();
+				//title.add().growX();
 
 				title.addImageButton(Icon.infoCircle, Styles.cleari, run(() => {
 						//
@@ -94,10 +94,8 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 				t.add((type!="cannotres")?"[white]Research Cost : []":"[scarlet]Research Cost : []");
 				for(var i=0;i<obj.cost.length;i++){
 					var item=Vars.content.getByName(ContentType.item,obj.cost[i].item);
-					t.table(cons(items => {
-	          items.add("[white]" + obj.cost[i].amount);
-	          items.addImage(item.icon(Cicon.small));
-	        })).left();
+					t.add("[white]" + obj.cost[i].amount);
+					t.addImage(item.icon(Cicon.small)).size(8 * 3).pad(4);
 				}
 				t.row();
 			}
