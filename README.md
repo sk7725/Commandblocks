@@ -3,6 +3,7 @@ Mindustry Command Block Mod(MCBM)
 This mod adds Minecraft-like Command Blocks, along with other blocks.   
 This is currently in development.   
 `As of 4.8, Command Blocks require you to be an Admin to edit.`   
++ We now have a (half) Discord Server: [https://discord.gg/RCCVQFW](https://discord.gg/RCCVQFW)
 
 ## Blocks   
 `Blocks that need further descriptions.`   
@@ -55,8 +56,12 @@ The hitbox is 3x3, one block to all four directions. Turns off if it is not rend
 + Directional Camera Wall   
 Acts as a one-way to the center of the camera. Much more stable.   
 The hitbox is 1 in width, and stretches infinitely to the back, making it more stable.   
++ Key Block   
+Produces power if a key is pressed. Is not synced in multiplayer.   
+Refer [here](https://github.com/Anuken/Arc/blob/v104.6/arc-core/src/arc/input/KeyCode.java) for the list of loggable keys.   
 
-## Commands
+## Commands   
+`List and description of commands.`
 Commands will fail to work when an error happens, params are invalid , or requirements below are not made.   
 Starting the command with a / is optional.   
 Some params are optional.   
@@ -78,7 +83,7 @@ Emits text to all players.
 ### /overwrite string:text  
 Overwrites this command block's content to text.
 
-### /setblock pos:x pos:y string:block (int:rotation) (int:team) (replace|keep|build|force) 
+### /setblock pos:x pos:y string:block (int:rotation) (int:team) (replace|keep|build|force)
 Sets the tile at x,y to the specified block.   
 Rotation should be between 0 and 3, default is 0.   
 Team should be -1 and 255, default is -1. When team is -1, the team is set to the executor's team.   
@@ -88,7 +93,7 @@ Fails if the previous block is already the same as the current block.
 `build` destroys the previous block, and sets a new block, as if a player built it.   
 `force` sets a new block. crashes the game if the previous block is a tile entity.   
 
-### /execute 
+### /execute
 Executes a command from another tile or unit's perspective.  
 Fails if the executed command fails, or the tile or entity is not found.   
 `execute` is optional, one can start a command with `at/as`   
@@ -96,7 +101,7 @@ Fails if the executed command fails, or the tile or entity is not found.
     Executes as a tile at x,y.   
   + /execute as target:target string:command   
     Executes as a target.   
-  
+
 ### /f(/function) string:functionname (arguments)
 Runs a function of the executor called functionname. Fails if the executor is neither a tile nor an unit.     
 Refer [here](https://github.com/Anuken/Mindustry/blob/v104.6/core/src/mindustry/world/Tile.java) for the list of functions (if executor is a Tile), or [here](https://github.com/Anuken/Mindustry/blob/v104.6/core/src/mindustry/entities/type/Unit.java) (if executor is an Unit).   
@@ -154,7 +159,7 @@ Clears the executor of the item. Fails if the executor does not have an inventor
     if the executor is a tile. Fails if less then 1 items are removed.   
   - /clear  
     if the executor is an unit.   
-    
+
 ### /effect target:target string:statuseffect (int:duration) (int:level) (boolean:hideparticle)
 Gives the executor a status effect for the given duration of seconds.   
 Fails if executor is not an unit. Some effects are custom potion effects, which are affected by the given level and hideparticle.   
@@ -300,7 +305,7 @@ This is the full list of items, as of version 104.
   ```
   scrap, copper, lead, graphite, coal, titanium, thorium, silicon, plastanium, phasefabric, surgealloy, sporePod, sand, blastCompound, pyratite, metaglass;   
   ```
-  
+
 ## Particle List   
 This is the full list of effects, as of version 104.   
 ```
