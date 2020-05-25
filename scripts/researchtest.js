@@ -90,7 +90,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 				t.row();
 			}
 			if(obj.hasOwnProperty("cost")&&type!="researched"){
-				t.add((type=="canres")?"[white]Research Cost : []");
+				t.add((type!="cannotres")?"[white]Research Cost : []":"[scarlet]Research Cost : []");
 				for(var i=0;i<obj.cost.length;i++){
 					var item=Vars.content.getByName(ContentType.item,obj.cost[i].item);
 					t.table(cons(items => {
