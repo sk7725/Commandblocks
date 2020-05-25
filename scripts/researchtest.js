@@ -80,11 +80,7 @@ const researchtest = extendContent(Block, "researchtest", {
 	},
 	configured(tile,player,value){
 		//research in sync
-		if(value<0) return;
-		if(value==0){
-			ticknow=Time.time();
-			return;
-		}
+		if(value<=0) return;
 		var obj=root[Object.keys(root)[value-1]];
 		if(obj==null) return;
 		//use up cost
@@ -317,7 +313,8 @@ const researchtest = extendContent(Block, "researchtest", {
 	},
 	placed(tile){
 		this.super$placed(tile);
-		tile.configure(0);
+		ticknow=Time.time();
+		//tile.configure(0);
 	},
 	canPlaceOn(tile){
 		if(this.super$canPlaceOn(tile)){
