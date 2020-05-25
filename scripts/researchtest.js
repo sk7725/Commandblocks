@@ -262,7 +262,7 @@ const researchtest = extendContent(Block, "researchtest", {
 					this.makesingle(tile,dialog,table,cannotres[i],(cannotres[i].hasOwnProperty("parent")&&(!this.isresearched(tile,cannotres[i].parent)))?"noparent":"cannotres");
 				}
 			}
-		})).width(Vars.mobile ? 430 : 500);
+		})).width(Vars.mobile ? 460 : 530);
 	},
 	buildConfiguration(tile, table){
 		var entity=tile.ent();
