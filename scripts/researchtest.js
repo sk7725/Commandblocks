@@ -79,11 +79,11 @@ const researchtest = extendContent(Block, "researchtest", {
 	canresearch(tile,obj,name){
 		if(!obj.hasOwnProperty("cost")&&!obj.hasOwnProperty("parent")) return true;
 		var arr=obj.cost;
-		if(obj.hasOwnProperty("cost"){
+		if(obj.hasOwnProperty("cost")){
 			for(var i=0;i<arr.length;i++){
 				var item=Vars.content.getByName(ContentType.item,arr[i].item);
 				var camount=Vars.state.teams.get(Vars.player.getTeam()).cores.first().items.get(item);
-				if(camount<arr[i].amou	nt) return false;
+				if(camount<arr[i].amount) return false;
 			}
 		}
 		if(obj.hasOwnProperty("parent")){
