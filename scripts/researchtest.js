@@ -24,10 +24,10 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 		return true;
 	},
 	makesingle(tile,dialog,table,obj,type){
-		table.table(Styles.black6, t => {
+		table.table(Styles.black6, cons(t => {
 			t.defaults().pad(2).left().top();
 			t.margin(14).left();
-			t.table(title => {
+			t.table(cons(title => {
 					title.left();
 					title.add(obj.displayName+ "\n[accent]"+obj.type+"[]").width(200).wrap();
 					title.add().growX();
@@ -41,7 +41,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 								//
 						})).height(50).margin(8).width(130).disabled(type!="canres");
 					}
-			}).growX().left().padTop(-14).padRight(-14);
+			})).growX().left().padTop(-14).padRight(-14);
 
 			t.row();
 			if(obj.hasOwnProperty("shortDesc")){
@@ -53,11 +53,11 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 				//
 				t.row();
 			}
-		}).width(Vars.mobile ? 430 : 500);
+		})).width(Vars.mobile ? 430 : 500);
 		table.row();
 	},
 	makelist(tile,dialog){
-		dialog.cont.pane(table => {
+		dialog.cont.pane(cons(table => {
       table.margin(10).top();
 			var uparr=Object.keys(root);
 			var canres=[];
@@ -101,7 +101,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 					this.makesingle(tile,dialog,table,researched[i],"researched");
 				}
 			}
-		});
+		}));
 	},
 	buildConfiguration(tile, table){
 		var entity=tile.ent();
