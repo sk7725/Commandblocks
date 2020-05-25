@@ -7,18 +7,17 @@ const customtree=extendContent(FloatingDialog,"CustomTreeDialog",{
     this.items=new ItemsDisplay();
     this.view=extendContent(TechTreeDialog.View,"View",{});
 
-    //this.super("");
+    this.FloatingDialog("");
     this.titleTable.remove();
     this.margin(0).marginBottom(8);
     this.stack=this.cont.stack(this.view,this.items).grow().get();
 
-/*
     this.shown(() => {
       //this.checkNodes(root);
       //this.treeLayout();
-    });*/
+    });
 
-    //this.addCloseButton();
+    this.addCloseButton();
 
     this.addListener(new InputListener(){
       scrolled(event, x, y, amountX, amountY){
