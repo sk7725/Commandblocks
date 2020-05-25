@@ -50,6 +50,35 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 	canresearch(tile,obj){
 		return true;
 	},
+	makeinfo(tile,obj){
+		const infod = new FloatingDialog(Core.bundle.get("info.title"));
+		infod.cont.pane(cons(table=>{
+			table.margin(10);
+			//var item=(obj.hasOwnProperty("uses"))?Vars.content.getByName(ContentType.item,obj.uses.item):Vars.content.getByName(ContentType.block,obj.icon);
+			table.table(cons(title => {
+        if(obj.hasOwnProperty("uses")) title.addImage(Vars.content.getByName(ContentType.item,obj.uses.item).icon(Cicon.xlarge)).size(8 * 6);
+        title.add("[accent]" + obj.displayName).padLeft(5);
+      }));
+
+			table.row();
+      table.addImage().height(3).color(Color.lightGray).pad(15).padLeft(0).padRight(0).fillX();
+      table.row();
+
+      table.add(obj.description).padLeft(5).padRight(5).width(400).wrap().fillX();
+      table.row();
+
+      table.addImage().height(3).color(Color.lightGray).pad(15).padLeft(0).padRight(0).fillX();
+      table.row();
+
+      table.left().defaults().fillX();
+			if(obj.hasOwnProperty("cooltime")){
+				table.add(Core.bundle.format("skill.cooltime")+": "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
+        table.row();
+			}
+		}));
+		infod.addCloseButton();
+		infod.show();
+	},
 	makesingle(tile,dialog,table,obj,type){
 		table.table(Styles.black6, cons(t => {
 			t.defaults().pad(2).left().top();
@@ -127,7 +156,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 				}
 			}
 			if(researched.length>0){
-				table.add("Researched").growX().left().color(color2);
+				table.add(Core.bundle.get("research.researched")).growX().left().color(color2);
 				table.row();
 				table.addImage().growX().height(3).pad(6).color(color2);
 				table.row();
@@ -136,7 +165,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 				}
 			}
 			if(canres.length>0){
-				table.add("Available for Research").growX().left().color(Pal.accent);
+				table.add(Core.bundle.get("research.canres")).growX().left().color(Pal.accent);
 				table.row();
 				table.addImage().growX().height(3).pad(6).color(Pal.accent);
 				table.row();
@@ -145,7 +174,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 				}
 			}
 			if(cannotres.length>0){
-				table.add("Unavailable").growX().left().color(Pal.accent);
+				table.add(Core.bundle.get("research.cannotres")).growX().left().color(Pal.accent);
 				table.row();
 				table.addImage().growX().height(3).pad(6).color(Pal.accent);
 				table.row();
@@ -159,7 +188,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 		var entity=tile.ent();
 		table.addImageButton(Icon.book, run(() => {
       try{
-				const dialog = new FloatingDialog("Research");
+				const dialog = new FloatingDialog(Core.bundle.get("research.title"));
 				// Show it
 				this.makelist(tile,dialog);
 				dialog.addCloseButton();
