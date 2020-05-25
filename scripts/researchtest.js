@@ -137,7 +137,8 @@ const researchtest = extendContent(Block, "researchtest", {
 
 				if(type!="researched"){
 					title.addImageButton(Icon.hammer, Styles.cleari, run(() => {
-							//
+						if(false){}
+						else this.makelist(tile,dialog);
 					})).size(50).disabled(type!="canres");
 				}
 				else{
@@ -179,6 +180,7 @@ const researchtest = extendContent(Block, "researchtest", {
 		table.row();
 	},
 	makelist(tile,dialog){
+		dialog.cont.clear();
 		dialog.cont.pane(cons(table => {
       table.margin(10).top();
 			var uparr=Object.keys(root);
