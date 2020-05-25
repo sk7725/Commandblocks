@@ -57,7 +57,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 			t.table(cons(title => {
 				title.left();
 				//table.add(new ItemDisplay(stack.item, stack.amount, displayName)).padRight(5);
-				if(obj.hasOwnProperty("uses")) title.add(new ItemDisplay(Vars.content.getByName(ContentType.item,obj.uses.item), uses.amount, false)).padRight(5);
+				if(obj.hasOwnProperty("uses")) title.add(new ItemDisplay(Vars.content.getByName(ContentType.item,obj.uses.item), obj.uses.amount, false)).padRight(5);
 				title.add(obj.displayName+ "\n[accent]"+obj.type+"[]").growX().wrap();
 				//title.add().growX();
 
