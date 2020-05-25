@@ -193,6 +193,7 @@ const researchtest = extendContent(Block, "researchtest", {
 						if(this.canresearch(tile,obj,obj.name)){
 							Vars.ui.showConfirm(obj.displayName,Core.bundle.get("research.confirmdialog"),null,run(()=>{
 								tile.configure(obj.n+1);
+								this.makelist(tile,dialog);
 							}));
 						}
 						else this.makelist(tile,dialog);
