@@ -10,12 +10,44 @@ const root={
 	"coalbomb":{
 		displayName:"Coal Bomb",
 		type:"Attack Skill",
-		shortDesc:"Throws a bomb foward, uses 3 coal."
+		shortDesc:"Throws a bomb foward.",
+		uses:{
+			item:"coal",
+			amount:3
+		},
+		cost:[
+			{
+				item:"lead",
+				amount:30
+			},
+			{
+				item:"metaglass",
+				amount:90
+			}
+		]
 	},
 	"phasetp":{
 		displayName:"Quick Escape",
 		type:"Movement Skill",
-		shortDesc:"Teleports to a near random location, uses 1 phase fabric."
+		shortDesc:"Teleports to a near random location.",
+		uses:{
+			item:"phase-fabric",
+			amount:1
+		},
+		cost:[
+			{
+				item:"metaglass",
+				amount:45
+			},
+			{
+				item:"silicon",
+				amount:100
+			},
+			{
+				item:"phase-fabric",
+				amount:50
+			}
+		]
 	}
 };
 
@@ -37,7 +69,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 					})).size(50);
 
 					if(type!="researched"){
-						title.addImageTextButton("Research",Icon.hammer, Styles.cleart, run(() => {
+						title.addImageButton(Icon.hammer, Styles.cleart, run(() => {
 								//
 						})).height(50).margin(8).width(130).disabled(type!="canres");
 					}
@@ -48,9 +80,24 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 				t.labelWrap("[lightgray]" + obj.shortDesc).growX();
 				t.row();
 			}
+			if(obj.hasOwnProperty("uses")){
+				t.add("[lightgray]Uses : []");
+				var item=Vars.content.getByName(ContentType.item,obj.uses.item);
+				t.table(cons(items => {
+          items.add("    [royal]" + obj.uses.amount);
+          items.addImage(item.icon(Cicon.small)).size(8 * 3).pad(4);
+        })).left();
+				t.row();
+			}
 			if(obj.hasOwnProperty("cost")&&type!="researched"){
-				t.add("Cost : ");
-				//
+				t.add((type=="canres")?"[white]Research Cost : []");
+				for(var i=0;i<obj.cost.length;i++){
+					var item=Vars.content.getByName(ContentType.item,obj.cost[i].item);
+					t.table(cons(items => {
+	          items.add("    [white]" + obj.cost[i].amount);
+	          items.addImage(item.icon(Cicon.small)).size(8 * 3).pad(4);
+	        })).left();
+				}
 				t.row();
 			}
 		})).width(Vars.mobile ? 430 : 500);
