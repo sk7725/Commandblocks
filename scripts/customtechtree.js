@@ -1,5 +1,5 @@
 const customtree=prov(()=>extend(FloatingDialog,{
-  CustomTreeDialog(root){
+  FloatingDialog(root){
     this.nodesize=Scl.scl(60);
     this.nodes={};
     this.root=root;
