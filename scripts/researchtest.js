@@ -1,4 +1,4 @@
-
+const ticknow=0;
 const color1=Color.valueOf("ffaa5f"); const color2=Color.valueOf("84f491");
 const root={
 	"coalbomb":{
@@ -80,7 +80,11 @@ const researchtest = extendContent(Block, "researchtest", {
 	},
 	configured(tile,player,value){
 		//research in sync
-		if(value<=0) return;
+		if(value<0) return;
+		if(value==0){
+			ticknow=Time.time();
+			return;
+		}
 		var obj=root[Object.keys(root)[value-1]];
 		if(obj==null) return;
 		//use up cost
@@ -307,9 +311,17 @@ const researchtest = extendContent(Block, "researchtest", {
     })).size(40);
 		//this.super$buildConfiguration(tile,table);
 	},
-
+	update(tile){
+		this.super$update(tile);
+		ticknow=Time.time();
+	},
+	placed(tile){
+		this.super$placed(tile);
+		tile.configure(0);
+	},
 	canPlaceOn(tile){
 		if(this.super$canPlaceOn(tile)){
+			/*
 			var tiles=Vars.world.getTiles();
 			var h=tiles.length;
 			for(var i=0;i<h;i++){
@@ -319,6 +331,9 @@ const researchtest = extendContent(Block, "researchtest", {
 				}
 			}
 			return true;
+			*/
+			var inc=Time.time()-ticknow;
+			return (inc>10||inc<-10);
 		}
 		else return false;
 	},
