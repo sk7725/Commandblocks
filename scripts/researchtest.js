@@ -196,7 +196,7 @@ const researchtest = extendContent(Block, "researchtest", {
 				t.row();
 			}
 
-			if(obj.hasOwnProperty("cost")&&type!="researched"){
+			if(obj.hasOwnProperty("cost")&&type!="researched"&&type!="noparent"){
 				t.table(cons(c =>{
 					c.add((type!="cannotres")?"[white]"+Core.bundle.get("research.cost")+": []":"[scarlet]"+Core.bundle.get("research.cost")+": []").growX();
 					for(var i=0;i<obj.cost.length;i++){
@@ -262,7 +262,7 @@ const researchtest = extendContent(Block, "researchtest", {
 					this.makesingle(tile,dialog,table,cannotres[i],(cannotres[i].hasOwnProperty("parent")&&(!this.isresearched(tile,cannotres[i].parent)))?"noparent":"cannotres");
 				}
 			}
-		}));
+		})).width(Vars.mobile ? 430 : 500);
 	},
 	buildConfiguration(tile, table){
 		var entity=tile.ent();
