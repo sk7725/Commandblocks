@@ -11,11 +11,11 @@ const root={
 		displayName:"Coal Bomb",
 		type:"Attack Skill",
 		shortDesc:"Throws a bomb foward.",
-		usesa:{
+		uses:{
 			item:"coal",
 			amount:3
 		},
-		costa:[
+		cost:[
 			{
 				item:"lead",
 				amount:30
@@ -30,11 +30,11 @@ const root={
 		displayName:"Quick Escape",
 		type:"Movement Skill",
 		shortDesc:"Teleports to a near random location.",
-		usesa:{
+		uses:{
 			item:"phase-fabric",
 			amount:1
 		},
-		costa:[
+		cost:[
 			{
 				item:"metaglass",
 				amount:45
@@ -69,7 +69,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 					})).size(50);
 
 					if(type!="researched"){
-						title.addImageButton(Icon.hammer, Styles.cleart, run(() => {
+						title.addImageTextButton("Start",Icon.hammer, Styles.cleart, run(() => {
 								//
 						})).height(50).margin(8).width(130).disabled(type!="canres");
 					}
