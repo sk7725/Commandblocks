@@ -6,7 +6,7 @@ category: effect
 requirements: [
   metaglass/6
 ]
-buildVisibility: sandboxOnly
+//buildVisibility: sandboxOnly
 configurable: true
 rotate: false
 solid: true
