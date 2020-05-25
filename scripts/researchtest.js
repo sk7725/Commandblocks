@@ -82,7 +82,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 			}
 			if(obj.hasOwnProperty("uses")){
 				t.add("[lightgray]Uses : []");
-				var item=Vars.content.getByName(ContentType.item,obj.uses.item);
+				//var item=Vars.content.getByName(ContentType.item,obj.uses.item);
 				t.table(cons(items => {
           items.add("    [royal]" + obj.uses.amount);
           //items.addImage(item.icon(Cicon.small)).size(8 * 3).pad(4);
@@ -92,7 +92,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 			if(obj.hasOwnProperty("cost")&&type!="researched"){
 				t.add((type!="cannotres")?"[white]Research Cost : []":"[scarlet]Research Cost : []");
 				for(var i=0;i<obj.cost.length;i++){
-					var item=Vars.content.getByName(ContentType.item,obj.cost[i].item);
+					//var item=Vars.content.getByName(ContentType.item,obj.cost[i].item);
 					t.table(cons(items => {
 	          items.add("    [white]" + obj.cost[i].amount);
 	          //items.addImage(item.icon(Cicon.small)).size(8 * 3).pad(4);
