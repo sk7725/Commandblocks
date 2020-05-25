@@ -52,8 +52,15 @@ const root={
 	}
 };
 
-const researchtest = extendContent(MessageBlock, "researchtest", {
+const researchtest = extendContent(Block, "researchtest", {
 	canresearch(tile,obj){
+		if(!obj.hasOwnProperty("cost")) return true;
+		var arr=obj.cost;
+		for(var i=0;i<arr.length;i++){
+			var item=Vars.content.getByName(ContentType.item,arr[i].item);
+			var camount=Vars.state.teams.get(Vars.player.getTeam()).cores.first().entity.items.get(item);
+			if(camount<arr[i].amount) return false;
+		}
 		return true;
 	},
 	makeinfo(tile,obj){
@@ -97,7 +104,15 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 				table.table(cons(t=>{
 					t.add("[lightgray]"+Core.bundle.format("skill.cooltime")+":[] "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
 					t.left();
-				})).left();
+				}));
+				//table.add(Core.bundle.format("skill.cooltime")+": "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
+        table.row();
+			}
+			if(obj.hasOwnProperty("healthcost")){
+				table.table(cons(t=>{
+					t.add("[lightgray]"+Core.bundle.format("skill.healthcost")+":[] "+obj.healthcost+" %");
+					t.left();
+				}));
 				//table.add(Core.bundle.format("skill.cooltime")+": "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
         table.row();
 			}
@@ -171,7 +186,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 			var cannotres=[];
 			var researched=[];
 			for(var i=0;i<uparr.length;i++){
-				if(i<1){
+				if(false){
 					researched.push(root[uparr[i]]);
 				}
 				else if(this.canresearch(tile,root[uparr[i]])){
