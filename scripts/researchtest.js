@@ -3,10 +3,7 @@ const color1=Color.valueOf("ffaa5f"); const color2=Color.valueOf("84f491");
 const customtree=this.global.customtree;
 const root={
 	"coalbomb":{
-		displayName:"Coal Bomb",
-		type:"Attack Skill",
-		shortDesc:"Throws a bomb foward.",
-		description:"Thows a bomb foward, which explodes when it hits the ground. Low damage but better that nothing.",
+		type:"skill.atk",
 		tier:1,
 		cooltime:1.5,
 		uses:{
@@ -25,10 +22,7 @@ const root={
 		]
 	},
 	"coalfire":{
-		displayName:"Molotov Cocktail",
-		type:"Attack Skill",
-		shortDesc:"Throws a flaming bomb foward.",
-		description:"Thows a bomb foward, which explodes and lights on fire when it hits the ground. Watch as the world burns.",
+		type:"skill.atk",
 		tier:2,
 		cooltime:2.5,
 		uses:{
@@ -48,10 +42,7 @@ const root={
 		parent:"coalbomb"
 	},
 	"phasetp":{
-		displayName:"Quick Escape",
-		type:"Movement Skill",
-		shortDesc:"Teleports to a near random location.",
-		description:"Teleports to a ramdom location selected in a radius of 16 blocks. Useful for dodging bullets or escaping in a hunch.",
+		type:"skill.move",
 		tier:1,
 		cooltime:1,
 		uses:{
@@ -76,6 +67,16 @@ const root={
 };
 
 const researchtest = extendContent(Block, "researchtest", {
+	load(){
+		this.super$load();
+		var uparr=Object.keys(root);
+		for(var i=0;i<uparr.length;i++){
+			root[uparr[i]].name=uparr[i];
+			root[uparr[i]].displayName=Core.bundle.get("skill."+uparr[i]+".name");
+			root[uparr[i]].shortDesc=Core.bundle.get("skill."+uparr[i]+".short");
+			root[uparr[i]].description=Core.bundle.get("skill."+uparr[i]+".description");
+		}
+	},
 	canresearch(tile,obj,name){
 		if(!obj.hasOwnProperty("cost")&&!obj.hasOwnProperty("parent")) return true;
 		var arr=obj.cost;
@@ -117,7 +118,7 @@ const researchtest = extendContent(Block, "researchtest", {
       table.left().defaults().fillX();
 			if(obj.hasOwnProperty("uses")){
 				table.table(cons(t=>{
-					t.add("[lightgray]"+Core.bundle.format("skill.uses")+":[] ");
+					t.add("[lightgray]"+Core.bundle.get("skill.uses")+":[] ");
 					t.add(new ItemDisplay(Vars.content.getByName(ContentType.item,obj.uses.item), obj.uses.amount, true)).padRight(5);
 					t.left();
 				}));
@@ -125,7 +126,7 @@ const researchtest = extendContent(Block, "researchtest", {
 			}
 			if(obj.hasOwnProperty("tier")){
 				table.table(cons(t=>{
-					t.add("[lightgray]"+Core.bundle.format("skill.tier")+":[] "+obj.tier);
+					t.add("[lightgray]"+Core.bundle.get("skill.tier")+":[] "+obj.tier);
 					t.left();
 				}));
 				//table.add(Core.bundle.format("skill.tier")+": "+obj.tier);
@@ -133,7 +134,7 @@ const researchtest = extendContent(Block, "researchtest", {
 			}
 			if(obj.hasOwnProperty("cooltime")){
 				table.table(cons(t=>{
-					t.add("[lightgray]"+Core.bundle.format("skill.cooltime")+":[] "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
+					t.add("[lightgray]"+Core.bundle.get("skill.cooltime")+":[] "+obj.cooltime+" "+Core.bundle.get("unit.seconds"));
 					t.left();
 				}));
 				//table.add(Core.bundle.format("skill.cooltime")+": "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
@@ -141,7 +142,7 @@ const researchtest = extendContent(Block, "researchtest", {
 			}
 			if(obj.hasOwnProperty("healthcost")){
 				table.table(cons(t=>{
-					t.add("[lightgray]"+Core.bundle.format("skill.healthcost")+":[] "+obj.healthcost+" %");
+					t.add("[lightgray]"+Core.bundle.get("skill.healthcost")+":[] "+obj.healthcost+" %");
 					t.left();
 				}));
 				//table.add(Core.bundle.format("skill.cooltime")+": "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
@@ -159,7 +160,7 @@ const researchtest = extendContent(Block, "researchtest", {
 				title.left();
 				//table.add(new ItemDisplay(stack.item, stack.amount, displayName)).padRight(5);
 				if(obj.hasOwnProperty("uses")) title.add(new ItemDisplay(Vars.content.getByName(ContentType.item,obj.uses.item), obj.uses.amount, false)).padRight(5);
-				title.add(obj.displayName+ "\n[accent]"+obj.type+"[]").growX().wrap();
+				title.add(obj.displayName+ "\n[accent]"+Core.bundle.get(obj.type)+"[]").growX().wrap();
 				//title.add().growX();
 
 				title.addImageButton(Icon.infoCircle, Styles.clearTransi, run(() => {
@@ -198,7 +199,7 @@ const researchtest = extendContent(Block, "researchtest", {
 
 			if(obj.hasOwnProperty("cost")&&type!="researched"&&type!="noparent"){
 				t.table(cons(c =>{
-					c.add((type!="cannotres")?"[white]"+Core.bundle.get("research.cost")+": []":"[scarlet]"+Core.bundle.get("research.cost")+": []").growX();
+					c.add((type!="cannotres")?"[white]"+Core.bundle.get("research.cost")+":[]":"[scarlet]"+Core.bundle.get("research.cost")+":[]").growX();
 					for(var i=0;i<obj.cost.length;i++){
 						var item=Vars.content.getByName(ContentType.item,obj.cost[i].item);
 						c.add(" [white]" + obj.cost[i].amount);
@@ -209,7 +210,7 @@ const researchtest = extendContent(Block, "researchtest", {
 			}
 			if(obj.hasOwnProperty("parent")&&type=="noparent"){
 				t.table(cons(c =>{
-					c.add(((type!="noparent")?"[white]"+Core.bundle.get("research.parent")+": []":"[scarlet]"+Core.bundle.get("research.parent")+": []")+obj.parent).growX();
+					c.add(((type!="noparent")?"[white]"+Core.bundle.get("research.parent")+": []":"[scarlet]"+Core.bundle.get("research.parent")+": []")+root[obj.parent].displayName).growX();
 				}));
 				t.row();
 			}
