@@ -65,3 +65,4 @@ require("playermover");
 require("gameyoot");
 
 require("buttongg");
+require("researchtest");

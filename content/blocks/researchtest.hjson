@@ -1,0 +1,12 @@
+
+size: 2
+breakable: true
+update: true
+category: effect
+requirements: [
+  metaglass/6
+]
+buildVisibility: sandboxOnly
+configurable: true
+rotate: false
+solid: true
