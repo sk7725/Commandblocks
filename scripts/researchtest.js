@@ -12,7 +12,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 		var entity=tile.ent();
 		table.addImageButton(Icon.book, run(() => {
       try{
-				const dialog = customtree.CustomTreeDialog(root);
+				const dialog = new customtree.CustomTreeDialog(root);
 				// Show it
 				dialog.show();
       }
