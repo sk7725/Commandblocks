@@ -81,21 +81,19 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 				if(obj.hasOwnProperty("uses")){
 					//t.add("[lightgray]Uses : []");
 					var item=Vars.content.getByName(ContentType.item,obj.uses.item);
-					t.table(cons(items => {
-	          items.add("[royal]" + obj.uses.amount);
-	          items.addImage(item.icon(Cicon.small)).size(8 * 3).pad(4);
-	        })).left();
+					t.add(" [royal]" + obj.uses.amount);
+					t.addImage(item.icon(Cicon.small)).size(8 * 3);
 					//t.row();
 				}
 				t.row();
 			}
 
 			if(obj.hasOwnProperty("cost")&&type!="researched"){
-				t.add((type!="cannotres")?"[white]Research Cost : []":"[scarlet]Research Cost : []");
+				t.add((type!="cannotres")?"[white]Research Cost : []":"[scarlet]Research Cost : []").growX();
 				for(var i=0;i<obj.cost.length;i++){
 					var item=Vars.content.getByName(ContentType.item,obj.cost[i].item);
-					t.add("[white]" + obj.cost[i].amount);
-					t.addImage(item.icon(Cicon.small)).size(8 * 3).pad(4);
+					t.add(" [white]" + obj.cost[i].amount);
+					t.addImage(item.icon(Cicon.small)).size(8 * 3);
 				}
 				t.row();
 			}
