@@ -29,7 +29,7 @@ const root={
 	"phasetp":{
 		displayName:"Quick Escape",
 		type:"Movement Skill",
-		shortDesc:"Teleports to a near random location. aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+		shortDesc:"Teleports to a near random location.",
 		uses:{
 			item:"phase-fabric",
 			amount:1
@@ -112,7 +112,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 			var cannotres=[];
 			var researched=[];
 			for(var i=0;i<uparr.length;i++){
-				if(true){
+				if(i<1){
 					researched.push(root[uparr[i]]);
 				}
 				else if(this.canresearch(tile,root[uparr[i]])){
