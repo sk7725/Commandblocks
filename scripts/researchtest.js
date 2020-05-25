@@ -60,19 +60,24 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 			t.defaults().pad(2).left().top();
 			t.margin(14).left();
 			t.table(cons(title => {
-					title.left();
-					title.add(obj.displayName+ "\n[accent]"+obj.type+"[]").width(200).wrap();
-					title.add().growX();
+				title.left();
+				title.add(obj.displayName+ "\n[accent]"+obj.type+"[]").width(260).wrap();
+				title.add().growX();
 
-					title.addImageButton(Icon.infoCircle, Styles.cleari, run(() => {
+				title.addImageButton(Icon.infoCircle, Styles.cleari, run(() => {
+						//
+				})).size(50);
+
+				if(type!="researched"){
+					title.addImageButton(Icon.hammer, Styles.cleari, run(() => {
+							//
+					})).size(50).disabled(type!="canres");
+				}
+				else{
+					title.addImageButton(Icon.ok, Styles.cleari, run(() => {
 							//
 					})).size(50);
-
-					if(type!="researched"){
-						title.addImageTextButton("Start",Icon.hammer, Styles.cleart, run(() => {
-								//
-						})).height(50).margin(8).width(130).disabled(type!="canres");
-					}
+				}
 			})).growX().left().padTop(-14).padRight(-14);
 
 			t.row();
@@ -82,7 +87,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 					//t.add("[lightgray]Uses : []");
 					var item=Vars.content.getByName(ContentType.item,obj.uses.item);
 					t.table(cons(items => {
-	          items.add("    [royal]" + obj.uses.amount);
+	          items.add("[royal]" + obj.uses.amount);
 	          items.addImage(item.icon(Cicon.small)).size(8 * 3).pad(4);
 	        })).left();
 					//t.row();
@@ -95,8 +100,8 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 				for(var i=0;i<obj.cost.length;i++){
 					var item=Vars.content.getByName(ContentType.item,obj.cost[i].item);
 					t.table(cons(items => {
-	          items.add("    [white]" + obj.cost[i].amount);
-	          items.addImage(item.icon(Cicon.small)).size(8 * 3).pad(4);
+	          items.add("[white]" + obj.cost[i].amount);
+	          items.addImage(item.icon(Cicon.small));
 	        })).left();
 				}
 				t.row();
@@ -122,6 +127,15 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 					cannotres.push(root[uparr[i]]);
 				}
 			}
+			if(researched.length>0){
+				table.add("Researched").growX().left().color(color2);
+				table.row();
+				table.addImage().growX().height(3).pad(6).color(color2);
+				table.row();
+				for(var i=0;i<researched.length;i++){
+					this.makesingle(tile,dialog,table,researched[i],"researched");
+				}
+			}
 			if(canres.length>0){
 				table.add("Available for Research").growX().left().color(Pal.accent);
 				table.row();
@@ -138,15 +152,6 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 				table.row();
 				for(var i=0;i<cannotres.length;i++){
 					this.makesingle(tile,dialog,table,cannotres[i],"cannotres");
-				}
-			}
-			if(researched.length>0){
-				table.add("Researched").growX().left().color(Pal.gray);
-				table.row();
-				table.addImage().growX().height(3).pad(6).color(Pal.gray);
-				table.row();
-				for(var i=0;i<researched.length;i++){
-					this.makesingle(tile,dialog,table,researched[i],"researched");
 				}
 			}
 		}));
