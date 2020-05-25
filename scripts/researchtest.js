@@ -314,7 +314,7 @@ const researchtest = extendContent(Block, "researchtest", {
 			for(var i=0;i<h;i++){
 				var w=tiles[i].length;
 				for(var j=0;j<w;j++){
-					if(tiles[i][j].block().name=this.name) return false;
+					if(tiles[i][j].block().name==this.name) return false;
 				}
 			}
 			return true;
