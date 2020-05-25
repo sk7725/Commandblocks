@@ -27,8 +27,13 @@ const customtree=extendContent(FloatingDialog,"CustomTreeDialog",{
           return true;
       },
       mouseMoved(event, x, y){
+        try{
           this.view.requestScroll();
           return this.super$mouseMoved(event, x, y);
+        }
+        catch(err){
+          print("[E]:"+err);
+        }
       }
     });
 
