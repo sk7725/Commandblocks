@@ -78,16 +78,24 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 
       table.left().defaults().fillX();
 			if(obj.hasOwnProperty("uses")){
-				table.add(Core.bundle.format("skill.uses")+": ");
-				table.add(new ItemDisplay(Vars.content.getByName(ContentType.item,obj.uses.item), obj.uses.amount, true)).padRight(5);
+				table.table(cons(t=>{
+					t.add(Core.bundle.format("skill.uses")+": ");
+					t.add(new ItemDisplay(Vars.content.getByName(ContentType.item,obj.uses.item), obj.uses.amount, true)).padRight(5);
+				}));
         table.row();
 			}
 			if(obj.hasOwnProperty("tier")){
-				table.add(Core.bundle.format("skill.tier")+": "+obj.tier);
+				table.table(cons(t=>{
+					t.add(Core.bundle.format("skill.uses")+": "+obj.tier);
+				}));
+				//table.add(Core.bundle.format("skill.tier")+": "+obj.tier);
         table.row();
 			}
 			if(obj.hasOwnProperty("cooltime")){
-				table.add(Core.bundle.format("skill.cooltime")+": "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
+				table.table(cons(t=>{
+					t.add(Core.bundle.format("skill.cooltime")+": "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
+				}));
+				//table.add(Core.bundle.format("skill.cooltime")+": "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
         table.row();
 			}
 		}));
