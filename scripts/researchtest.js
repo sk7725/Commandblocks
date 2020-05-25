@@ -77,24 +77,28 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 
 			t.row();
 			if(obj.hasOwnProperty("shortDesc")){
-				t.labelWrap("[lightgray]" + obj.shortDesc).growX();
-				if(obj.hasOwnProperty("uses")){
-					//t.add("[lightgray]Uses : []");
-					var item=Vars.content.getByName(ContentType.item,obj.uses.item);
-					t.add(" [royal]" + obj.uses.amount);
-					t.addImage(item.icon(Cicon.small)).size(8 * 3);
-					//t.row();
-				}
+				t.table(cons(desc => {
+					desc.labelWrap("[lightgray]" + obj.shortDesc).growX();
+					if(obj.hasOwnProperty("uses")){
+						//t.add("[lightgray]Uses : []");
+						var item=Vars.content.getByName(ContentType.item,obj.uses.item);
+						desc.add(" [royal]" + obj.uses.amount);
+						desc.addImage(item.icon(Cicon.small)).size(8 * 3);
+						//t.row();
+					}
+				}));
 				t.row();
 			}
 
 			if(obj.hasOwnProperty("cost")&&type!="researched"){
-				t.add((type!="cannotres")?"[white]Research Cost : []":"[scarlet]Research Cost : []").growX();
-				for(var i=0;i<obj.cost.length;i++){
-					var item=Vars.content.getByName(ContentType.item,obj.cost[i].item);
-					t.add(" [white]" + obj.cost[i].amount);
-					t.addImage(item.icon(Cicon.small)).size(8 * 3);
-				}
+				t.table(cons(c =>{
+					c.add((type!="cannotres")?"[white]Research Cost : []":"[scarlet]Research Cost : []").growX();
+					for(var i=0;i<obj.cost.length;i++){
+						var item=Vars.content.getByName(ContentType.item,obj.cost[i].item);
+						c.add(" [white]" + obj.cost[i].amount);
+						c.addImage(item.icon(Cicon.small)).size(8 * 3);
+					}
+				}));
 				t.row();
 			}
 		})).width(Vars.mobile ? 430 : 500);
