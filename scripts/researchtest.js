@@ -1,10 +1,5 @@
-/*
-MessageBlockEntity entity = tile.ent();
-if(entity != null){
-    entity.message = result.toString();
-    entity.lines = entity.message.split("\n");
-}
-*/
+
+const color1=Color.valueOf("ffaa5f"); const color2=Color.valueOf("84f491");
 const customtree=this.global.customtree;
 const root={
 	"coalbomb":{
