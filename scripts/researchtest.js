@@ -1,4 +1,4 @@
-var ticknow=0;
+var ticknow=0; var tickblock=0;
 const color1=Color.valueOf("ffaa5f"); const color2=Color.valueOf("84f491");
 const root={
 	"coalbomb":{
@@ -293,6 +293,7 @@ const researchtest = extendContent(Block, "researchtest", {
 	},
 	buildConfiguration(tile, table){
 		var entity=tile.ent();
+		if(!entity.enabled()) return;
 		table.addImageButton(Icon.book, run(() => {
       try{
 				const dialog = new FloatingDialog(Core.bundle.get("research.title"));
@@ -309,11 +310,13 @@ const researchtest = extendContent(Block, "researchtest", {
 	},
 	update(tile){
 		this.super$update(tile);
+		if(ticknow==Time.time()&&ticknow>0&&tickblock!=tile.pos()) tile.ent().disable();
 		ticknow=Time.time();
+		tickblock=tile.pos();
 	},
 	placed(tile){
 		this.super$placed(tile);
-		ticknow=Time.time();
+		//ticknow=Time.time();
 		//tile.configure(0);
 	},
 	canPlaceOn(tile){
@@ -354,6 +357,13 @@ researchtest.entityType=prov(() => extend(TileEntity , {
     this._resarr=[];
   },
   _resarr:[],
+	disable(){
+    this._enabled=false;
+  },
+	enabled(){
+		return this._enabled;
+	},
+	_enabled:true,
   write(stream){
     this.super$write(stream);
     stream.writeShort(this._resarr.length);
