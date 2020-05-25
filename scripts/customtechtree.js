@@ -18,13 +18,18 @@ const customtree=extendContent(FloatingDialog,"CustomTreeDialog",{
     });
 
     this.addCloseButton();
-
+    print("Tree amde!");
     this.addListener(new InputListener(){
       scrolled(event, x, y, amountX, amountY){
+        try{
           this.view.setScale(Mathf.clamp(this.view.getScaleX() - amountY / 40, 0.25, 1));
           this.view.setOrigin(Align.center);
           this.view.setTransform(true);
           return true;
+        }
+        catch(err){
+          print("[E]:"+err);
+        }
       },
       mouseMoved(event, x, y){
         try{
@@ -36,7 +41,7 @@ const customtree=extendContent(FloatingDialog,"CustomTreeDialog",{
         }
       }
     });
-
+    print("listener 1!");
     this.addListener(new ElementGestureListener(){
       zoom(event, initialDistance, distance){
         if(this.view.lastZoom < 0){
@@ -57,6 +62,7 @@ const customtree=extendContent(FloatingDialog,"CustomTreeDialog",{
         this.view.clamp();
       }
     });
+    print("listener 2!");
   }
 });
 
