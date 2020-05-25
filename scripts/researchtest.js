@@ -131,18 +131,18 @@ const researchtest = extendContent(Block, "researchtest", {
 				title.add(obj.displayName+ "\n[accent]"+obj.type+"[]").growX().wrap();
 				//title.add().growX();
 
-				title.addImageButton(Icon.infoCircle, Styles.cleari, run(() => {
+				title.addImageButton(Icon.infoCircle, Styles.clearTransi, run(() => {
 						this.makeinfo(tile,obj);
 				})).size(50);
 
 				if(type!="researched"){
-					title.addImageButton(Icon.hammer, Styles.cleari, run(() => {
+					title.addImageButton(Icon.hammer, Styles.clearTransi, run(() => {
 						if(false){}
 						else this.makelist(tile,dialog);
 					})).size(50).disabled(type!="canres");
 				}
 				else{
-					title.addImageButton(Icon.ok, Styles.cleari, run(() => {
+					title.addImageButton(Icon.ok, Styles.clearTransi, run(() => {
 							//
 					})).size(50);
 				}
