@@ -101,7 +101,7 @@ const researchtest = extendContent(MessageBlock, "researchtest", {
 					this.makesingle(tile,dialog,table,researched[i],"researched");
 				}
 			}
-		}
+		});
 	},
 	buildConfiguration(tile, table){
 		var entity=tile.ent();
