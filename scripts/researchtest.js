@@ -58,7 +58,7 @@ const researchtest = extendContent(Block, "researchtest", {
 		var arr=obj.cost;
 		for(var i=0;i<arr.length;i++){
 			var item=Vars.content.getByName(ContentType.item,arr[i].item);
-			var camount=Vars.state.teams.get(Vars.player.getTeam()).cores.first().ent().items.get(item);
+			var camount=Vars.state.teams.get(Vars.player.getTeam()).cores.first().items.get(item);
 			if(camount<arr[i].amount) return false;
 		}
 		return true;
