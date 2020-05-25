@@ -330,6 +330,7 @@ const researchtest = extendContent(Block, "researchtest", {
 			return true;
 			*/
 			var inc=Time.time()-ticknow;
+			Vars.ui.showInfoToast("T:"+Time.time()+" N:"+ticknow,0);
 			return (inc>10||inc<-10);
 		}
 		else return false;
