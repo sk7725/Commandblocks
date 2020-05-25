@@ -233,8 +233,8 @@ const researchtest = extendContent(Block, "researchtest", {
       try{
 				const dialog = new FloatingDialog(Core.bundle.get("research.title"));
 				// Show it
-				this.makelist(tile,dialog);
 				dialog.addCloseButton();
+				this.makelist(tile,dialog);
 				dialog.show();
       }
       catch(err){
