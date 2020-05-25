@@ -10,3 +10,4 @@ requirements: [
 configurable: true
 rotate: false
 solid: true
+rebuildable: false
