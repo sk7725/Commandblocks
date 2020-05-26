@@ -41,7 +41,7 @@ const skills={
 		parent:"coalbomb"
 	},
   "coalcrawler":{
-		type:"skill.atk",
+		type:"skill.support",
 		tier:3,
 		cooltime:5,
 		uses:{
@@ -87,6 +87,7 @@ const skills={
 		type:"skill.atk",
 		tier:2,
 		cooltime:4,
+    healthcost:5,
 		uses:{
 			item:"thorium",
 			amount:10
@@ -292,15 +293,16 @@ const skillfunc={
   },
   thorshot(player){
     var bullet=player.getWeapon().bullet;
-    var primes=[2,3,5,7,11,13,17,19,23,29];//random will absoultely not work on multi
+    var primes=[0,2,3,5,7,11,13,17,19,23,29];//random will absoultely not work on multi
     for(var i=1;i<=10;i++){
-      Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation+i*18+(Time.time()*primes[11-i])%11-6, ((Time.time()*primes[i])%60+40)/60,1.3);
+      Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation+i*36+(Time.time()*primes[11-i])%11-6, ((Time.time()*primes[i])%60+40)/60,1.3);
     }
     return 1;
   },
   thorhoming(player){
     var bullet=Bullets.missileSwarm;
-    var primes=[2,5,7,11,13,17,19,23,29,31,37];//random will absoultely not work on multi
+    player.damage(player.maxHealth()*0.05);
+    var primes=[0,2,5,7,11,13,17,19,23,29,31,37];//random will absoultely not work on multi
     for(var i=1;i<=11;i++){
       Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation+(Time.time()*primes[13-i])%13-7, ((Time.time()*primes[i])%10+20)/25,1);
     }
@@ -308,6 +310,7 @@ const skillfunc={
   },
   thorbeam(player){
     player.damage(player.maxHealth()*0.8);
+    this.fire(Bullets.meltdownLaser, player, 1, 1);
     this.fire(Bullets.meltdownLaser, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
