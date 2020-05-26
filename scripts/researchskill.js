@@ -55,11 +55,12 @@ const researchskill = extendContent(Block, "researchskill", {
 	},
 	canresearch(tile,obj,name){
 		if(!obj.hasOwnProperty("cost")&&!obj.hasOwnProperty("parent")) return true;
+		if(obj.hasOwnProperty("uses")&&Vars.content.getByName(ContentType.item,obj.uses.item)==null) return;
 		//test whether items are sufficient
 		if(obj.hasOwnProperty("cost")){
 			var arr=obj.cost;
 			for(var i=0;i<arr.length;i++){
-				var item=Vars.content.getByName(ContentType.item,arr[i].item);
+				var item=Vars.content.getByName(ContentType.item,arr[i].item); if(item==null) continue;
 				var camount=Vars.state.teams.get(Vars.player.getTeam()).cores.first().items.get(item);
 				if(camount<arr[i].amount) return false;
 			}
