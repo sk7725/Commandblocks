@@ -61,7 +61,7 @@ Produces power if a key is pressed. Is not synced in multiplayer.
 Refer [here](https://github.com/Anuken/Arc/blob/v104.6/arc-core/src/arc/input/KeyCode.java) for the list of loggable keys.   
 
 ## Commands   
-`List and description of commands.`
+`List and description of commands.`   
 Commands will fail to work when an error happens, params are invalid , or requirements below are not made.   
 Starting the command with a / is optional.   
 Some params are optional.   
