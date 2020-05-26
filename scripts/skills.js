@@ -206,12 +206,12 @@ const skills={
 		cooltime:14,
 		healthcost:100,
 		uses:{
-			item:"uranium",
+			item:"steam-power-uranium",
 			amount:30
 		},
 		cost:[
 			{
-				item:"steel",
+				item:"steam-power-steel",
 				amount:105
 			},
 			{
@@ -219,7 +219,7 @@ const skills={
 				amount:100
 			},
 			{
-				item:"uranium",
+				item:"steam-power-uranium",
 				amount:160
 			}
 		],
