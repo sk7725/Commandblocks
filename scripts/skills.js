@@ -296,7 +296,7 @@ const skillfunc={
       return;
     }
     Effects.effect(Fx.explosion,player.getX(), player.getY());
-    Sounds.explosion.at(x,y,0.8);
+    Sounds.explosion.at(player.getX(),player.getY(),0.8);
     if(Vars.net.client()) return;
     var crawler=UnitTypes.crawler.create(player.getTeam());
     crawler.set(player.getX(),player.getY());
@@ -309,11 +309,11 @@ const skillfunc={
     var ty=((Time.time()*233%60)-30)*4;
     player.set(player.getX()+tx,player.getY()+ty);
     if(player==Vars.player)  Core.camera.position.set(player);
-    Sounds.windowHide.at(x,y,2+Math.random());
+    Sounds.windowHide.at(player.getX(),player.getY(),2+Math.random());
     Effects.effect(Fx.teleport,Color.valueOf("f4ba6e"),player.getX(), player.getY());
   },
   phaseshot(player){
-    Sounds.pew.at(x,y,0.5+Math.random());
+    Sounds.pew.at(player.getX(),player.getY(),0.5+Math.random());
     if(Vars.net.client()) return;
     var bullets=Vars.content.bullets().toArray();
     var choice=Math.floor(Math.random()*(bullets.length));
@@ -330,7 +330,7 @@ const skillfunc={
   },
   thorshot(player){
     var bullet=player.getWeapon().bullet;
-    Sounds.flame.at(x,y,1.7);
+    Sounds.flame.at(player.getX(),player.getY(),1.7);
     if(Vars.net.client()) return;
     var primes=[0,2,3,5,7,11,13,17,19,23,29];//random will absoultely not work on multi
     for(var i=1;i<=10;i++){
@@ -340,7 +340,7 @@ const skillfunc={
   },
   thorhoming(player){
     var bullet=Bullets.missileSwarm;
-    Sounds.explosion.at(x,y,0.8);
+    Sounds.explosion.at(player.getX(),player.getY(),0.8);
     player.damage(player.maxHealth()*0.05);
     if(Vars.net.client()) return;
     var primes=[0,2,5,7,11,13,17,19,23,29,31,37];//random will absoultely not work on multi
@@ -351,7 +351,7 @@ const skillfunc={
   },
   thorbeam(player){
     player.damage(player.maxHealth()*0.8);
-    Sounds.corexplode.at(x,y,1.5);
+    Sounds.corexplode.at(player.getX(),player.getY(),1.5);
     this.fire(Bullets.meltdownLaser, player, 1, 1);
     this.fire(Bullets.meltdownLaser, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
@@ -364,7 +364,7 @@ const skillfunc={
     Effects.effect(Fx.nuclearShockwave, x, y);
     Effects.shake(10, 10, x, y);
     Effects.effect(Fx.dynamicExplosion, x, y, 3);
-    Sounds.explosionbig.at(x,y);
+    Sounds.explosionBig.at(x,y);
     if(Vars.net.client()) return;
     Damage.damage(player.getTeam(),x,y,120,690);
   }
