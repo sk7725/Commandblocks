@@ -1,71 +1,8 @@
 var ticknow=0; var tickblock=0;
 const color1=Color.valueOf("ffaa5f"); const color2=Color.valueOf("84f491");
-const root={
-	"coalbomb":{
-		type:"skill.atk",
-		tier:1,
-		cooltime:1.5,
-		uses:{
-			item:"coal",
-			amount:3
-		},
-		cost:[
-			{
-				item:"lead",
-				amount:30
-			},
-			{
-				item:"metaglass",
-				amount:90
-			}
-		]
-	},
-	"coalfire":{
-		type:"skill.atk",
-		tier:2,
-		cooltime:2.5,
-		uses:{
-			item:"coal",
-			amount:3
-		},
-		cost:[
-			{
-				item:"titanium",
-				amount:60
-			},
-			{
-				item:"metaglass",
-				amount:200
-			}
-		],
-		parent:"coalbomb"
-	},
-	"phasetp":{
-		type:"skill.move",
-		tier:1,
-		cooltime:1,
-		uses:{
-			item:"phase-fabric",
-			amount:1
-		},
-		cost:[
-			{
-				item:"metaglass",
-				amount:45
-			},
-			{
-				item:"silicon",
-				amount:100
-			},
-			{
-				item:"phase-fabric",
-				amount:50
-			}
-		]
-	}
-};
+const root=this.global.skills;
 
-const animspeed=0.005; const animwidth=60;
+const animspeed=0.015; const animwidth=60;
 
 const researchskill = extendContent(Block, "researchskill", {
 	draw(tile){
@@ -212,8 +149,15 @@ const researchskill = extendContent(Block, "researchskill", {
 					})).size(50).disabled(type!="canres");
 				}
 				else{
-					title.addImageButton(Icon.ok, Styles.clearTransi, run(() => {
-							//
+					var Skill=tile.ent().skill();
+					title.addImageButton((Skill.skill==obj.name)?Icon.star:Icon.ok, Styles.clearTransi, run(() => {
+						if(Skill.skill==obj.name){
+							tile.ent().setSkill("");
+						}
+						else{
+							tile.ent().setSkill(obj.name+"");
+						}
+						this.makelist(tile,dialog);
 					})).size(50);
 				}
 			})).growX().left().padTop(-14).padRight(-14);
@@ -353,6 +297,9 @@ const researchskill = extendContent(Block, "researchskill", {
 	},
 	canBreak(tile){
 		return tile.ent().getRes().length<=0||(!tile.ent().enabled());
+	},
+	onDestroyed(tile){
+		this.super$onDestroyed(tile);
 	}
 });
 
@@ -377,6 +324,19 @@ researchskill.entityType=prov(() => extend(TileEntity , {
 		return this._enabled;
 	},
 	_enabled:true,
+	skill(){
+    return this._skill;
+  },
+  setSkill(a){
+    this._skill.skill=a;
+  },
+	useSkill(){
+    this._skill.lastused=Time.time();
+  },
+	_skill:{
+		skill:"",
+		lastused:0
+	},
   write(stream){
     this.super$write(stream);
     stream.writeShort(this._resarr.length);
