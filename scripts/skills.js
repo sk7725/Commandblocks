@@ -290,6 +290,14 @@ const skillfunc={
     var choice=Math.floor((Time.time()*1)%(bullets.length));
     this.fire(bullets[choice], player, 1, 1);
   },
+  phaseskill(player,tile){
+    if(Vars.net.client()) return;
+    var arr=Object.keys(skills);
+    var n=Math.floor((arr.length/3*4)*Math.random())
+    if(n%4==3) n-=3;
+    n=n%3+Math.floor(n/4);
+    //
+  },
   thorshot(player){
     var bullet=player.getWeapon().bullet;
     if(Vars.net.client()) return;
