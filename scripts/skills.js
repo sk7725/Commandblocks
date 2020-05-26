@@ -429,6 +429,11 @@ const boostfire = newEffect(50, e => {
   Draw.color(Pal.redderDust, Pal.lightOrange, e.fin());
   Fill.circle(e.x + Angles.trnsx(ang, len), e.y + Angles.trnsy(ang, len), 2 * e.fout());
 });
+const booststart = newEffect(23, e => {
+  Draw.color(Pal.redderDust);
+  Lines.stroke(e.fout() * 3);
+  Lines.circle(e.x, e.y, 3 + e.fin() * 14);
+});
 
 const boostedskill= extendContent(StatusEffect,"boostedskill",{});
 boostedskill.speedMultiplier=1.45;
@@ -572,7 +577,7 @@ const skillfunc={
     this.fire(Bullets.lightning, player, 1, 1);
   },
   blastdash(player){
-    Effects.effect(Fx.select,player.getX(), player.getY());
+    Effects.effect(booststart,player.getX(), player.getY());
     Sounds.flame.at(player.getX(),player.getY(),0.4);
     player.applyEffect(boostedskill,130);
   },
