@@ -93,7 +93,7 @@ const skills={
 		cooltime:0.1,
 		uses:{
 			item:"phase-fabric",
-			amount:3
+			amount:2
 		},
 		cost:[
 			{
