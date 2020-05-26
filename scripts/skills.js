@@ -353,7 +353,7 @@ const skillfunc={
   },
   uranblast(player){
     var x=player.getX(); var y=player.getY();
-    player.damage(player.maxHealth()*1);
+    player.damage(player.maxHealth()*1.5);
     Effects.effect(Fx.nuclearShockwave, x, y);
     Effects.shake(10, 10, x, y);
     Effects.effect(Fx.dynamicExplosion, x, y, 3); 
