@@ -158,7 +158,7 @@ const skills={
 		cooltime:0.1,
 		uses:{
 			item:"phase-fabric",
-			amount:2
+			amount:3
 		},
 		cost:[
 			{
@@ -211,7 +211,7 @@ const skills={
 		},
 		cost:[
 			{
-				item:"steam-power-steel",
+				item:"steam-power-iron",
 				amount:105
 			},
 			{
@@ -296,23 +296,27 @@ const skillfunc={
       return;
     }
     Effects.effect(Fx.explosion,player.getX(), player.getY());
+    Sounds.explosion.at(x,y,0.8);
     if(Vars.net.client()) return;
     var crawler=UnitTypes.crawler.create(player.getTeam());
     crawler.set(player.getX(),player.getY());
     crawler.add();
   },
   phasetp(player){
-    //f4ba6e
+    //f4ba6e windowHide
     Effects.effect(Fx.teleportOut,Color.valueOf("f4ba6e"),player.getX(), player.getY());
     var tx=((Time.time()*17%60)-30)*4;
     var ty=((Time.time()*233%60)-30)*4;
     player.set(player.getX()+tx,player.getY()+ty);
     if(player==Vars.player)  Core.camera.position.set(player);
+    Sounds.windowHide.at(x,y,2+Math.random());
     Effects.effect(Fx.teleport,Color.valueOf("f4ba6e"),player.getX(), player.getY());
   },
   phaseshot(player){
+    Sounds.pew.at(x,y,0.5+Math.random());
+    if(Vars.net.client()) return;
     var bullets=Vars.content.bullets().toArray();
-    var choice=Math.floor((Time.time()*1)%(bullets.length));
+    var choice=Math.floor(Math.random()*(bullets.length));
     this.fire(bullets[choice], player, 1, 1);
   },
   phaseskill(player,tile){
@@ -326,6 +330,7 @@ const skillfunc={
   },
   thorshot(player){
     var bullet=player.getWeapon().bullet;
+    Sounds.flame.at(x,y,1.7);
     if(Vars.net.client()) return;
     var primes=[0,2,3,5,7,11,13,17,19,23,29];//random will absoultely not work on multi
     for(var i=1;i<=10;i++){
@@ -335,6 +340,7 @@ const skillfunc={
   },
   thorhoming(player){
     var bullet=Bullets.missileSwarm;
+    Sounds.explosion.at(x,y,0.8);
     player.damage(player.maxHealth()*0.05);
     if(Vars.net.client()) return;
     var primes=[0,2,5,7,11,13,17,19,23,29,31,37];//random will absoultely not work on multi
@@ -345,6 +351,7 @@ const skillfunc={
   },
   thorbeam(player){
     player.damage(player.maxHealth()*0.8);
+    Sounds.corexplode.at(x,y,1.5);
     this.fire(Bullets.meltdownLaser, player, 1, 1);
     this.fire(Bullets.meltdownLaser, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
@@ -356,7 +363,7 @@ const skillfunc={
     player.damage(player.maxHealth()*1.5);
     Effects.effect(Fx.nuclearShockwave, x, y);
     Effects.shake(10, 10, x, y);
-    Effects.effect(Fx.dynamicExplosion, x, y, 3); 
+    Effects.effect(Fx.dynamicExplosion, x, y, 3);
     Sounds.explosionbig.at(x,y);
     if(Vars.net.client()) return;
     Damage.damage(player.getTeam(),x,y,120,690);
