@@ -3,7 +3,7 @@ size: 2
 breakable: true
 timers: 1
 update: true
-category: upgrade
+category: units
 requirements: [
   silicon/30
   plastanium/50

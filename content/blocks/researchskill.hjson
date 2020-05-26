@@ -2,7 +2,7 @@
 size: 3
 breakable: true
 update: true
-category: effect
+category: upgrade
 requirements: [
   metaglass/6
 ]

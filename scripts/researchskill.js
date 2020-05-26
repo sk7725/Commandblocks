@@ -65,7 +65,7 @@ const root={
 	}
 };
 
-const animspeed=0.08; const animwidth=60;
+const animspeed=0.005; const animwidth=60;
 
 const researchskill = extendContent(Block, "researchskill", {
 	draw(tile){
