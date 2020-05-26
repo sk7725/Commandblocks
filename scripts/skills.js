@@ -199,6 +199,31 @@ const skills={
 			}
 		],
     parent:"phaseshot"
+	},
+  "uranblast":{
+		type:"skill.attack",
+		tier:2,
+		cooltime:14,
+		healthcost:100,
+		uses:{
+			item:"uranium",
+			amount:30
+		},
+		cost:[
+			{
+				item:"steel",
+				amount:105
+			},
+			{
+				item:"thorium",
+				amount:100
+			},
+			{
+				item:"uranium",
+				amount:160
+			}
+		],
+    parent:"coalfire"
 	}
 };
 this.global.skills.skills=skills;
@@ -325,6 +350,15 @@ const skillfunc={
     this.fire(Bullets.lightning, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
+  },
+  uranblast(player){
+    var x=player.getX(); var y=player.getY();
+    player.damage(player.maxHealth()*1);
+    Effects.effect(Fx.bigShockwave, x, y);
+    Effects.shake(10, 10, x, y);
+    Effects.effect(Fx.dynamicExplosion, x, y, 15); 
+    if(Vars.net.client()) return;
+    Damage.damage(player.getTeam(),x,y,120,690);
   }
 }
 this.global.skills.func=skillfunc;
