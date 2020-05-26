@@ -35,7 +35,8 @@ const researchskill = extendContent(Block, "researchskill", {
 		if(value<0){
 			var obj=root[Object.keys(root)[-1*value-1]];
 			try{
-				skillfunc[obj.name](player);
+				if(obj.name=="phaseskill") skillfunc[obj.name](player,tile);
+				else skillfunc[obj.name](player);
 			}
 			catch(err){}
 			return;
