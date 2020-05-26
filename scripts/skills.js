@@ -296,7 +296,8 @@ const skillfunc={
     var n=Math.floor((arr.length/3*4)*Math.random())
     if(n%4==3) n-=3;
     n=n%3+Math.floor(n/4);
-    //
+    if(arr[n]=="phaseskill") n-=1;
+    Call.onTileConfig(player,tile,-1*(n+1));
   },
   thorshot(player){
     var bullet=player.getWeapon().bullet;
