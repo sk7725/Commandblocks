@@ -137,18 +137,23 @@ const skills={
 	}
 };
 this.global.skills.skills=skills;
-const doubletaptick=35;
+const doubletaptick=15;
 const skillfunc={
   _lasttouch:0,
+  _lastx:0,
+  _lasty:0,
   getInput(){
     if(Vars.mobile){
       if(Core.input.justTouched()){
-        if(Time.time()-this._lasttouch<doubletaptick&&Time.time()>this._lasttouch&&this._lasttouch>0){
+        var inc=Math.max(Math.abs(Core.input.mouseX()-this._lastx),Math.abs(Core.input.mouseY()-this._lasty));
+        if(Time.time()-this._lasttouch<doubletaptick&&Time.time()>this._lasttouch&&this._lasttouch>0&&inc<10){
           this._lasttouch=0;
           return true;
         }
         else{
           this._lasttouch=Time.time();
+          this._lastx=Core.input.mouseX();
+          this._lasty=Core.input.mouseY();
           return false;
         }
       }
