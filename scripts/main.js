@@ -67,4 +67,5 @@ require("gameyoot");
 require("buttongg");
 
 //require("customtechtree");
+require("skills");
 require("researchskill");
