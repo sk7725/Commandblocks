@@ -179,7 +179,7 @@ const skills={
   "phaseskill":{
 		type:"skill.support",
 		tier:3,
-		cooltime:10,
+		cooltime:8.5,
 		uses:{
 			item:"phase-fabric",
 			amount:10
