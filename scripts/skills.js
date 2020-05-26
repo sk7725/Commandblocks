@@ -184,25 +184,42 @@ const skillfunc={
     if(Skill.skill!=""&&Skill.lastused+Math.floor(skills[Skill.skill].cooltime*60)==Time.time()) Effects.effect(Fx.absorb,Vars.player.getX(), Vars.player.getY());
     return false;
   },
+  fire(bullet,player,v,life){
+    Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
+  },
   coalbomb(player){
-    Call.createBullet(Bullets.bombExplosive, player.getTeam(), player.getX(), player.getY(), player.rotation, 12,3);
+    this.fire(Bullets.bombExplosive, player, 10, 3);
     return 1;
   },
   coalfire(player){
-    Call.createBullet(Bullets.bombOil, player.getTeam(), player.getX(), player.getY(), player.rotation, 16,3);
-    Call.createBullet(Bullets.bombIncendiary, player.getTeam(), player.getX(), player.getY(), player.rotation, 16,3);
+    this.fire(Bullets.bombOil, player, 8, 3);
+    this.fire(Bullets.bombIncendiary, player, 8, 3);
     return 1;
   },
   coalcrawler(player){
     if(player.tileOn().solid()){
-      Call.createBullet(Bullets.bombExplosive, player.getTeam(), player.getX(), player.getY(), player.rotation, 0.01,0.01);
-      Call.createBullet(Bullets.bombExplosive, player.getTeam(), player.getX(), player.getY(), player.rotation, 0.01,0.01);
-      Call.createBullet(Bullets.bombExplosive, player.getTeam(), player.getX(), player.getY(), player.rotation, 0.01,0.01);
+      this.fire(Bullets.bombExplosive, player, 0.01, 0.01);
+      this.fire(Bullets.bombExplosive, player, 0.01, 0.01);
+      this.fire(Bullets.bombExplosive, player, 0.01, 0.01);
       return 0.5;
     }
     var crawler=UnitTypes.crawler.create(player.getTeam());
     crawler.set(player.getX(),player.getY());
     crawler.add();
+    return 1;
+  },
+  phasetp(player){
+    var tx=((Time.time()*17%60)-30)/2;
+    var ty=((Time.time()*233%60)-30)/2;
+    player.set(player.getX()+tx,player.getY()+ty);
+    if(player==Vars.player)  Core.camera.position.set(player);
+    return 1;
+  },
+  phaseshot(player){
+    var bullets=Vars.content.bullets().toArray();
+    var choice=(Time.time()*7)%(bullets.length);
+    this.fire(bullets[choice], player, 0.01, 0.01);
+    return 1;
   }
 }
 this.global.skills.func=skillfunc;
