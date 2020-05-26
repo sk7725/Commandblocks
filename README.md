@@ -323,3 +323,32 @@ This is the full list of effects, as of version 104.
   shellEjectBig, lancerLaserShoot, lancerLaserShootSmoke, lancerLaserCharge, lancerLaserChargeBegin, lightningCharge, lightningShoot,
   unitSpawn, spawnShockwave, magmasmoke, impactShockwave, impactcloud, impactsmoke, dynamicExplosion, padlaunch, commandSend, coreLand;
 ```
+
+## Bullet List   
+This is the full list of bullets, as of version 104.   
+```
+  //artillery
+  artilleryDense, artilleryPlastic, artilleryPlasticFrag, artilleryHoming, artilleryIncendiary, artilleryExplosive, artilleryUnit,
+
+  //flak
+  flakScrap, flakLead, flakPlastic, flakExplosive, flakSurge, flakGlass, glassFrag,
+
+  //missiles
+  missileExplosive, missileIncendiary, missileSurge, missileJavelin, missileSwarm, missileRevenant,
+
+  //standard
+  standardCopper, standardDense, standardThorium, standardHoming, standardIncendiary, standardMechSmall,
+  standardGlaive, standardDenseBig, standardThoriumBig, standardIncendiaryBig,
+
+  //electric
+  lancerLaser, meltdownLaser, lightning, arc, damageLightning,
+
+  //liquid
+  waterShot, cryoShot, slagShot, oilShot,
+
+  //environment, misc.
+  fireball, basicFlame, pyraFlame, driverBolt, healBullet, healBulletBig, frag, eruptorShot,
+
+  //bombs
+  bombExplosive, bombIncendiary, bombOil;
+```
