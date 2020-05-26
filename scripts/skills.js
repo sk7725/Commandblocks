@@ -146,7 +146,7 @@ const skillfunc={
     if(Vars.mobile){
       if(Core.input.justTouched()){
         var inc=Math.max(Math.abs(Core.input.mouseX()-this._lastx),Math.abs(Core.input.mouseY()-this._lasty));
-        if(Time.time()-this._lasttouch<doubletaptick&&Time.time()>this._lasttouch&&this._lasttouch>0&&inc<10){
+        if(Time.time()-this._lasttouch<doubletaptick&&Time.time()>this._lasttouch&&this._lasttouch>0&&inc<30){
           this._lasttouch=0;
           return true;
         }
@@ -178,7 +178,6 @@ const skillfunc={
       }
       else{
         Effects.effect(Fx.smelt,Color.valueOf("aaaaaa"),Vars.player.getX(), Vars.player.getY());
-        return false;
       }
     }
 
