@@ -162,7 +162,7 @@ const skillfunc={
     else return Core.input.keyTap(KeyCode.Q);
   },
   update(Skill){
-    if(Skill.skill=="") return false;
+    if(Skill.skill==""||Skill==null||Skill==undefined) return false;
 
     if(this.getInput()){
       var obj=skills[Skill.skill];

@@ -358,7 +358,7 @@ researchskill.entityType=prov(() => extend(TileEntity , {
       this.pushRes(stream.readShort());
     }
     this._enabled=stream.readBoolean();
-		this._skill.skill=root[Object.keys(root)[stream.readShort()]];
-		this.skill.lastused=0;
+		this._skill.skill=Object.keys(root)[stream.readShort()];
+		this._skill.lastused=0;
   }
 }));
