@@ -11,3 +11,4 @@ configurable: true
 rotate: false
 solid: true
 rebuildable: false
+health: 3000

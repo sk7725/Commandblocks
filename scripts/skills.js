@@ -4,7 +4,7 @@ const skills={
 	"coalbomb":{
 		type:"skill.atk",
 		tier:1,
-		cooltime:1.5,
+		cooltime:0.5,
 		uses:{
 			item:"coal",
 			amount:3
@@ -23,7 +23,7 @@ const skills={
 	"coalfire":{
 		type:"skill.atk",
 		tier:2,
-		cooltime:2.5,
+		cooltime:1.5,
 		uses:{
 			item:"coal",
 			amount:3
@@ -168,7 +168,7 @@ const skillfunc={
       var obj=skills[Skill.skill];
       if(Skill.skill!=""&&Skill.lastused+obj.cooltime*60<=Time.time()&&Vars.player.item().item.name==obj.uses.item&&Vars.player.item().amount>=obj.uses.amount){
         try{
-          var ret=this[Skill.skill]();
+          var ret=this[Skill.skill](Vars.player);
           Vars.player.addItem(Vars.player.item().item,Math.floor(-1*ret*obj.uses.amount));
           return true;
         }
@@ -184,14 +184,25 @@ const skillfunc={
     if(Skill.skill!=""&&Skill.lastused+Math.floor(skills[Skill.skill].cooltime*60)==Time.time()) Effects.effect(Fx.absorb,Vars.player.getX(), Vars.player.getY());
     return false;
   },
-  coalbomb(){
-    Call.createBullet(Bullets.bombExplosive, Vars.player.getTeam(), Vars.player.getX(), Vars.player.getY(), Vars.player.rotation, 4,3);
+  coalbomb(player){
+    Call.createBullet(Bullets.bombExplosive, player.getTeam(), player.getX(), player.getY(), player.rotation, 12,3);
     return 1;
   },
-  coalfire(){
-    Call.createBullet(Bullets.bombOil, Vars.player.getTeam(), Vars.player.getX(), Vars.player.getY(), Vars.player.rotation, 6,3);
-    Call.createBullet(Bullets.bombIncendiary, Vars.player.getTeam(), Vars.player.getX(), Vars.player.getY(), Vars.player.rotation, 6,3);
+  coalfire(player){
+    Call.createBullet(Bullets.bombOil, player.getTeam(), player.getX(), player.getY(), player.rotation, 16,3);
+    Call.createBullet(Bullets.bombIncendiary, player.getTeam(), player.getX(), player.getY(), player.rotation, 16,3);
     return 1;
+  },
+  coalcrawler(player){
+    if(player.tileOn().solid()){
+      Call.createBullet(Bullets.bombExplosive, player.getTeam(), player.getX(), player.getY(), player.rotation, 0.01,0.01);
+      Call.createBullet(Bullets.bombExplosive, player.getTeam(), player.getX(), player.getY(), player.rotation, 0.01,0.01);
+      Call.createBullet(Bullets.bombExplosive, player.getTeam(), player.getX(), player.getY(), player.rotation, 0.01,0.01);
+      return 0.5;
+    }
+    var crawler=UnitTypes.crawler.create(player.getTeam());
+    crawler.set(player.getX(),player.getY());
+    crawler.add();
   }
 }
 this.global.skills.func=skillfunc;
