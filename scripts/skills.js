@@ -211,18 +211,18 @@ const skillfunc={
   },
   phasetp(player){
     //f4ba6e
-    Effects.effect(Fx.teleport,Color.valueOf("f4ba6e"),player.getX(), player.getY());
+    Effects.effect(Fx.teleportOut,Color.valueOf("f4ba6e"),player.getX(), player.getY());
     var tx=((Time.time()*17%60)-30)*4;
     var ty=((Time.time()*233%60)-30)*4;
     player.set(player.getX()+tx,player.getY()+ty);
     if(player==Vars.player)  Core.camera.position.set(player);
-    Effects.effect(Fx.teleportOut,Color.valueOf("f4ba6e"),player.getX(), player.getY());
+    Effects.effect(Fx.teleport,Color.valueOf("f4ba6e"),player.getX(), player.getY());
     return 1;
   },
   phaseshot(player){
     var bullets=Vars.content.bullets().toArray();
     var choice=Math.floor((Time.time()*7)%(bullets.length));
-    this.fire(bullets[choice], player, 0.01, 0.01);
+    this.fire(bullets[choice], player, 1.2, 1);
     return 1;
   }
 }
