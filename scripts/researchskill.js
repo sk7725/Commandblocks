@@ -271,7 +271,7 @@ const researchskill = extendContent(Block, "researchskill", {
 				dialog.show();
       }
       catch(err){
-        print("err:"+err);
+        print("err:"+err+"\n"+err.stack);
       }
     })).size(40);
 		//this.super$buildConfiguration(tile,table);
