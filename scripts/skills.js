@@ -200,6 +200,78 @@ const skills={
 		],
     parent:"phaseshot"
 	},
+"surgesurge":{
+		type:"skill.move",
+		tier:1,
+		cooltime:90,
+		uses:{
+			item:"surge-alloy",
+			amount:5
+		},
+		cost:[
+			{
+				item:"copper",
+				amount:120
+			},
+			{
+				item:"graphite",
+				amount:60
+			},
+			{
+				item:"surge-alloy",
+				amount:100
+			}
+		],
+    parent:"surgeshield"
+	},
+  "surgeshield":{
+		type:"skill.def",
+		tier:2,
+		cooltime:500,
+		uses:{
+			item:"surge-alloy",
+			amount:25
+		},
+		cost:[
+			{
+				item:"silicon",
+				amount:145
+			},
+			{
+				item:"titanium",
+				amount:150
+			},
+			{
+				item:"surge-alloy",
+				amount:200
+			}
+		],
+    parent:"surgesurge"
+	},
+  "surgeshot":{
+		type:"skill.atk",
+		tier:3,
+		cooltime:70,
+		uses:{
+			item:"surge-alloy",
+			amount:50
+		},
+		cost:[
+			{
+				item:"titanium",
+				amount:220
+			},
+			{
+				item:"silicon",
+				amount:200
+			},
+			{
+				item:"surge-alloy",
+				amount:450
+			}
+		],
+    parent:"surgeshield"
+	},
   "uranblast":{
 		type:"skill.attack",
 		tier:2,
