@@ -431,9 +431,9 @@ const boostfire = newEffect(50, e => {
 });
 
 const boostedskill= extendContent(StatusEffect,"boostedskill",{});
-boosted.speedMultiplier=1.45;
-boosted.color=Pal.redderDust;
-boosted.effect=boostfire;
+boostedskill.speedMultiplier=1.45;
+boostedskill.color=Pal.redderDust;
+boostedskill.effect=boostfire;
 
 const vanillaskills=18;
 const doubletaptick=15;
