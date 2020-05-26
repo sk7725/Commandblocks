@@ -166,7 +166,7 @@ const skillfunc={
 
     if(this.getInput()){
       var obj=skills[Skill.skill];
-      if(Skill.skill!=""&&Skill.lastused+obj.cooltime<=Time.time()&&Vars.player.item().item.name==obj.uses.item&&Vars.player.item().amount>=obj.uses.amount){
+      if(Skill.skill!=""&&Skill.lastused+obj.cooltime*60<=Time.time()&&Vars.player.item().item.name==obj.uses.item&&Vars.player.item().amount>=obj.uses.amount){
         try{
           var ret=this[Skill.skill]();
           Vars.player.addItem(Vars.player.item().item,Math.floor(-1*ret*obj.uses.amount));
@@ -182,15 +182,15 @@ const skillfunc={
       }
     }
 
-    if(Skill.skill!=""&&Skill.lastused+skills[Skill.skill].cooltime==Time.time()) Effects.effect(Fx.absorb,Vars.player.getX(), Vars.player.getY());
+    if(Skill.skill!=""&&Skill.lastused+Math.floor(skills[Skill.skill].cooltime*60)==Time.time()) Effects.effect(Fx.absorb,Vars.player.getX(), Vars.player.getY());
     return false;
   },
   coalbomb(){
-    Bullet.create(Bullets.bombExplosive, Vars.player, Vars.player.getTeam(), Vars.player.getX(), Vars.player.getY(), Vars.player.rotation, 3,3);
+    Bullet.create(Bullets.bombExplosive, Vars.player, Vars.player.getTeam(), Vars.player.getX(), Vars.player.getY(), Vars.player.rotation, 4,3);
     return 1;
   },
   coalfire(){
-    Bullet.create(Bullets.bombIncendiary, Vars.player, Vars.player.getTeam(), Vars.player.getX(), Vars.player.getY(), Vars.player.rotation, 4,5);
+    Bullet.create(Bullets.bombIncendiary, Vars.player, Vars.player.getTeam(), Vars.player.getX(), Vars.player.getY(), Vars.player.rotation, 6,3);
     return 1;
   }
 }

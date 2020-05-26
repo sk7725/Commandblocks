@@ -348,6 +348,7 @@ researchskill.entityType=prov(() => extend(TileEntity , {
       stream.writeShort(this._resarr[i]);
     }
     stream.writeBoolean(this._enabled);
+		stream.writeShort(Object.keys(root).indexOf(this._skill.skill));
   },
   read(stream,revision){
     this.super$read(stream,revision);
@@ -357,5 +358,7 @@ researchskill.entityType=prov(() => extend(TileEntity , {
       this.pushRes(stream.readShort());
     }
     this._enabled=stream.readBoolean();
+		this._skill.skill=root[Object.keys(root)[stream.readShort()]];
+		this.skill.lastused=0;
   }
 }));
