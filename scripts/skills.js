@@ -356,7 +356,7 @@ const skillfunc={
     player.damage(player.maxHealth()*1);
     Effects.effect(Fx.nuclearShockwave, x, y);
     Effects.shake(10, 10, x, y);
-    Effects.effect(Fx.dynamicExplosion, x, y, 8); 
+    Effects.effect(Fx.dynamicExplosion, x, y, 3); 
     Sounds.explosionbig.at(x,y);
     if(Vars.net.client()) return;
     Damage.damage(player.getTeam(),x,y,120,690);
