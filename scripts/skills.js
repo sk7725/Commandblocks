@@ -161,7 +161,7 @@ const skillfunc={
 
     if(this.getInput()){
       var obj=skills[Skill.skill];
-      if((Skill.skill!=""&&Skill.lastused+obj.cooltime<=Time.time()&&Vars.player.item().item.name==obj.uses.item&&Vars.player.item().amount>=obj.uses.amount){
+      if(Skill.skill!=""&&Skill.lastused+obj.cooltime<=Time.time()&&Vars.player.item().item.name==obj.uses.item&&Vars.player.item().amount>=obj.uses.amount){
         try{
           var ret=this[Skill.skill]();
           Vars.player.addItem(Vars.player.item().item,Math.floor(-1*ret*obj.uses.amount));
