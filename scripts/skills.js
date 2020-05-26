@@ -221,7 +221,7 @@ const skillfunc={
   },
   phaseshot(player){
     var bullets=Vars.content.bullets().toArray();
-    var choice=Math.floor((Time.time()*7)%(bullets.length));
+    var choice=Math.floor((Time.time()*1)%(bullets.length));
     this.fire(bullets[choice], player, 1.2, 1);
     return 1;
   }
