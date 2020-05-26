@@ -226,7 +226,7 @@ const skillfunc={
     }
     else return Core.input.keyTap(KeyCode.Q);
   },
-  update(Skill){
+  update(Skill,tile){
     if(Skill.skill==""||Skill==null||Skill==undefined||!skills[Skill.skill]) return false;
 
     if(this.getInput()){

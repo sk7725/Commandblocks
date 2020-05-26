@@ -34,7 +34,10 @@ const researchskill = extendContent(Block, "researchskill", {
 		if(value==0) return;
 		if(value<0){
 			var obj=root[Object.keys(root)[-1*value-1]];
-			skillfunc[obj.name](player);
+			try{
+				skillfunc[obj.name](player);
+			}
+			catch(err){}
 			return;
 		}
 		var obj=root[Object.keys(root)[value-1]];
@@ -277,7 +280,7 @@ const researchskill = extendContent(Block, "researchskill", {
 		if(!tile.ent().enabled()) return;
 		ticknow=Time.time();
 		tickblock=tile.pos();
-		var ret=skillfunc.update(tile.ent().skill());
+		var ret=skillfunc.update(tile.ent().skill(),tile);
 		if(ret) tile.ent().useSkill();
 	},
 	placed(tile){
