@@ -2,12 +2,12 @@ var ticknow=0; var tickblock=0;
 const color1=Color.valueOf("ffaa5f"); const color2=Color.valueOf("84f491");
 const root=this.global.skills;
 
-const animspeed=0.015; const animwidth=60;
+const animspeed=0.013; const animwidth=60;
 
 const researchskill = extendContent(Block, "researchskill", {
 	draw(tile){
 		if(tile.ent().enabled()){
-			Draw.rect(this.animRegion[Mathf.floorPositive(animwidth+2+animwidth*Mathf.sin(Time.time()*animspeed))%19], tile.drawx(), tile.drawy());
+			Draw.rect(this.animRegion[Mathf.floorPositive(animwidth+2+animwidth*Mathf.sin(Time.time()*animspeed))%17], tile.drawx(), tile.drawy());
 		}
 		else this.super$draw(tile);
 	},
@@ -24,7 +24,8 @@ const researchskill = extendContent(Block, "researchskill", {
 		}
 		this.animRegion=[];
 		for(var i=0;i<19;i++){
-			  this.animRegion.push(Core.atlas.find(this.name+"-"+i));
+			if(i==1||i==18) continue;
+		  this.animRegion.push(Core.atlas.find(this.name+"-"+i));
 		}
 	},
 	configured(tile,player,value){
