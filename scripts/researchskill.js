@@ -31,7 +31,12 @@ const researchskill = extendContent(Block, "researchskill", {
 	},
 	configured(tile,player,value){
 		//research in sync
-		if(value<=0) return;
+		if(value==0) return;
+		if(value<0){
+			var obj=root[Object.keys(root)[-1*value-1]];
+			skillfunc[obj.name](player);
+			return;
+		}
 		var obj=root[Object.keys(root)[value-1]];
 		if(obj==null) return;
 		//use up cost
