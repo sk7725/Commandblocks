@@ -134,7 +134,7 @@ const researchskill = extendContent(Block, "researchskill", {
 	},
 	makesingle(tile,dialog,table,obj,type){
 		//makes a single block of the research list
-		if(obj.hasOwnProperty("uses")&&!Vars.content.getByName(ContentType.item,obj.uses.item)) return;
+		if(obj.hasOwnProperty("uses")&&Vars.content.getByName(ContentType.item,obj.uses.item)==null) return;
 		table.table(Styles.black6, cons(t => {
 			t.defaults().pad(2).left().top();
 			t.margin(14).left();
