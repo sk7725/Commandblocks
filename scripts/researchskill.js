@@ -223,6 +223,7 @@ const researchskill = extendContent(Block, "researchskill", {
 			var cannotres=[];
 			var researched=[];
 			for(var i=0;i<uparr.length;i++){
+				if(root[uparr[i]].hasOwnProperty("uses")&&Vars.content.getByName(ContentType.item,root[uparr[i]].uses.item)==null) continue;
 				if(this.isresearched(tile,uparr[i])){
 					researched.push(root[uparr[i]]);
 				}
