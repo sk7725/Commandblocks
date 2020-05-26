@@ -173,6 +173,7 @@ const skillfunc={
           return true;
         }
         catch(err){
+          print(err);
           return false;
         }
       }
@@ -209,8 +210,8 @@ const skillfunc={
     return 1;
   },
   phasetp(player){
-    var tx=((Time.time()*17%60)-30)/2;
-    var ty=((Time.time()*233%60)-30)/2;
+    var tx=((Time.time()*17%60)-30)*4;
+    var ty=((Time.time()*233%60)-30)*4;
     player.set(player.getX()+tx,player.getY()+ty);
     if(player==Vars.player)  Core.camera.position.set(player);
     return 1;
