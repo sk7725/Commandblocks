@@ -64,6 +64,70 @@ const skills={
 		],
 		parent:"coalfire"
 	},
+  "thorshot":{
+		type:"skill.atk",
+		tier:1,
+		cooltime:2,
+		uses:{
+			item:"thorium",
+			amount:4
+		},
+		cost:[
+			{
+				item:"titanium",
+				amount:50
+			},
+			{
+				item:"thorium",
+				amount:50
+			}
+		]
+	},
+	"thorhoming":{
+		type:"skill.atk",
+		tier:2,
+		cooltime:4,
+		uses:{
+			item:"thorium",
+			amount:10
+		},
+		cost:[
+      {
+				item:"silicon",
+				amount:250
+			},
+			{
+				item:"thorium",
+				amount:130
+			}
+		],
+		parent:"thorshot"
+	},
+  "thorbeam":{
+		type:"skill.atk",
+		tier:3,
+		cooltime:15,
+    healthcost:80,
+		uses:{
+			item:"thorium",
+			amount:40
+		},
+		cost:[
+			{
+				item:"silicon",
+				amount:330
+			},
+      {
+				item:"thorium",
+				amount:670
+			},
+			{
+				item:"surge-alloy",
+				amount:230
+			}
+		],
+		parent:"thorhoming"
+	},
 	"phasetp":{
 		type:"skill.move",
 		tier:1,
@@ -186,7 +250,8 @@ const skillfunc={
     return false;
   },
   fire(bullet,player,v,life){
-    Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
+    //Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
+    Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
   },
   coalbomb(player){
     this.fire(Bullets.bombExplosive, player, 10, 3);
@@ -223,6 +288,30 @@ const skillfunc={
     var bullets=Vars.content.bullets().toArray();
     var choice=Math.floor((Time.time()*1)%(bullets.length));
     this.fire(bullets[choice], player, 1, 1);
+    return 1;
+  },
+  thorshot(player){
+    var bullet=player.getWeapon().bullet;
+    var primes=[2,3,5,7,11,13,17,19,23,29];//random will absoultely not work on multi
+    for(var i=1;i<=10;i++){
+      Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation+i*18+(Time.time()*primes[11-i])%11-6, ((Time.time()*primes[i])%60+40)/60,1.3);
+    }
+    return 1;
+  },
+  thorhoming(player){
+    var bullet=Bullets.missileSwarm;
+    var primes=[2,5,7,11,13,17,19,23,29,31,37];//random will absoultely not work on multi
+    for(var i=1;i<=11;i++){
+      Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation+(Time.time()*primes[13-i])%13-7, ((Time.time()*primes[i])%10+20)/25,1);
+    }
+    return 1;
+  },
+  thorbeam(player){
+    player.damage(player.maxHealth()*0.8);
+    this.fire(Bullets.meltdownLaser, player, 1, 1);
+    this.fire(Bullets.lightning, player, 1, 1);
+    this.fire(Bullets.lightning, player, 1, 1);
+    this.fire(Bullets.lightning, player, 1, 1);
     return 1;
   }
 }
