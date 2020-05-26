@@ -1,4 +1,4 @@
-var ticknow=0; var tickblock=0;
+var ticknow=[]; var tickblock=[];
 const color1=Color.valueOf("ffaa5f"); const color2=Color.valueOf("84f491");
 const root=this.global.skills.skills;
 const skillfunc=this.global.skills.func;
@@ -276,9 +276,13 @@ const researchskill = extendContent(Block, "researchskill", {
 	},
 	update(tile){
 		this.super$update(tile);
-		if(ticknow==Time.time()&&ticknow>0&&tickblock!=tile.pos()) tile.ent().disable();
+		if(ticknow[tile.getTeamID()]==undefined){
+			ticknow[tile.getTeamID()]=0;
+			tickblock[tile.getTeamID()]=0;
+		}
+		if(ticknow[tile.getTeamID()]==Time.time()&&ticknow[tile.getTeamID()]>0&&tickblock[tile.getTeamID()]!=tile.pos()) tile.ent().disable();
 		if(!tile.ent().enabled()) return;
-		ticknow=Time.time();
+		ticknow[tile.getTeamID()]=Time.time();
 		tickblock=tile.pos();
 		var ret=skillfunc.update(tile.ent().skill(),tile);
 		if(ret) tile.ent().useSkill();
@@ -301,7 +305,7 @@ const researchskill = extendContent(Block, "researchskill", {
 			}
 			return true;
 			*/
-			var inc=Time.time()-ticknow;
+			var inc=Time.time()-ticknow[Vars.player.getTeam().id];
 			//Vars.ui.showInfoToast("T:"+Time.time()+" N:"+ticknow,0);
 			return (inc>10||inc<-10);
 		}
