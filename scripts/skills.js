@@ -186,11 +186,12 @@ const skillfunc={
     return false;
   },
   coalbomb(){
-    Bullet.create(Bullets.bombExplosive, Vars.player, Vars.player.getTeam(), Vars.player.getX(), Vars.player.getY(), Vars.player.rotation, 4,3);
+    Call.createBullet(Bullets.bombExplosive, Vars.player.getTeam(), Vars.player.getX(), Vars.player.getY(), Vars.player.rotation, 4,3);
     return 1;
   },
   coalfire(){
-    Bullet.create(Bullets.bombIncendiary, Vars.player, Vars.player.getTeam(), Vars.player.getX(), Vars.player.getY(), Vars.player.rotation, 6,3);
+    Call.createBullet(Bullets.bombOil, Vars.player.getTeam(), Vars.player.getX(), Vars.player.getY(), Vars.player.rotation, 6,3);
+    Call.createBullet(Bullets.bombIncendiary, Vars.player.getTeam(), Vars.player.getX(), Vars.player.getY(), Vars.player.rotation, 6,3);
     return 1;
   }
 }
