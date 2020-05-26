@@ -90,7 +90,7 @@ const skills={
   "phaseshot":{
 		type:"skill.atk",
 		tier:2,
-		cooltime:0.5,
+		cooltime:0.1,
 		uses:{
 			item:"phase-fabric",
 			amount:3
