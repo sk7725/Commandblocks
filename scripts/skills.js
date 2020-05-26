@@ -271,7 +271,7 @@ const skills={
   "blastdash":{
 		type:"skill.move",
 		tier:1,
-		cooltime:3.5,
+		cooltime:2.3,
 		uses:{
 			item:"blast-compound",
 			amount:4
@@ -422,12 +422,26 @@ const skills={
 	}
 };
 this.global.skills.skills=skills;
+
+const boostfire = newEffect(50, e => {
+  var len = e.finpow() * 10;
+  var ang = e.rotation + 180 + Mathf.randomSeedRange(e.id, 30);
+  Draw.color(Pal.redderDust, Pal.lightOrange, e.fin());
+  Fill.circle(e.x + Angles.trnsx(ang, len), e.y + Angles.trnsy(ang, len), 2 * e.fout());
+});
+
+const boostedskill= extendContent(StatusEffect,"boostedskill",{});
+boosted.speedMultiplier=1.45;
+boosted.color=Pal.redderDust;
+boosted.effect=boostfire;
+
 const vanillaskills=18;
 const doubletaptick=15;
 const skillfunc={
   _lasttouch:0,
   _lastx:0,
   _lasty:0,
+  _lastcharged:0,
   getInput(){
     if(Vars.mobile){
       if(Core.input.justTouched()){
@@ -469,7 +483,10 @@ const skillfunc={
       }
     }
 
-    if(Skill.skill!=""&&Skill.lastused+Math.floor(skills[Skill.skill].cooltime*60)==Time.time()) Effects.effect(Fx.absorb,Vars.player.getX(), Vars.player.getY());
+    if(Skill.skill!=""&&Skill.lastused+skills[Skill.skill].cooltime*60<=Time.time()&&this._lastcharged<=Skill.lastused+skills[Skill.skill].cooltime*60){
+      Effects.effect(Fx.spawn,Vars.player.getX(), Vars.player.getY());
+      this._lastcharged=Time.time();
+    }
     return false;
   },
   fire(bullet,player,v,life){
@@ -553,6 +570,11 @@ const skillfunc={
     this.fire(Bullets.lightning, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
+  },
+  blastdash(player){
+    Effects.effect(Fx.select,player.getX(), player.getY());
+    Sounds.flame.at(player.getX(),player.getY(),0.4);
+    player.applyEffect(boostedskill,130);
   },
   uranblast(player){
     var x=player.getX(); var y=player.getY();
