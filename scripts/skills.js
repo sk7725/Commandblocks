@@ -227,6 +227,7 @@ const skills={
 	}
 };
 this.global.skills.skills=skills;
+const vanillaskills=9;
 const doubletaptick=15;
 const skillfunc={
   _lasttouch:0,
@@ -322,7 +323,7 @@ const skillfunc={
   phaseskill(player,tile){
     if(Vars.net.client()) return;
     var arr=Object.keys(skills);
-    var n=Math.floor((arr.length/3*4)*Math.random())
+    var n=Math.floor((vanillaskills/3*4)*Math.random());
     if(n%4==3) n-=3;
     n=n%3+Math.floor(n/4);
     if(arr[n]=="phaseskill") n-=1;
