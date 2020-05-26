@@ -1,3 +1,5 @@
+const KeyCode=Packages.arc.input.KeyCode;
+this.global.skills={};
 const skills={
 	"coalbomb":{
 		type:"skill.atk",
@@ -134,4 +136,57 @@ const skills={
     parent:"phaseshot"
 	}
 };
-this.global.skills=skills;
+this.global.skills.skills=skills;
+const doubletaptick=35;
+const skillfunc={
+  _lasttouch:0,
+  getInput(){
+    if(Vars.mobile){
+      if(Core.input.justTouched()){
+        if(Time.time()-this._lasttouch<doubletaptick&&Time.time()>this._lasttouch&&this._lasttouch>0){
+          this._lasttouch=0;
+          return true;
+        }
+        else{
+          this._lasttouch=Time.time();
+          return false;
+        }
+      }
+      else return false;
+    }
+    else return Core.input.keyTap(KeyCode.Q);
+  },
+  update(Skill){
+    if(Skill.skill=="") return false;
+
+    if(this.getInput()){
+      var obj=skills[Skill.skill];
+      if((Skill.skill!=""&&Skill.lastused+obj.cooltime<=Time.time()&&Vars.player.item().item.name==obj.uses.item&&Vars.player.item().amount>=obj.uses.amount){
+        try{
+          var ret=this[Skill.skill]();
+          Vars.player.addItem(Vars.player.item().item,Math.floor(-1*ret*obj.uses.amount));
+          return true;
+        }
+        catch(err){
+          return false;
+        }
+      }
+      else{
+        Effects.effect(Fx.smelt,Color.valueOf("aaaaaa"),Vars.player.getX(), Vars.player.getY());
+        return false;
+      }
+    }
+
+    if(Skill.skill!=""&&Skill.lastused+skills[Skill.skill].cooltime==Time.time()) Effects.effect(Fx.absorb,Vars.player.getX(), Vars.player.getY());
+    return false;
+  },
+  coalbomb(){
+    Bullet.create(Bullets.bombExplosive, Vars.player, Vars.player.getTeam(), Vars.player.getX(), Vars.player.getY(), Vars.player.rotation, 3,3);
+    return 1;
+  },
+  coalfire(){
+    Bullet.create(Bullets.bombIncendiary, Vars.player, Vars.player.getTeam(), Vars.player.getX(), Vars.player.getY(), Vars.player.rotation, 4,5);
+    return 1;
+  }
+}
+this.global.skills.func=skillfunc;

@@ -1,6 +1,7 @@
 var ticknow=0; var tickblock=0;
 const color1=Color.valueOf("ffaa5f"); const color2=Color.valueOf("84f491");
-const root=this.global.skills;
+const root=this.global.skills.skills;
+const skillfunc=this.global.skills.func;
 
 const animspeed=0.013; const animwidth=60;
 
@@ -271,6 +272,8 @@ const researchskill = extendContent(Block, "researchskill", {
 		if(!tile.ent().enabled()) return;
 		ticknow=Time.time();
 		tickblock=tile.pos();
+		var ret=skillfunc.update(tile.ent().skill());
+		if(ret) tile.ent().useSkill();
 	},
 	placed(tile){
 		this.super$placed(tile);
