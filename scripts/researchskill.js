@@ -206,7 +206,7 @@ const researchskill = extendContent(Block, "researchskill", {
 				}));
 				t.row();
 			}
-		})).width(Vars.mobile ? 430 : 500);
+		})).width(Vars.mobile ? 400 : 470);
 		table.row();
 	},
 	makelist(tile,dialog){

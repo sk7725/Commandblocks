@@ -270,6 +270,7 @@ const skillfunc={
       this.fire(Bullets.bombExplosive, player, 0.01, 0.01);
       return;
     }
+    Effects.effect(Fx.explosion,player.getX(), player.getY());
     if(Vars.net.client()) return;
     var crawler=UnitTypes.crawler.create(player.getTeam());
     crawler.set(player.getX(),player.getY());
