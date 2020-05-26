@@ -55,7 +55,7 @@ const researchskill = extendContent(Block, "researchskill", {
 	},
 	canresearch(tile,obj,name){
 		if(!obj.hasOwnProperty("cost")&&!obj.hasOwnProperty("parent")) return true;
-		if(obj.hasOwnProperty("uses")&&Vars.content.getByName(ContentType.item,obj.uses.item)==null) return;
+		if(obj.hasOwnProperty("uses")&&Vars.content.getByName(ContentType.item,obj.uses.item)==null) return false;
 		//test whether items are sufficient
 		if(obj.hasOwnProperty("cost")){
 			var arr=obj.cost;
