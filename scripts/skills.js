@@ -584,7 +584,11 @@ const skillfunc={
     player.damage(player.maxHealth()*0.8);
     Sounds.corexplode.at(player.getX(),player.getY(),1.5);
     this.fire(Bullets.meltdownLaser, player, 1, 1);
-    this.fire(Bullets.meltdownLaser, player, 1, 1);
+    this.fire(Bullets.lancerLaser, player, 1, 1);
+		this.fire(Bullets.lancerLaser, player, 1, 1);
+		this.fire(Bullets.lancerLaser, player, 1, 1);
+		this.fire(Bullets.lancerLaser, player, 1, 1);
+		this.fire(Bullets.lancerLaser, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
@@ -609,7 +613,8 @@ const skillfunc={
 		var dir=player.rotation;
 		if(target) dir=Vec2(target.getX()-x,target.getY()-y);
 		//if(!Vars.net.client()) Call.createBullet(Bullets.lightning, player.getTeam(), player.getX(), player.getY(), dir, 1,1);
-		Damage.collideLine(Bullets.arc,player.getTeam(),slasheffect,x,y,dir,20*Vars.tilesize);
+		var b=Bullet.create(Bullets.arc,null, player.getTeam(), x,y, dir);
+		Damage.collideLine(b,player.getTeam(),slasheffect,x,y,dir,20*Vars.tilesize);
 		player.applyEffect(boostedskill,1);
 		var posnew=Vec2(20*Vars.tilesize,0).setAngle(dir);
 		player.set(posnew.x,posnew.y);
