@@ -311,9 +311,9 @@ const skills={
 		type:"skill.atk",
 		tier:3,
 		cooltime:0.3,
-		uses:5
+		uses:{
 			item:"blast-compound",
-			amount:4
+			amount:5
 		},
 		cost:[
 			{
