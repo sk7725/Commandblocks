@@ -459,7 +459,7 @@ const skillfunc={
     if(Vars.mobile){
       if(Core.input.justTouched()){
         var inc=Math.max(Math.abs(Core.input.mouseX()-this._lastx),Math.abs(Core.input.mouseY()-this._lasty));
-        if(Time.time()-this._lasttouch<doubletaptick&&Time.time()>this._lasttouch+3&&this._lasttouch>0&&inc<30){
+        if(Time.time()-this._lasttouch<doubletaptick&&Time.time()>this._lasttouch+2&&this._lasttouch>0&&inc<30){
           this._lasttouch=0;
           return true;
         }
@@ -613,7 +613,7 @@ const skillfunc={
 		var dir=player.rotation;
 		if(target) dir=Vec2(target.getX()-x,target.getY()-y);
 		//if(!Vars.net.client()) Call.createBullet(Bullets.lightning, player.getTeam(), player.getX(), player.getY(), dir, 1,1);
-		var b=Bullet.create(Bullets.arc,null, player.getTeam(), x,y, dir);
+		var b=Bullet.create(Bullets.arc,null, player.getTeam(), x,y, dir,1,1);
 		Damage.collideLine(b,player.getTeam(),slasheffect,x,y,dir,20*Vars.tilesize);
 		player.applyEffect(boostedskill,1);
 		var posnew=Vec2(20*Vars.tilesize,0).setAngle(dir);
