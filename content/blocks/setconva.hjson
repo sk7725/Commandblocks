@@ -7,7 +7,7 @@ category: distribution
 requirements: [
 silicon/1
 phase-fabric/1
-res-zeta/1
+ref-zeta/1
 ]
 sync: true
 health: 250

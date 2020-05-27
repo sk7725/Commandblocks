@@ -6,7 +6,7 @@ update: true
 category: units
 requirements: [
   plastanium/30
-  res-vector/50
+  ref-vector/50
 ]
 sync: true
 health: 300

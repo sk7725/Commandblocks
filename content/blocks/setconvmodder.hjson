@@ -5,7 +5,7 @@ update: true
 category: distribution
 requirements: [
   phase-fabric/20
-  res-vector/10
+  ref-vector/10
   bittrium/32
 ]
 sync: true
