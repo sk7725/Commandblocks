@@ -435,11 +435,11 @@ const booststart = newEffect(23, e => {
   Lines.stroke(e.fout() * 3);
   Lines.circle(e.x, e.y, 3 + e.fin() * 14);
 });
-const slasheffect = newEffect(30, e => {
+const slasheffect = newEffect(90, e => {
   Draw.color(Pal.lancerLaser);
 
-  Drawf.tri(e.x, e.y, 4 * e.fout(), 31, (e.id*57 + 90)%360);
-	Drawf.tri(e.x, e.y, 4 * e.fout(), 31, (e.id*57 + 90)%360);
+  Drawf.tri(e.x, e.y, 4 * e.fout(), 45, (e.id*57 + 90)%360);
+	Drawf.tri(e.x, e.y, 4 * e.fout(), 45, (e.id*57 + 90)%360);
 
 });
 
