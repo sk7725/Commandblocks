@@ -435,6 +435,13 @@ const booststart = newEffect(23, e => {
   Lines.stroke(e.fout() * 3);
   Lines.circle(e.x, e.y, 3 + e.fin() * 14);
 });
+const slasheffect = newEffect(30, e => {
+  Draw.color(Pal.lancerLaser);
+
+  Drawf.tri(e.x, e.y, 4 * e.fout(), 31, (e.id*57 + 90)%360);
+	Drawf.tri(e.x, e.y, 4 * e.fout(), 31, (e.id*57 + 90)%360);
+
+});
 
 const boostedskill= extendContent(StatusEffect,"boostedskill",{});
 boostedskill.speedMultiplier=1.45;
@@ -452,7 +459,7 @@ const skillfunc={
     if(Vars.mobile){
       if(Core.input.justTouched()){
         var inc=Math.max(Math.abs(Core.input.mouseX()-this._lastx),Math.abs(Core.input.mouseY()-this._lasty));
-        if(Time.time()-this._lasttouch<doubletaptick&&Time.time()>this._lasttouch+2&&this._lasttouch>0&&inc<30){
+        if(Time.time()-this._lasttouch<doubletaptick&&Time.time()>this._lasttouch+3&&this._lasttouch>0&&inc<30){
           this._lasttouch=0;
           return true;
         }
@@ -595,6 +602,19 @@ const skillfunc={
     Sounds.artillery.at(player.getX(),player.getY(),2.2);
     player.applyEffect(boostedskill,1);
 		player.velocity().set(Vec2(10,0).setAngle((player.rotation+180)%360));
+  },
+	blastcut(player){
+		var x=player.getX(); var y=player.getY();
+		var target=Units.closestEnemy(player.getTeam(),x,y,20*Vars.tilesize,boolf(()=>true));
+		var dir=player.rotation;
+		if(target) dir=Vec2(target.getX()-x,target.getY()-y);
+		//if(!Vars.net.client()) Call.createBullet(Bullets.lightning, player.getTeam(), player.getX(), player.getY(), dir, 1,1);
+		Damage.collideLine(Bullets.arc,player.getTeam(),slasheffect,x,y,dir,20*Vars.tilesize,false);
+		player.applyEffect(boostedskill,1);
+		var posnew=Vec2(20*Vars.tilesize,0).setAngle(dir);
+		player.set(posnew.x,posnew.y);
+		if(player==Vars.player)  Core.camera.position.set(player);
+		player.velocity().set(Vec2(4,0).setAngle(dir));
   },
   uranblast(player){
     var x=player.getX(); var y=player.getY();
