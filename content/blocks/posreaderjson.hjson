@@ -6,7 +6,7 @@ category: effect
 requirements: [
   graphite/6
   silicon/5
-  bittrium/2
+  s-code/2
 ]
 buildVisibility: hidden
 configurable: false

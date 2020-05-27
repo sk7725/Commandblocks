@@ -8,7 +8,7 @@ consumesPower: false
 outputsPower: true
 requirements: [
   silicon/16
-  surge-alloy/4
+  s-code/4
   bittrium/1
 ]
 insulated: true

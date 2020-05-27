@@ -5,8 +5,8 @@ update: true
 category: effect
 requirements: [
   silicon/256
-  surge-alloy/16
-  bittrium/128
+  s-code/640
+  bittrium/256
 ]
 maxTextLength: 32000
 maxNewlines: 0

@@ -1,0 +1,7 @@
+type: material
+color: f4a300
+explosiveness: 0
+flammability: 1.5
+radioactivity: 0
+hardness: 3
+cost: 1

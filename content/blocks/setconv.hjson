@@ -5,9 +5,9 @@ breakable: true
 update: true
 category: distribution
 requirements: [
-titanium/1
 silicon/1
 phase-fabric/1
+res-vector/1
 ]
 sync: true
 health: 150

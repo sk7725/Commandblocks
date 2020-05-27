@@ -5,8 +5,8 @@ update: true
 category: defense
 requirements: [
   graphite/50
-  plastanium/45
-  surge-alloy/30
+  surge-alloy/25
+  ref-scalar/30
   bittrium/5
 ]
 sync: true

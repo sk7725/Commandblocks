@@ -4,7 +4,9 @@ breakable: true
 update: true
 category: upgrade
 requirements: [
-  metaglass/6
+  metaglass/340
+  titanium/250
+  silicon/70
 ]
 //buildVisibility: sandboxOnly
 configurable: true

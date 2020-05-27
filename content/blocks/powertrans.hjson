@@ -9,7 +9,7 @@ outputsPower: false
 requirements: [
   silicon/16
   surge-alloy/4
-  bittrium/1
+  s-code/1
 ]
 configurable: true
 layer: power

@@ -5,8 +5,8 @@ timers: 1
 update: true
 category: units
 requirements: [
-  silicon/30
-  plastanium/50
+  plastanium/30
+  res-vector/50
 ]
 sync: true
 health: 300

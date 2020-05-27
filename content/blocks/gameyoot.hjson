@@ -3,8 +3,8 @@ breakable: true
 update: true
 category: effect
 requirements: [
-  silicon/20
-  bittrium/10
+  log-binary/20
+  ref-vector/10
 ]
 configurable: true
 layer: overlay

@@ -4,8 +4,8 @@ update: true
 category: distribution
 requirements: [
   graphite/20
-  surge-alloy/10
-  bittrium/16
+  log-binary/10
+  ref-scalar/16
 ]
 sync: true
 expanded: true

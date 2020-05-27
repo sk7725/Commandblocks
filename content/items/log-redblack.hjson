@@ -1,0 +1,7 @@
+type: material
+color: 7a0000
+explosiveness: 0.5
+flammability: 1.8
+radioactivity: 0.24
+hardness: 6
+cost: 2

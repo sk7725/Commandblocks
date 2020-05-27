@@ -4,7 +4,7 @@ breakable: true
 update: true
 category: effect
 requirements: [
-  silicon/16
+  ref-zeta/16
 ]
 configurable: true
 layer: overlay

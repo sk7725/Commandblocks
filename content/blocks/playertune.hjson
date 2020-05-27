@@ -6,7 +6,7 @@ category: defense
 requirements: [
   silicon/20
   plastanium/10
-  surge-alloy/16
+  log-redblack/16
 ]
 sync: true
 expanded: true

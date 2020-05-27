@@ -6,8 +6,8 @@ timers: 1
 update: true
 category: units
 requirements: [
-  metaglass/30
-  phase-fabric/50
+  phase-fabric/30
+  ref-vector/50
 ]
 sync: true
 health: 300
