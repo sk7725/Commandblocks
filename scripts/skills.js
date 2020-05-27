@@ -506,11 +506,11 @@ const skillfunc={
     //Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
   },
   coalbomb(player){
-    this.fire(Bullets.bombExplosive, player, 10, 3);
+    this.fire(Bullets.bombExplosive, player, 11, 3);
   },
   coalfire(player){
-    this.fire(Bullets.bombOil, player, 8, 3);
-    this.fire(Bullets.bombIncendiary, player, 8, 3);
+    this.fire(Bullets.bombOil, player, 9, 3);
+    this.fire(Bullets.bombIncendiary, player, 9, 3);
   },
   coalcrawler(player){
     if(player.tileOn().solid()){
@@ -588,9 +588,9 @@ const skillfunc={
     player.applyEffect(boostedskill,130);
   },
 	blastback(player){
-		this.fire(Bullets.bombExplosive, player, 6, 2);
-		this.fireOffset(Bullets.bombExplosive, player, 5, 1.7, 30);
-		this.fireOffset(Bullets.bombExplosive, player, 5, 1.7, -30);
+		this.fire(Bullets.bombExplosive, player, 7, 1.2);
+		this.fireOffset(Bullets.bombExplosive, player, 6, 1, 30);
+		this.fireOffset(Bullets.bombExplosive, player, 6, 1, -30);
 		Effects.effect(booststart,player.getX(), player.getY());
     Sounds.artillery.at(player.getX(),player.getY(),2.2);
     player.applyEffect(boostedskill,1);
