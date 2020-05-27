@@ -617,7 +617,7 @@ const skillfunc={
 		Damage.collideLine(b,player.getTeam(),slasheffect,x,y,dir,20*Vars.tilesize);
 		player.applyEffect(boostedskill,1);
 		var posnew=Vec2(20*Vars.tilesize,0).setAngle(dir);
-		player.set(posnew.x,posnew.y);
+		player.move(posnew.x,posnew.y);
 		if(player==Vars.player)  Core.camera.position.set(player);
 		player.velocity().set(Vec2(4,0).setAngle(dir));
   },
