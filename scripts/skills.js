@@ -437,10 +437,8 @@ const booststart = newEffect(23, e => {
 });
 const slasheffect = newEffect(90, e => {
   Draw.color(Pal.lancerLaser);
-
   Drawf.tri(e.x, e.y, 4 * e.fout(), 45, (e.id*57 + 90)%360);
-	Drawf.tri(e.x, e.y, 4 * e.fout(), 45, (e.id*57 + 90)%360);
-
+	Drawf.tri(e.x, e.y, 4 * e.fout(), 45, (e.id*57 - 90)%360);
 });
 
 const boostedskill= extendContent(StatusEffect,"boostedskill",{});
