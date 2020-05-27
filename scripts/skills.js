@@ -588,13 +588,13 @@ const skillfunc={
     player.applyEffect(boostedskill,130);
   },
 	blastback(player){
-		this.fire(Bullets.bombExplosive, player, 4, 2);
-		this.fireOffset(Bullets.bombExplosive, player, 3, 1.7, 30);
-		this.fireOffset(Bullets.bombExplosive, player, 3, 1.7, -30);
+		this.fire(Bullets.bombExplosive, player, 6, 2);
+		this.fireOffset(Bullets.bombExplosive, player, 5, 1.7, 30);
+		this.fireOffset(Bullets.bombExplosive, player, 5, 1.7, -30);
 		Effects.effect(booststart,player.getX(), player.getY());
     Sounds.artillery.at(player.getX(),player.getY(),2.2);
-    player.applyEffect(boostedskill,15);
-		player.velocity().add(Vec2(15,0).setAngle((player.rotation+180)%360));
+    player.applyEffect(boostedskill,1);
+		player.velocity().add(Vec2(10,0).setAngle((player.rotation+180)%360));
   },
   uranblast(player){
     var x=player.getX(); var y=player.getY();
