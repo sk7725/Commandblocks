@@ -313,7 +313,7 @@ const skills={
 		cooltime:0.3,
 		uses:{
 			item:"blast-compound",
-			amount:5
+			amount:6
 		},
 		cost:[
 			{
