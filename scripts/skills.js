@@ -611,7 +611,7 @@ const skillfunc={
 		var x=player.getX(); var y=player.getY();
 		var target=Units.closestEnemy(player.getTeam(),x,y,20*Vars.tilesize,boolf(()=>true));
 		var dir=player.rotation;
-		if(target) dir=Vec2(target.getX()-x,target.getY()-y);
+		if(target) dir=Vec2(target.getX()-x,target.getY()-y).angle();
 		//if(!Vars.net.client()) Call.createBullet(Bullets.lightning, player.getTeam(), player.getX(), player.getY(), dir, 1,1);
 		var b=Bullet.create(Bullets.arc,null, player.getTeam(), x,y, dir,1,1);
 		Damage.collideLine(b,player.getTeam(),slasheffect,x,y,dir,20*Vars.tilesize);
