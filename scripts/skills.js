@@ -310,7 +310,7 @@ const skills={
   "blastcut":{
 		type:"skill.atk",
 		tier:3,
-		cooltime:0.6,
+		cooltime:0.3,
 		uses:{
 			item:"blast-compound",
 			amount:6
