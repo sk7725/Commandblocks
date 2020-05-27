@@ -331,33 +331,34 @@ const skills={
 		],
     parent:"blastback"
 	},
-  "surgecryo":{
-		type:"skill.support",
-		tier:1,
-		cooltime:5,
-		uses:{
-			item:"surge-alloy",
-			amount:2
-		},
-		cost:[
-			{
-				item:"metaglass",
-				amount:120
-			},
-			{
-				item:"surge-alloy",
-				amount:15
-			}
-		]
-	},
   "surgeshield":{
 		type:"skill.def",
-		tier:2,
+		tier:1,
 		cooltime:12.5,
     healthcost:6,
 		uses:{
 			item:"surge-alloy",
 			amount:8
+		},
+		cost:[
+			{
+				item:"phase-fabric",
+				amount:90
+			},
+			{
+				item:"surge-alloy",
+				amount:45
+			}
+		]
+	},
+	"surgecloud":{
+		type:"skill.def",
+		tier:2,
+		cooltime:8.5,
+    healthcost:9,
+		uses:{
+			item:"surge-alloy",
+			amount:12
 		},
 		cost:[
 			{
@@ -373,7 +374,7 @@ const skills={
 				amount:75
 			}
 		],
-    parent:"surgecryo"
+    parent:"surgeshield"
 	},
   "surgeemp":{
 		type:"skill.support",
@@ -393,7 +394,7 @@ const skills={
 				amount:200
 			}
 		],
-    parent:"surgeshield"
+    parent:"surgecloud"
 	},
   "uranblast":{
 		type:"skill.attack",
@@ -451,7 +452,7 @@ const skillfunc={
     if(Vars.mobile){
       if(Core.input.justTouched()){
         var inc=Math.max(Math.abs(Core.input.mouseX()-this._lastx),Math.abs(Core.input.mouseY()-this._lasty));
-        if(Time.time()-this._lasttouch<doubletaptick&&Time.time()>this._lasttouch&&this._lasttouch>0&&inc<30){
+        if(Time.time()-this._lasttouch<doubletaptick&&Time.time()>this._lasttouch+2&&this._lasttouch>0&&inc<30){
           this._lasttouch=0;
           return true;
         }
@@ -497,6 +498,11 @@ const skillfunc={
   fire(bullet,player,v,life){
     if(Vars.net.client()) return;
     Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
+    //Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
+  },
+	fireOffset(bullet,player,v,life,offset){
+    if(Vars.net.client()) return;
+    Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation+offset, v,life);
     //Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
   },
   coalbomb(player){
@@ -580,6 +586,15 @@ const skillfunc={
     Effects.effect(booststart,player.getX(), player.getY());
     Sounds.flame.at(player.getX(),player.getY(),0.4);
     player.applyEffect(boostedskill,130);
+  },
+	blastback(player){
+		this.fire(Bullets.bombExplosive, player, 4, 2);
+		this.fireOffset(Bullets.bombExplosive, player, 3, 1.7, 30);
+		this.fireOffset(Bullets.bombExplosive, player, 3, 1.7, -30);
+		Effects.effect(booststart,player.getX(), player.getY());
+    Sounds.artillery.at(player.getX(),player.getY(),2.2);
+    player.applyEffect(boostedskill,15);
+		player.velocity().add(Vec2(15,0).setAngle((player.rotation+180)%360));
   },
   uranblast(player){
     var x=player.getX(); var y=player.getY();
