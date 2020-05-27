@@ -616,7 +616,7 @@ const skillfunc={
 		//if(!Vars.net.client()) Call.createBullet(Bullets.lightning, player.getTeam(), player.getX(), player.getY(), dir, 1,1);
 		var b=Bullet.create(Bullets.arc,null, player.getTeam(), x,y, dir,1,1);
 		Damage.collideLine(b,player.getTeam(),slasheffect,x,y,dir,20*Vars.tilesize);
-		Damage.collideLine(b,player.getTeam(),Effects.none,x,y,dir,20*Vars.tilesize,true);
+		Damage.collideLine(b,player.getTeam(),Fx.none,x,y,dir,20*Vars.tilesize,true);
 		player.applyEffect(boostedskill,1);
 		var posnew=Vec2(20*Vars.tilesize,0).setAngle(dir);
 		player.move(posnew.x,posnew.y);
