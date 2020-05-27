@@ -594,7 +594,7 @@ const skillfunc={
 		Effects.effect(booststart,player.getX(), player.getY());
     Sounds.artillery.at(player.getX(),player.getY(),2.2);
     player.applyEffect(boostedskill,1);
-		player.velocity().add(Vec2(10,0).setAngle((player.rotation+180)%360));
+		player.velocity().set(Vec2(10,0).setAngle((player.rotation+180)%360));
   },
   uranblast(player){
     var x=player.getX(); var y=player.getY();
