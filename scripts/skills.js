@@ -638,7 +638,7 @@ const gravityTrap=extend(BasicBulletType,{
 		b.x+=v.x; b.y+=v.y;
 	}
 });
-gravityTrap.speed=0;
+gravityTrap.speed=1;
 gravityTrap.lifetime=260;
 gravityTrap.collidesTiles=false;
 gravityTrap.collides=false;
