@@ -475,7 +475,6 @@ const gravityTrap=extend(BasicBulletType,{
 		delete this.target[b.id];
 	},
 	update(b){
-		print(b.id);
 		var i=0;
 		if(this.target[b.id].length>=5){
 			Units.nearbyEnemies(b.getTeam(),b.x-80,b.y-80,160,160,cons(u=>{
@@ -488,7 +487,6 @@ const gravityTrap=extend(BasicBulletType,{
 			}))
 		};
 		for(var i in this.target[b.id]){
-			print(i);
 			if(this.target[b.id][i]!=null)	this.target[b.id][i].velocity().add((b.x-this.target[b.id][i].x)/3,(b.y-this.target[b.id][i].y)/3);
 		}
 	},
@@ -692,6 +690,7 @@ const skillfunc={
     Damage.damage(player.getTeam(),x,y,120,690);
   },
 	gravitytrap(player){
+		if(!player==Vars.player) return;
 		var vec=Core.input.mouseWorld(Vars.control.input.getMouseX(),Vars.control.input.getMouseY());
 		Call.createBullet(gravityTrap,player.getTeam(),vec.x,vec.y,player.rotation,0,1);
 	}
