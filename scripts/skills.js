@@ -478,10 +478,8 @@ const gravityTrap=extend(BasicBulletType,{
 			if(i>=5||!u.isValid()) return;
 			var dst2=Mathf.dst2(u.x,u.y,b.x,b.y);
 			if(dst2<80*80&&target[i]==null){
-				if(!target.includes(u)){
-					target[i]=u;
-					i++;
-				}
+				target[i]=u;
+				i++;
 			}
 		}));
 		for(var i=0;i<5;i++){
