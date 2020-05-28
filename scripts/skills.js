@@ -599,7 +599,7 @@ const gravsuck = newEffect(20, e => {
 const gravbullet = newEffect(45, e => {
   Draw.color(zetacolor);
   Lines.stroke(3*e.fout()+0.1);
-	var sx=e.x+(e.data.x)*e.fout(); var sx=e.y+(e.data.y)*e.fout();
+	var sx=e.x+(e.data.x)*e.fout(); var sy=e.y+(e.data.y)*e.fout();
   Lines.square(sx, sy, 5 ,(e.fout()*720)%360);
 });
 const gravityTrap=extend(BasicBulletType,{
