@@ -634,6 +634,7 @@ const gravityTrap=extend(BasicBulletType,{
 		this.target[b.id]=[];
 		var v=b.velocity().rotate(180);
 		Effects.effect(gravbullet,b.x,b.y,0,v);
+		b.velocity().set(0,0);
 	}
 });
 gravityTrap.speed=1;
