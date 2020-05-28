@@ -484,7 +484,7 @@ const gravityTrap=extend(BasicBulletType,{
 				i++;
 			}
 		}));
-		for(var i in target[b.id]){
+		for(var i in this.target[b.id]){
 			if(this.target[b.id][i]!=null)	this.target[b.id][i].velocity().add((b.x-this.target[b.id][i].x)/3,(b.y-this.target[b.id][i].y)/3);
 		}
 	},
