@@ -424,7 +424,7 @@ const skills={
 	"gravitytrap":{
 		type:"skill.attack",
 		tier:2,
-		cooltime:2,
+		cooltime:4,
 		uses:{
 			item:"phase-fabric",
 			amount:5
@@ -473,13 +473,11 @@ const gravityTrap=extend(BasicBulletType,{
 	despawned(b){},
 	update(b){
 		var target=Units.closestTarget(b.getTeam(),b.x,b.y,80,boolf(u=>{return u.isValid()}),boolf(t=>{return true}));
-		if(target!=null){
-			target.velocity().add(target.x-b.x,target.y-b.y);
-		}
+		if(target!=null)	target.velocity().add(b.x-target.x,b.y-target.y);
 	}
 });
 gravityTrap.speed=0;
-gravityTrap.lifetime=60;
+gravityTrap.lifetime=360;
 gravityTrap.collidesTiles=false;
 gravityTrap.collides=false;
 gravityTrap.collidesAir=false;
