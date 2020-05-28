@@ -478,8 +478,10 @@ const gravityTrap=extend(BasicBulletType,{
 			if(i>=5||!u.isValid()) return;
 			var dst2=Mathf.dst2(u.x,u.y,b.x,b.y);
 			if(dst2<80*80&&target[i]==null){
-				target[i]=u;
-				i++;
+				if(target.includes(u)){
+					target[i]=u;
+					i++;
+				}
 			}
 		}));
 		for(var i=0;i<5;i++){
@@ -488,7 +490,7 @@ const gravityTrap=extend(BasicBulletType,{
 	}
 });
 gravityTrap.speed=0;
-gravityTrap.lifetime=360;
+gravityTrap.lifetime=180;
 gravityTrap.collidesTiles=false;
 gravityTrap.collides=false;
 gravityTrap.collidesAir=false;
