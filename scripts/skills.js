@@ -466,25 +466,31 @@ boostedskill.color=Pal.redderDust;
 boostedskill.effect=boostfire;
 
 const gravityTrap=extend(BasicBulletType,{
+	target:[],
 	draw(b){
 		
 	},
 	hit(b,x,y){},
-	despawned(b){},
+	despawned(b){
+		delete target[b.id];
+	},
 	update(b){
 		var i=0;
 		var target=[];
 		Units.nearbyEnemies(b.getTeam(),b.x-80,b.y-80,160,160,cons(u=>{
 			if(i>=5||!u.isValid()) return;
 			var dst2=Mathf.dst2(u.x,u.y,b.x,b.y);
-			if(dst2<80*80&&target[u.id]==null){
-				target[u.id]=u;
+			if(dst2<80*80&&target[b.id][u.id]==null){
+				target[b.id][u.id]=u;
 				i++;
 			}
 		}));
-		for(var i in target){
-			if(target[i]!=null)	target[i].velocity().add((b.x-target[i].x)/3,(b.y-target[i].y)/3);
+		for(var i in target[b.id]){
+			if(target[b.id][i]!=null)	target[b.id][i].velocity().add((b.x-target[b.id][i].x)/3,(b.y-target[b.id][i].y)/3);
 		}
+	},
+	init(b){
+		target[b.id]=[];
 	}
 });
 gravityTrap.speed=0;
