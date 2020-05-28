@@ -370,7 +370,7 @@ const skills={
 		type:"skill.def",
 		tier:2,
 		cooltime:8.5,
-    healthcost:9,
+    healthcost:18,
 		uses:{
 			item:"surge-alloy",
 			amount:12
@@ -890,6 +890,7 @@ const skillfunc={
 		player.velocity().set(Vec2(4,0).setAngle(dir));
   },
   surgecloud(player){
+    player.damage(player.maxHealth()*0.18);
     Sounds.spark.at(player.getX(),player.getY(),0.6);
     this.fire(arcCasterBullet, player, 1, 1);
   },
