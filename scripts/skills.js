@@ -599,7 +599,7 @@ const gravsuck = newEffect(20, e => {
 const gravstart = newEffect(45, e => {
 	if(Time.time()%3<2) return;
   Draw.color(zetacolor);
-  Lines.stroke(3*e.fout()+0.001);
+  Lines.stroke(7*e.fout()+0.001);
 	//var sx=e.x+(e.data.x)*e.fout(); var sy=e.y+(e.data.y)*e.fout();
   Lines.square(e.x, e.y, (e.fin()>0.78)?(e.fin()-0.78)*500+5:5 ,(e.fout()*350)%360);
 });
