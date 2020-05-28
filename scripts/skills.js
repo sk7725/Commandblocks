@@ -601,7 +601,7 @@ const gravstart = newEffect(45, e => {
   Draw.color(zetacolor);
   Lines.stroke(7*e.fout()+0.001);
 	//var sx=e.x+(e.data.x)*e.fout(); var sy=e.y+(e.data.y)*e.fout();
-  Lines.square(e.x, e.y, (e.fin()>0.78)?(e.fin()-0.78)*500+5:5 ,(e.fout()*350)%360);
+  Lines.square(e.x, e.y, (e.fin()>0.68)?(e.fin()-0.68)*500+5:5 ,(e.fout()*350)%360);
 });
 const gravityTrap=extend(BasicBulletType,{
 	target:[],
@@ -614,7 +614,10 @@ const gravityTrap=extend(BasicBulletType,{
 	},
 	update(b){
 		if(b.time()<45) return;
-		if(Mathf.floorPositive(Time.time())%25==0) Effects.effect(gravsuck,b.x,b.y);
+		if(Mathf.floorPositive(Time.time())%25==0){
+			Effects.effect(gravsuck,b.x,b.y);
+			Sounds.message.at(b.x,b.y,0.8);
+		}
 		var i=0;
 		if(this.target[b.id].length<=5){
 			Units.nearbyEnemies(b.getTeam(),b.x-80,b.y-80,160,160,cons(u=>{
@@ -634,6 +637,7 @@ const gravityTrap=extend(BasicBulletType,{
 		if(b==null) return;
 		this.target[b.id]=[];
 		Effects.effect(gravstart,b.x,b.y);
+		Sounds.spray.at(b.x,b.y,0.9);
 		/*
 		var v=b.velocity().rotate(180);
 		Effects.effect(gravbullet,b.x,b.y,0,v);
@@ -643,7 +647,7 @@ const gravityTrap=extend(BasicBulletType,{
 	}
 });
 gravityTrap.speed=0;
-gravityTrap.lifetime=225;
+gravityTrap.lifetime=260;
 gravityTrap.collidesTiles=false;
 gravityTrap.collides=false;
 gravityTrap.collidesAir=false;
