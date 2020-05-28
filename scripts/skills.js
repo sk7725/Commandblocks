@@ -490,6 +490,7 @@ const gravityTrap=extend(BasicBulletType,{
 		}
 	},
 	init(b){
+		if(b==null) return;
 		target[b.id]=[];
 	}
 });
