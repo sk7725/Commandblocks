@@ -596,11 +596,11 @@ const gravsuck = newEffect(20, e => {
   Lines.stroke(e.fin() * 3);
   Lines.square(e.x, e.y, 1 + e.fout() * 80);
 });
-const gravbullet = newEffect(30, e => {
+const gravbullet = newEffect(45, e => {
   Draw.color(zetacolor);
   Lines.stroke(3*e.fout()+0.1);
 	var sx=e.x+(e.data.x)*e.fout(); var sx=e.y+(e.data.y)*e.fout();
-  Lines.square(e.x, e.y, 5 ,(e.fout()*720)%360);
+  Lines.square(sx, sy, 5 ,(e.fout()*720)%360);
 });
 const gravityTrap=extend(BasicBulletType,{
 	target:[],
@@ -612,7 +612,7 @@ const gravityTrap=extend(BasicBulletType,{
 		delete this.target[b.id];
 	},
 	update(b){
-		if(Time.time()<31) return;
+		if(Time.time()<45) return;
 		if(Mathf.floorPositive(Time.time())%25==0) Effects.effect(gravsuck,b.x,b.y);
 		var i=0;
 		if(this.target[b.id].length<=5){
@@ -635,10 +635,11 @@ const gravityTrap=extend(BasicBulletType,{
 		var v=b.velocity().rotate(180);
 		Effects.effect(gravbullet,b.x,b.y,0,v);
 		b.velocity().set(0,0);
+		b.x+=v.x; b.y+=v.y;
 	}
 });
-gravityTrap.speed=1;
-gravityTrap.lifetime=250;
+gravityTrap.speed=0;
+gravityTrap.lifetime=260;
 gravityTrap.collidesTiles=false;
 gravityTrap.collides=false;
 gravityTrap.collidesAir=false;
