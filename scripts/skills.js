@@ -545,6 +545,25 @@ const skills={
 			}
 		],
     parent:"coalfire"
+	},
+	"gravitytrap":{
+		type:"skill.attack",
+		tier:2,
+		cooltime:4,
+		uses:{
+			item:"phase-fabric",
+			amount:5
+		},
+		cost:[
+			{
+				item:"phase-fabric",
+				amount:300,
+			},
+			{
+				item:"titanium",
+				amount:200,
+			},
+		]
 	}
 };
 this.global.skills.skills=skills;
@@ -570,6 +589,42 @@ const boostedskill= extendContent(StatusEffect,"boostedskill",{});
 boostedskill.speedMultiplier=1.45;
 boostedskill.color=Pal.redderDust;
 boostedskill.effect=boostfire;
+
+const gravityTrap=extend(BasicBulletType,{
+	target:[],
+	draw(b){
+		
+	},
+	hit(b,x,y){},
+	despawned(b){
+		delete this.target[b.id];
+	},
+	update(b){
+		var i=0;
+		if(this.target[b.id].length>=5){
+			Units.nearbyEnemies(b.getTeam(),b.x-80,b.y-80,160,160,cons(u=>{
+				if(i>=5||!u.isValid()) return;
+				var dst2=Mathf.dst2(u.x,u.y,b.x,b.y);
+				if(dst2<80*80&&this.target[b.id][u.id]==null){
+					this.target[b.id][u.id]=u;
+					i++;
+				}
+			}))
+		};
+		for(var i in this.target[b.id]){
+			if(this.target[b.id][i]!=null)	this.target[b.id][i].velocity().add((b.x-this.target[b.id][i].x)/3,(b.y-this.target[b.id][i].y)/3);
+		}
+	},
+	init(b){
+		if(b==null) return;
+		this.target[b.id]=[];
+	}
+});
+gravityTrap.speed=0;
+gravityTrap.lifetime=180;
+gravityTrap.collidesTiles=false;
+gravityTrap.collides=false;
+gravityTrap.collidesAir=false;
 
 const vanillaskills=18;
 const doubletaptick=15;
@@ -758,6 +813,11 @@ const skillfunc={
     Sounds.explosionBig.at(x,y);
     if(Vars.net.client()) return;
     Damage.damage(player.getTeam(),x,y,120,690);
-  }
+  },
+	gravitytrap(player){
+		if(!player==Vars.player) return;
+		var vec=Core.input.mouseWorld(Vars.control.input.getMouseX(),Vars.control.input.getMouseY());
+		Call.createBullet(gravityTrap,player.getTeam(),vec.x,vec.y,player.rotation,0,1);
+	}
 }
 this.global.skills.func=skillfunc;
