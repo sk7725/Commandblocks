@@ -590,16 +590,23 @@ boostedskill.speedMultiplier=1.45;
 boostedskill.color=Pal.redderDust;
 boostedskill.effect=boostfire;
 
+const zetacolor=Color.valueOf("82ffe8");
+const gravsuck = newEffect(20, e => {
+  Draw.color(zetacolor);
+  Lines.stroke(e.fout() * 3);
+  Lines.square(e.x, e.y, 1 + e.fout() * 80);
+});
 const gravityTrap=extend(BasicBulletType,{
 	target:[],
 	draw(b){
-		
+
 	},
 	hit(b,x,y){},
 	despawned(b){
 		delete this.target[b.id];
 	},
 	update(b){
+		if(Mathf.floorPositive(Time.time())%45==0) Effects.effect(gravsuck,b.x,b.y);
 		var i=0;
 		if(this.target[b.id].length>=5){
 			Units.nearbyEnemies(b.getTeam(),b.x-80,b.y-80,160,160,cons(u=>{
@@ -815,10 +822,14 @@ const skillfunc={
     Damage.damage(player.getTeam(),x,y,120,690);
   },
   gravitytrap(player){
-    if(player!=Vars.player) return;
+    //if(player!=Vars.player) return;
+		var mx=Core.input.mouseWorld().x;
+		var my=Core.input.mouseWorld().y;
     var vec=Core.input.mouseWorld(Vars.control.input.getMouseX(),Vars.control.input.getMouseY());
-    Effects.effect(Fx.teleportOut,Color.valueOf("f4ba6e"),Vars.control.input.getMouseX(), Vars.control.input.getMouseY());
-    Call.createBullet(gravityTrap,player.getTeam(),vec.x,vec.y,player.rotation,0,1);
+    //Effects.effect(Fx.teleportOut,Color.valueOf("f4ba6e"),Vars.control.input.getMouseX(), Vars.control.input.getMouseY());
+    if(player==Vars.player){
+			Call.createBullet(gravityTrap,player.getTeam(),vec.x,vec.y,player.rotation,0,1);
+		}
   }
 }
 this.global.skills.func=skillfunc;
