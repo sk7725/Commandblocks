@@ -420,6 +420,25 @@ const skills={
 			}
 		],
     parent:"coalfire"
+	},
+	"gravitytrap":{
+		type:"skill.attack",
+		tier:2,
+		cooltime:2,
+		uses:{
+			item:"phase-fabric",
+			amount:5
+		},
+		cost:[
+			{
+				item:"phase-fabric",
+				amount:300,
+			},
+			{
+				item:"titanium",
+				amount:200,
+			},
+		]
 	}
 };
 this.global.skills.skills=skills;
@@ -445,6 +464,25 @@ const boostedskill= extendContent(StatusEffect,"boostedskill",{});
 boostedskill.speedMultiplier=1.45;
 boostedskill.color=Pal.redderDust;
 boostedskill.effect=boostfire;
+
+const gravityTrap=extend(BasicBulletType,{
+	draw(b){
+		
+	},
+	hit(b,x,y){},
+	despawned(b){},
+	update(b){
+		var target=Units.closestTarget(b.getTeam(),b.x,b.y,80,boolf(u=>{return u.isValid()}),boolf(t=>{return true}));
+		if(target!=null){
+			target.velocity().add(target.x-b.x,target.y-b.y);
+		}
+	}
+});
+gravityTrap.speed=0;
+gravityTrap.lifetime=60;
+gravityTrap.collidesTiles=false;
+gravityTrap.collides=false;
+gravityTrap.collidesAir=false;
 
 const vanillaskills=18;
 const doubletaptick=15;
@@ -633,6 +671,10 @@ const skillfunc={
     Sounds.explosionBig.at(x,y);
     if(Vars.net.client()) return;
     Damage.damage(player.getTeam(),x,y,120,690);
-  }
+  },
+	gravitytrap(player){
+		var vec=Core.input.mouseWorld(Vars.control.input.getMouseX(),Vars.control.input.getMouseY());
+		Call.createBullet(gravityTrap,player.getTeam(),vec.x,vec.y,player.rotation,0,1);
+	}
 }
 this.global.skills.func=skillfunc;
