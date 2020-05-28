@@ -472,17 +472,17 @@ const gravityTrap=extend(BasicBulletType,{
 	hit(b,x,y){},
 	despawned(b){},
 	update(b){
-		var target=[];
 		var i=0;
+		var target=[];
 		Units.nearbyEnemies(b.getTeam(),b.x-80,b.y-80,160,160,cons(u=>{
 			if(i>=5||!u.isValid()) return;
 			var dst2=Mathf.dst2(u.x,u.y,b.x,b.y);
-			if(dst2<80*80&&target[i]==null){
-				target[i]=u;
+			if(dst2<80*80&&target[u.id]==null){
+				target[u.id]=u;
 				i++;
 			}
 		}));
-		for(var i=0;i<5;i++){
+		for(var i in target){
 			if(target[i]!=null)	target[i].velocity().add((b.x-target[i].x)/3,(b.y-target[i].y)/3);
 		}
 	}
