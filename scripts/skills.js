@@ -64,6 +64,46 @@ const skills={
 		],
 		parent:"coalfire"
 	},
+  "metabomb":{
+    type:"skill.support",
+    tier:3,
+    cooltime:11,
+    uses:{
+      item:"metaglass",
+      amount:9
+    },
+    cost:[
+      {
+        item:"metaglass",
+        amount:660
+      },
+      {
+        item:"silicon",
+        amount:85
+      }
+    ],
+    parent:"coalfire"
+  },
+  "titanshot":{
+    type:"skill.atk",
+    tier:2,
+    cooltime:11,
+    uses:{
+      item:"titanium",
+      amount:6
+    },
+    cost:[
+      {
+        item:"metaglass",
+        amount:120
+      },
+      {
+        item:"titanium",
+        amount:270
+      }
+    ],
+    parent:"thorshot"
+  },
   "thorshot":{
 		type:"skill.atk",
 		tier:1,
@@ -243,31 +283,6 @@ const skills={
 		],
     parent:"pyraheal"
 	},
-  "pyralava":{
-		type:"skill.def",
-		tier:3,
-		cooltime:14,
-    healthcost:10,
-		uses:{
-			item:"pyratite",
-			amount:15
-		},
-		cost:[
-			{
-				item:"lead",
-				amount:600
-			},
-			{
-				item:"thorium",
-				amount:170
-			},
-			{
-				item:"surge-alloy",
-				amount:110
-			}
-		],
-    parent:"pyraboost"
-	},
   "blastdash":{
 		type:"skill.move",
 		tier:1,
@@ -396,6 +411,116 @@ const skills={
 		],
     parent:"surgecloud"
 	},
+  "scalreset":{
+    type:"skill.support",
+    tier:1,
+    cooltime:7.5,
+    uses:{
+      item:"commandblocks-ore-scalar",
+      amount:6
+    },
+    cost:[
+      {
+        item:"plastanium",
+        amount:50
+      },
+      {
+        item:"commandblocks-ref-scalar",
+        amount:70
+      }
+    ]
+  },
+  "scalheadbutt":{
+    type:"skill.atk",
+    tier:2,
+    cooltime:4.5,
+    uses:{
+      item:"commandblocks-ref-scalar",
+      amount:6
+    },
+    cost:[
+      {
+        item:"plastanium",
+        amount:120
+      },
+      {
+        item:"commandblocks-ref-scalar",
+        amount:95
+      },
+      {
+        item:"commandblocks-ref-vector",
+        amount:85
+      }
+    ],
+    parent:"scalreset"
+  },
+  "vecradian":{
+    type:"skill.atk",
+    tier:1,
+    cooltime:11,
+    uses:{
+      item:"commandblocks-ore-vector",
+      amount:12
+    },
+    cost:[
+      {
+        item:"plastanium",
+        amount:75
+      },
+      {
+        item:"commandblocks-ref-scalar",
+        amount:20
+      },
+      {
+        item:"commandblocks-ref-vector",
+        amount:40
+      }
+    ]
+  },
+  "vecslash":{
+    type:"skill.def",
+    tier:2,
+    cooltime:0.1,
+    uses:{
+      item:"commandblocks-ref-vector",
+      amount:2
+    },
+    cost:[
+      {
+        item:"plastanium",
+        amount:140
+      },
+      {
+        item:"phase-fabric",
+        amount:135
+      },
+      {
+        item:"commandblocks-ref-vector",
+        amount:115
+      }
+    ],
+    parent:"vecradian"
+  },
+  "vecshot":{
+    type:"skill.atk",
+    tier:3,
+    cooltime:7,
+    uses:{
+      item:"commandblocks-ref-vector",
+      amount:8
+    },
+    cost:[
+      {
+        item:"phase-fabric",
+        amount:350
+      },
+      {
+        item:"commandblocks-ref-vector",
+        amount:256
+      }
+    ],
+    parent:"vecslash"
+  },
   "uranblast":{
 		type:"skill.attack",
 		tier:2,
@@ -420,6 +545,25 @@ const skills={
 			}
 		],
     parent:"coalfire"
+	},
+	"gravitytrap":{
+		type:"skill.attack",
+		tier:2,
+		cooltime:4,
+		uses:{
+			item:"phase-fabric",
+			amount:5
+		},
+		cost:[
+			{
+				item:"phase-fabric",
+				amount:300,
+			},
+			{
+				item:"titanium",
+				amount:200,
+			},
+		]
 	}
 };
 this.global.skills.skills=skills;
@@ -445,6 +589,42 @@ const boostedskill= extendContent(StatusEffect,"boostedskill",{});
 boostedskill.speedMultiplier=1.45;
 boostedskill.color=Pal.redderDust;
 boostedskill.effect=boostfire;
+
+const gravityTrap=extend(BasicBulletType,{
+	target:[],
+	draw(b){
+		
+	},
+	hit(b,x,y){},
+	despawned(b){
+		delete this.target[b.id];
+	},
+	update(b){
+		var i=0;
+		if(this.target[b.id].length>=5){
+			Units.nearbyEnemies(b.getTeam(),b.x-80,b.y-80,160,160,cons(u=>{
+				if(i>=5||!u.isValid()) return;
+				var dst2=Mathf.dst2(u.x,u.y,b.x,b.y);
+				if(dst2<80*80&&this.target[b.id][u.id]==null){
+					this.target[b.id][u.id]=u;
+					i++;
+				}
+			}))
+		};
+		for(var i in this.target[b.id]){
+			if(this.target[b.id][i]!=null)	this.target[b.id][i].velocity().add((b.x-this.target[b.id][i].x)/3,(b.y-this.target[b.id][i].y)/3);
+		}
+	},
+	init(b){
+		if(b==null) return;
+		this.target[b.id]=[];
+	}
+});
+gravityTrap.speed=0;
+gravityTrap.lifetime=180;
+gravityTrap.collidesTiles=false;
+gravityTrap.collides=false;
+gravityTrap.collidesAir=false;
 
 const vanillaskills=18;
 const doubletaptick=15;
@@ -633,6 +813,12 @@ const skillfunc={
     Sounds.explosionBig.at(x,y);
     if(Vars.net.client()) return;
     Damage.damage(player.getTeam(),x,y,120,690);
+  },
+  gravitytrap(player){
+    if(player!=Vars.player) return;
+    var vec=Core.input.mouseWorld(Vars.control.input.getMouseX(),Vars.control.input.getMouseY());
+    Effects.effect(Fx.teleportOut,Color.valueOf("f4ba6e"),Vars.control.input.getMouseX(), Vars.control.input.getMouseY());
+    Call.createBullet(gravityTrap,player.getTeam(),vec.x,vec.y,player.rotation,0,1);
   }
 }
 this.global.skills.func=skillfunc;
