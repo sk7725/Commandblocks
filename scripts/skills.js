@@ -64,6 +64,46 @@ const skills={
 		],
 		parent:"coalfire"
 	},
+  "metabomb":{
+    type:"skill.support",
+    tier:3,
+    cooltime:11,
+    uses:{
+      item:"metaglass",
+      amount:9
+    },
+    cost:[
+      {
+        item:"metaglass",
+        amount:660
+      },
+      {
+        item:"silicon",
+        amount:85
+      }
+    ],
+    parent:"coalfire"
+  },
+  "titanshot":{
+    type:"skill.atk",
+    tier:2,
+    cooltime:11,
+    uses:{
+      item:"titanium",
+      amount:6
+    },
+    cost:[
+      {
+        item:"metaglass",
+        amount:120
+      },
+      {
+        item:"titanium",
+        amount:270
+      }
+    ],
+    parent:"thorshot"
+  },
   "thorshot":{
 		type:"skill.atk",
 		tier:1,
@@ -243,31 +283,6 @@ const skills={
 		],
     parent:"pyraheal"
 	},
-  "pyralava":{
-		type:"skill.def",
-		tier:3,
-		cooltime:14,
-    healthcost:10,
-		uses:{
-			item:"pyratite",
-			amount:15
-		},
-		cost:[
-			{
-				item:"lead",
-				amount:600
-			},
-			{
-				item:"thorium",
-				amount:170
-			},
-			{
-				item:"surge-alloy",
-				amount:110
-			}
-		],
-    parent:"pyraboost"
-	},
   "blastdash":{
 		type:"skill.move",
 		tier:1,
@@ -396,6 +411,116 @@ const skills={
 		],
     parent:"surgecloud"
 	},
+  "scalreset":{
+    type:"skill.support",
+    tier:1,
+    cooltime:7.5,
+    uses:{
+      item:"commandblocks-ore-scalar",
+      amount:6
+    },
+    cost:[
+      {
+        item:"plastanium",
+        amount:50
+      },
+      {
+        item:"commandblocks-ref-scalar",
+        amount:70
+      }
+    ]
+  },
+  "scalheadbutt":{
+    type:"skill.atk",
+    tier:2,
+    cooltime:4.5,
+    uses:{
+      item:"commandblocks-ref-scalar",
+      amount:6
+    },
+    cost:[
+      {
+        item:"plastanium",
+        amount:120
+      },
+      {
+        item:"commandblocks-ref-scalar",
+        amount:95
+      },
+      {
+        item:"commandblocks-ref-vector",
+        amount:85
+      }
+    ],
+    parent:"scalreset"
+  },
+  "vecradian":{
+    type:"skill.atk",
+    tier:1,
+    cooltime:11,
+    uses:{
+      item:"commandblocks-ore-vector",
+      amount:12
+    },
+    cost:[
+      {
+        item:"plastanium",
+        amount:75
+      },
+      {
+        item:"commandblocks-ref-scalar",
+        amount:20
+      },
+      {
+        item:"commandblocks-ref-vector",
+        amount:40
+      }
+    ]
+  },
+  "vecslash":{
+    type:"skill.def",
+    tier:2,
+    cooltime:0.1,
+    uses:{
+      item:"commandblocks-ref-vector",
+      amount:2
+    },
+    cost:[
+      {
+        item:"plastanium",
+        amount:140
+      },
+      {
+        item:"phase-fabric",
+        amount:135
+      }
+      {
+        item:"commandblocks-ref-vector",
+        amount:115
+      }
+    ],
+    parent:"vecradian"
+  },
+  "vecshot":{
+    type:"skill.atk",
+    tier:3,
+    cooltime:7,
+    uses:{
+      item:"commandblocks-ref-vector",
+      amount:8
+    },
+    cost:[
+      {
+        item:"phase-fabric",
+        amount:350
+      }
+      {
+        item:"commandblocks-ref-vector",
+        amount:256
+      }
+    ],
+    parent:"vecslash"
+  },
   "uranblast":{
 		type:"skill.attack",
 		tier:2,
