@@ -493,7 +493,7 @@ const skills={
       {
         item:"phase-fabric",
         amount:135
-      }
+      },
       {
         item:"commandblocks-ref-vector",
         amount:115
@@ -513,7 +513,7 @@ const skills={
       {
         item:"phase-fabric",
         amount:350
-      }
+      },
       {
         item:"commandblocks-ref-vector",
         amount:256
