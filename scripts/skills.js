@@ -608,7 +608,7 @@ const gravityTrap=extend(BasicBulletType,{
 	update(b){
 		if(Mathf.floorPositive(Time.time())%45==0) Effects.effect(gravsuck,b.x,b.y);
 		var i=0;
-		if(this.target[b.id].length>=5){
+		if(this.target[b.id].length<=5){
 			Units.nearbyEnemies(b.getTeam(),b.x-80,b.y-80,160,160,cons(u=>{
 				if(i>=5||!u.isValid()) return;
 				var dst2=Mathf.dst2(u.x,u.y,b.x,b.y);
