@@ -472,8 +472,11 @@ const gravityTrap=extend(BasicBulletType,{
 	hit(b,x,y){},
 	despawned(b){},
 	update(b){
-		var target=Units.closestTarget(b.getTeam(),b.x,b.y,80,boolf(u=>{return u.isValid()}),boolf(t=>{return true}));
-		if(target!=null)	target.velocity().add(b.x-target.x,b.y-target.y);
+		var target=[];
+		for(var i=0;i<5;i++){
+		target[i]=Units.closestTarget(b.getTeam(),b.x,b.y,80,boolf(u=>{return u.isValid()&&(i==0?true:u!=target[i-1])}),boolf(t=>{return true}));
+		if(target[i]!=null)	target[i].velocity().set((b.x-target.x)/3,(b.y-target.y)/3);
+		}
 	}
 });
 gravityTrap.speed=0;
