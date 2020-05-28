@@ -614,9 +614,9 @@ const gravityTrap=extend(BasicBulletType,{
 	},
 	update(b){
 		if(b.time()<45) return;
-		if(Mathf.floorPositive(Time.time())%25==0){
+		if(Mathf.floorPositive(Time.time())%40==0){
 			Effects.effect(gravsuck,b.x,b.y);
-			Sounds.message.at(b.x,b.y,0.8);
+			Sounds.message.at(b.x,b.y,0.6);
 		}
 		var i=0;
 		if(this.target[b.id].length<=5){
