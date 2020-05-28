@@ -472,26 +472,25 @@ const gravityTrap=extend(BasicBulletType,{
 	},
 	hit(b,x,y){},
 	despawned(b){
-		delete target[b.id];
+		delete this.target[b.id];
 	},
 	update(b){
 		var i=0;
-		var target=[];
 		Units.nearbyEnemies(b.getTeam(),b.x-80,b.y-80,160,160,cons(u=>{
 			if(i>=5||!u.isValid()) return;
 			var dst2=Mathf.dst2(u.x,u.y,b.x,b.y);
-			if(dst2<80*80&&target[b.id][u.id]==null){
-				target[b.id][u.id]=u;
+			if(dst2<80*80&&this.target[b.id][u.id]==null){
+				this.target[b.id][u.id]=u;
 				i++;
 			}
 		}));
 		for(var i in target[b.id]){
-			if(target[b.id][i]!=null)	target[b.id][i].velocity().add((b.x-target[b.id][i].x)/3,(b.y-target[b.id][i].y)/3);
+			if(this.target[b.id][i]!=null)	this.target[b.id][i].velocity().add((b.x-this.target[b.id][i].x)/3,(b.y-this.target[b.id][i].y)/3);
 		}
 	},
 	init(b){
 		if(b==null) return;
-		target[b.id]=[];
+		this.target[b.id]=[];
 	}
 });
 gravityTrap.speed=0;
