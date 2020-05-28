@@ -596,11 +596,11 @@ const gravsuck = newEffect(20, e => {
   Lines.stroke(e.fin() * 3);
   Lines.square(e.x, e.y, 1 + e.fout() * 80);
 });
-const gravbullet = newEffect(45, e => {
+const gravstart = newEffect(45, e => {
   Draw.color(zetacolor);
-  Lines.stroke(3*e.fout()+0.1);
+  Lines.stroke(3*e.fout()+0.001);
 	var sx=e.x+(e.data.x)*e.fout(); var sy=e.y+(e.data.y)*e.fout();
-  Lines.square(sx, sy, 5 ,(e.fout()*720)%360);
+  Lines.square(e.x, e.y, (e.fin()>0.78)?(e.fin()-0.78)*400+5:5 ,(e.fout()*720)%360);
 });
 const gravityTrap=extend(BasicBulletType,{
 	target:[],
@@ -632,14 +632,17 @@ const gravityTrap=extend(BasicBulletType,{
 	init(b){
 		if(b==null) return;
 		this.target[b.id]=[];
+		Effects.effect(gravstart,b.x,b.y);
+		/*
 		var v=b.velocity().rotate(180);
 		Effects.effect(gravbullet,b.x,b.y,0,v);
 		b.velocity().set(0,0);
 		b.x+=v.x; b.y+=v.y;
+		*/
 	}
 });
-gravityTrap.speed=1;
-gravityTrap.lifetime=260;
+gravityTrap.speed=0;
+gravityTrap.lifetime=225;
 gravityTrap.collidesTiles=false;
 gravityTrap.collides=false;
 gravityTrap.collidesAir=false;
