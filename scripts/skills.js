@@ -597,10 +597,11 @@ const gravsuck = newEffect(20, e => {
   Lines.square(e.x, e.y, 1 + e.fout() * 80);
 });
 const gravstart = newEffect(45, e => {
+	if(Time.time()%3<2) return;
   Draw.color(zetacolor);
   Lines.stroke(3*e.fout()+0.001);
 	//var sx=e.x+(e.data.x)*e.fout(); var sy=e.y+(e.data.y)*e.fout();
-  Lines.swirl(e.x, e.y, (e.fin()>0.78)?(e.fin()-0.78)*400+5:5 ,e.fin()*50,(e.fout()*720)%360);
+  Lines.square(e.x, e.y, (e.fin()>0.78)?(e.fin()-0.78)*500+5:5 ,(e.fout()*350)%360);
 });
 const gravityTrap=extend(BasicBulletType,{
 	target:[],
@@ -612,7 +613,7 @@ const gravityTrap=extend(BasicBulletType,{
 		delete this.target[b.id];
 	},
 	update(b){
-		if(Time.time()<45) return;
+		if(b.time()<45) return;
 		if(Mathf.floorPositive(Time.time())%25==0) Effects.effect(gravsuck,b.x,b.y);
 		var i=0;
 		if(this.target[b.id].length<=5){
