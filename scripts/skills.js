@@ -521,6 +521,25 @@ const skills={
     ],
     parent:"vecslash"
   },
+	"zetatrap":{
+		type:"skill.support",
+		tier:3,
+		cooltime:7.6,
+		uses:{
+			item:"commandblocks-ref-zeta",
+			amount:7
+		},
+		cost:[
+			{
+				item:"phase-fabric",
+				amount:300,
+			},
+			{
+				item:"commandblocks-ref-zeta",
+				amount:456,
+			},
+		]
+	},
   "uranblast":{
 		type:"skill.attack",
 		tier:2,
@@ -545,25 +564,6 @@ const skills={
 			}
 		],
     parent:"coalfire"
-	},
-	"zetatrap":{
-		type:"skill.support",
-		tier:3,
-		cooltime:4.6,
-		uses:{
-			item:"commandblocks-ref-zeta",
-			amount:6
-		},
-		cost:[
-			{
-				item:"phase-fabric",
-				amount:300,
-			},
-			{
-				item:"commandblocks-ref-zeta",
-				amount:456,
-			},
-		]
 	}
 };
 this.global.skills.skills=skills;
