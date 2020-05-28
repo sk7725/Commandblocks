@@ -546,13 +546,13 @@ const skills={
 		],
     parent:"coalfire"
 	},
-	"gravitytrap":{
-		type:"skill.attack",
-		tier:2,
-		cooltime:4,
+	"zetatrap":{
+		type:"skill.support",
+		tier:3,
+		cooltime:4.6,
 		uses:{
-			item:"phase-fabric",
-			amount:5
+			item:"commandblocks-ref-zeta",
+			amount:6
 		},
 		cost:[
 			{
@@ -560,8 +560,8 @@ const skills={
 				amount:300,
 			},
 			{
-				item:"titanium",
-				amount:200,
+				item:"commandblocks-ref-zeta",
+				amount:456,
 			},
 		]
 	}
@@ -830,7 +830,7 @@ const skillfunc={
     if(Vars.net.client()) return;
     Damage.damage(player.getTeam(),x,y,120,690);
   },
-  gravitytrap(player){
+  zetatrap(player){
     //if(player!=Vars.player) return;
 		var mx=Core.input.mouseWorld().x;
 		var my=Core.input.mouseWorld().y;
