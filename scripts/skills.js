@@ -814,10 +814,11 @@ const skillfunc={
     if(Vars.net.client()) return;
     Damage.damage(player.getTeam(),x,y,120,690);
   },
-	gravitytrap(player){
-		if(!player==Vars.player) return;
-		var vec=Core.input.mouseWorld(Vars.control.input.getMouseX(),Vars.control.input.getMouseY());
-		Call.createBullet(gravityTrap,player.getTeam(),vec.x,vec.y,player.rotation,0,1);
-	}
+  gravitytrap(player){
+    if(player!=Vars.player) return;
+    var vec=Core.input.mouseWorld(Vars.control.input.getMouseX(),Vars.control.input.getMouseY());
+    Effects.effect(Fx.teleportOut,Color.valueOf("f4ba6e"),Vars.control.input.getMouseX(), Vars.control.input.getMouseY());
+    Call.createBullet(gravityTrap,player.getTeam(),vec.x,vec.y,player.rotation,0,1);
+  }
 }
 this.global.skills.func=skillfunc;
