@@ -700,9 +700,9 @@ const arcCasterBullet = extend(BasicBulletType, {
 		Draw.reset();
 	}
 });
-arcCasterBullet.speed = 4.6;
-arcCasterBullet.damage = 8;
-arcCasterBullet.lifetime = 43;
+arcCasterBullet.speed = 4.4;
+arcCasterBullet.damage = 4;
+arcCasterBullet.lifetime = 90;
 arcCasterBullet.hitSize = 21;
 arcCasterBullet.despawnEffect = Fx.none;
 arcCasterBullet.shootEffect = Fx.none;
