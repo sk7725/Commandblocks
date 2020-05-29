@@ -1001,12 +1001,14 @@ const skillfunc={
     Sounds.flame.at(player.getX(),player.getY(),0.27);
     Effects.effect(spellstart,Color.valueOf("ffaa5f"),player.getX(), player.getY());
     var range=Vars.tilesize*10;
-    var getunits=Vars.unitGroup.all().copy().eachFilter(boolf(e=>(((player.getX()-e.getX())*(player.getX()-e.getX())+(player.getY()-e.getY())*(player.getY()-e.getY()))>range*range))).eachFilter(boolf(e=>(e.getTeam()!=player.getTeam())));
-    var getplayers=Vars.playerGroup.all().copy().eachFilter(boolf(e=>(((player.getX()-e.getX())*(player.getX()-e.getX())+(player.getY()-e.getY())*(player.getY()-e.getY()))>range*range))).eachFilter(boolf(e=>(e.getTeam()!=player.getTeam())));
-    getunits.each(cons(ent=>{
+    var getunits=Vars.unitGroup.all().copy().eachFilter(boolf(e=>(((player.getX()-e.getX())*(player.getX()-e.getX())+(player.getY()-e.getY())*(player.getY()-e.getY()))>range*range)));
+    if(getunits) getunits.eachFilter(boolf(e=>(e.getTeam()!=player.getTeam())));
+    var getplayers=Vars.playerGroup.all().copy().eachFilter(boolf(e=>(((player.getX()-e.getX())*(player.getX()-e.getX())+(player.getY()-e.getY())*(player.getY()-e.getY()))>range*range)));
+    if(getplayers) getplayers.eachFilter(boolf(e=>(e.getTeam()!=player.getTeam())));
+    if(getunitd) getunits.each(cons(ent=>{
       ent.applyEffect(StatusEffects.overdrive,420);
     }));
-    getplayers.each(cons(ent=>{
+    if(getplayers) getplayers.each(cons(ent=>{
       ent.applyEffect(StatusEffects.overdrive,420);
     }));
   },
