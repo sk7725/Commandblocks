@@ -115,6 +115,13 @@ const researchskill = extendContent(Block, "researchskill", {
 				//table.add(Core.bundle.format("skill.tier")+": "+obj.tier);
         table.row();
 			}
+      if(obj.hasOwnProperty("duration")){
+				table.table(cons(t=>{
+					t.add("[lightgray]"+Core.bundle.get("skill.duration")+":[] "+obj.duration+" "+Core.bundle.get("unit.seconds"));
+					t.left();
+				}));
+        table.row();
+			}
 			if(obj.hasOwnProperty("cooltime")){
 				table.table(cons(t=>{
 					t.add("[lightgray]"+Core.bundle.get("skill.cooltime")+":[] "+obj.cooltime+" "+Core.bundle.get("unit.seconds"));

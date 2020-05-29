@@ -130,7 +130,7 @@ const skills={
     healthcost:5,
 		uses:{
 			item:"thorium",
-			amount:10
+			amount:6
 		},
 		cost:[
       {
@@ -244,6 +244,7 @@ const skills={
 		type:"skill.support",
 		tier:1,
 		cooltime:7,
+    duration:5,
 		uses:{
 			item:"pyratite",
 			amount:7
@@ -263,6 +264,7 @@ const skills={
 		type:"skill.support",
 		tier:2,
 		cooltime:14,
+    duration:7,
 		uses:{
 			item:"pyratite",
 			amount:10
@@ -287,6 +289,7 @@ const skills={
 		type:"skill.move",
 		tier:1,
 		cooltime:2.3,
+    duration:2.2,
 		uses:{
 			item:"blast-compound",
 			amount:4
@@ -367,7 +370,7 @@ const skills={
 		]
 	},
 	"surgecloud":{
-		type:"skill.def",
+		type:"skill.atk",
 		tier:2,
 		cooltime:8.5,
     healthcost:18,
@@ -392,25 +395,26 @@ const skills={
     parent:"surgeshield"
 	},
   "surgeemp":{
-		type:"skill.support",
-		tier:3,
-		cooltime:15,
-		uses:{
-			item:"surge-alloy",
-			amount:10
-		},
-		cost:[
-			{
-				item:"silicon",
-				amount:560
-			},
-			{
-				item:"surge-alloy",
-				amount:200
-			}
-		],
+    type:"skill.support",
+    tier:3,
+    cooltime:15,
+    duration:7.5,
+    uses:{
+      item:"surge-alloy",
+      amount:10
+    },
+    cost:[
+      {
+        item:"silicon",
+        amount:560
+      },
+      {
+        item:"surge-alloy",
+        amount:200
+      }
+    ],
     parent:"surgecloud"
-	},
+  },
   "scalreset":{
     type:"skill.support",
     tier:1,
@@ -544,6 +548,7 @@ const skills={
     type:"skill.support",
     tier:2,
     cooltime:10.8,
+    duration:10,
     uses:{
       item:"commandblocks-ore-zeta",
       amount:13
@@ -568,6 +573,7 @@ const skills={
     type:"skill.support",
     tier:3,
     cooltime:7.6,
+    duration:3.6,
     uses:{
       item:"commandblocks-ref-zeta",
       amount:7
@@ -588,6 +594,7 @@ const skills={
     type:"skill.move",
     tier:2,
     cooltime:4.9,
+    duration:1.5,
     healthcost:12,
     uses:{
       item:"commandblocks-t-space",
@@ -642,7 +649,7 @@ const skills={
     parent:"spaceblink"
   },
   "timeworld":{
-    type:"skill.move",
+    type:"skill.secret",
     tier:4,
     cooltime:60,
     uses:{
@@ -707,6 +714,11 @@ const booststart = newEffect(23, e => {
   Draw.color(Pal.redderDust);
   Lines.stroke(e.fout() * 3);
   Lines.circle(e.x, e.y, 3 + e.fin() * 14);
+});
+const spellstart = newEffect(23, e => {
+  Draw.color(e.color);
+  Lines.stroke(e.fout() * 5);
+  Lines.circle(e.x, e.y, 3 + e.fin() * 80);
 });
 const slasheffect = newEffect(90, e => {
   Draw.color(Pal.lancerLaser);
@@ -977,46 +989,59 @@ const skillfunc={
     Sounds.corexplode.at(player.getX(),player.getY(),1.5);
     this.fire(Bullets.meltdownLaser, player, 1, 1);
     this.fire(Bullets.lancerLaser, player, 1, 1);
-		this.fire(Bullets.lancerLaser, player, 1, 1);
-		this.fire(Bullets.lancerLaser, player, 1, 1);
-		this.fire(Bullets.lancerLaser, player, 1, 1);
-		this.fire(Bullets.lancerLaser, player, 1, 1);
+    this.fire(Bullets.lancerLaser, player, 1, 1);
+    this.fire(Bullets.lancerLaser, player, 1, 1);
+    this.fire(Bullets.lancerLaser, player, 1, 1);
+    this.fire(Bullets.lancerLaser, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
+  },
+  pyraboost(player){
+    Sounds.flame.at(player.getX(),player.getY(),0.27);
+    Effects.effect(spellstart,Color.valueOf("ffaa5f"),player.getX(), player.getY());
+    var range=Vars.tilesize*10;
+    var getunits=Vars.unitGroup.all().copy().eachFilter(boolf(e=>(((player.getX()-e.getX())*(player.getX()-e.getX())+(player.getY()-e.getY())*(player.getY()-e.getY()))>range*range))).eachFilter(boolf(e=>(e.getTeam()!=player.getTeam())));
+    var getplayers=Vars.playerGroup.all().copy().eachFilter(boolf(e=>(((player.getX()-e.getX())*(player.getX()-e.getX())+(player.getY()-e.getY())*(player.getY()-e.getY()))>range*range))).eachFilter(boolf(e=>(e.getTeam()!=player.getTeam())));
+    getunits.each(cons(ent=>{
+      ent.applyEffect(boostedskill,420);
+    }));
+    getplayers.each(cons(ent=>{
+      ent.applyEffect(boostedskill,420);
+    }));
   },
   blastdash(player){
     Effects.effect(booststart,player.getX(), player.getY());
     Sounds.flame.at(player.getX(),player.getY(),0.4);
     player.applyEffect(boostedskill,130);
   },
-	blastback(player){
-		this.fire(Bullets.bombExplosive, player, 7, 1.2);
-		this.fireOffset(Bullets.bombExplosive, player, 6, 1, 30);
-		this.fireOffset(Bullets.bombExplosive, player, 6, 1, -30);
-		Effects.effect(booststart,player.getX(), player.getY());
+  blastback(player){
+    this.fire(Bullets.bombExplosive, player, 7, 1.2);
+    this.fireOffset(Bullets.bombExplosive, player, 6, 1, 30);
+    this.fireOffset(Bullets.bombExplosive, player, 6, 1, -30);
+    Effects.effect(booststart,player.getX(), player.getY());
     Sounds.artillery.at(player.getX(),player.getY(),2.2);
     player.applyEffect(boostedskill,1);
-		player.velocity().set(Vec2(10,0).setAngle((player.rotation+180)%360));
+    player.velocity().set(Vec2(10,0).setAngle((player.rotation+180)%360));
   },
-	blastcut(player){
-		var x=player.getX(); var y=player.getY();
-		var target=Units.closestEnemy(player.getTeam(),x,y,25*Vars.tilesize,boolf(()=>true));
-		var dir=player.rotation;
-		if(target) dir=Vec2(target.getX()-x,target.getY()-y).angle();
-		Effects.effect(Fx.lightningShoot, x, y,(dir+180)%360);
-		//if(!Vars.net.client()) Call.createBullet(Bullets.lightning, player.getTeam(), player.getX(), player.getY(), dir, 1,1);
-		var b=Bullet.create(Bullets.arc,null, player.getTeam(), x,y, dir,1,1);
-		Damage.collideLine(b,player.getTeam(),slasheffect,x,y,dir,25*Vars.tilesize);
-		Damage.collideLine(b,player.getTeam(),Fx.none,x,y,dir,25*Vars.tilesize,true);
-		player.applyEffect(boostedskill,1);
-		var posnew=Vec2(25*Vars.tilesize,0).setAngle(dir);
-		player.move(posnew.x,posnew.y);
-		if(player==Vars.player)  Core.camera.position.set(player);
-		x=player.getX(); y=player.getY();
-		Sounds.spark.at(x,y,1.6);
-		Effects.effect(Fx.lancerLaserShootSmoke, x, y,(dir+180)%360);
-		player.velocity().set(Vec2(4,0).setAngle(dir));
+  blastcut(player){
+    var x=player.getX(); var y=player.getY();
+    var target=Units.closestEnemy(player.getTeam(),x,y,25*Vars.tilesize,boolf(()=>true));
+    var dir=player.rotation;
+    if(target) dir=Vec2(target.getX()-x,target.getY()-y).angle();
+    Effects.effect(Fx.lightningShoot, x, y,(dir+180)%360);
+    //if(!Vars.net.client()) Call.createBullet(Bullets.lightning, player.getTeam(), player.getX(), player.getY(), dir, 1,1);
+    var b=Bullet.create(Bullets.arc,null, player.getTeam(), x,y, dir,1,1);
+    Damage.collideLine(b,player.getTeam(),slasheffect,x,y,dir,25*Vars.tilesize);
+    Damage.collideLine(b,player.getTeam(),Fx.none,x,y,dir,25*Vars.tilesize,true);
+    player.applyEffect(boostedskill,1);
+    var posnew=Vec2(25*Vars.tilesize,0).setAngle(dir);
+    player.move(posnew.x,posnew.y);
+    if(player==Vars.player)  Core.camera.position.set(player);
+    x=player.getX(); y=player.getY();
+    Sounds.spark.at(x,y,1.6);
+    Effects.effect(Fx.lancerLaserShootSmoke, x, y,(dir+180)%360);
+    player.velocity().set(Vec2(4,0).setAngle(dir));
   },
   surgecloud(player){
     player.damage(player.maxHealth()*0.18);
