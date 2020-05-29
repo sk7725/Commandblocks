@@ -1004,10 +1004,10 @@ const skillfunc={
     var getunits=Vars.unitGroup.all().copy().eachFilter(boolf(e=>(((player.getX()-e.getX())*(player.getX()-e.getX())+(player.getY()-e.getY())*(player.getY()-e.getY()))>range*range))).eachFilter(boolf(e=>(e.getTeam()!=player.getTeam())));
     var getplayers=Vars.playerGroup.all().copy().eachFilter(boolf(e=>(((player.getX()-e.getX())*(player.getX()-e.getX())+(player.getY()-e.getY())*(player.getY()-e.getY()))>range*range))).eachFilter(boolf(e=>(e.getTeam()!=player.getTeam())));
     getunits.each(cons(ent=>{
-      ent.applyEffect(boostedskill,420);
+      ent.applyEffect(StatusEffects.overdrive,420);
     }));
     getplayers.each(cons(ent=>{
-      ent.applyEffect(boostedskill,420);
+      ent.applyEffect(StatusEffects.overdrive,420);
     }));
   },
   blastdash(player){
