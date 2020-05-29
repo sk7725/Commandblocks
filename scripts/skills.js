@@ -1005,7 +1005,7 @@ const skillfunc={
     if(getunits) getunits.eachFilter(boolf(e=>(e.getTeam()!=player.getTeam())));
     var getplayers=Vars.playerGroup.all().copy().eachFilter(boolf(e=>(((player.getX()-e.getX())*(player.getX()-e.getX())+(player.getY()-e.getY())*(player.getY()-e.getY()))>range*range)));
     if(getplayers) getplayers.eachFilter(boolf(e=>(e.getTeam()!=player.getTeam())));
-    if(getunitd) getunits.each(cons(ent=>{
+    if(getunits) getunits.each(cons(ent=>{
       ent.applyEffect(StatusEffects.overdrive,420);
     }));
     if(getplayers) getplayers.each(cons(ent=>{
