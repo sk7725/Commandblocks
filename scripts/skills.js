@@ -580,9 +580,94 @@ const skills={
       {
         item:"commandblocks-ref-zeta",
         amount:456,
-      },
+      }
     ],
     parent:"zetasabo"
+  },
+  "spaceblink":{
+    type:"skill.move",
+    tier:2,
+    cooltime:4.9,
+    healthcost:12,
+    uses:{
+      item:"commandblocks-t-space",
+      amount:7
+    },
+    cost:[
+      {
+        item:"phase-fabric",
+        amount:340,
+      },
+      {
+        item:"commandblocks-ref-vector",
+        amount:231,
+      },
+      {
+        item:"commandblocks-ref-zeta",
+        amount:120,
+      },
+      {
+        item:"commandblocks-t-space",
+        amount:64,
+      }
+    ],
+    parent:"phasetp"
+  },
+  "spaceportal":{
+    type:"skill.move",
+    tier:3,
+    cooltime:0.1,
+    uses:{
+      item:"commandblocks-t-space",
+      amount:1
+    },
+    cost:[
+      {
+        item:"titanium",
+        amount:309,
+      },
+      {
+        item:"phase-fabric",
+        amount:309,
+      },
+      {
+        item:"commandblocks-t-space",
+        amount:218,
+      },
+      {
+        item:"commandblocks-bittrium",
+        amount:9,
+      }
+    ],
+    parent:"spaceblink"
+  },
+  "timeworld":{
+    type:"skill.move",
+    tier:4,
+    cooltime:60,
+    uses:{
+      item:"commandblocks-t-time",
+      amount:40
+    },
+    cost:[
+      {
+        item:"commandblocks-ref-scalar",
+        amount:628,
+      },
+      {
+        item:"commandblocks-t-space",
+        amount:309,
+      },
+      {
+        item:"commandblocks-t-time",
+        amount:309,
+      },
+      {
+        item:"commandblocks-bittrium",
+        amount:18,
+      }
+    ],
+    parent:"spaceportal"
   },
   "uranblast":{
 		type:"skill.attack",
