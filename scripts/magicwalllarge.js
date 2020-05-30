@@ -17,6 +17,8 @@ const magicwalllarge = extendContent(Wall, "magicwalllarge", {
     draw(tile){
       if(Vars.mobile){
         Draw.color(bitcolor1,bitcolor2,(Mathf.sin(Time.time()*bitcolorspeed)+1)/2);
+        Draw.rect(this.animRegion, tile.drawx(), tile.drawy());
+        Draw.color();
         return;
       }
 	  Draw.shader(shader);
