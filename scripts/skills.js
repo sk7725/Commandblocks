@@ -734,8 +734,8 @@ const swordeffect = newEffect(7, e => {
   Drawf.tri(e.x+v1.x, e.y+v1.y, width, 11.2*e.fin(), (e.rotation+sign*90+r1)%360);
   r1=sign*(45-45*e.fin());
   v1=Vec2(13,0).setAngle(e.rotation+r1);
-  Lines.stroke(width*0.65);
-  Lines.lineAngleCenter(e.x+v1.x, e.y+v1.y, (e.rotation+90+r1)%360, 5.6*e.fin());
+  Lines.stroke(width*0.75);
+  Lines.lineAngleCenter(e.x+v1.x, e.y+v1.y, (e.rotation+90+r1)%360, 10*e.fin());
   r1=sign*(45-70*e.fin());
   v1=Vec2(14,0).setAngle(e.rotation+r1);
   Drawf.tri(e.x+v1.x, e.y+v1.y, width, 11.2*e.fin(), (e.rotation-sign*90+r1)%360);
