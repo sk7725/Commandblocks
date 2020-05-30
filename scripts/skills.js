@@ -731,8 +731,12 @@ boostedskill.speedMultiplier=1.45;
 boostedskill.color=Pal.redderDust;
 boostedskill.effect=boostfire;
 
-//Partial Credit to younggam
 const zetacolor=Color.valueOf("82ffe8");
+const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
+saboskill.speedMultiplier=-1.0;
+saboskill.color=zetacolor;
+//saboskill.effect=sabofire;
+//Partial Credit to younggam
 const gravsuck = newEffect(20, e => {
   Draw.color(zetacolor);
   Lines.stroke(e.fin() * 3);
@@ -794,7 +798,7 @@ gravityTrap.collidesTiles=false;
 gravityTrap.collides=false;
 gravityTrap.collidesAir=false;
 
-//Credits to EyeofDarknedd
+//Credits to EyeofDarkness
 const arcCharge = newEffect(27, e => {
 	Draw.color(Color.valueOf("606571"), Color.valueOf("6c8fc7"), e.fin());
 	const hh = new Floatc2({get: function(x, y){
@@ -998,18 +1002,11 @@ const skillfunc={
     this.fire(Bullets.lightning, player, 1, 1);
   },
   pyraboost(player){
-    Sounds.flame.at(player.getX(),player.getY(),0.27);
-    Effects.effect(spellstart,Color.valueOf("ffaa5f"),player.getX(), player.getY());
-    var range=Vars.tilesize*10;
-    var getunits=Vars.unitGroup.all().copy().eachFilter(boolf(e=>(((player.getX()-e.getX())*(player.getX()-e.getX())+(player.getY()-e.getY())*(player.getY()-e.getY()))>range*range)));
-    if(getunits) getunits.eachFilter(boolf(e=>(e.getTeam()!=player.getTeam())));
-    var getplayers=Vars.playerGroup.all().copy().eachFilter(boolf(e=>(((player.getX()-e.getX())*(player.getX()-e.getX())+(player.getY()-e.getY())*(player.getY()-e.getY()))>range*range)));
-    if(getplayers) getplayers.eachFilter(boolf(e=>(e.getTeam()!=player.getTeam())));
-    if(getunits) getunits.each(cons(ent=>{
-      ent.applyEffect(StatusEffects.overdrive,420);
-    }));
-    if(getplayers) getplayers.each(cons(ent=>{
-      ent.applyEffect(StatusEffects.overdrive,420);
+    var x=player.getX(); var y=player.getY();
+    Sounds.flame.at(x, y, 0.27);
+    Effects.effect(spellstart,Color.valueOf("ffaa5f"), x, y);
+    Units.nearby(player.getTeam(), x, y, 10*Vars.tilesize, cons(e=>{
+      e.applyEffect(StatusEffects.overdrive, 420);
     }));
   },
   blastdash(player){
@@ -1034,10 +1031,10 @@ const skillfunc={
     Effects.effect(Fx.lightningShoot, x, y,(dir+180)%360);
     //if(!Vars.net.client()) Call.createBullet(Bullets.lightning, player.getTeam(), player.getX(), player.getY(), dir, 1,1);
     var b=Bullet.create(Bullets.arc,null, player.getTeam(), x,y, dir,1,1);
-    Damage.collideLine(b,player.getTeam(),slasheffect,x,y,dir,25*Vars.tilesize);
-    Damage.collideLine(b,player.getTeam(),Fx.none,x,y,dir,25*Vars.tilesize,true);
+    Damage.collideLine(b,player.getTeam(),slasheffect,x,y,dir,21*Vars.tilesize);
+    Damage.collideLine(b,player.getTeam(),Fx.none,x,y,dir,21*Vars.tilesize,true);
     player.applyEffect(boostedskill,1);
-    var posnew=Vec2(25*Vars.tilesize,0).setAngle(dir);
+    var posnew=Vec2(21*Vars.tilesize,0).setAngle(dir);
     player.move(posnew.x,posnew.y);
     if(player==Vars.player)  Core.camera.position.set(player);
     x=player.getX(); y=player.getY();

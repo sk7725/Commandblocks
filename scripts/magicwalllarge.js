@@ -11,9 +11,9 @@ if(!Vars.headless){
 
 const magicwalllarge = extendContent(Wall, "magicwalllarge", {
     draw(tile){
-	  Draw.shader(shader);
+	    Draw.shader(shader);
       Draw.rect(this.animRegion, tile.drawx(), tile.drawy());
-	  Draw.shader();
+	    Draw.shader();
     },
     load(){
       this.super$load();
