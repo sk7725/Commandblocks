@@ -43,10 +43,10 @@ const skills={
   "coalcrawler":{
 		type:"skill.support",
 		tier:3,
-		cooltime:5,
+		cooltime:2.5,
 		uses:{
 			item:"coal",
-			amount:13
+			amount:8
 		},
 		cost:[
 			{
@@ -1064,8 +1064,13 @@ const skillfunc={
   },
   vecslash(player){
     var x=player.getX(); var y=player.getY();
-    Sounds.spark.at(x, y, 5);
+    Sounds.message.at(x, y, 3);
     Effects.effect(swordeffect, x, y, player.rotation);
+    var v1=Vec2(14,0).setAngle(player.rotation);
+    Damage.damage(player.getTeam(), x+v1.x, y+v1.y, 24, 65);
+    Vars.bulletGroup.intersect(x+v1.x-16, y+v1.y-16, x+v1.x+16, y+v1.y+16).each(run(e=>{
+      //deflect
+    }));
   },
   uranblast(player){
     var x=player.getX(); var y=player.getY();
