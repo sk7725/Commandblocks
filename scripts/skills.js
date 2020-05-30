@@ -729,14 +729,14 @@ const swordeffect = newEffect(7, e => {
   Draw.color(Pal.lancerLaser);
   var sign=(e.id%2==0)?1:-1;
   var width=4;
-  var r1=sign*(45-30*e.fin());
+  var r1=sign*(45-20*e.fin());
   var v1=Vec2(14,0).setAngle(e.rotation+r1);
   Drawf.tri(e.x+v1.x, e.y+v1.y, width, 11.2*e.fin(), (e.rotation+sign*90+r1)%360);
   r1=sign*(45-45*e.fin());
   v1=Vec2(14,0).setAngle(e.rotation+r1);
   Lines.stroke(width);
-  //Lines.lineAngleCenter(e.x+v1.x, e.y+v1.y, (e.rotation+90+r1)%360, 5.6*e.fin());
-  r1=sign*(45-60*e.fin());
+  Lines.lineAngleCenter(e.x+v1.x, e.y+v1.y, (e.rotation+90+r1)%360, 5.6*e.fin());
+  r1=sign*(45-70*e.fin());
   v1=Vec2(14,0).setAngle(e.rotation+r1);
   Drawf.tri(e.x+v1.x, e.y+v1.y, width, 11.2*e.fin(), (e.rotation-sign*90+r1)%360);
 });
