@@ -1064,7 +1064,7 @@ const skillfunc={
   },
   vecslash(player){
     var x=player.getX(); var y=player.getY();
-    Sounds.message.at(x, y, 3);
+    Sounds.message.at(x, y, 4.7);
     Effects.effect(swordeffect, x, y, player.rotation);
     var v1=Vec2(6,0).setAngle(player.rotation);
     Damage.damage(player.getTeam(), x+v1.x, y+v1.y, 24, 120);
