@@ -1027,10 +1027,10 @@ const skillfunc={
     Effects.effect(Fx.lightningShoot, x, y,(dir+180)%360);
     //if(!Vars.net.client()) Call.createBullet(Bullets.lightning, player.getTeam(), player.getX(), player.getY(), dir, 1,1);
     var b=Bullet.create(Bullets.arc,null, player.getTeam(), x,y, dir,1,1);
-    Damage.collideLine(b,player.getTeam(),slasheffect,x,y,dir,25*Vars.tilesize);
-    Damage.collideLine(b,player.getTeam(),Fx.none,x,y,dir,25*Vars.tilesize,true);
+    Damage.collideLine(b,player.getTeam(),slasheffect,x,y,dir,21*Vars.tilesize);
+    Damage.collideLine(b,player.getTeam(),Fx.none,x,y,dir,21*Vars.tilesize,true);
     player.applyEffect(boostedskill,1);
-    var posnew=Vec2(25*Vars.tilesize,0).setAngle(dir);
+    var posnew=Vec2(21*Vars.tilesize,0).setAngle(dir);
     player.move(posnew.x,posnew.y);
     if(player==Vars.player)  Core.camera.position.set(player);
     x=player.getX(); y=player.getY();
