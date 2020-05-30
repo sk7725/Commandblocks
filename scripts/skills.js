@@ -731,8 +731,12 @@ boostedskill.speedMultiplier=1.45;
 boostedskill.color=Pal.redderDust;
 boostedskill.effect=boostfire;
 
-//Partial Credit to younggam
 const zetacolor=Color.valueOf("82ffe8");
+const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
+saboskill.speedMultiplier=-1.0;
+saboskill.color=zetacolor;
+//saboskill.effect=sabofire;
+//Partial Credit to younggam
 const gravsuck = newEffect(20, e => {
   Draw.color(zetacolor);
   Lines.stroke(e.fin() * 3);
@@ -794,7 +798,7 @@ gravityTrap.collidesTiles=false;
 gravityTrap.collides=false;
 gravityTrap.collidesAir=false;
 
-//Credits to EyeofDarknedd
+//Credits to EyeofDarkness
 const arcCharge = newEffect(27, e => {
 	Draw.color(Color.valueOf("606571"), Color.valueOf("6c8fc7"), e.fin());
 	const hh = new Floatc2({get: function(x, y){
