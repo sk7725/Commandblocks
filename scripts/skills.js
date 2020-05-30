@@ -1068,8 +1068,16 @@ const skillfunc={
     Effects.effect(swordeffect, x, y, player.rotation);
     var v1=Vec2(14,0).setAngle(player.rotation);
     Damage.damage(player.getTeam(), x+v1.x, y+v1.y, 24, 65);
-    Vars.bulletGroup.intersect(x+v1.x-16, y+v1.y-16, x+v1.x+16, y+v1.y+16).each(run(e=>{
+    Vars.bulletGroup.intersect(x+v1.x-16, y+v1.y-16, x+v1.x+16, y+v1.y+16).each(cons(b=>{
       //deflect
+      if(b.getTeam()!=player.getTeam()){
+        b.velocity().x*=-1;
+        b.velocity().y*=-1;
+        b.resetOwner(player, player.getTeam());
+        b.scaleTime(1f);
+        b.deflect();
+        Effects.effect(Fx.lightningShoot, b.x, b.y, b.velocity().angle());
+      }
     }));
   },
   uranblast(player){
