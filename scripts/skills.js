@@ -1062,6 +1062,11 @@ const skillfunc={
     Sounds.spark.at(player.getX(),player.getY(),0.6);
     this.fire(arcCasterBullet, player, 1, 1);
   },
+  vecslash(player){
+    var x=player.getX(); var y=player.getY();
+    Sounds.spark.at(x, y, 5);
+    Effects.effect(swordeffect, x, y, player.rotation);
+  },
   uranblast(player){
     var x=player.getX(); var y=player.getY();
     player.damage(player.maxHealth()*1.5);
