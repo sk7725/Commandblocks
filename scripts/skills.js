@@ -1074,7 +1074,7 @@ const skillfunc={
         b.velocity().x*=-1;
         b.velocity().y*=-1;
         b.resetOwner(player, player.getTeam());
-        b.scaleTime(1f);
+        b.scaleTime(1);
         b.deflect();
         Effects.effect(Fx.lightningShoot, b.x, b.y, b.velocity().angle());
       }
