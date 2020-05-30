@@ -998,18 +998,11 @@ const skillfunc={
     this.fire(Bullets.lightning, player, 1, 1);
   },
   pyraboost(player){
-    Sounds.flame.at(player.getX(),player.getY(),0.27);
-    Effects.effect(spellstart,Color.valueOf("ffaa5f"),player.getX(), player.getY());
-    var range=Vars.tilesize*10;
-    var getunits=Vars.unitGroup.all().copy().eachFilter(boolf(e=>(((player.getX()-e.getX())*(player.getX()-e.getX())+(player.getY()-e.getY())*(player.getY()-e.getY()))>range*range)));
-    if(getunits) getunits.eachFilter(boolf(e=>(e.getTeam()!=player.getTeam())));
-    var getplayers=Vars.playerGroup.all().copy().eachFilter(boolf(e=>(((player.getX()-e.getX())*(player.getX()-e.getX())+(player.getY()-e.getY())*(player.getY()-e.getY()))>range*range)));
-    if(getplayers) getplayers.eachFilter(boolf(e=>(e.getTeam()!=player.getTeam())));
-    if(getunits) getunits.each(cons(ent=>{
-      ent.applyEffect(StatusEffects.overdrive,420);
-    }));
-    if(getplayers) getplayers.each(cons(ent=>{
-      ent.applyEffect(StatusEffects.overdrive,420);
+    var x=player.getX(); var y=player.getY();
+    Sounds.flame.at(x, y, 0.27);
+    Effects.effect(spellstart,Color.valueOf("ffaa5f"), x, y);
+    Units.nearby(player.getTeam(), x, y, 10*Vars.tilesize, cons(e=>{
+      e.applyEffect(StatusEffects.overdrive, 420);
     }));
   },
   blastdash(player){
