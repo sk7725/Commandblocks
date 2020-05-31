@@ -749,8 +749,8 @@ boostedskill.effect=boostfire;
 const jamweapons= extendContent(StatusEffect,"jamweapons",{
   update(unit, time){
     this.super$update(unit, time);
-    unit.getTimer().get(unit.getShootTimer(true),6);
-    unit.getTimer().get(unit.getShootTimer(false),6);
+    unit.getTimer().get(unit.getShootTimer(true),1);
+    unit.getTimer().get(unit.getShootTimer(false),1);
   }
 });
 //boostedskill.speedMultiplier=1.45;
