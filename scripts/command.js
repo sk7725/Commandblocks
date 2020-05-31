@@ -785,14 +785,14 @@ const commandblocks={
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
             //var ctile=Vars.world.tile(cx,cy);
-            if(args.length==4) Effects.effect(Fx[args[0]],Color.valueOf(args[3]),cx,cy);
+            if(args.length==4) Effects.effect(cfx,Color.valueOf(args[3]),cx,cy);
             else Effects.effect(cfx,cx,cy);
             return true;
           }
           else throw "Coordinates should be above 0";
         }
         else if(args.length==1){
-          if(tile instanceof Tile) Effects.effect(Fx[args[0]],tile.worldx(),tile.worldy());
+          if(tile instanceof Tile) Effects.effect(cfx,tile.worldx(),tile.worldy());
           else Effects.effect(cfx,tile.x,tile.y);
           return true;
         }
@@ -963,8 +963,8 @@ const commandblocks={
         this.report(tile.rotation);
         return true;
       break;
-      case 'getseffects':
-        this.report(Vars.content.getBy(StatusEffect));
+      case 'getfx':
+        this.report(Vars.content.getBy(ContentType.effect));
         return true;
       break;
       case 'getbullets':
@@ -972,7 +972,7 @@ const commandblocks={
         return true;
       break;
       case 'getblocks':
-        this.report(Vars.content.getBy(Block));
+        this.report(Vars.content.getBy(ContentType.block));
         return true;
       break;
       case 'effect':
