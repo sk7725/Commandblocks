@@ -746,6 +746,18 @@ boostedskill.speedMultiplier=1.45;
 boostedskill.color=Pal.redderDust;
 boostedskill.effect=boostfire;
 
+const jamweapons= extendContent(StatusEffect,"jamweapons",{
+  update(unit, time){
+    this.super$update(unit, time);
+    unit.getTimer().get(unit.getShootTimer(true),6);
+    unit.getTimer().get(unit.getShootTimer(false),6);
+  }
+});
+//boostedskill.speedMultiplier=1.45;
+jamweapons.color=Pal.powerLight;
+jamweapons.effect=Fx.purifystone;
+//boostedskill.effect=boostfire;
+
 const zetacolor=Color.valueOf("82ffe8");
 const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
 saboskill.speedMultiplier=-1.0;
