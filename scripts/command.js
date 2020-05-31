@@ -467,6 +467,7 @@ const commandblocks={
     //Bullet.create(type, tile.entity, tile.getTeam(), tile.drawx() + tr.x, tile.drawy() + tr.y, angle);
     //Bullet create(BulletType type, Entity owner, Team team, float x, float y, float angle, float velocityScl, float lifetimeScl){ return create(type, owner, team, x, y, angle, velocityScl, lifetimeScl, null); }
     var bultype=Vars.content.getByName(ContentType.bullet,cbullet);
+    if(bultype==null) bultype=Bullets[cbullet];
     var team=this.settype(ptile,null,"team:"+cteam);
     var owner=null; if((ptile instanceof Unit)&&bind) owner=ptile;
     Bullet.create(bultype, owner, team, cx, cy, crot, vel,life);
@@ -771,8 +772,10 @@ const commandblocks={
       case 'particle':
       case 'fx':
         //var eff = Vars.effectGroup.all().toArray();
-        //if(args.length==0) throw "Missing params";
+        if(args.length==0) throw "Missing params";
         //var teff=eff[args[0]];
+        var cfx=Vars.content.getByName(ContentType.effect,args[0]);
+        if(cfx==null) cfx=Fx[args[0]];
         if(args.length>=3&&args.length<=4){
           var tpos=this.tilde(tile,args[1],args[2]);
           var cx=0; var cy=0;
@@ -783,14 +786,14 @@ const commandblocks={
           if(cx>=0&&cy>=0){
             //var ctile=Vars.world.tile(cx,cy);
             if(args.length==4) Effects.effect(Fx[args[0]],Color.valueOf(args[3]),cx,cy);
-            else Effects.effect(Fx[args[0]],cx,cy);
+            else Effects.effect(cfx,cx,cy);
             return true;
           }
           else throw "Coordinates should be above 0";
         }
         else if(args.length==1){
           if(tile instanceof Tile) Effects.effect(Fx[args[0]],tile.worldx(),tile.worldy());
-          else Effects.effect(Fx[args[0]],tile.x,tile.y);
+          else Effects.effect(cfx,tile.x,tile.y);
           return true;
         }
         else throw "Missing params";
@@ -962,6 +965,10 @@ const commandblocks={
       break;
       case 'getseffects':
         this.report(Vars.content.getBy(StatusEffect));
+        return true;
+      break;
+      case 'getbullets':
+        this.report(Vars.content.getBy(ContentType.bullet));
         return true;
       break;
       case 'getblocks':
