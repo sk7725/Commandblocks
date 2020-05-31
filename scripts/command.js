@@ -348,7 +348,7 @@ const commandblocks={
   cmdeffect(punit,eff,duration,intensity,hidep){
     const potionlist=["speed","wither","slowness","strength","weakness","resistance","pain","poison","regeneration","instant_health","instant_damage"];
     if(potionlist.indexOf(eff.trim())<0){
-      var seff=return Vars.content.getByName(ContentType.status,eff);
+      var seff=Vars.content.getByName(ContentType.status,eff);
       punit.applyEffect(seff,duration);
       return;
     }
