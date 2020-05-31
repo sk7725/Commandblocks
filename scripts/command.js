@@ -312,8 +312,8 @@ const commandblocks={
             return Vars.content.getByName(ContentType.item,tmparr[1]);
           break;
           case "bullet":
-            //return Bullets[tmparr[1]];
-            return Vars.content.getByName(ContentType.bullet,tmparr[1]);
+            return Bullets[tmparr[1]];
+            //return Vars.content.getByName(ContentType.bullet,tmparr[1]);
           break;
           case "liquid":
             //return Liquids[tmparr[1]];
@@ -321,7 +321,7 @@ const commandblocks={
           break;
           case "fx":
             return Fx[tmparr[1]];
-            return Vars.content.getByName(ContentType.effect,tmparr[1]);
+            //return Vars.content.getByName(ContentType.effect,tmparr[1]);
           break;
           case "seffect":
             //return StatusEffects[tmparr[1]];
@@ -466,8 +466,8 @@ const commandblocks={
   cmdfire(ptile,cbullet,cx,cy,crot,cteam,vel,life,bind){
     //Bullet.create(type, tile.entity, tile.getTeam(), tile.drawx() + tr.x, tile.drawy() + tr.y, angle);
     //Bullet create(BulletType type, Entity owner, Team team, float x, float y, float angle, float velocityScl, float lifetimeScl){ return create(type, owner, team, x, y, angle, velocityScl, lifetimeScl, null); }
-    var bultype=Vars.content.getByName(ContentType.bullet,cbullet);
-    if(bultype==null) bultype=Bullets[cbullet];
+    var bultype=(!isNaN(Number(cbullet)))?Vars.content.getByID(ContentType.bullet,cbullet):Bullets[cbullet];
+    //if(bultype==null) bultype=Bullets[cbullet];
     var team=this.settype(ptile,null,"team:"+cteam);
     var owner=null; if((ptile instanceof Unit)&&bind) owner=ptile;
     Bullet.create(bultype, owner, team, cx, cy, crot, vel,life);
@@ -774,8 +774,8 @@ const commandblocks={
         //var eff = Vars.effectGroup.all().toArray();
         if(args.length==0) throw "Missing params";
         //var teff=eff[args[0]];
-        var cfx=Vars.content.getByName(ContentType.effect,args[0]);
-        if(cfx==null) cfx=Fx[args[0]];
+        var cfx=(!isNaN(Number(args[0])))?Vars.content.getByID(ContentType.effect,args[0]):Fx[args[0]];
+        //if(cfx==null) cfx=Fx[args[0]];
         if(args.length>=3&&args.length<=4){
           var tpos=this.tilde(tile,args[1],args[2]);
           var cx=0; var cy=0;
