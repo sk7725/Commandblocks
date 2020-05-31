@@ -304,22 +304,28 @@ const commandblocks={
           break;
           case "block":
           case "floor":
-            return Blocks[tmparr[1]];
+            //return Blocks[tmparr[1]];
+            return Vars.content.getByName(ContentType.block,tmparr[1]);
           break;
           case "item":
-            return Items[tmparr[1]];
+            //return Items[tmparr[1]];
+            return Vars.content.getByName(ContentType.item,tmparr[1]);
           break;
           case "bullet":
-            return Bullets[tmparr[1]];
+            //return Bullets[tmparr[1]];
+            return Vars.content.getByName(ContentType.bullet,tmparr[1]);
           break;
           case "liquid":
-            return Liquids[tmparr[1]];
+            //return Liquids[tmparr[1]];
+            return Vars.content.getByName(ContentType.liquid,tmparr[1]);
           break;
           case "fx":
             return Fx[tmparr[1]];
+            return Vars.content.getByName(ContentType.effect,tmparr[1]);
           break;
           case "seffect":
-            return StatusEffects[tmparr[1]];
+            //return StatusEffects[tmparr[1]];
+            return Vars.content.getByName(ContentType.status,tmparr[1]);
           break;
           case "js":
             if(tmparr[1]=="null") return null;
@@ -342,7 +348,8 @@ const commandblocks={
   cmdeffect(punit,eff,duration,intensity,hidep){
     const potionlist=["speed","wither","slowness","strength","weakness","resistance","pain","poison","regeneration","instant_health","instant_damage"];
     if(potionlist.indexOf(eff.trim())<0){
-      punit.applyEffect(StatusEffects[eff],duration);
+      var seff=return Vars.content.getByName(ContentType.status,eff);
+      punit.applyEffect(seff,duration);
       return;
     }
     if(effectextended.hasOwnProperty(eff+"-"+intensity+"-"+hidep)){
@@ -447,7 +454,7 @@ const commandblocks={
   },
   cmdsummon(ptile,cunit,cx,cy,cteam){
     if(Vars.net.client()) return;
-    var unittype=(cunit=="armorstand")?armorstandtype:((cunit=="soccerball")?soccerballtype:UnitTypes[cunit]);
+    var unittype=(cunit=="armorstand")?armorstandtype:((cunit=="soccerball")?soccerballtype:Vars.content.getByName(ContentType.unit,cunit));
     var team=this.settype(ptile,null,"team:"+cteam);
     var unit = unittype.create(team);
     //unit.setSpawner(tile);
@@ -459,7 +466,7 @@ const commandblocks={
   cmdfire(ptile,cbullet,cx,cy,crot,cteam,vel,life,bind){
     //Bullet.create(type, tile.entity, tile.getTeam(), tile.drawx() + tr.x, tile.drawy() + tr.y, angle);
     //Bullet create(BulletType type, Entity owner, Team team, float x, float y, float angle, float velocityScl, float lifetimeScl){ return create(type, owner, team, x, y, angle, velocityScl, lifetimeScl, null); }
-    var bultype=Bullets[cbullet];
+    var bultype=Vars.content.getByName(ContentType.bullet,cbullet);
     var team=this.settype(ptile,null,"team:"+cteam);
     var owner=null; if((ptile instanceof Unit)&&bind) owner=ptile;
     Bullet.create(bultype, owner, team, cx, cy, crot, vel,life);
