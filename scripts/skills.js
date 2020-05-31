@@ -757,6 +757,17 @@ const jamweapons= extendContent(StatusEffect,"jamweapons",{
 jamweapons.color=Pal.powerLight;
 jamweapons.effect=Fx.purifystone;
 //boostedskill.effect=boostfire;
+const bleach= extendContent(StatusEffect,"bleach",{
+  update(unit, time){
+    this.super$update(unit, time);
+    if(unit==Vars.player){
+      if(time<2) Draw.blend();
+      else Draw.blend(Blending.additive);
+    }
+  }
+});
+//boostedskill.speedMultiplier=1.45;
+bleach.color=Pal.white;
 
 const zetacolor=Color.valueOf("82ffe8");
 const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
