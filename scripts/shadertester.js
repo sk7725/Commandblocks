@@ -39,5 +39,5 @@ const shadertester=extendContent(MessageBlock,"shadertester",{
 	}
 });
 
-shadertester.maxTextLength=700;
+shadertester.maxTextLength=1300;
 shadertester.maxNewlines=50;
