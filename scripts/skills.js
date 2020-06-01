@@ -745,7 +745,6 @@ const boostedskill= extendContent(StatusEffect,"boostedskill",{});
 boostedskill.speedMultiplier=1.45;
 boostedskill.color=Pal.redderDust;
 boostedskill.effect=boostfire;
-
 const jamweapons= extendContent(StatusEffect,"jamweapons",{
   update(unit, time){
     this.super$update(unit, time);
@@ -753,10 +752,8 @@ const jamweapons= extendContent(StatusEffect,"jamweapons",{
     unit.getTimer().get(unit.getShootTimer(false),1);
   }
 });
-//boostedskill.speedMultiplier=1.45;
-jamweapons.color=Pal.powerLight;
+jamweapons.color=Pal.orange;
 jamweapons.effect=Fx.purifystone;
-//boostedskill.effect=boostfire;
 const bleach= extendContent(StatusEffect,"bleach",{
   update(unit, time){
     this.super$update(unit, time);
@@ -766,8 +763,16 @@ const bleach= extendContent(StatusEffect,"bleach",{
     }
   }
 });
-//boostedskill.speedMultiplier=1.45;
 bleach.color=Pal.white;
+const ram= extendContent(StatusEffect,"ram",{
+  update(unit, time){
+    this.super$update(unit, time);
+    var v1=Vec2(2,0).setAngle(unit.rotation);
+    unit.move(v1.x, v1.y);
+  }
+});
+ram.color=Pal.meltdownHit;
+ram.effect=Fx.hitMeltdown;
 
 const zetacolor=Color.valueOf("82ffe8");
 const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
