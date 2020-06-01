@@ -18,7 +18,7 @@ const shadertester=extendContent(MessageBlock,"shadertester",{
   },
   buildConfiguration(tile, table){
     this.super$buildConfiguration(tile, table);
-    table.addImageButton(Icon.star, Styles.clearTransi, run(() => {
+    table.addImageButton(Icon.star, run(() => {
       tile.configure(1);
     })).size(40);
   },
