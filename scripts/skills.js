@@ -763,7 +763,7 @@ const bleach= extendContent(StatusEffect,"bleach",{
     }
   }
 });
-bleach.color=Pal.white;
+bleach.color=Color.white;
 const ram= extendContent(StatusEffect,"ram",{
   update(unit, time){
     this.super$update(unit, time);
