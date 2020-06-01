@@ -1,5 +1,5 @@
 const presstick=10; const timerid=0;
-const shader=this.shaders.bittrium;
+const shader=this.global.shaders.bittrium;
 const lasercolor=Color.valueOf("555566"); const white=Color.valueOf("ffffff");
 const magictele=extendContent(Router,"magictele",{
   handleItem(item,tile, source){

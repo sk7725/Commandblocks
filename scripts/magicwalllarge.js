@@ -1,4 +1,4 @@
-const shader=this.shaders.bittrium;
+const shader=this.global.shaders.bittrium;
 
 const magicwalllarge = extendContent(Wall, "magicwalllarge", {
     draw(tile){

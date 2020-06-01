@@ -1,7 +1,7 @@
 //my take
 var filtitem=Items.pyratite;//UI later
 var lastitem=null;
-const shader=this.shaders.bittrium;
+const shader=this.global.shaders.bittrium;
 const magicrouter=extendContent(Router,"magicrouter",{
   handleItem(item,tile, source){
         var entity = tile.ent();
