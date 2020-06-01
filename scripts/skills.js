@@ -752,7 +752,7 @@ const jamweapons= extendContent(StatusEffect,"jamweapons",{
     unit.getTimer().get(unit.getShootTimer(false),1);
   }
 });
-jamweapons.color=Pal.orange;
+jamweapons.color=Color.orange;
 jamweapons.effect=Fx.purifystone;
 const bleach= extendContent(StatusEffect,"bleach",{
   update(unit, time){
