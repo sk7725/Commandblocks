@@ -3,6 +3,8 @@ require("gamesoccerball");
 require("command");
 //require("commandargs");
 
+require("shaders");
+
 require("msgprotected");
 
 require("commandblock");
@@ -69,3 +71,5 @@ require("buttongg");
 //require("customtechtree");
 require("skills");
 require("researchskill");
+
+require("shadertester");
