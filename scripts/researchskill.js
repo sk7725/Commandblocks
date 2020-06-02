@@ -16,19 +16,23 @@ const researchskill = extendContent(Block, "researchskill", {
 		for(var i=0; i<uparr.length; i++){
 			root[uparr[i]].n = i;
 			root[uparr[i]].name = uparr[i];
-			root[uparr[i]].displayName = Core.bundle.get("skill."+uparr[i]+".name");
-			root[uparr[i]].shortDesc = Core.bundle.get("skill."+uparr[i]+".short");
-			root[uparr[i]].description = Core.bundle.get("skill."+uparr[i]+".description");
+			root[uparr[i]].displayName = Core.bundle.get("skill." + uparr[i] + ".name");
+			root[uparr[i]].shortDesc = Core.bundle.get("skill." + uparr[i] + ".short");
+			root[uparr[i]].description = Core.bundle.get("skill." + uparr[i] + ".description");
 		}
 		
 		this.animRegion = [];
 		for(var i=0; i<19; i++){
 			if(i == 1 || i == 18) continue;
-			this.animRegion.push(Core.atlas.find(this.name+"-"+i));
+			this.animRegion.push(Core.atlas.find(this.name + "-" + i));
 		}
 		
 		this.dialog = new FloatingDialog(Core.bundle.get("research.title"))
 		this.dialog.addCloseButton();
+		
+		Events.on(EventType.WorldLoadEvent, run(event => {
+			researchskill.blockpos = {};
+		}));
 	},
 	update(tile){
 		this.super$update(tile);
@@ -63,10 +67,10 @@ const researchskill = extendContent(Block, "researchskill", {
 		this.super$removed(tile);
 	},
 	buildConfiguration(tile, table){
+		Vars.control.input.frag.config.hideConfig();
 		if(!tile.ent().enabled()) return;
 		this.makelist(tile);
 		this.dialog.show();
-		Vars.control.input.frag.config.hideConfig();
 	},
 	makelist(tile){
 		this.dialog.cont.clear();
@@ -141,15 +145,16 @@ const researchskill = extendContent(Block, "researchskill", {
 	},
 	canresearch(tile, obj, name){
 		if(obj.hasOwnProperty("uses") && Vars.content.getByName(ContentType.item,obj.uses.item) == null) return false;
-		if(!obj.hasOwnProperty("cost")){
+		if(!obj.hasOwnProperty("cost"))
 			if(!obj.hasOwnProperty("parent")) return true;
 		else if(!Vars.state.rules.infiniteResources){
 			//test whether items are sufficient
-			var arr=obj.cost;
-			for(var i=0;i<arr.length;i++){
-				var item=Vars.content.getByName(ContentType.item,arr[i].item); if(item==null) continue;
-				var camount=Vars.state.teams.get(Vars.player.getTeam()).cores.first().items.get(item);
-				if(camount<arr[i].amount) return false;
+			var arr = obj.cost;
+			for(var i=0; i<arr.length; i++){
+				var item = Vars.content.getByName(ContentType.item, arr[i].item); 
+				if(item == null) continue;
+				var camount = Vars.state.teams.get(Vars.player.getTeam()).cores.first().items.get(item);
+				if(camount < arr[i].amount) return false;
 			}
 		}
 		//test whether parent is researched
@@ -323,13 +328,13 @@ researchskill.entityType = prov(() => extend(TileEntity , {
 		return this._resarr;
 	},
 	setRes(a){
-		this._resarr=a;
+		this._resarr = a;
 	},
 	pushRes(a){
 		this._resarr.push(a);
 	},
 	resetRes(){
-		this._resarr=[];
+		this._resarr = [];
 	},
 	
 	_enabled:true,
@@ -337,7 +342,7 @@ researchskill.entityType = prov(() => extend(TileEntity , {
 		return this._enabled;
 	},
 	disable(){
-		this._enabled=false;
+		this._enabled = false;
 	},
 	
 	_skill:{
@@ -348,16 +353,16 @@ researchskill.entityType = prov(() => extend(TileEntity , {
 		return this._skill;
 	},
 	setSkill(a){
-		this._skill.skill=a;
+		this._skill.skill = a;
 	},
 	useSkill(){
-		this._skill.lastused=Time.time();
+		this._skill.lastused = Time.time();
 	},
 
 	write(stream){
 		this.super$write(stream);
 		stream.writeShort(this._resarr.length);
-		for(var i=0;i<this._resarr.length;i++){
+		for(var i=0; i<this._resarr.length; i++){
 			stream.writeShort(this._resarr[i]);
 		}
 		stream.writeBoolean(this._enabled);
@@ -367,7 +372,7 @@ researchskill.entityType = prov(() => extend(TileEntity , {
 		this.super$read(stream,revision);
 		this.resetRes();
 		var amount=stream.readShort();
-		for(var i=0;i<amount;i++){
+		for(var i=0; i<amount; i++){
 			this.pushRes(stream.readShort());
 		}
 		this._enabled=stream.readBoolean();
