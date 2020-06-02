@@ -36,21 +36,9 @@ const researchskill = extendContent(Block, "researchskill", {
 		if(!ent.enabled()) return;
 		if(!ent.isValidated()){
 			ent.validate();
-			if(tile.getTeamID() in this.blockpos){
-				ent.disable();
-			}else{
-				this.blockpos[tile.getTeamID()] = tile.pos();
-			}
+			if(tile.getTeamID() in this.blockpos) ent.disable();
+			else this.blockpos[tile.getTeamID()] = tile.pos();
 		}
-		//if(tile.getTeamID() != Vars.player.getTeam().id) return;
-		//if(tile.getTeamID() in this.blockpos){
-			//if(this.blockpos[tile.getTeamID()] == tile.pos()){
-			
-		//}
-		
-		//if(this.ticknow == Time.time() && this.ticknow > 0 && tickblock != tile.pos()) tile.ent().disable();
-		//if(!tile.ent().enabled()) return;
-		//this.ticknow = Time.time();
 		if(skillfunc.update(tile.ent().skill(),tile)) tile.ent().useSkill();
 	},
 	draw(tile){ 
@@ -69,21 +57,8 @@ const researchskill = extendContent(Block, "researchskill", {
 		return tile.ent().getRes().length <= 0 || !tile.ent().enabled();
 	},
 	removed(tile){
-		print(this.blockpos);
-		print(tile.getTeamID());
-		print(tile.pos());
 		if(this.blockpos[tile.getTeamID()] == tile.pos()){
-			print(JSON.stringify(this.blockpos));
-			print("yes");
-			print(Object.keys(this.blockpos).length);
-			print(this.blockpos[tile.getTeamID]);
-			print(tile.getTeamID() in this.blockpos);
-			print(delete this.blockpos[tile.getTeamID()]);
-			print(this.blockpos[tile.getTeamID]);
-			print(this.blockpos[tile.getTeamID()] == tile.pos());
-			print(tile.getTeamID() in this.blockpos);
-			print(Object.keys(this.blockpos).length);
-			print(JSON.stringify(this.blockpos));
+			delete this.blockpos[tile.getTeamID()];
 		}
 		this.super$removed(tile);
 	},
@@ -102,14 +77,10 @@ const researchskill = extendContent(Block, "researchskill", {
 			var cannotres = [];
 			var researched = [];
 			for(var i=0; i<uparr.length; i++){
-				if(root[uparr[i]].hasOwnProperty("uses") && Vars.content.getByName(ContentType.item,root[uparr[i]].uses.item) == null) continue;
-				if(this.isresearched(tile, uparr[i])){
-					researched.push(root[uparr[i]]);
-				}else if(this.canresearch(tile,root[uparr[i]], uparr[i])){
-					canres.push(root[uparr[i]]);
-				}else{
-					cannotres.push(root[uparr[i]]);
-				}
+				if(root[uparr[i]].hasOwnProperty("uses") && Vars.content.getByName(ContentType.item, root[uparr[i]].uses.item) == null) continue;
+				if(this.isresearched(tile, uparr[i])) researched.push(root[uparr[i]]);
+				else if(this.canresearch(tile, root[uparr[i]], uparr[i])) canres.push(root[uparr[i]]);
+				else cannotres.push(root[uparr[i]]);
 			}
 			if(researched.length > 0){
 				table.add(Core.bundle.get("research.researched")).growX().left().color(color2);
@@ -144,36 +115,36 @@ const researchskill = extendContent(Block, "researchskill", {
 	configured(tile,player,value){
 		//research in sync
 		if(value == 0) return;
-		if(value<0){
-			var obj=root[Object.keys(root)[-1*value-1]];
+		if(value < 0){
+			var obj = root[Object.keys(root)[-1*value-1]];
 			try{
-				if(obj.name=="phaseskill") skillfunc[obj.name](player, tile);
+				if(obj.name == "phaseskill") skillfunc[obj.name](player, tile);
 				else skillfunc[obj.name](player);
-			}
-			catch(err){
-				print("err:"+err);
+			}catch(err){
+				print("err:" + err);
 			}
 			return;
 		}
-		var obj=root[Object.keys(root)[value-1]];
-		if(obj==null) return;
+		var obj = root[Object.keys(root)[value-1]];
+		if(obj == null) return;
 		//use up cost
 		if(!Vars.state.rules.infiniteResources){
-			var arr=obj.cost;
-			var core=Vars.state.teams.get(Vars.player.getTeam()).cores.first();
-			for(var i=0;i<arr.length;i++){
-				var item=Vars.content.getByName(ContentType.item,arr[i].item);
-				core.items.remove(item,arr[i].amount);
+			var arr = obj.cost;
+			var core = Vars.state.teams.get(Vars.player.getTeam()).cores.first();
+			for(var i = 0;i<arr.length;i++){
+				var item = Vars.content.getByName(ContentType.item, arr[i].item);
+				core.items.remove(item, arr[i].amount);
 			}
 		}
 		//tba
 		tile.ent().pushRes(value-1);
 	},
-	canresearch(tile,obj,name){
-		if(!obj.hasOwnProperty("cost") && !obj.hasOwnProperty("parent")) return true;
-		if(obj.hasOwnProperty("uses")&&Vars.content.getByName(ContentType.item,obj.uses.item)==null) return false;
-		//test whether items are sufficient
-		if(obj.hasOwnProperty("cost") && !Vars.state.rules.infiniteResources){
+	canresearch(tile, obj, name){
+		if(obj.hasOwnProperty("uses") && Vars.content.getByName(ContentType.item,obj.uses.item) == null) return false;
+		if(!obj.hasOwnProperty("cost")){
+			if(!obj.hasOwnProperty("parent")) return true;
+		else if(!Vars.state.rules.infiniteResources){
+			//test whether items are sufficient
 			var arr=obj.cost;
 			for(var i=0;i<arr.length;i++){
 				var item=Vars.content.getByName(ContentType.item,arr[i].item); if(item==null) continue;
@@ -183,22 +154,22 @@ const researchskill = extendContent(Block, "researchskill", {
 		}
 		//test whether parent is researched
 		if(obj.hasOwnProperty("parent")){
-			return this.isresearched(tile,obj.parent);
+			return this.isresearched(tile, obj.parent);
 		}
 		return true;
 	},
 	isresearched(tile,name){
 		//tba
-		return tile.ent().getRes().indexOf(root[name].n)>-1;
+		return tile.ent().getRes().indexOf(root[name].n) >- 1;
 	},
 	makeinfo(tile,obj){
 		//ubgradable info
 		const infod = new FloatingDialog(Core.bundle.get("info.title"));
-		infod.cont.pane(cons(table=>{
+		infod.cont.pane(cons(table => {
 			table.margin(10);
 			//var item=(obj.hasOwnProperty("uses"))?Vars.content.getByName(ContentType.item,obj.uses.item):Vars.content.getByName(ContentType.block,obj.icon);
-			table.table(cons(title=>{
-				if(obj.hasOwnProperty("uses")) title.addImage(Vars.content.getByName(ContentType.item,obj.uses.item).icon(Cicon.xlarge)).size(8 * 6);
+			table.table(cons(title => {
+				if(obj.hasOwnProperty("uses")) title.addImage(Vars.content.getByName(ContentType.item, obj.uses.item).icon(Cicon.xlarge)).size(8 * 6);
 				title.add("[accent]" + obj.displayName).padLeft(5);
 			}));
 
@@ -214,39 +185,39 @@ const researchskill = extendContent(Block, "researchskill", {
 
 			table.left().defaults().fillX();
 			if(obj.hasOwnProperty("uses")){
-				table.table(cons(t=>{
-					t.add("[lightgray]"+Core.bundle.get("skill.uses")+":[] ");
-					t.add(new ItemDisplay(Vars.content.getByName(ContentType.item,obj.uses.item), obj.uses.amount, true)).padRight(5);
+				table.table(cons(t => {
+					t.add("[lightgray]" + Core.bundle.get("skill.uses") + ":[] ");
+					t.add(new ItemDisplay(Vars.content.getByName(ContentType.item, obj.uses.item), obj.uses.amount, true)).padRight(5);
 					t.left();
 				}));
 				table.row();
 			}
 			if(obj.hasOwnProperty("tier")){
-				table.table(cons(t=>{
-					t.add("[lightgray]"+Core.bundle.get("skill.tier")+":[] "+obj.tier);
+				table.table(cons(t => {
+					t.add("[lightgray]" + Core.bundle.get("skill.tier") + ":[] " + obj.tier);
 					t.left();
 				}));
 				//table.add(Core.bundle.format("skill.tier")+": "+obj.tier);
 				table.row();
 			}
 			if(obj.hasOwnProperty("duration")){
-				table.table(cons(t=>{
-					t.add("[lightgray]"+Core.bundle.get("skill.duration")+":[] "+obj.duration+" "+Core.bundle.get("unit.seconds"));
+				table.table(cons(t => {
+					t.add("[lightgray]" + Core.bundle.get("skill.duration") + ":[] " + obj.duration + " " + Core.bundle.get("unit.seconds"));
 					t.left();
 				}));
 				table.row();
 			}
 			if(obj.hasOwnProperty("cooltime")){
-				table.table(cons(t=>{
-					t.add("[lightgray]"+Core.bundle.get("skill.cooltime")+":[] "+obj.cooltime+" "+Core.bundle.get("unit.seconds"));
+				table.table(cons(t => {
+					t.add("[lightgray]" + Core.bundle.get("skill.cooltime") + ":[] "+obj.cooltime+" " + Core.bundle.get("unit.seconds"));
 					t.left();
 				}));
 				//table.add(Core.bundle.format("skill.cooltime")+": "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
 				table.row();
 			}
 			if(obj.hasOwnProperty("healthcost")){
-				table.table(cons(t=>{
-					t.add("[lightgray]"+Core.bundle.get("skill.healthcost")+":[] "+obj.healthcost+" %");
+				table.table(cons(t => {
+					t.add("[lightgray]" + Core.bundle.get("skill.healthcost") + ":[] "+obj.healthcost + " %");
 					t.left();
 				}));
 				//table.add(Core.bundle.format("skill.cooltime")+": "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
@@ -256,41 +227,41 @@ const researchskill = extendContent(Block, "researchskill", {
 		infod.addCloseButton();
 		infod.show();
 	},
-	makesingle(tile,table,obj,type){
+	makesingle(tile, table, obj, type){
 		//makes a single block of the research list
-		if(obj.hasOwnProperty("uses")&&Vars.content.getByName(ContentType.item,obj.uses.item)==null) return;
+		if(obj.hasOwnProperty("uses") && Vars.content.getByName(ContentType.item, obj.uses.item) == null) return;
 		table.table(Styles.black6, cons(t => {
 			t.defaults().pad(2).left().top();
 			t.margin(14).left();
 			t.table(cons(title => {
 				title.left();
 				//table.add(new ItemDisplay(stack.item, stack.amount, displayName)).padRight(5);
-				if(obj.hasOwnProperty("uses")) title.add(new ItemDisplay(Vars.content.getByName(ContentType.item,obj.uses.item), obj.uses.amount, false)).padRight(5);
-				title.add(obj.displayName+ "\n[accent]"+Core.bundle.get(obj.type)+"[]").growX().wrap();
+				if(obj.hasOwnProperty("uses")) title.add(new ItemDisplay(Vars.content.getByName(ContentType.item, obj.uses.item), obj.uses.amount, false)).padRight(5);
+				title.add(obj.displayName + "\n[accent]" + Core.bundle.get(obj.type) + "[]").growX().wrap();
 				//title.add().growX();
 
 				title.addImageButton(Icon.infoCircle, Styles.clearTransi, run(() => {
 						this.makeinfo(tile,obj);
 				})).size(50);
 
-				if(type!="researched"){
+				if(type != "researched"){
 					title.addImageButton(Icon.hammer, Styles.clearTransi, run(() => {
-						if(this.canresearch(tile,obj,obj.name)){
-							Vars.ui.showConfirm(obj.displayName,Core.bundle.get("research.confirmdialog"),null,run(()=>{
+						if(this.canresearch(tile, obj,obj.name)){
+							Vars.ui.showConfirm(obj.displayName, Core.bundle.get("research.confirmdialog"), null, run(() => {
 								tile.configure(obj.n+1);
 								this.makelist(tile);
 							}));
 						}
 						else this.makelist(tile);
-					})).size(50).disabled(type!="canres");
+					})).size(50).disabled(type != "canres");
 				}else{
-					var Skill=tile.ent().skill();
-					title.addImageButton((Skill.skill==obj.name)?Icon.star:Icon.ok, Styles.clearTransi, run(() => {
-						if(Skill.skill==obj.name){
+					var s = tile.ent().skill();
+					title.addImageButton((s.skill==obj.name)?Icon.star:Icon.ok, Styles.clearTransi, run(() => {
+						if(s.skill == obj.name){
 							tile.ent().setSkill("");
 						}
 						else{
-							tile.ent().setSkill(obj.name+"");
+							tile.ent().setSkill(obj.name + "");
 						}
 						this.makelist(tile);
 					})).size(50);
@@ -314,20 +285,20 @@ const researchskill = extendContent(Block, "researchskill", {
 				t.row();
 			}
 
-			if(obj.hasOwnProperty("cost")&&type!="researched"&&type!="noparent"){
-				t.table(cons(c =>{
-					c.add((type!="cannotres")?"[white]"+Core.bundle.get("research.cost")+":[]":"[scarlet]"+Core.bundle.get("research.cost")+":[]").growX();
-					for(var i=0;i<obj.cost.length;i++){
-						var item=Vars.content.getByName(ContentType.item,obj.cost[i].item);
+			if(obj.hasOwnProperty("cost") && type != "researched" && type != "noparent"){
+				t.table(cons(c => {
+					c.add((type != "cannotres") ? "[white]" + Core.bundle.get("research.cost") + ":[]" : "[scarlet]" + Core.bundle.get("research.cost") + ":[]").growX();
+					for(var i=0; i<obj.cost.length; i++){
+						var item = Vars.content.getByName(ContentType.item, obj.cost[i].item);
 						c.add(" [white]" + obj.cost[i].amount);
 						c.addImage(item.icon(Cicon.small)).size(8 * 3);
 					}
 				}));
 				t.row();
 			}
-			if(obj.hasOwnProperty("parent")&&type=="noparent"){
-				t.table(cons(c =>{
-					c.add(((type!="noparent")?"[white]"+Core.bundle.get("research.parent")+": []":"[scarlet]"+Core.bundle.get("research.parent")+": []")+root[obj.parent].displayName).growX();
+			if(obj.hasOwnProperty("parent") && type == "noparent"){
+				t.table(cons(c => {
+					c.add(((type != "noparent") ? "[white]" + Core.bundle.get("research.parent") + ": []":"[scarlet]" + Core.bundle.get("research.parent") + ": []") + root[obj.parent].displayName).growX();
 				}));
 				t.row();
 			}
