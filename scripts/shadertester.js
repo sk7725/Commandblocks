@@ -17,14 +17,45 @@ const shadertester=extendContent(MessageBlock,"shadertester",{
     this.region=Core.atlas.find(this.name);
   },
   buildConfiguration(tile, table){
-    this.super$buildConfiguration(tile, table);
-    table.addImageButton(Icon.star, run(() => {
+    //this.super$buildConfiguration(tile, table);
+    const entity = tile.ent();
+    // Add buttons
+    table.addImageButton(Icon.pencil, Styles.clearTransi, run(() => {
+        if (Vars.mobile) {
+            // Mobile and desktop version have different dialogs
+            const input = new Input.TextInput();
+            input.text = entity.message;
+            input.multiline = true;
+            input.accepted = cons(text => Call.setMessageBlockText(null,tile,text));
+
+            Core.input.getTextInput(input);
+        } else {
+            // Create dialog
+            const dialog = new FloatingDialog("Shader");
+            dialog.setFillParent(false);
+
+            // Add text area to dialog
+            const textArea = new TextArea(entity.message);
+            dialog.cont.add(textArea).size(380, 160);
+
+            // Add "ok" button to dialog
+            dialog.buttons.addButton("$ok", run(() => {
+                Call.setMessageBlockText(null,tile,textArea.getText());
+                dialog.hide();
+            }));
+
+            // Show it
+            dialog.show();
+        }
+    })).size(40);
+    table.addImageButton(Icon.star, Styles.clearTransi, run(() => {
       tile.configure(1);
     })).size(40);
   },
   configured(tile,player, value){
     if(value!=1) return;
     var msg=tile.ent().message;
+    shader.dispose();
     shader = new JavaAdapter(Shader, {
       apply(){
         this.setUniformf("u_time", Time.time() / Scl.scl(1.0));
