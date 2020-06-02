@@ -254,6 +254,7 @@ const researchskill = extendContent(Block, "researchskill", {
 						if(this.canresearch(tile, obj,obj.name)){
 							Vars.ui.showConfirm(obj.displayName, Core.bundle.get("research.confirmdialog"), null, run(() => {
 								tile.configure(obj.n+1);
+								if(tile.ent().skill().skill == "") tile.ent().setSkill(obj.name + "");
 								this.makelist(tile);
 							}));
 						}
@@ -261,13 +262,8 @@ const researchskill = extendContent(Block, "researchskill", {
 					})).size(50).disabled(type != "canres");
 				}else{
 					var s = tile.ent().skill();
-					title.addImageButton((s.skill==obj.name)?Icon.star:Icon.ok, Styles.clearTransi, run(() => {
-						if(s.skill == obj.name){
-							tile.ent().setSkill("");
-						}
-						else{
-							tile.ent().setSkill(obj.name + "");
-						}
+					title.addImageButton((s.skill == obj.name)?Icon.star:Icon.ok, Styles.clearTransi, run(() => {
+						tile.ent().setSkill(s.skill == obj.name ? "" : obj.name + "");
 						this.makelist(tile);
 					})).size(50);
 				}
