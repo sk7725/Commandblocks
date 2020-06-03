@@ -23,7 +23,7 @@ this.global.fx = {
   }),
   unitShieldBreak : newEffect(35, e => {
     var radius = 10;
-    if(e.data instanceof Unit){
+    if(e.data != null){
       var unit = e.data.getType();
       radius = unit.hitsize * 1.3;
     }
@@ -43,11 +43,11 @@ this.global.fx = {
   }),
   unitShieldHit : newEffect(30, e => {
     var radius = 10;
-    if(e.data instanceof Unit){
+    if(e.data != null){
       var unit = e.data.getType();
       radius = unit.hitsize * 1.3;
     }
-    
+
     Fill.light(e.x, e.y, Lines.circleVertices(radius), radius, shieldInColor, shieldColor.a(e.fout()*0.7));
   })
 };
