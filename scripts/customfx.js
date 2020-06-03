@@ -46,8 +46,7 @@ this.global.fx = {
     try{
       var radius = 10;
       if(e.data != null){
-        var unit = e.data.getType();
-        radius = unit.hitsize * 1.3;
+        var unit = e.data * 1.3;
       }
 
       e.scaled(16, cons(c => {
@@ -71,8 +70,7 @@ this.global.fx = {
     try{
       var radius = 10;
       if(e.data != null){
-        var unit = e.data.getType();
-        radius = unit.hitsize * 1.3;
+        radius = e.data * 1.3;
       }
 
       fillLight(e.x, e.y, Lines.circleVertices(radius), radius, shieldInColor, shieldColor.lerp(Color.white, e.fout() / 3).a(e.fout()*0.7));
