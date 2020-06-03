@@ -1,4 +1,4 @@
-var shieldColor = Color.valueOf("ffe38f").a(0.7);
+var shieldColor = Color.valueOf("ffd37f").a(0.7);
 const shieldInColor = Color.black.cpy().a(0);
 //이런 영감 아저씨
 if (typeof(floatc2)== "undefined"){
