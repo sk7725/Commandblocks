@@ -32,8 +32,8 @@ this.global.fx = {
       Draw.color(shieldColor);
       Lines.stroke(c.fout() * 2 + 0.1);
 
-      randLenVectors(e.id, Mathf.floorPositive(radius * 1.2), e.rotation, radius/2 + c.finpow() * radius*1.25, floatc2((x, y) => {
-          Lines.lineAngle(c.x + x, c.y + y, Mathf.angle(x, y), c.fout() * 5 + 1);
+      Angles.randLenVectors(e.id, Mathf.floorPositive(radius * 1.2), e.rotation, radius/2 + c.finpow() * radius*1.25, floatc2((x, y) => {
+        Lines.lineAngle(c.x + x, c.y + y, Mathf.angle(x, y), c.fout() * 5 + 1);
       }));
     }));
 
