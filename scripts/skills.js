@@ -899,7 +899,7 @@ arcCasterBullet.collidesTiles = false;
 arcCasterBullet.collidesAir = true;
 arcCasterBullet.pierce = true;
 
-const vanillaskills=18;
+const vanillaskills=30;
 const doubletaptick=15;
 const skillfunc={
   _lasttouch:0,
@@ -954,14 +954,14 @@ const skillfunc={
     return false;
   },
   fire(bullet,player,v,life){
-    if(Vars.net.client()) return;
-    Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
-    //Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
+    //if(Vars.net.client()) return;
+    //Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
+    Bullet.create(bullet, player, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
   },
 	fireOffset(bullet,player,v,life,offset){
-    if(Vars.net.client()) return;
-    Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation+offset, v,life);
-    //Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
+    //if(Vars.net.client()) return;
+    //Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation+offset, v,life);
+    Bullet.create(bullet, player, player.getTeam(), player.getX(), player.getY(), player.rotation + offset, v,life);
   },
   coalbomb(player){
     this.fire(Bullets.bombExplosive, player, 11, 3);
@@ -999,14 +999,12 @@ const skillfunc={
     if(Vars.net.client()) return;
     var bullets=Vars.content.bullets().toArray();
     var choice=Math.floor(Math.random()*(bullets.length));
-    this.fire(bullets[choice], player, 1, 1);
+    Call.createBullet(bullets[choice], player.getTeam(), player.getX(), player.getY(), player.rotation, 1, 1);
   },
   phaseskill(player,tile){
     if(Vars.net.client()) return;
     var arr=Object.keys(skills);
-    var n=Math.floor((vanillaskills/3*4)*Math.random());
-    if(n%4==3) n-=3;
-    n=n%3+Math.floor(n/4);
+    var n=Math.floor(vanillaskills*Math.random());
     if(arr[n]=="phaseskill") n-=1;
     Call.onTileConfig(player,tile,-1*(n+1));
   },
@@ -1088,7 +1086,7 @@ const skillfunc={
   surgecloud(player){
     player.damage(player.maxHealth()*0.18);
     Sounds.spark.at(player.getX(),player.getY(),0.6);
-    this.fire(arcCasterBullet, player, 1, 1);
+    this.fire(arcCasterBullet, player, 0.65, 5);
   },
   vecslash(player){
     var x=player.getX(); var y=player.getY();
