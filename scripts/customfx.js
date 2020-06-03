@@ -51,7 +51,7 @@ this.global.fx = {
       }
 
       e.scaled(16, cons(c => {
-        Draw.color(shieldColor);
+        Draw.color(Pal.accent);
         Lines.stroke(c.fout() * 2 + 0.1);
 
         Angles.randLenVectors(e.id, Mathf.floorPositive(radius * 1.2), radius/2 + c.finpow() * radius*1.25, floatc2((x, y) => {
@@ -75,7 +75,7 @@ this.global.fx = {
         radius = unit.hitsize * 1.3;
       }
 
-      fillLight(e.x, e.y, Lines.circleVertices(radius), radius, shieldInColor, shieldColor.lerp(Color.white, Mathf.clamp(e.fout() / 2)).a(e.fout()*0.7+0.2));
+      fillLight(e.x, e.y, Lines.circleVertices(radius), radius, shieldInColor, shieldColor.lerp(Color.white, e.fout() / 3).a(e.fout()*0.7));
     }
     catch(err){
       print(err);
