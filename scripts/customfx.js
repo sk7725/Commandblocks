@@ -23,16 +23,16 @@ this.global.fx = {
   }),
   unitShieldBreak : newEffect(35, e => {
     var radius = 10;
-    /*if(e.data != null){
+    if(e.data != null){
       var unit = e.data.getType();
       radius = unit.hitsize * 1.3;
-    }*/
+    }
 
     e.scaled(16, cons(c => {
       Draw.color(shieldColor);
       Lines.stroke(c.fout() * 2 + 0.1);
 
-      Angles.randLenVectors(e.id, Mathf.floorPositive(radius * 1.2), radius/2 + c.finpow() * radius*1.25, floatc2((x, y) => {
+      Angles.randLenVectors(e.id, Mathf.floorPositive(radius * 1.2), radius/2 + c.fin() * radius*1.25, floatc2((x, y) => {
         Lines.lineAngle(c.x + x, c.y + y, Mathf.angle(x, y), c.fout() * 5 + 1);
       }));
     }));
