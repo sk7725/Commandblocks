@@ -1,6 +1,21 @@
 var shieldColor = Color.valueOf("ffd37f").a(0.7);
 const shieldInColor = Color.black.cpy().a(0);
 this.global.fx = {
+  light(x, y, sides, radius, center, edge){
+    var centerf = center.toFloatBits(); var edgef = edge.toFloatBits();
+    sides = Mathf.ceil(sides / 2) * 2;
+    var space = 360 / sides;
+
+    for(var i = 0; i < sides; i += 2){
+      var px = Angles.trnsx(space * i, radius);
+      var py = Angles.trnsy(space * i, radius);
+      var px2 = Angles.trnsx(space * (i + 1), radius);
+      var py2 = Angles.trnsy(space * (i + 1), radius);
+      var px3 = Angles.trnsx(space * (i + 2), radius);
+      var py3 = Angles.trnsy(space * (i + 2), radius);
+      Fill.quad(x, y, centerf, x + px, y + py, edgef, x + px2, y + py2, edgef, x + px3, y + py3, edgef);
+    }
+  },
   slash : newEffect(90, e => {
     Draw.color(Pal.lancerLaser);
     Drawf.tri(e.x, e.y, 4 * e.fout(), 45, (e.id*57 + 90)%360);
@@ -53,6 +68,6 @@ this.global.fx = {
       radius = unit.hitsize * 1.3;
     }
 
-    Fill.light(e.x, e.y, Lines.circleVertices(radius), radius, shieldInColor, shieldColor.a(e.fout()*0.7));
+    this.light(e.x, e.y, Lines.circleVertices(radius), radius, shieldInColor, shieldColor.a(e.fout()*0.7));
   })
 };
