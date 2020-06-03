@@ -798,7 +798,7 @@ const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
           Effects.effect(customfx.unitShieldHit, unit.getX(), unit.getY());
           delete this._unithp[unit.id];
           delete this._shieldhp[unit.id];
-          unit.applyEffect(shieldbreak,1);
+          unit.applyEffect(shieldbreak,time*2+1);
         }
       }
     }
@@ -808,9 +808,7 @@ const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
   }
 });
 shieldsmall.color = Color.valueOf("ffd37f");
-shieldsmall.trans(shieldbreak, cons((unit, time, newTime, result) => {
-  result.set(shieldbreak, newTime);
-}));
+shieldsmall.opposite(shieldbreak);
 
 const zetacolor=Color.valueOf("82ffe8");
 const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
