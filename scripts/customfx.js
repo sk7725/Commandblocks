@@ -59,8 +59,8 @@ this.global.fx = {
         }));
       }));
 
-      Draw.color(shieldColor, e.fout());
-      Lines.stroke(2 * e.fout());
+      Draw.color(Pal.accent, e.fout());
+      Lines.stroke(1 * e.fout());
       Lines.circle(e.x, e.y, radius);
     }
     catch(err){

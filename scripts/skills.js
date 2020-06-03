@@ -746,7 +746,7 @@ const boostedskill= extendContent(StatusEffect,"boostedskill",{});
 boostedskill.speedMultiplier=1.45;
 boostedskill.color=Pal.redderDust;
 boostedskill.effect=boostfire;
-const jamweapons= extendContent(StatusEffect,"jamweapons",{
+const jamweapons = extendContent(StatusEffect,"jamweapons",{
   update(unit, time){
     this.super$update(unit, time);
     unit.getTimer().get(unit.getShootTimer(true),1);
@@ -755,7 +755,7 @@ const jamweapons= extendContent(StatusEffect,"jamweapons",{
 });
 jamweapons.color=Color.orange;
 jamweapons.effect=Fx.purifystone;
-const bleach= extendContent(StatusEffect,"bleach",{
+const bleach = extendContent(StatusEffect,"bleach",{
   update(unit, time){
     this.super$update(unit, time);
     if(unit==Vars.player){
@@ -765,7 +765,7 @@ const bleach= extendContent(StatusEffect,"bleach",{
   }
 });
 bleach.color=Color.white;
-const ram= extendContent(StatusEffect,"ram",{
+const ram = extendContent(StatusEffect,"ram",{
   update(unit, time){
     this.super$update(unit, time);
     var v1=Vec2(2,0).setAngle(unit.rotation);
@@ -774,6 +774,38 @@ const ram= extendContent(StatusEffect,"ram",{
 });
 ram.color=Pal.meltdownHit;
 ram.effect=Fx.hitMeltdown;
+
+const customfx = this.global.fx;
+const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
+  init(){
+    this.super$init();
+    print("init!");
+  },
+  _unithp:[],
+  _shieldhp:[],
+  update(unit, time){
+    this.super$update(unit, time);
+    try{
+      if(this._unithp[unit.id] == null){
+        this._unithp[unit.id] = unit.health();
+        this._shieldhp[unit.id] = 100;
+      }
+      if(this._shieldhp[unit.id] <= 0) return;
+      if(unit.health() > this._unithp[unit.id]) this._unithp[unit.id] = unit.health();
+      else if(unit.health() < this._unithp[unit.id]){
+        var dmg = this._unithp[unit.id] - unit.health();
+        this._shieldhp[unit.id] -= dmg;
+        unit.health(this._unithp[unit.id]);
+        if(this._shieldhp[unit.id]>0) Effects.effect(customfx.unitShieldHit, unit.getX(), unit.getY());
+        else Effects.effect(customfx.unitShieldHit, unit.getX(), unit.getY());
+      }
+    }
+    catch(err){
+      print(err);
+    }
+  }
+});
+shieldsmall.color = Color.valueOf("ffd37f");
 
 const zetacolor=Color.valueOf("82ffe8");
 const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
