@@ -777,10 +777,6 @@ ram.effect=Fx.hitMeltdown;
 
 const customfx = this.global.fx;
 const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
-  init(){
-    this.super$init();
-    print("init!");
-  },
   _unithp:[],
   _shieldhp:[],
   update(unit, time){
@@ -788,7 +784,7 @@ const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
     try{
       if(this._unithp[unit.id] == null){
         this._unithp[unit.id] = unit.health();
-        this._shieldhp[unit.id] = 100;
+        if(this._shieldhp[unit.id] == null) this._shieldhp[unit.id] = 300;
       }
       if(this._shieldhp[unit.id] <= 0) return;
       if(unit.health() > this._unithp[unit.id]) this._unithp[unit.id] = unit.health();
@@ -797,7 +793,12 @@ const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
         this._shieldhp[unit.id] -= dmg;
         unit.health(this._unithp[unit.id]);
         if(this._shieldhp[unit.id]>0) Effects.effect(customfx.unitShieldHit, unit.getX(), unit.getY());
-        else Effects.effect(customfx.unitShieldHit, unit.getX(), unit.getY());
+        else{
+          Effects.effect(customfx.unitShieldHit, unit.getX(), unit.getY());
+          delete this._unithp[unit.id];
+          delete this._shieldhp[unit.id];
+          time = 0; //please
+        }
       }
     }
     catch(err){
