@@ -808,9 +808,9 @@ const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
   }
 });
 shieldsmall.color = Color.valueOf("ffd37f");
-shieldsmall.trans(shieldbreak, (unit, time, newTime, result) => {
+shieldsmall.trans(shieldbreak, handle((unit, time, newTime, result) => {
   result.set(shieldbreak, newTime);
-});
+}));
 
 const zetacolor=Color.valueOf("82ffe8");
 const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
