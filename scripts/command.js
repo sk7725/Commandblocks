@@ -10,6 +10,7 @@ if(!this.global.hasOwnProperty("commandcached")) this.global.commandcached={};
 const commandcached=this.global.commandcached;
 const armorstandtype=this.global.armorstand;
 const soccerballtype=this.global.gamesoccerball;
+const customfx=this.global.fx;
 const commandblocks={
   tilde(tile,inx,iny){
     if(tile instanceof Tile){
@@ -775,6 +776,7 @@ const commandblocks={
         if(args.length==0) throw "Missing params";
         //var teff=eff[args[0]];
         var cfx=(!isNaN(Number(args[0])))?Vars.content.getByID(ContentType.effect,args[0]):Fx[args[0]];
+        if(cfx==null&&customfx.hasOwnProperty(args[0])) cfx=customfx[args[0]];
         //if(cfx==null) cfx=Fx[args[0]];
         if(args.length>=3&&args.length<=4){
           var tpos=this.tilde(tile,args[1],args[2]);

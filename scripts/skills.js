@@ -434,13 +434,14 @@ const skills={
       }
     ]
   },
-  "scalheadbutt":{
-    type:"skill.atk",
+  "scalshield":{
+    type:"skill.def",
     tier:2,
-    cooltime:4.5,
+    cooltime:14,
+    duration:7,
     uses:{
       item:"commandblocks-ref-scalar",
-      amount:6
+      amount:10
     },
     cost:[
       {
