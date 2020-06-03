@@ -16,6 +16,8 @@ const shadertester=extendContent(MessageBlock,"shadertester",{
   load(){
     this.super$load();
     this.region=Core.atlas.find(this.name);
+    this.maxTextLength=1300;
+    this.maxNewlines=50;
   },
   buildConfiguration(tile, table){
     //this.super$buildConfiguration(tile, table);
@@ -74,10 +76,8 @@ const shadertester=extendContent(MessageBlock,"shadertester",{
   placed(tile){
 		this.super$placed(tile);
     Call.setMessageBlockText(null,tile,"#ifdef GL_ES\nprecision mediump float;precision mediump int;\n#endif\nuniform sampler2D u_texture;uniform float u_time;varying vec4 v_color;varying vec2 v_texCoord;void main(){vec4 color = texture2D(u_texture, v_texCoord.xy);float t = clamp((sin(u_time * .01 + gl_FragCoord.x * .01 + gl_FragCoord.y * .005) + 1.) / 2., 0., 1.);vec3 c = vec3(mix(0., 1., t), mix(.89, .39, t), mix(1., .85, t));gl_FragColor = vec4(color.rgb * c.rgb, color.a);}");
-	},
-  maxTextLength:1300,
-  maxNewlines:50
+	}
 });
 
-shadertester.maxTextLength=1300;
-shadertester.maxNewlines=50;
+//shadertester.maxTextLength=1300;
+//shadertester.maxNewlines=50;
