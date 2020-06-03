@@ -23,10 +23,10 @@ this.global.fx = {
   }),
   unitShieldBreak : newEffect(35, e => {
     var radius = 10;
-    if(e.data != null){
+    /*if(e.data != null){
       var unit = e.data.getType();
       radius = unit.hitsize * 1.3;
-    }
+    }*/
 
     e.scaled(16, cons(c => {
       Draw.color(shieldColor);
