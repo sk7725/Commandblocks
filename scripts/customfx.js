@@ -1,4 +1,4 @@
-var shieldColor = Color.valueOf("ffd37f").a(0.7);
+var shieldColor = Color.valueOf("ffe38f").a(0.7);
 const shieldInColor = Color.black.cpy().a(0);
 //이런 영감 아저씨
 if (typeof(floatc2)== "undefined"){
@@ -73,7 +73,7 @@ this.global.fx = {
         radius = e.data * 1.3;
       }
 
-      fillLight(e.x, e.y, Lines.circleVertices(radius), radius, shieldInColor, shieldColor.lerp(Color.white, e.fout() / 3).a(e.fout()*0.7));
+      fillLight(e.x, e.y, Lines.circleVertices(radius), radius, shieldInColor, shieldColor.a(e.fout()*0.6));
     }
     catch(err){
       print(err);
