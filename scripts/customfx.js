@@ -34,12 +34,12 @@ this.global.fx = {
         Lines.stroke(c.fout() * 2 + 0.1);
 
         Angles.randLenVectors(e.id, Mathf.floorPositive(radius * 1.2), radius/2 + c.finpow() * radius*1.25, floatc2((x, y) => {
-          Lines.lineAngle(c.x + x, c.y + y, Mathf.angle(x, y), c.fout() * 5 + 1);
+          Lines.lineAngle(c.x + x, c.y + y, Mathf.angle(x, y), c.fout() * 5 + 1, c.fout() * 2 + 0.1);
         }));
       }));
 
       Draw.color(shieldColor, e.fout());
-      Lines.stroke(1 * e.fout());
+      Lines.stroke(2 * e.fout());
       Lines.circle(e.x, e.y, radius);
     }
     catch(err){
