@@ -39,7 +39,7 @@ this.global.fx = {
       }));
 
       Draw.color(shieldColor, e.fout());
-      Draw.stroke(1 * e.fout());
+      Lines.stroke(1 * e.fout());
       Lines.circle(e.x, e.y, radius);
     }
     catch(err){
