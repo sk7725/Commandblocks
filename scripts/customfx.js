@@ -78,5 +78,20 @@ this.global.fx = {
     catch(err){
       print(err);
     }
+  }),
+  unitShieldEnd : newEffect(35, e => {
+    try{
+      var radius = 10;
+      if(e.data != null){
+        radius = e.data * 1.3;
+      }
+
+      Draw.color(shieldColor, e.fout());
+      Lines.stroke(1.5 * e.fout());
+      Lines.circle(e.x, e.y, radius);
+    }
+    catch(err){
+      print(err);
+    }
   })
 };

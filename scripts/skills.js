@@ -437,11 +437,11 @@ const skills={
   "scalshield":{
     type:"skill.def",
     tier:2,
-    cooltime:14,
-    duration:7,
+    cooltime:20,
+    duration:120,
     uses:{
       item:"commandblocks-ref-scalar",
-      amount:10
+      amount:20
     },
     cost:[
       {
@@ -787,6 +787,14 @@ const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
         this._unithp[unit.id] = unit.health();
         if(this._shieldhp[unit.id] == null) this._shieldhp[unit.id] = 300;
       }
+      if(time<2){
+        //do not expect this to always work, deltatime
+        delete this._unithp[unit.id];
+        delete this._shieldhp[unit.id];
+        unit.applyEffect(shieldbreak, 1);//just in case
+        Effects.effect(customfx.unitShieldEnd, unit.getX(), unit.getY(), 0, (unit instanceof BaseUnit)?unit.getType().hitsize:((unit instanceof Player)?unit.mech.hitsize*1.5:8));
+        return;
+      }
       if(this._shieldhp[unit.id] <= 0) return;
       if(unit.health() > this._unithp[unit.id]) this._unithp[unit.id] = unit.health();
       else if(unit.health() < this._unithp[unit.id]){
@@ -1130,6 +1138,16 @@ const skillfunc={
     player.damage(player.maxHealth()*0.18);
     Sounds.spark.at(player.getX(),player.getY(),0.6);
     this.fire(arcCasterBullet, player, 0.65, 5);
+  },
+  scalshield(player){
+    var x=player.getX(); var y=player.getY();
+    Sounds.message.at(x, y, 1.6);
+    Effects.effect(spellstart,Color.valueOf("f5bbf1"), x, y);
+    Units.nearby(player.getTeam(), x, y, 10*Vars.tilesize, cons(e=>{
+      if(shieldsmall._unithp[e.id]!=null) delete shieldsmall._unithp[e.id];
+      if(shieldsmall._shieldhp[e.id]!=null) delete shieldsmall._shieldhp[e.id];
+      e.applyEffect(shieldsmall, 7200);
+    }));
   },
   vecslash(player){
     var x=player.getX(); var y=player.getY();
