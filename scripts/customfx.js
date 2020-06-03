@@ -73,7 +73,7 @@ this.global.fx = {
         radius = e.data * 1.3;
       }
 
-      fillLight(e.x, e.y, Lines.circleVertices(radius), radius, shieldInColor, shieldColor.a(e.fout()*0.6));
+      fillLight(e.x, e.y, Lines.circleVertices(radius), radius, shieldInColor, shieldColor.lerp(Color.white.cpy().a(0.6), e.fout() / 2).a(e.fout()*0.6));
     }
     catch(err){
       print(err);
