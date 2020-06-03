@@ -46,7 +46,7 @@ this.global.fx = {
     try{
       var radius = 10;
       if(e.data != null){
-        var unit = e.data * 1.3;
+        radius = e.data * 1.3;
       }
 
       e.scaled(16, cons(c => {

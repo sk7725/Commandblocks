@@ -795,7 +795,7 @@ const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
         unit.health(this._unithp[unit.id]+0.01);
         if(this._shieldhp[unit.id]>0) Effects.effect(customfx.unitShieldHit, unit.getX(), unit.getY(), 0, (unit instanceof BaseUnit)?unit.getType().hitsize:((unit instanceof Player)?unit.mech.hitsize:8));
         else{
-          Effects.effect(customfx.unitShieldBreak, unit.getX(), unit.getY(), 0, (unit instanceof BaseUnit)?unit.getType().hitsize:((unit instanceof Player)?unit.mech.hitsize:8));
+          Effects.effect(customfx.unitShieldBreak, unit.getX(), unit.getY(), 0, (unit instanceof BaseUnit)?unit.getType().hitsize:((unit instanceof Player)?unit.mech.hitsize*1.5:8));
           delete this._unithp[unit.id];
           delete this._shieldhp[unit.id];
           unit.applyEffect(shieldbreak,time*2+1);
