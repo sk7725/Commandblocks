@@ -808,7 +808,7 @@ const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
   }
 });
 shieldsmall.color = Color.valueOf("ffd37f");
-shieldsmall.trans(shieldbreak, handle((unit, time, newTime, result) => {
+shieldsmall.trans(shieldbreak, StatusEffect.TransitionHandler.handle((unit, time, newTime, result) => {
   result.set(shieldbreak, newTime);
 }));
 
