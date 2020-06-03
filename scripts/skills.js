@@ -792,7 +792,7 @@ const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
       else if(unit.health() < this._unithp[unit.id]){
         var dmg = this._unithp[unit.id] - unit.health();
         this._shieldhp[unit.id] -= dmg;
-        unit.health(this._unithp[unit.id]);
+        unit.health(this._unithp[unit.id]+0.01);
         if(this._shieldhp[unit.id]>0) Effects.effect(customfx.unitShieldHit, unit.getX(), unit.getY(), 0, unit);
         else{
           Effects.effect(customfx.unitShieldBreak, unit.getX(), unit.getY(), 0, unit);
