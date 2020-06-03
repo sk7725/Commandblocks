@@ -22,7 +22,6 @@ this.global.fx = {
     Drawf.tri(e.x+v1.x, e.y+v1.y, width, 14.2*e.fin(), (e.rotation-sign*90+r1)%360);
   }),
   unitShieldBreak : newEffect(35, e => {
-    try{
     var radius = 10;
     if(e.data != null){
       var unit = e.data.getType();
@@ -33,7 +32,7 @@ this.global.fx = {
       Draw.color(shieldColor);
       Lines.stroke(c.fout() * 2 + 0.1);
 
-      Angles.randLenVectors(e.id, Mathf.floorPositive(radius * 1.2), e.rotation, radius/2 + c.finpow() * radius*1.25, floatc2((x, y) => {
+      Angles.randLenVectors(e.id, Mathf.floorPositive(radius * 1.2), radius/2 + c.finpow() * radius*1.25, floatc2((x, y) => {
         Lines.lineAngle(c.x + x, c.y + y, Mathf.angle(x, y), c.fout() * 5 + 1);
       }));
     }));
@@ -41,8 +40,6 @@ this.global.fx = {
     Draw.color(shieldColor, e.fout());
     Draw.stroke(1 * e.fout());
     Lines.circle(e.x, e.y, radius);
-    }
-    catch(err){print(err);}
   }),
   unitShieldHit : newEffect(30, e => {
     var radius = 10;
