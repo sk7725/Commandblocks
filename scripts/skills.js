@@ -823,7 +823,54 @@ const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
 });
 shieldsmall.color = Color.valueOf("ffd37f");
 shieldsmall.opposite(shieldbreak);
+const shieldlarge = extendContent(StatusEffect,"shieldlarge",{
+  _unithp:[],
+  _shieldhp:[],
+  update(unit, time){
+    this.super$update(unit, time);
+    try{
+      if(this._unithp[unit.id] == null){
+        this._unithp[unit.id] = unit.health();
+        if(this._shieldhp[unit.id] == null) this._shieldhp[unit.id] = 1000;
+      }
+      if(time<2){
+        //do not expect this to always work, deltatime
+        delete this._unithp[unit.id];
+        delete this._shieldhp[unit.id];
+        unit.applyEffect(shieldbreak, 1);//just in case
+        Effects.effect(customfx.unitShieldEnd, unit.getX(), unit.getY(), 0, (unit instanceof BaseUnit)?unit.getType().hitsize:((unit instanceof Player)?unit.mech.hitsize*1.5:8));
+        return;
+      }
+      if(this._shieldhp[unit.id] <= 0) return;
+      if(unit.health() > this._unithp[unit.id]) this._unithp[unit.id] = unit.health();
+      else if(unit.health() < this._unithp[unit.id]){
+        var dmg = this._unithp[unit.id] - unit.health();
+        this._shieldhp[unit.id] -= dmg;
+        unit.health(this._unithp[unit.id]+0.01);
+        if(this._shieldhp[unit.id]>0) Effects.effect(customfx.unitShieldHit, unit.getX(), unit.getY(), 0, (unit instanceof BaseUnit)?unit.getType().hitsize:((unit instanceof Player)?unit.mech.hitsize*1.5:8));
+        else{
+          delete this._unithp[unit.id];
+          delete this._shieldhp[unit.id];
+          unit.applyEffect(shieldbreak, 1);//just in case
+          Effects.effect(customfx.unitShieldBreak, unit.getX(), unit.getY(), 0, (unit instanceof BaseUnit)?unit.getType().hitsize:((unit instanceof Player)?unit.mech.hitsize*1.5:8));
+        }
+      }
+    }
+    catch(err){
+      print(err);
+    }
+  },
+  getTransition(unit, to, time, newTime, result){
+    if(to == shieldbreak){
+      return result.set(to, 1);
+    }
+    else return this.super$getTransition(unit, to, time, newTime, result);
+  }
+});
+shieldlarge.color = Color.valueOf("ffd37f");
+shieldlarge.opposite(shieldbreak);
 shieldbreak.opposite(shieldsmall);//just in case 2
+shieldbreak.opposite(shieldlarge);
 
 const zetacolor=Color.valueOf("82ffe8");
 const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
