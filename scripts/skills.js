@@ -776,6 +776,7 @@ ram.color=Pal.meltdownHit;
 ram.effect=Fx.hitMeltdown;
 
 const customfx = this.global.fx;
+const shieldbreak=extendContent(StatusEffect,"shieldbreak",{});
 const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
   _unithp:[],
   _shieldhp:[],
@@ -797,7 +798,7 @@ const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
           Effects.effect(customfx.unitShieldHit, unit.getX(), unit.getY());
           delete this._unithp[unit.id];
           delete this._shieldhp[unit.id];
-          time = 0; //please
+          unit.applyEffect(shieldbreak,1);
         }
       }
     }
@@ -807,6 +808,9 @@ const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
   }
 });
 shieldsmall.color = Color.valueOf("ffd37f");
+shieldsmall.trans(shieldbreak, (unit, time, newTime, result) => {
+  result.set(shieldbreak, newTime);
+});
 
 const zetacolor=Color.valueOf("82ffe8");
 const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
