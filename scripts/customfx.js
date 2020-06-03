@@ -62,12 +62,17 @@ this.global.fx = {
     }
   }),
   unitShieldHit : newEffect(30, e => {
-    var radius = 10;
-    if(e.data != null){
-      var unit = e.data.getType();
-      radius = unit.hitsize * 1.3;
-    }
+    try{
+      var radius = 10;
+      if(e.data != null){
+        var unit = e.data.getType();
+        radius = unit.hitsize * 1.3;
+      }
 
-    this.light(e.x, e.y, Lines.circleVertices(radius), radius, shieldInColor, shieldColor.a(e.fout()*0.7));
+      this.light(e.x, e.y, Lines.circleVertices(radius), radius, shieldInColor, shieldColor.a(e.fout()*0.7));
+    }
+    catch(err){
+      print(err);
+    }
   })
 };
