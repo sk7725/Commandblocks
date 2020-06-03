@@ -798,7 +798,7 @@ const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
           Effects.effect(customfx.unitShieldBreak, unit.getX(), unit.getY(), 0, (unit instanceof BaseUnit)?unit.getType().hitsize:((unit instanceof Player)?unit.mech.hitsize*1.5:8));
           delete this._unithp[unit.id];
           delete this._shieldhp[unit.id];
-          unit.applyEffect(shieldbreak,time*2.1+1);
+          unit.applyEffect(shieldbreak,time*2.1+2);//just in case
         }
       }
     }
@@ -809,6 +809,7 @@ const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
 });
 shieldsmall.color = Color.valueOf("ffd37f");
 shieldsmall.opposite(shieldbreak);
+shieldbreak.opposite(shieldsmall);//just in case 2
 
 const zetacolor=Color.valueOf("82ffe8");
 const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
