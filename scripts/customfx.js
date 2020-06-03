@@ -55,7 +55,7 @@ this.global.fx = {
         Lines.stroke(c.fout() * 2 + 0.1);
 
         Angles.randLenVectors(e.id, Mathf.floorPositive(radius * 1.2), radius/2 + c.finpow() * radius*1.25, floatc2((x, y) => {
-          Lines.lineAngle(e.x + x, e.y + y, Mathf.angle(x, y), c.fout() * 5 + 1);
+          Lines.lineAngle(c.x + x, c.y + y, Mathf.angle(x, y), c.fout() * 5 + 1);
         }));
       }));
 
@@ -75,7 +75,7 @@ this.global.fx = {
         radius = unit.hitsize * 1.3;
       }
 
-      fillLight(e.x, e.y, Lines.circleVertices(radius), radius, shieldInColor, shieldColor.a(e.fout()*0.7));
+      fillLight(e.x, e.y, Lines.circleVertices(radius), radius, shieldInColor, shieldColor.lerp(Color.white, Mathf.clamp(e.fout() / 2)).a(e.fout()*0.7+0.2));
     }
     catch(err){
       print(err);
