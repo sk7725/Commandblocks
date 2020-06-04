@@ -64,66 +64,6 @@ const skills={
 		],
 		parent:"coalfire"
 	},
-   "zincray":{
-    type:"skill.atk",
-    tier: 1,
-    cooltime:5,
-    uses:{
-      item:"zinc",
-      amount:3
-    },
-    cost:[
-      {
-        item:"commandblocks-zinc",
-        amount:230
-      },
-      {
-        item:"surge-alloy",
-        amount:85
-      }
-    ],
-    parent:"coalbomb"
-  },
-  "zincstorm":{
-    type:"skill.atk",
-    tier: 2,
-    cooltime:10,
-    uses:{
-      item:"zinc",
-      amount:6
-    },
-    cost:[
-      {
-        item:"commandblocks-zinc",
-        amount:650
-      },
-      {
-        item:"surge-alloy",
-        amount:125
-      }
-    ],
-    parent:"zincray"
-  },
-  "zincexplosion":{
-    type:"skill.support",
-    tier: 3,
-    cooltime:300,
-    uses:{
-      item:"zinc",
-      amount:60
-    },
-    cost:[
-      {
-        item:"commandblocks-zinc",
-        amount:1568
-      },
-      {
-        item:"surge-alloy",
-        amount:459
-      }
-    ],
-    parent:"zincstorm"
-  },
   "metabomb":{
     type:"skill.support",
     tier:3,
@@ -761,7 +701,67 @@ const skills={
 			}
 		],
     parent:"coalfire"
-	}
+	},
+  "zincray":{
+    type:"skill.atk",
+    tier: 1,
+    cooltime:5,
+    uses:{
+      item:"mindblow-zinc",
+      amount:3
+    },
+    cost:[
+      {
+        item:"mindblow-zinc",
+        amount:230
+      },
+      {
+        item:"surge-alloy",
+        amount:85
+      }
+    ],
+    parent:"coalbomb"
+  },
+  "zincstorm":{
+    type:"skill.atk",
+    tier: 2,
+    cooltime:10,
+    uses:{
+      item:"mindblow-zinc",
+      amount:6
+    },
+    cost:[
+      {
+        item:"mindblow-zinc",
+        amount:650
+      },
+      {
+        item:"surge-alloy",
+        amount:125
+      }
+    ],
+    parent:"zincray"
+  },
+  "zincexplosion":{
+    type:"skill.support",
+    tier: 3,
+    cooltime:300,
+    uses:{
+      item:"mindblow-zinc",
+      amount:60
+    },
+    cost:[
+      {
+        item:"mindblow-zinc",
+        amount:1568
+      },
+      {
+        item:"surge-alloy",
+        amount:459
+      }
+    ],
+    parent:"zincstorm"
+  }
 };
 this.global.skills.skills=skills;
 
@@ -1011,22 +1011,6 @@ const skillfunc={
     crawler.set(player.getX(),player.getY());
     crawler.add();
   },
-  zincray(player){
-    this.fire(Bullets.arc, player, 1, 1);
-  },
-  zincstorm(player){
-    this.fire(Bullets.arc, player, 1, 1);
-    this.fire(Bullets.lancerLaser, 1, 1);
-  },
-  zincdestroy(player){
-    Effects.effect(Fx.explosion,player.getX(), player.getY());
-    Sounds.laser.at(player.getX(),player.getY(),0.8);
-    if(Vars.net.client()) return;
-    var chaosarrayunit=UnitTypes.chaosArray.create(player.getTeam());
-    chaosarrayunit.set(player.getX(),player.getY());
-    chaosarrayunit.add();
-    player.damage(player.maxHealth()*0.9);
-  },
   phasetp(player){
     //f4ba6e windowHide
     Effects.effect(Fx.teleportOut,Color.valueOf("f4ba6e"),player.getX(), player.getY());
@@ -1184,6 +1168,22 @@ const skillfunc={
 			var distvec=Vec2(vec.x-player.getX(),vec.x-player.getX());
 			Call.createBullet(gravityTrap,player.getTeam(),vec.x,vec.y,distvec.angle(),distvec.len(),1);
 		}
+  },
+  zincray(player){
+    this.fire(Bullets.arc, player, 1, 1);
+  },
+  zincstorm(player){
+    this.fire(Bullets.arc, player, 1, 1);
+    this.fire(Bullets.lancerLaser, 1, 1);
+  },
+  zincdestroy(player){
+    Effects.effect(Fx.explosion,player.getX(), player.getY());
+    Sounds.laser.at(player.getX(),player.getY(),0.8);
+    if(Vars.net.client()) return;
+    var chaosarrayunit=UnitTypes.chaosArray.create(player.getTeam());
+    chaosarrayunit.set(player.getX(),player.getY());
+    chaosarrayunit.add();
+    player.damage(player.maxHealth()*0.9);
   }
 }
 this.global.skills.func=skillfunc;
