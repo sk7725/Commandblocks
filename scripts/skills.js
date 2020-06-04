@@ -1053,7 +1053,7 @@ const skillfunc={
   surgeshield(player){
     player.damage(player.maxHealth()*0.10);
     Sounds.spark.at(player.getX(),player.getY(),0.2);
-    this.fire(forceSmall, player, 0, 1);
+    this.fire(forceSmall, player, 1, 1);
   },
   surgecloud(player){
     player.damage(player.maxHealth()*0.18);
