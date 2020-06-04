@@ -60,7 +60,9 @@ require("magictele");
 require("signblock");
 
 //require("potion");
+require("timer");
 require("keyblock");
+
 require("boostpad");
 require("slimeblock");
 

@@ -1,0 +1,15 @@
+size: 1
+breakable: true
+update: true
+category: power
+hasPower: true
+consumesPower: false
+outputsPower: true
+requirements: [
+  silicon/15
+  ref-scalar/10
+  t-time/1
+]
+configurable: true
+rotate: false
+timers: 2
