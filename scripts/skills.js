@@ -745,7 +745,7 @@ const skills={
   "zincexplosion":{
     type:"skill.support",
     tier: 3,
-    cooltime:1,
+    cooltime:150,
     healthcost:90,
     uses:{
       item:"mindblow-zinc",
@@ -1118,7 +1118,7 @@ const skillfunc={
   },
   surgecloud(player){
     player.damage(player.maxHealth()*0.18);
-    Sounds.spark.at(player.getX(),player.getY(),0.6);
+    Sounds.spark.at(player.getX(),player.getY(),0.2);
     this.fire(arcCasterBullet, player, 0.65, 5);
   },
   scalshield(player){
@@ -1171,9 +1171,11 @@ const skillfunc={
 		}
   },
   zincray(player){
+    Sounds.spark.at(player.getX(),player.getY(),1.4);
     this.fire(Bullets.arc, player, 1, 1);
   },
   zincstorm(player){
+    Sounds.laser.at(player.getX(),player.getY(),1.1);
     this.fire(Bullets.arc, player, 1, 1);
     this.fire(Bullets.lancerLaser, player, 1, 1);
   },
