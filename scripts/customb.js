@@ -210,6 +210,7 @@ const forceSmall = extend(BasicBulletType,{
     return this.radius * this.radscl[b.id];
   },
 	init(b){
+    if(b == null) return;
 		this.radscl[b.id] = 0;
     this.hit[b.id] = 0;
     this.buildup[b.id] = 0;
