@@ -1,0 +1,6 @@
+type: material
+name: Zinc
+description: A rare metal.
+hardness: 3
+cost: 2
+color: d4d4d4
