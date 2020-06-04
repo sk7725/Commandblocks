@@ -123,7 +123,7 @@ const forceSmall = extend(BasicBulletType,{
   hit:[],
   buildup:[],
 	draw(b){
-    if(Core.settings.getBool("animatedshields") && Shaders.shield != null){
+    if(false && Core.settings.getBool("animatedshields") && Shaders.shield != null){
       Draw.shader(Shaders.shield);
       Draw.color(Pal.accent);
       Fill.poly(b.x, b.y, 6, this.realRadius(b));
