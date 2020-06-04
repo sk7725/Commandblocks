@@ -705,7 +705,7 @@ const skills={
   "zincray":{
     type:"skill.atk",
     tier: 1,
-    cooltime:5,
+    cooltime:1.5,
     uses:{
       item:"mindblow-zinc",
       amount:3
@@ -725,10 +725,10 @@ const skills={
   "zincstorm":{
     type:"skill.atk",
     tier: 2,
-    cooltime:10,
+    cooltime:4,
     uses:{
       item:"mindblow-zinc",
-      amount:6
+      amount:8
     },
     cost:[
       {
