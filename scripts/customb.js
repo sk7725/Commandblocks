@@ -55,6 +55,7 @@ gravityTrap.lifetime = 260;
 gravityTrap.collidesTiles = false;
 gravityTrap.collides = false;
 gravityTrap.collidesAir = false;
+gravityTrap.keepVelocity = false;
 this.global.bullets.gravityTrap = gravityTrap;
 
 //Credits to EyeofDarkness
@@ -226,4 +227,5 @@ forceSmall.lifetime = 3600;
 forceSmall.collidesTiles = false;
 forceSmall.collides = false;
 forceSmall.collidesAir = false;
+forceSmall.keepVelocity = false;
 this.global.bullets.forceSmall = forceSmall;
