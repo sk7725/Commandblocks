@@ -746,6 +746,7 @@ const skills={
     type:"skill.support",
     tier: 3,
     cooltime:300,
+    healthcost:90,
     uses:{
       item:"mindblow-zinc",
       amount:60
