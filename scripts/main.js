@@ -1,6 +1,7 @@
 require("armorstand");
 require("gamesoccerball");
 require("customfx");
+require("customb");
 
 require("command");
 //require("commandargs");
