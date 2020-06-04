@@ -182,7 +182,7 @@ const forceSmall = extend(BasicBulletType,{
         if(this.buildup[b.id] < 0) this.buildup[b.id] = 0;
       }*/
 
-      if(b.lifetime() - b.time() < 30){
+      if(b.lifetime() - b.time() < 75){
         this.buildup[b.id] = -1;
         return;
       }
@@ -198,8 +198,8 @@ const forceSmall = extend(BasicBulletType,{
       }
 
       var realRadius = this.realRadius(b);
-      Vars.bulletGroup.intersect(b.x - realRadius, b.x - realRadius, realRadius*2, realRadius * 2, cons(trait => {
-        if(trait.canBeAbsorbed() && trait.getTeam() != b.getTeam() && Intersector.isInsideHexagon(trait.getX(), trait.getY(), this.radius * this.radscl[b.id] * 2, b.x, b.y)){
+      Vars.bulletGroup.intersect(b.x - realRadius, b.y - realRadius, realRadius * 2, realRadius * 2, cons(trait => {
+        if(trait.canBeAbsorbed() && trait.getTeam() != b.getTeam() && Intersector.isInsideHexagon(b.x, b.y, this.radius * this.radscl[b.id] * 2, trait.getX(), trait.getY())){
           trait.absorb();
           Effects.effect(Fx.absorb, trait);
           this.hit[b.id] = 1;
