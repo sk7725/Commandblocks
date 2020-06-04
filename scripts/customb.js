@@ -132,7 +132,7 @@ const forceSmall = extend(BasicBulletType,{
       Draw.shader();
     }
     else{
-      this.drawOver(b);
+      this.drawSimple(b);
     }
 	},
   drawOver(b){
