@@ -11,6 +11,7 @@ const commandcached=this.global.commandcached;
 const armorstandtype=this.global.armorstand;
 const soccerballtype=this.global.gamesoccerball;
 const customfx=this.global.fx;
+const customb=this.global.bullets;
 const commandblocks={
   tilde(tile,inx,iny){
     if(tile instanceof Tile){
@@ -467,7 +468,7 @@ const commandblocks={
   cmdfire(ptile,cbullet,cx,cy,crot,cteam,vel,life,bind){
     //Bullet.create(type, tile.entity, tile.getTeam(), tile.drawx() + tr.x, tile.drawy() + tr.y, angle);
     //Bullet create(BulletType type, Entity owner, Team team, float x, float y, float angle, float velocityScl, float lifetimeScl){ return create(type, owner, team, x, y, angle, velocityScl, lifetimeScl, null); }
-    var bultype=(!isNaN(Number(cbullet)))?Vars.content.getByID(ContentType.bullet,cbullet):Bullets[cbullet];
+    var bultype=(!isNaN(Number(cbullet)))?Vars.content.getByID(ContentType.bullet,cbullet):((customb.hasOwnProperty(cbullet))?customb[cbullet]:Bullets[cbullet]);
     //if(bultype==null) bultype=Bullets[cbullet];
     var team=this.settype(ptile,null,"team:"+cteam);
     var owner=null; if((ptile instanceof Unit)&&bind) owner=ptile;

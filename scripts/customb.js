@@ -115,48 +115,107 @@ arcCasterBullet.collidesTiles = false;
 arcCasterBullet.collidesAir = true;
 arcCasterBullet.pierce = true;
 this.global.bullets.arcCasterBullet = arcCasterBullet;
-/*
-const forceSmall = extend(BasicBulletType,{
-  radius:[],
-	draw(b){
 
+const forceSmall = extend(BasicBulletType,{
+  breakage:540,
+  radius:80,
+  radscl:[],
+  hit:[],
+  buildup:[],
+	draw(b){
+    if(Core.settings.getBool("animatedshields") && Shaders.shield != null){
+      Draw.color(Pal.accent);
+      Fill.poly(b.x, b.y, 6, this.realRadius(b));
+      Draw.color();
+      this.drawOver(b);
+    }
+    else{
+      this.drawOver(b);
+    }
 	},
+  drawOver(b){
+    if(this.hit[b.id] <= 0) return;
+
+    Draw.color(Color.white);
+    Draw.alpha(this.hit[b.id]);
+    Fill.poly(b.x, b.y, 6, this.realRadius(b));
+    Draw.color();
+  },
+  drawSimple(b){
+    if(this.realRadius(b) < 0.5) return;
+
+    var rad = this.realRadius(b);
+
+    Draw.color(Pal.accent);
+    Lines.stroke(1.5);
+    Draw.alpha(0.09 + 0.08 * this.hit[b.id]);
+    Fill.poly(b.x, b.y, 6, rad);
+    Draw.alpha(1);
+    Lines.poly(b.x, b.y, 6, rad);
+    Draw.reset();
+  },
 	hit(b,x,y){},
 	despawned(b){
-		delete this.target[b.id];
+		delete this.radscl[b.id];
+    delete this.hit[b.id];
+    delete this.buildup[b.id];
 	},
 	update(b){
-		if(b.time()<45) return;
-		if(Mathf.floorPositive(Time.time())%40==0){
-			Effects.effect(gravsuck,b.x,b.y);
-			Sounds.message.at(b.x,b.y,0.6);
-		}
-		var i=0;
-		if(this.target[b.id].length<=5){
-			Units.nearbyEnemies(b.getTeam(),b.x-80,b.y-80,160,160,cons(u=>{
-				if(i>=5||!u.isValid()) return;
-				var dst2=Mathf.dst2(u.x,u.y,b.x,b.y);
-				if(dst2<80*80&&this.target[b.id][u.id]==null){
-					this.target[b.id][u.id]=u;
-					i++;
-				}
-			}))
-		};
-		for(var i in this.target[b.id]){
-			if(this.target[b.id][i]!=null)	this.target[b.id][i].velocity().add((b.x-this.target[b.id][i].x)/3,(b.y-this.target[b.id][i].y)/3);
-		}
+    try{
+      var broken = (this.buildup[b.id] < 0);
+      this.radscl[b.id] = Mathf.lerpDelta(this.radscl[b.id], (broken)?0:1, 0.05);
+
+      if(broken){
+        if(this.radscl[b.id] <= 0){
+          delete this.radscl[b.id];
+          delete this.hit[b.id];
+          delete this.buildup[b.id];
+          b.remove();
+        }
+        return;
+      }
+      /*
+      if(this.buildup[b.id] > 0 && !broken){
+        this.buildup[b.id] -= Time.delta() * 1.75;
+        if(this.buildup[b.id] < 0) this.buildup[b.id] = 0;
+      }*/
+
+      if(this.buildup[b.id] >= this.breakage){
+        Effects.effect(Fx.shieldBreak, b.x, b.y, this.radius);
+        this.buildup[b.id] = -1;
+        //b.remove();
+      }
+
+      if(this.hit[b.id] > 0){
+          this.hit[b.id] -= 1 / 5 * Time.delta();
+      }
+
+      var realRadius = this.realRadius(b);
+      Vars.bulletGroup.intersect(b.x - realRadius, b.x - realRadius, realRadius*2, realRadius * 2, cons(trait => {
+        if(trait.canBeAbsorbed() && trait.getTeam() != b.getTeam() && Intersector.isInsideHexagon(trait.getX(), trait.getY(), this.radius * this.radscl[b.id] * 2, b.x, b.y)){
+          trait.absorb();
+          Effects.effect(Fx.absorb, trait);
+          this.hit[b.id] = 1;
+          this.buildup[b.id] += trait.getShieldDamage();
+        }
+      }));
+    }
+    catch(err){
+      print(err);
+    }
 	},
+  realRadius(b){
+    return this.radius * this.radscl[b.id];
+  },
 	init(b){
-		if(b==null) return;
-		this.target[b.id]=[];
-		Effects.effect(gravstart,b.x,b.y);
-		Sounds.spray.at(b.x,b.y,0.9);
+		this.radscl[b.id] = 0;
+    this.hit[b.id] = 0;
+    this.buildup[b.id] = 0;
 	}
 });
 forceSmall.speed = 0;
-forceSmall.lifetime = 260;
+forceSmall.lifetime = 3600;
 forceSmall.collidesTiles = false;
 forceSmall.collides = false;
 forceSmall.collidesAir = false;
 this.global.bullets.forceSmall = forceSmall;
-*/
