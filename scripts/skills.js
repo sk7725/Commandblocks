@@ -1180,6 +1180,13 @@ const skillfunc={
   zincexplosion(player){
     Effects.effect(Fx.explosion,player.getX(), player.getY());
     Sounds.laser.at(player.getX(),player.getY(),0.8);
+    player.damage(player.maxHealth()*0.9);
+    if(player.tileOn().solid()){
+      for(var i=1;i<=15;i++){
+        this.fire(Bullets.bombExplosive, player, 0.01, 0.01);
+      }
+      return;
+    }
     if(Vars.net.client()) return;
     var chaosarrayunit=UnitTypes.chaosArray.create(player.getTeam());
     chaosarrayunit.set(player.getX(),player.getY());
