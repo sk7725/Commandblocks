@@ -182,9 +182,14 @@ const forceSmall = extend(BasicBulletType,{
         if(this.buildup[b.id] < 0) this.buildup[b.id] = 0;
       }*/
 
+      if(b.lifetime() - b.time() < 30){
+        this.buildup[b.id] = -1;
+        return;
+      }
       if(this.buildup[b.id] >= this.breakage){
         Effects.effect(Fx.shieldBreak, b.x, b.y, this.radius);
         this.buildup[b.id] = -1;
+        return;
         //b.remove();
       }
 
