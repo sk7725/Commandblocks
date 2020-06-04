@@ -7,10 +7,10 @@ const animspeed = 0.013; const animwidth = 60;
 const researchskill = extendContent(Block, "researchskill", {
 	dialog: null,
 	blockpos: {},
-	
+
 	load(){
 		this.super$load();
-		
+
 		//load languages
 		var uparr = Object.keys(root);
 		for(var i=0; i<uparr.length; i++){
@@ -20,16 +20,16 @@ const researchskill = extendContent(Block, "researchskill", {
 			root[uparr[i]].shortDesc = Core.bundle.get("skill." + uparr[i] + ".short");
 			root[uparr[i]].description = Core.bundle.get("skill." + uparr[i] + ".description");
 		}
-		
+
 		this.animRegion = [];
 		for(var i=0; i<19; i++){
 			if(i == 1 || i == 18) continue;
 			this.animRegion.push(Core.atlas.find(this.name + "-" + i));
 		}
-		
+
 		this.dialog = new FloatingDialog(Core.bundle.get("research.title"))
 		this.dialog.addCloseButton();
-		
+
 		Events.on(EventType.WorldLoadEvent, run(event => {
 			researchskill.blockpos = {};
 		}));
@@ -45,7 +45,7 @@ const researchskill = extendContent(Block, "researchskill", {
 		}
 		if(skillfunc.update(tile.ent().skill(),tile)) tile.ent().useSkill();
 	},
-	draw(tile){ 
+	draw(tile){
 		if(tile.ent().enabled()) Draw.rect(this.animRegion[Mathf.floorPositive(animwidth+2+animwidth*Mathf.sin(Time.time()*animspeed))%17], tile.drawx(), tile.drawy());
 		else this.super$draw(tile);
 	},
@@ -115,7 +115,7 @@ const researchskill = extendContent(Block, "researchskill", {
 			}
 		})).width(Vars.mobile ? 460 : 530);
 	},
-	
+
 	configured(tile,player,value){
 		//research in sync
 		if(value == 0) return;
@@ -124,6 +124,7 @@ const researchskill = extendContent(Block, "researchskill", {
 			try{
 				if(obj.name == "phaseskill") skillfunc[obj.name](player, tile);
 				else skillfunc[obj.name](player);
+        if(!Vars.net.client()) player.addItem(player.item().item,Math.floor(-1*obj.uses.amount));
 			}catch(err){
 				print("err:" + err);
 			}
@@ -151,7 +152,7 @@ const researchskill = extendContent(Block, "researchskill", {
 			//test whether items are sufficient
 			var arr = obj.cost;
 			for(var i=0; i<arr.length; i++){
-				var item = Vars.content.getByName(ContentType.item, arr[i].item); 
+				var item = Vars.content.getByName(ContentType.item, arr[i].item);
 				if(item == null) continue;
 				var camount = Vars.state.teams.get(Vars.player.getTeam()).cores.first().items.get(item);
 				if(camount < arr[i].amount) return false;
@@ -318,7 +319,7 @@ researchskill.entityType = prov(() => extend(TileEntity , {
 	validate(){
 		this._validated = true;
 	},
-	
+
 	_resarr:[],
 	getRes(){
 		return this._resarr;
@@ -332,7 +333,7 @@ researchskill.entityType = prov(() => extend(TileEntity , {
 	resetRes(){
 		this._resarr = [];
 	},
-	
+
 	_enabled:true,
 	enabled(){
 		return this._enabled;
@@ -340,7 +341,7 @@ researchskill.entityType = prov(() => extend(TileEntity , {
 	disable(){
 		this._enabled = false;
 	},
-	
+
 	_skill:{
 		skill:"",
 		lastused:0

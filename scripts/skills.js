@@ -352,8 +352,8 @@ const skills={
   "surgeshield":{
 		type:"skill.def",
 		tier:1,
-		cooltime:12.5,
-    healthcost:6,
+		cooltime:30,
+    healthcost:10,
 		uses:{
 			item:"surge-alloy",
 			amount:8
@@ -758,7 +758,7 @@ const ram = extendContent(StatusEffect,"ram",{
 ram.color=Pal.meltdownHit;
 ram.effect=Fx.hitMeltdown;
 
-const shieldbreak=extendContent(StatusEffect,"shieldbreak",{});
+const shieldbreak = extendContent(StatusEffect,"shieldbreak",{});
 const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
   _unithp:[],
   _shieldhp:[],
@@ -864,6 +864,7 @@ saboskill.color=zetacolor;
 const customb = this.global.bullets;
 const gravityTrap = customb.gravityTrap;
 const arcCasterBullet = customb.arcCasterBullet;
+const forceSmall = customb.forceSmall;
 
 const vanillaskills=30;
 const doubletaptick=15;
@@ -900,7 +901,7 @@ const skillfunc={
         try{
           //this[Skill.skill](Vars.player);
           tile.configure(-1*(1+obj.n));
-          Vars.player.addItem(Vars.player.item().item,Math.floor(-1*obj.uses.amount));
+          //Vars.player.addItem(Vars.player.item().item,Math.floor(-1*obj.uses.amount));
           return true;
         }
         catch(err){
@@ -1048,6 +1049,11 @@ const skillfunc={
     Sounds.spark.at(x,y,1.6);
     Effects.effect(Fx.lancerLaserShootSmoke, x, y,(dir+180)%360);
     player.velocity().set(Vec2(4,0).setAngle(dir));
+  },
+  surgeshield(player){
+    player.damage(player.maxHealth()*0.10);
+    Sounds.spark.at(player.getX(),player.getY(),0.2);
+    this.fire(forceSmall, player, 0, 1);
   },
   surgecloud(player){
     player.damage(player.maxHealth()*0.18);
