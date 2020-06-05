@@ -96,6 +96,14 @@ const playermusic = extendContent(Block, "playermusic", {
       Vars.ui.showInfoToast("Now Playing: "+tile.ent().getVal(),3);
     }
     else if(value>0&&value<=this.musics.length) tile.ent().setVal(value);
+    else return;
+    if(this.music != null && this.music.isPlaying()) this.music.stop();
+    try{
+      for(var i=0;i<this.musics.length;i++){
+        if(this.musics[i].isPlaying()) this.musics[i].stop();
+      }
+    }
+    catch(err){}
   },
   update(tile){
     if(tile.entity.cons.valid()){
