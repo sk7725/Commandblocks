@@ -4,6 +4,17 @@ const skillfunc = this.global.skills.func;
 
 const animspeed = 0.013; const animwidth = 60;
 
+const color3 = Color.valueOf("82ffe8");
+const skillupFx = newEffect(15, e => {
+  Lines.stroke(1.5 * e.fout());
+  Draw.color(color3);
+  Lines.poly(e.x, e.y, 4, 0.1 + e.fin() * 2);
+});
+
+const skillup = extendContent(StatusEffect,"skillup",{});
+skillup.color = color3;
+skillup.effect = skillupFx;
+
 const researchskill = extendContent(Block, "researchskill", {
 	dialog: null,
 	blockpos: {},
@@ -44,6 +55,7 @@ const researchskill = extendContent(Block, "researchskill", {
 			else this.blockpos[tile.getTeamID()] = tile.pos();
 		}
 		if(skillfunc.update(tile.ent().skill(),tile)) tile.ent().useSkill();
+    if(Vars.player.hasEffect(skillup)) tile.ent().skillCooltimeReduce(2);
 	},
 	draw(tile){
 		if(tile.ent().enabled()) Draw.rect(this.animRegion[Mathf.floorPositive(animwidth+2+animwidth*Mathf.sin(Time.time()*animspeed))%17], tile.drawx(), tile.drawy());
@@ -354,6 +366,9 @@ researchskill.entityType = prov(() => extend(TileEntity , {
 	},
 	useSkill(){
 		this._skill.lastused = Time.time();
+	},
+  skillCooltimeReduce(a){
+		this._skill.lastused -= a;
 	},
 
 	write(stream){
