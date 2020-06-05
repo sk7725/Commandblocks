@@ -264,7 +264,7 @@ const effectZone = extend(BasicBulletType,{
       e.applyEffect(b.getData(), 2);
     }));
     if(Mathf.chance(0.3)){
-      var v1=Vec2(75,0).setAngle(Mathf.radom()*360);
+      var v1=Vec2(75,0).setAngle(Mathf.random()*360);
       Effects.effect(b.getData().effect,b.x+v1.x,b.y+v1.y);
     }
 	},
