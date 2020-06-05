@@ -128,7 +128,7 @@ const playermusic = extendContent(Block, "playermusic", {
         catch(err){}
       }
     }
-    return;//tmp
+    //return;//tmp
     for(var i=0;i<musicList.length;i++){
       (Core.assets.load("sounds/"+musicList[i]+".ogg", Packages.arc.audio.Music)).loaded = cons(a => this.musics.push(a));
     }
