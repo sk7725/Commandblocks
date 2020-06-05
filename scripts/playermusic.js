@@ -28,8 +28,7 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
             this.music.setVolume(1);
           }
           catch(err){
-            print("Ins: "+err);
-            print(err.stack);
+            this.music = null;
           }
         }));
       }
@@ -62,6 +61,12 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
         print(err);
       }
     })).size(40);
+  },
+  update(tile){
+    if(tile.entity.cons.valid()){
+      if(this.music == null) return;
+      if(!this.music.isPlaying()) this.music.play();
+    }
   }
 });
 //var muselist={};
