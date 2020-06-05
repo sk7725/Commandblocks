@@ -96,18 +96,18 @@ this.global.fx = {
   }),
   healFx : newEffect(25, e => {
     Draw.color(Pal.surge, Pal.heal, e.fin());
-    Lines.stroke(2);
+    Lines.stroke(1);
     var offset = e.fin()*3;
-    Lines.lineAngle(e.x, e.y + offset, 0, 5);
-    Lines.lineAngle(e.x, e.y + offset, 90, 5);
+    Lines.lineAngle(e.x-1.5, e.y + offset, 0, 3);
+    Lines.lineAngle(e.x, e.y-1.5 + offset, 90, 3);
   }),
   healSpread : newEffect(25, e => {
     Draw.color(Pal.surge, Pal.heal, e.fin());
-    Lines.stroke(2);
+    Lines.stroke(1);
     var offset = e.fin()*3;
-    Angles.randLenVectors(e.id, 5, 4 + 5*e.fin(), floatc2((x, y) => {
-      Lines.lineAngle(e.x + x, e.y + y + offset, 0, 5);
-      Lines.lineAngle(e.x + x, e.y + y + offset, 90, 5);
+    Angles.randLenVectors(e.id, 2, 3 + 5*e.fin(), floatc2((x, y) => {
+      Lines.lineAngle(e.x-1.5 + x, e.y + y + offset, 0, 3);
+      Lines.lineAngle(e.x + x, e.y-1.5 + y + offset, 90, 3);
     }));
   })
 };
