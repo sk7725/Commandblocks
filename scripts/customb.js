@@ -267,7 +267,7 @@ const effectZone = extend(BasicBulletType,{
     }
 	},
 	init(b){
-		if(b==null) return;
+		if(b == null) return;
     if(!(b.getData() instanceof StatusEffect)) b.setData(null);
     Effects.effect(zoneStart,b.x,b.y);
 	}
