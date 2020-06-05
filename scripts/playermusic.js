@@ -3,6 +3,8 @@ if (typeof(cons2)== "undefined"){
   const cons2 = method => new Cons2(){get : method};
 }
 
+const musicList = ["celesting", "crowning", "divining", "fielding", "hearting", "wanting"];
+
 const playermusic = extendContent(Block, "playermusic", {
   music:null,
   musics:[],
@@ -118,9 +120,14 @@ const playermusic = extendContent(Block, "playermusic", {
         catch(err){}
       }
     }
+    for(var i=0;i<musicList.length;i++){
+      (Core.assets.load("sounds/"+musicList[i]+".ogg", Packages.arc.audio.Music)).loaded = cons(a => this.musics.push(a));
+    }
+
+    /*
     Vars.mods.listFiles("music", cons2((l, f)=>{
       this.musics.push(Core.audio.newMusic(f));
-    }));
+    }));*/
   }
 });
 
