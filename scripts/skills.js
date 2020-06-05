@@ -243,11 +243,11 @@ const skills={
   "pyraheal":{
 		type:"skill.support",
 		tier:1,
-		cooltime:7,
-    duration:5,
+    duration:8.3,
+    cooltime:24.8,
 		uses:{
 			item:"pyratite",
-			amount:7
+			amount:12
 		},
 		cost:[
 			{
@@ -462,7 +462,7 @@ const skills={
   "vecradian":{
     type:"skill.atk",
     tier:1,
-    cooltime:11,
+    cooltime:13.5,
     uses:{
       item:"commandblocks-ore-vector",
       amount:12
@@ -509,7 +509,7 @@ const skills={
   "vecshot":{
     type:"skill.atk",
     tier:3,
-    cooltime:7,
+    cooltime:10.8,
     uses:{
       item:"commandblocks-ref-vector",
       amount:8
@@ -530,7 +530,7 @@ const skills={
     type:"skill.support",
     tier:1,
     duration:8.3,
-    cooltime:21.8,
+    cooltime:30,
     uses:{
       item:"commandblocks-ore-zeta",
       amount:15
@@ -549,7 +549,7 @@ const skills={
   "zetasabo":{
     type:"skill.support",
     tier:2,
-    cooltime:10.8,
+    cooltime:28,
     duration:10,
     uses:{
       item:"commandblocks-ore-zeta",
@@ -574,7 +574,7 @@ const skills={
   "zetatrap":{
     type:"skill.support",
     tier:3,
-    cooltime:7.6,
+    cooltime:11,
     duration:3.6,
     uses:{
       item:"commandblocks-ref-zeta",
@@ -1071,6 +1071,10 @@ const skillfunc={
     this.fire(Bullets.lightning, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
+  },
+  pyraheal(player){
+    Sounds.unlock.at(player.getX(),player.getY(),0.75);
+    this.fire(cbullet.healZone, player, 1, 1);
   },
   pyraboost(player){
     var x=player.getX(); var y=player.getY();

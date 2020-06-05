@@ -285,3 +285,38 @@ effectZone.collides = false;
 effectZone.collidesAir = false;
 effectZone.keepVelocity = false;
 this.global.bullets.effectZone = effectZone;
+
+const healFx = this.global.fx.healFx;
+const healSpread = this.global.fx.healSpread;
+const healZone = extend(BasicBulletType,{
+	draw(b){
+    Draw.color(Pal.surge);
+    Lines.stroke(1);
+    Lines.circle(b.x, b.y, Mathf.clamp((1-b.fin())*20)*50);
+    fillLight(b.x, b.y, Lines.circleVertices(50), Mathf.clamp((1-b.fin())*20)*50, Pal.surge.cpy().a(0), Pal.surge.cpy().a(0.4+0.25*Mathf.sin(b.time()*0.02)));
+    Draw.color();
+	},
+	hit(b,x,y){},
+  despawned(b){},
+	update(b){
+    Units.nearby(b.getTeam(), b.x, b.y, 50, cons(e=>{
+      e.health(Mathf.min(e.health()+0.5, e.maxHealth()));
+      Effects.effect(healSpread,e.getX(),e.getY());
+    }));
+    if(Mathf.chance(0.3)){
+      var v1=Vec2(50,0).setAngle(Mathf.random()*360);
+      Effects.effect(healFx,b.x+v1.x,b.y+v1.y);
+    }
+	},
+	init(b){
+		if(b == null) return;
+    Effects.effect(zoneStart,b.x,b.y);
+	}
+});
+healZone.speed = 0;
+healZone.lifetime = 500;
+healZone.collidesTiles = false;
+healZone.collides = false;
+healZone.collidesAir = false;
+healZone.keepVelocity = false;
+this.global.bullets.healZone = healZone;
