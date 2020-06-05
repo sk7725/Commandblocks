@@ -300,7 +300,7 @@ const healZone = extend(BasicBulletType,{
   despawned(b){},
 	update(b){
     Units.nearby(b.getTeam(), b.x, b.y, 50, cons(e=>{
-      e.health(Mathf.min(e.health()+0.5, e.maxHealth()));
+      e.health(Math.min(e.health()+0.5, e.maxHealth()));
       Effects.effect(healSpread,e.getX(),e.getY());
     }));
     if(Mathf.chance(0.3)){
