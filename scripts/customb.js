@@ -252,22 +252,23 @@ const zoneStart = newEffect(15, e => {
 });
 const effectZone = extend(BasicBulletType,{
 	draw(b){
-    if(b.data == null) return;
-    fillLight(e.x, e.y, Lines.circleVertices(75), Mathf.clamp((1-b.fin())*20)*75, b.data.color.cpy().a(0), b.data.color.cpy().a(0.75+0.25*Mathf.sin(b.time()*0.01)));
+    if(b.getData() == null) return;
+    fillLight(b.x, b.y, Lines.circleVertices(75), Mathf.clamp((1-b.fin())*20)*75, b.getData().color.cpy().a(0), b.getData().color.cpy().a(0.75+0.25*Mathf.sin(b.time()*0.01)));
 	},
 	hit(b,x,y){},
 	update(b){
-    if(b.data == null) return;
+    if(b.getData() == null) return;
     Units.nearby(b.getTeam(), b.x, b.y, 75, cons(e=>{
-      e.applyEffect(b.data, 2);
+      e.applyEffect(b.getData(), 2);
     }));
     if(Mathf.chance(0.3)){
       var v1=Vec2(75,0).setToRandomDirection();
-      Effects.effect(b.data.effect,b.x+v1.x,b.y+v1.y);
+      Effects.effect(b.getData().effect,b.x+v1.x,b.y+v1.y);
     }
 	},
 	init(b){
 		if(b==null) return;
+    if(!(b.getData() instanceof StatusEffect)) b.setData(null);
     Effects.effect(zoneStart,b.x,b.y);
 	}
 });
