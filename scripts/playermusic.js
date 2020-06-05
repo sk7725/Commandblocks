@@ -1,3 +1,4 @@
+const FileChooser=Packages.mindustry.ui.dialogs.FileChooser;
 const playermusic = extendContent(MessageBlock, "playermusic", {
   music:null,
   buildConfiguration(tile, table){
