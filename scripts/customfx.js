@@ -105,7 +105,7 @@ this.global.fx = {
     Draw.color(Pal.surge, Pal.heal.cpy().a(0), e.fin());
     Lines.stroke(1);
     var offset = e.fin()*5;
-    Angles.randLenVectors(e.id, 2, 3 + 5*e.fin(), floatc2((x, y) => {
+    Angles.randLenVectors(e.id, 2, 6 + 5*e.fin(), floatc2((x, y) => {
       Lines.lineAngle(e.x-1.5 + x, e.y + y + offset, 0, 3);
       Lines.lineAngle(e.x + x, e.y-1.5 + y + offset, 90, 3);
     }));

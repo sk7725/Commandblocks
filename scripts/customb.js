@@ -250,7 +250,6 @@ function fillLight(x, y, sides, radius, center, edge){
 const zoneStart = newEffect(15, e => {
 	fillLight(e.x, e.y, Lines.circleVertices(75), 75, Color.clear, Color.white.cpy().a(e.fout()));
 });
-
 const effectZone = extend(BasicBulletType,{
 	draw(b){
     if(b.getData() == null) return;
@@ -288,6 +287,9 @@ this.global.bullets.effectZone = effectZone;
 
 const healFx = this.global.fx.healFx;
 const healSpread = this.global.fx.healSpread;
+const healStart = newEffect(15, e => {
+	fillLight(e.x, e.y, Lines.circleVertices(50), 50, Color.clear, Color.white.cpy().a(e.fout()));
+});
 const healZone = extend(BasicBulletType,{
 	draw(b){
     Draw.color(Pal.surge);
@@ -301,7 +303,7 @@ const healZone = extend(BasicBulletType,{
 	update(b){
     Units.nearby(b.getTeam(), b.x, b.y, 50, cons(e=>{
       e.health(Math.min(e.health()+0.5, e.maxHealth()));
-      Effects.effect(healSpread,e.getX(),e.getY());
+      if(Mathf.chance(0.3)) Effects.effect(healSpread,e.getX(),e.getY());
     }));
     if(Mathf.chance(0.3)){
       var v1=Vec2(50,0).setAngle(Mathf.random()*360);
@@ -310,7 +312,7 @@ const healZone = extend(BasicBulletType,{
 	},
 	init(b){
 		if(b == null) return;
-    Effects.effect(zoneStart,b.x,b.y);
+    Effects.effect(healStart,b.x,b.y);
 	}
 });
 healZone.speed = 0;
