@@ -1,5 +1,48 @@
 const playermusic = extendContent(MessageBlock, "playermusic", {
-	
+  music:null,
+  buildConfiguration(tile, table){
+    //this.super$buildConfiguration(tile, table);
+    const entity = tile.ent();
+    // Add buttons
+    table.addImageButton(Icon.file, run(() => {
+      // Create dialog
+      const dialog = new FileChooser("Choose Music", boolf(f=>(true)), true, cons(f=>{
+        try{
+          if(this.music != null) this.music.dispose();
+          this.music = Core.audio.newMusic(f);
+          this.music.setVolume(1);
+        }
+        catch(err){
+          print(err);
+        }
+      }));
+      dialog.show();
+    })).size(40);
+    table.addImageButton(Icon.play, run(() => {
+      try{
+        if(this.music != null) this.music.play();
+      }
+      catch(err){
+        print(err);
+      }
+    })).size(40);
+    table.addImageButton(Icon.pause, run(() => {
+      try{
+        if(this.music != null) this.music.pause();
+      }
+      catch(err){
+        print(err);
+      }
+    })).size(40);
+    table.addImageButton(Icon.block, run(() => {
+      try{
+        if(this.music != null) this.music.stop();
+      }
+      catch(err){
+        print(err);
+      }
+    })).size(40);
+  }
 });
 //var muselist={};
 /*
