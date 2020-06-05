@@ -248,12 +248,12 @@ function fillLight(x, y, sides, radius, center, edge){
 }
 
 const zoneStart = newEffect(15, e => {
-	fillLight(e.x, e.y, Lines.circleVertices(75), 75, Color.white.a(0), Color.white.a(e.fout()));
+	fillLight(e.x, e.y, Lines.circleVertices(75), 75, Color.clear, Color.white.cpy().a(e.fout()));
 });
 const effectZone = extend(BasicBulletType,{
 	draw(b){
     if(b.data == null) return;
-    fillLight(e.x, e.y, Lines.circleVertices(75), Mathf.clamp((1-b.fin())*20)*75, b.data.color.a(0), b.data.color.a(0.75+0.25*Mathf.sin(b.time()*0.01)));
+    fillLight(e.x, e.y, Lines.circleVertices(75), Mathf.clamp((1-b.fin())*20)*75, b.data.color.cpy().a(0), b.data.color.cpy().a(0.75+0.25*Mathf.sin(b.time()*0.01)));
 	},
 	hit(b,x,y){},
 	update(b){
