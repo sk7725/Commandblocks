@@ -1,13 +1,13 @@
 const FileChooser=Packages.mindustry.ui.dialogs.FileChooser;
+
 const playermusic = extendContent(MessageBlock, "playermusic", {
   music:null,
   buildConfiguration(tile, table){
-    //this.super$buildConfiguration(tile, table);
     const entity = tile.ent();
-    // Add buttons
     table.addImageButton(Icon.file, run(() => {
       // Create dialog
       try{
+        /*
         const dialog = new FileChooser("Choose Music", boolf(f=>(true)), true, cons(f=>{
           try{
             if(this.music != null) this.music.dispose();
@@ -20,6 +20,18 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
           }
         }));
         dialog.show();
+        */
+        Vars.platform.showFileChooser(true, "mp3", cons(f => {
+          try{
+            if(this.music != null) this.music.dispose();
+            this.music = Core.audio.newMusic(f);
+            this.music.setVolume(1);
+          }
+          catch(err){
+            print("Ins: "+err);
+            print(err.stack);
+          }
+        }));
       }
       catch(err){
         print(err);
