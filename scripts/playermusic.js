@@ -15,13 +15,15 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
             this.music.setVolume(1);
           }
           catch(err){
-            print(err);
+            print("Ins: "+err);
+            print(err.stack);
           }
         }));
         dialog.show();
       }
       catch(err){
         print(err);
+        print(err.stack);
       }
     })).size(40);
     table.addImageButton(Icon.play, run(() => {
