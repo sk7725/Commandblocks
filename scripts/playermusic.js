@@ -105,6 +105,7 @@ const playermusic = extendContent(Block, "playermusic", {
         }
         if(!this.musics[val].isPlaying()) this.musics[val].play();
       }
+      catch(err){}
     }
   },
   load(){
