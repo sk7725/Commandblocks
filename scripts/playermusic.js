@@ -6,17 +6,22 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
     // Add buttons
     table.addImageButton(Icon.file, run(() => {
       // Create dialog
-      const dialog = new FileChooser("Choose Music", boolf(f=>(true)), true, cons(f=>{
-        try{
-          if(this.music != null) this.music.dispose();
-          this.music = Core.audio.newMusic(f);
-          this.music.setVolume(1);
-        }
-        catch(err){
-          print(err);
-        }
-      }));
-      dialog.show();
+      try{
+        const dialog = new FileChooser("Choose Music", null, true, cons(f=>{
+          try{
+            if(this.music != null) this.music.dispose();
+            this.music = Core.audio.newMusic(f);
+            this.music.setVolume(1);
+          }
+          catch(err){
+            print(err);
+          }
+        }));
+        dialog.show();
+      }
+      catch(err){
+        print(err);
+      }
     })).size(40);
     table.addImageButton(Icon.play, run(() => {
       try{
