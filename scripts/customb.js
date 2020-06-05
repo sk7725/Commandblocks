@@ -257,7 +257,7 @@ const effectZone = extend(BasicBulletType,{
     Draw.color(b.getData().color);
     Lines.stroke(2);
     Lines.circle(e.x, e.y, Mathf.clamp((1-b.fin())*20)*75);
-    fillLight(b.x, b.y, Lines.circleVertices(75), Mathf.clamp((1-b.fin())*20)*75, b.getData().color.cpy().a(0), b.getData().color.cpy().a(0.6+0.25*Mathf.sin(b.time()*0.02)));
+    fillLight(b.x, b.y, Lines.circleVertices(75), Mathf.clamp((1-b.fin())*20)*75, b.getData().color.cpy().a(0), b.getData().color.cpy().a(0.4+0.25*Mathf.sin(b.time()*0.02)));
     Draw.color();
 	},
 	hit(b,x,y){},
