@@ -261,6 +261,10 @@ const effectZone = extend(BasicBulletType,{
     Units.nearby(b.getTeam(), b.x, b.y, 75, cons(e=>{
       e.applyEffect(e.data, 2);
     }));
+    if(Mathf.chance(0.3)){
+      var v1=Vec2(75,0).setToRandomDirection();
+      Effects.effect(b.data.effect,b.x+v1.x,b.y+v1.y);
+    }
 	},
 	init(b){
 		if(b==null) return;
