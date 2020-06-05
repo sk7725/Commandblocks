@@ -24,6 +24,7 @@ const gravityTrap = extend(BasicBulletType,{
 	},
 	update(b){
 		if(b.time()<45) return;
+    if(!b.velocity().isZero(0.0001)) b.velocity(0,0);
 		if(Mathf.floorPositive(Time.time())%40==0){
 			Effects.effect(gravsuck,b.x,b.y);
 			Sounds.message.at(b.x,b.y,0.6);
@@ -50,12 +51,12 @@ const gravityTrap = extend(BasicBulletType,{
 		Sounds.spray.at(b.x,b.y,0.9);
 	}
 });
-gravityTrap.speed = 0;
+gravityTrap.speed = 5;
 gravityTrap.lifetime = 260;
 gravityTrap.collidesTiles = false;
 gravityTrap.collides = false;
 gravityTrap.collidesAir = false;
-gravityTrap.keepVelocity = false;
+gravityTrap.keepVelocity = true;
 this.global.bullets.gravityTrap = gravityTrap;
 
 //Credits to EyeofDarkness
@@ -229,3 +230,47 @@ forceSmall.collides = false;
 forceSmall.collidesAir = false;
 forceSmall.keepVelocity = false;
 this.global.bullets.forceSmall = forceSmall;
+
+function fillLight(x, y, sides, radius, center, edge){
+  var centerf = center.toFloatBits(); var edgef = edge.toFloatBits();
+  sides = Mathf.ceil(sides / 2) * 2;
+  var space = 360 / sides;
+
+  for(var i = 0; i < sides; i += 2){
+    var px = Angles.trnsx(space * i, radius);
+    var py = Angles.trnsy(space * i, radius);
+    var px2 = Angles.trnsx(space * (i + 1), radius);
+    var py2 = Angles.trnsy(space * (i + 1), radius);
+    var px3 = Angles.trnsx(space * (i + 2), radius);
+    var py3 = Angles.trnsy(space * (i + 2), radius);
+    Fill.quad(x, y, centerf, x + px, y + py, edgef, x + px2, y + py2, edgef, x + px3, y + py3, edgef);
+  }
+}
+
+const zoneStart = newEffect(15, e => {
+	fillLight(e.x, e.y, Lines.circleVertices(radius), 75, Color.white.a(0), Color.white.a(e.fout()));
+});
+const effectZone = extend(BasicBulletType,{
+	draw(b){
+    if(b.data == null) return;
+    fillLight(e.x, e.y, Lines.circleVertices(radius), Mathf.clamp((1-b.fin())*20)*75, b.data.color.a(0), b.data.color.a(0.75+0.25*Mathf.sin(b.time()*0.01)));
+	},
+	hit(b,x,y){},
+	update(b){
+    if(b.data == null) return;
+    Units.nearby(b.getTeam(), b.x, b.y, 75, cons(e=>{
+      e.applyEffect(e.data, 2);
+    }));
+	},
+	init(b){
+		if(b==null) return;
+    Effects.effect(zoneStart,b.x,b.y);
+	}
+});
+effectZone.speed = 0;
+effectZone.lifetime = 310;
+effectZone.collidesTiles = false;
+effectZone.collides = false;
+effectZone.collidesAir = false;
+effectZone.keepVelocity = false;
+this.global.bullets.effectZone = effectZone;

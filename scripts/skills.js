@@ -356,7 +356,7 @@ const skills={
     healthcost:10,
 		uses:{
 			item:"surge-alloy",
-			amount:8
+			amount:14
 		},
 		cost:[
 			{
@@ -441,7 +441,7 @@ const skills={
     duration:120,
     uses:{
       item:"commandblocks-ref-scalar",
-      amount:20
+      amount:14
     },
     cost:[
       {
@@ -1160,15 +1160,15 @@ const skillfunc={
     Damage.damage(player.getTeam(),x,y,120,690);
   },
   zetatrap(player){
-    //if(player!=Vars.player) return;
+    /*
 		var mx=Core.input.mouseWorld().x;
 		var my=Core.input.mouseWorld().y;
     var vec=Core.input.mouseWorld(Vars.control.input.getMouseX(),Vars.control.input.getMouseY());
-    //Effects.effect(Fx.teleportOut,Color.valueOf("f4ba6e"),Vars.control.input.getMouseX(), Vars.control.input.getMouseY());
     if(player==Vars.player){
 			var distvec=Vec2(vec.x-player.getX(),vec.x-player.getX());
 			Call.createBullet(gravityTrap,player.getTeam(),vec.x,vec.y,distvec.angle(),distvec.len(),1);
-		}
+		}*/
+    this.fire(gravityTrap, player, 1, 1);
   },
   zincray(player){
     Sounds.spark.at(player.getX(),player.getY(),1.4);
