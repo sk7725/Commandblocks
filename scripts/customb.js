@@ -253,7 +253,7 @@ const zoneStart = newEffect(15, e => {
 const effectZone = extend(BasicBulletType,{
 	draw(b){
     if(b.getData() == null) return;
-    fillLight(b.x, b.y, Lines.circleVertices(75), Mathf.clamp((1-b.fin())*20)*75, b.getData().color.cpy().a(0), b.getData().color.cpy().a(0.75+0.25*Mathf.sin(b.time()*0.01)));
+    fillLight(b.x, b.y, Lines.circleVertices(75), Mathf.clamp((1-b.fin())*20)*75, b.getData().color.cpy().a(0), b.getData().color.cpy().a(0.3+0.25*Mathf.sin(b.time()*0.02)));
 	},
 	hit(b,x,y){},
 	update(b){
@@ -273,7 +273,7 @@ const effectZone = extend(BasicBulletType,{
 	}
 });
 effectZone.speed = 0;
-effectZone.lifetime = 310;
+effectZone.lifetime = 500;
 effectZone.collidesTiles = false;
 effectZone.collides = false;
 effectZone.collidesAir = false;
