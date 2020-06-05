@@ -1074,7 +1074,7 @@ const skillfunc={
   },
   pyraheal(player){
     Sounds.unlock.at(player.getX(),player.getY(),0.75);
-    this.fire(cbullet.healZone, player, 1, 1);
+    this.fire(customb.healZone, player, 1, 1);
   },
   pyraboost(player){
     var x=player.getX(); var y=player.getY();
