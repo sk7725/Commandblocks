@@ -8,7 +8,7 @@ const color3 = Color.valueOf("82ffe8");
 const skillupFx = newEffect(15, e => {
   Lines.stroke(1.5 * e.fout());
   Draw.color(color3);
-  Lines.poly(e.x, e.y, 4, 0.1 + e.fin() * 2);
+  Lines.poly(e.x, e.y, 4, 0.1 + e.fin() * 3);
 });
 
 const skillup = extendContent(StatusEffect,"skillup",{});
@@ -55,7 +55,7 @@ const researchskill = extendContent(Block, "researchskill", {
 			else this.blockpos[tile.getTeamID()] = tile.pos();
 		}
 		if(skillfunc.update(tile.ent().skill(),tile)) tile.ent().useSkill();
-    if(Vars.player.hasEffect(skillup)) tile.ent().skillCooltimeReduce(2);
+    if(Vars.player.hasEffect(skillup)&&tile.ent().skill().skill!=""&&tile.ent().skill().skill!="zetarecharge") tile.ent().skillCooltimeReduce(2);
 	},
 	draw(tile){
 		if(tile.ent().enabled()) Draw.rect(this.animRegion[Mathf.floorPositive(animwidth+2+animwidth*Mathf.sin(Time.time()*animspeed))%17], tile.drawx(), tile.drawy());

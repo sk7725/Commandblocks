@@ -529,10 +529,11 @@ const skills={
   "zetarecharge":{
     type:"skill.support",
     tier:1,
-    cooltime:10,
+    duration:8.3,
+    cooltime:21.8,
     uses:{
       item:"commandblocks-ore-zeta",
-      amount:9
+      amount:15
     },
     cost:[
       {
@@ -926,6 +927,7 @@ const customb = this.global.bullets;
 const gravityTrap = customb.gravityTrap;
 const arcCasterBullet = customb.arcCasterBullet;
 const forceSmall = customb.forceSmall;
+const effectZone = customb.effectZone;
 
 const vanillaskills=30;
 const doubletaptick=15;
@@ -1149,15 +1151,9 @@ const skillfunc={
       }
     }));
   },
-  uranblast(player){
-    var x=player.getX(); var y=player.getY();
-    player.damage(player.maxHealth()*1.5);
-    Effects.effect(Fx.nuclearShockwave, x, y);
-    Effects.shake(10, 10, x, y);
-    Effects.effect(Fx.dynamicExplosion, x, y, 3);
-    Sounds.explosionBig.at(x,y);
-    if(Vars.net.client()) return;
-    Damage.damage(player.getTeam(),x,y,120,690);
+  zetarecharge(player){
+    Sounds.spark.at(player.getX(),player.getY(),0.45);
+    Bullet.create(effectZone, player, player.getTeam(), player.getX(), player.getY(), player.rotation, 1, 1, Vars.content.getByName(ContentType.status, "commandblocks-skillup"));
   },
   zetatrap(player){
     /*
@@ -1169,6 +1165,16 @@ const skillfunc={
 			Call.createBullet(gravityTrap,player.getTeam(),vec.x,vec.y,distvec.angle(),distvec.len(),1);
 		}*/
     this.fire(gravityTrap, player, 1, 1);
+  },
+  uranblast(player){
+    var x=player.getX(); var y=player.getY();
+    player.damage(player.maxHealth()*1.5);
+    Effects.effect(Fx.nuclearShockwave, x, y);
+    Effects.shake(10, 10, x, y);
+    Effects.effect(Fx.dynamicExplosion, x, y, 3);
+    Sounds.explosionBig.at(x,y);
+    if(Vars.net.client()) return;
+    Damage.damage(player.getTeam(),x,y,120,690);
   },
   zincray(player){
     Sounds.spark.at(player.getX(),player.getY(),1.4);
