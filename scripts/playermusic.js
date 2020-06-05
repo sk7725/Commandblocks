@@ -8,7 +8,7 @@ const playermusic = extendContent(MessageBlock, "playermusic", {
     table.addImageButton(Icon.file, run(() => {
       // Create dialog
       try{
-        const dialog = new FileChooser("Choose Music", null, true, cons(f=>{
+        const dialog = new FileChooser("Choose Music", boolf(f=>(true)), true, cons(f=>{
           try{
             if(this.music != null) this.music.dispose();
             this.music = Core.audio.newMusic(f);
