@@ -128,9 +128,9 @@ const playermusic = extendContent(Block, "playermusic", {
         catch(err){}
       }
     }
-    //return;//tmp
+    return;//tmp
     for(var i=0;i<musicList.length;i++){
-      (Core.assets.loadRun("sounds/"+musicList[i]+".ogg", Packages.arc.audio.Music, run(()=>{}))).loaded = cons(a => this.musics.push(a));
+      //(Core.assets.loadRun("sounds/"+musicList[i]+".ogg", Packages.arc.audio.Music, run(()=>{}))).loaded = cons(a => this.musics.push(a));
     }
   }
 });
