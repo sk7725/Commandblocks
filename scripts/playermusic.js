@@ -121,7 +121,7 @@ const playermusic = extendContent(Block, "playermusic", {
       }
     }
     for(var i=0;i<musicList.length;i++){
-      (Core.assets.load("music/"+musicList[i]+".mp3", Packages.arc.audio.Music)).loaded = cons(a => this.musics.push(a));
+      (Core.assets.load("sounds/"+musicList[i]+".mp3", Packages.arc.audio.Music)).loaded = cons(a => this.musics.push(a));
     }
   }
 });
