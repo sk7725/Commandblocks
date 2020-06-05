@@ -121,13 +121,8 @@ const playermusic = extendContent(Block, "playermusic", {
       }
     }
     for(var i=0;i<musicList.length;i++){
-      (Core.assets.load("sounds/"+musicList[i]+".ogg", Packages.arc.audio.Music)).loaded = cons(a => this.musics.push(a));
+      (Core.assets.load("music/"+musicList[i]+".mp3", Packages.arc.audio.Music)).loaded = cons(a => this.musics.push(a));
     }
-
-    /*
-    Vars.mods.listFiles("music", cons2((l, f)=>{
-      this.musics.push(Core.audio.newMusic(f));
-    }));*/
   }
 });
 
