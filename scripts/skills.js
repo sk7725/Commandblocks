@@ -1137,7 +1137,7 @@ const skillfunc={
     Effects.effect(swordeffect, x, y, player.rotation);
     var v1=Vec2(6,0).setAngle(player.rotation);
     Damage.damage(player.getTeam(), x+v1.x, y+v1.y, 24, 120);
-    Vars.bulletGroup.intersect(x+v1.x-11, y+v1.y-11, x+v1.x+11, y+v1.y+11).each(cons(b=>{
+    Vars.bulletGroup.intersect(x+v1.x-6, y+v1.y-6, x+v1.x+6, y+v1.y+6).each(cons(b=>{
       //deflect
       if(b.getTeam()!=player.getTeam()){
         b.velocity().x*=-1;

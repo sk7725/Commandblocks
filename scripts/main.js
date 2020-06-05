@@ -1,3 +1,5 @@
+require("init");
+
 require("armorstand");
 require("gamesoccerball");
 require("customfx");
