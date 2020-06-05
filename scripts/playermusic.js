@@ -12,7 +12,7 @@ const playermusic = extendContent(Block, "playermusic", {
   buildConfiguration(tile, table){
     const entity = tile.ent();
 
-    table.addImageButton(Icon.play, run(() => {
+    table.addImageButton(Icon.play, Styles.clearTransi, run(() => {
       try{
         if(this.music != null && this.custom) this.music.play();
         else this.musics[tile.ent().getVal()-1].play();
@@ -21,7 +21,7 @@ const playermusic = extendContent(Block, "playermusic", {
         print(err);
       }
     })).size(40);
-    table.addImageButton(Icon.pause, run(() => {
+    table.addImageButton(Icon.pause, Styles.clearTransi, run(() => {
       try{
         if(this.music != null && this.custom) this.music.pause();
         else this.musics[tile.ent().getVal()-1].pause();
@@ -30,7 +30,7 @@ const playermusic = extendContent(Block, "playermusic", {
         print(err);
       }
     })).size(40);
-    table.addImageButton(Icon.block, run(() => {
+    table.addImageButton(Icon.block, Styles.clearTransi, run(() => {
       try{
         if(this.music != null && this.custom) this.music.stop();
         else this.musics[tile.ent().getVal()-1].stop();
@@ -41,16 +41,16 @@ const playermusic = extendContent(Block, "playermusic", {
     })).size(40);
     table.row();
 
-    table.addImageButton(Icon.upOpen, run(() => {
+    table.addImageButton(Icon.upOpen, Styles.clearTransi, run(() => {
       if(tile.ent().getVal()<this.musics.length) tile.configure(-1);
       this.custom = false;
     })).size(40);
-    table.addImageButton(Icon.downOpen, run(() => {
+    table.addImageButton(Icon.downOpen, Styles.clearTransi, run(() => {
       if(tile.ent().getVal()>1) tile.configure(-2);
       this.custom = false;
     })).size(40);
 
-    table.addImageButton(Icon.file, run(() => {
+    table.addImageButton(Icon.file, Styles.clearTransi, run(() => {
       // Create dialog
       try{
         /*
