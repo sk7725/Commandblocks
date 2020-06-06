@@ -69,6 +69,7 @@ require("boostpad");
 require("slimeblock");
 
 require("blockcopy");
+require("mp3player");
 
 require("playermover");
 require("gameyoot");
