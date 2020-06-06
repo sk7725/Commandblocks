@@ -9,3 +9,6 @@ requirements: [
 configurable: true
 rotate: false
 solid: true
+consumes: {
+  power: 1
+}
