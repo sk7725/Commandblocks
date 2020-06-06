@@ -987,7 +987,22 @@ const skills={
       }
     ],
     parent:"zincstorm"
-  }
+  },
+	"youShallNotPass":{
+		type:"skill.support",
+		tier:1,
+		cooltime:5,
+		uses:{
+			item:"copper",
+			amount:1
+		},
+		cost:[
+			{
+				item:"copper",
+				amount:1
+			}
+		]
+	}
 };
 this.global.skills.skills=skills;
 
@@ -1145,6 +1160,22 @@ const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
 saboskill.speedMultiplier=-1.0;
 saboskill.color=zetacolor;
 //saboskill.effect=sabofire;
+
+const pushing=extendContent(StatusEffect,"pushing",{
+	update(unit,time){
+		var x=unit.getX();
+		var y=unit.getY();
+		var radius=15*Vars.tilesize;
+		Units.nearbyEnemies(unit.getTeam(),x-radius,y-radius,2*radius,2*radius,cons(e=>{
+			if(unit.withinDst(x,y,radius)){
+				var vec=new Vec2(e.x-x,e.y-y);
+				e.velocity().add(vec.scl((radius-vec.len())/16384));
+			}
+		}))
+		this.super$update(unit,time);
+	}
+});
+
 //Partial Credit to younggam
 
 const customb = this.global.bullets;
@@ -1427,6 +1458,9 @@ const skillfunc={
     var chaosarrayunit=UnitTypes.chaosArray.create(player.getTeam());
     chaosarrayunit.set(player.getX(),player.getY());
     chaosarrayunit.add();
-  }
+  },
+	youShallNotPass(player){
+		player.applyEffect(pushing,300);
+	}
 }
 this.global.skills.func=skillfunc;
