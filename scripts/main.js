@@ -1,7 +1,14 @@
+require("init");
+
 require("armorstand");
 require("gamesoccerball");
+require("customfx");
+require("customb");
+
 require("command");
 //require("commandargs");
+
+require("shaders");
 
 require("msgprotected");
 
@@ -55,11 +62,14 @@ require("magictele");
 require("signblock");
 
 //require("potion");
+require("timer");
 require("keyblock");
+
 require("boostpad");
 require("slimeblock");
 
 require("blockcopy");
+require("mp3player");
 
 require("playermover");
 require("gameyoot");
@@ -69,3 +79,5 @@ require("buttongg");
 //require("customtechtree");
 require("skills");
 require("researchskill");
+
+require("shadertester");

@@ -1,12 +1,10 @@
+const shader=this.global.shaders.bittrium;
 
-const bitcolor1=Color.valueOf("00e5ff");
-const bitcolor2=Color.valueOf("ff65db");
-const bitcolorspeed=0.01;
-const magicwalllarge=extendContent(Wall,"magicwalllarge",{
+const magicwalllarge = extendContent(Wall, "magicwalllarge", {
     draw(tile){
-      Draw.color(bitcolor1,bitcolor2,(Mathf.sin(Time.time()*bitcolorspeed)+1)/2);
+	    Draw.shader(shader);
       Draw.rect(this.animRegion, tile.drawx(), tile.drawy());
-      Draw.color();
+	    Draw.shader();
     },
     load(){
       this.super$load();

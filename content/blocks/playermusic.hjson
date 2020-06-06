@@ -16,3 +16,4 @@ consumes: {
   power: 1
 }
 solid: true
+configurable: true

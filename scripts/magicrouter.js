@@ -1,9 +1,7 @@
 //my take
 var filtitem=Items.pyratite;//UI later
 var lastitem=null;
-const bitcolor1=Color.valueOf("00e5ff");
-const bitcolor2=Color.valueOf("ff65db");
-const bitcolorspeed=0.01;
+const shader=this.global.shaders.bittrium;
 const magicrouter=extendContent(Router,"magicrouter",{
   handleItem(item,tile, source){
         var entity = tile.ent();
@@ -39,9 +37,9 @@ const magicrouter=extendContent(Router,"magicrouter",{
     draw(tile){
       this.super$draw(tile);
       //print("Lerp:"+(Math.sin(Time.time()*bitcolorspeed)+1)/2);
-      Draw.color(bitcolor1,bitcolor2,(Mathf.sin(Time.time()*bitcolorspeed)+1)/2);
+      Draw.shader(shader);
       Draw.rect(this.animRegion, tile.drawx(), tile.drawy());
-      Draw.color();
+	    Draw.shader();
       var item = tile.ent().getItem();
       if(item == null) return;
       Draw.color(item.color);

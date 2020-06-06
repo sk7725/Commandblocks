@@ -10,6 +10,8 @@ if(!this.global.hasOwnProperty("commandcached")) this.global.commandcached={};
 const commandcached=this.global.commandcached;
 const armorstandtype=this.global.armorstand;
 const soccerballtype=this.global.gamesoccerball;
+const customfx=this.global.fx;
+const customb=this.global.bullets;
 const commandblocks={
   tilde(tile,inx,iny){
     if(tile instanceof Tile){
@@ -304,22 +306,28 @@ const commandblocks={
           break;
           case "block":
           case "floor":
-            return Blocks[tmparr[1]];
+            //return Blocks[tmparr[1]];
+            return Vars.content.getByName(ContentType.block,tmparr[1]);
           break;
           case "item":
-            return Items[tmparr[1]];
+            //return Items[tmparr[1]];
+            return Vars.content.getByName(ContentType.item,tmparr[1]);
           break;
           case "bullet":
             return Bullets[tmparr[1]];
+            //return Vars.content.getByName(ContentType.bullet,tmparr[1]);
           break;
           case "liquid":
-            return Liquids[tmparr[1]];
+            //return Liquids[tmparr[1]];
+            return Vars.content.getByName(ContentType.liquid,tmparr[1]);
           break;
           case "fx":
             return Fx[tmparr[1]];
+            //return Vars.content.getByName(ContentType.effect,tmparr[1]);
           break;
           case "seffect":
-            return StatusEffects[tmparr[1]];
+            //return StatusEffects[tmparr[1]];
+            return Vars.content.getByName(ContentType.status,tmparr[1]);
           break;
           case "js":
             if(tmparr[1]=="null") return null;
@@ -342,7 +350,8 @@ const commandblocks={
   cmdeffect(punit,eff,duration,intensity,hidep){
     const potionlist=["speed","wither","slowness","strength","weakness","resistance","pain","poison","regeneration","instant_health","instant_damage"];
     if(potionlist.indexOf(eff.trim())<0){
-      punit.applyEffect(StatusEffects[eff],duration);
+      var seff=Vars.content.getByName(ContentType.status,eff);
+      punit.applyEffect(seff,duration);
       return;
     }
     if(effectextended.hasOwnProperty(eff+"-"+intensity+"-"+hidep)){
@@ -447,7 +456,7 @@ const commandblocks={
   },
   cmdsummon(ptile,cunit,cx,cy,cteam){
     if(Vars.net.client()) return;
-    var unittype=(cunit=="armorstand")?armorstandtype:((cunit=="soccerball")?soccerballtype:UnitTypes[cunit]);
+    var unittype=(cunit=="armorstand")?armorstandtype:((cunit=="soccerball")?soccerballtype:Vars.content.getByName(ContentType.unit,cunit));
     var team=this.settype(ptile,null,"team:"+cteam);
     var unit = unittype.create(team);
     //unit.setSpawner(tile);
@@ -456,13 +465,15 @@ const commandblocks={
     //unit.velocity().y = factory.launchVelocity;
     //Events.fire(new UnitCreateEvent(unit));
   },
-  cmdfire(ptile,cbullet,cx,cy,crot,cteam,vel,life,bind){
+  cmdfire(ptile,cbullet,cx,cy,crot,cteam,vel,life,bind,cdata){
     //Bullet.create(type, tile.entity, tile.getTeam(), tile.drawx() + tr.x, tile.drawy() + tr.y, angle);
     //Bullet create(BulletType type, Entity owner, Team team, float x, float y, float angle, float velocityScl, float lifetimeScl){ return create(type, owner, team, x, y, angle, velocityScl, lifetimeScl, null); }
-    var bultype=Bullets[cbullet];
+    var bultype=(!isNaN(Number(cbullet)))?Vars.content.getByID(ContentType.bullet,cbullet):((customb.hasOwnProperty(cbullet))?customb[cbullet]:Bullets[cbullet]);
+    //if(bultype==null) bultype=Bullets[cbullet];
     var team=this.settype(ptile,null,"team:"+cteam);
+    var data=(cdata=="null"||cdata==null)?null:this.settype(ptile,null,cdata);
     var owner=null; if((ptile instanceof Unit)&&bind) owner=ptile;
-    Bullet.create(bultype, owner, team, cx, cy, crot, vel,life);
+    Bullet.create(bultype, owner, team, cx, cy, crot, vel, life, data);
   },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
@@ -764,8 +775,11 @@ const commandblocks={
       case 'particle':
       case 'fx':
         //var eff = Vars.effectGroup.all().toArray();
-        //if(args.length==0) throw "Missing params";
+        if(args.length==0) throw "Missing params";
         //var teff=eff[args[0]];
+        var cfx=(!isNaN(Number(args[0])))?Vars.content.getByID(ContentType.effect,args[0]):((customfx.hasOwnProperty(args[0]))?customfx[args[0]]:Fx[args[0]]);
+        //if(cfx==null&&customfx.hasOwnProperty(args[0])) cfx=customfx[args[0]];
+        //if(cfx==null) cfx=Fx[args[0]];
         if(args.length>=3&&args.length<=4){
           var tpos=this.tilde(tile,args[1],args[2]);
           var cx=0; var cy=0;
@@ -775,15 +789,15 @@ const commandblocks={
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
             //var ctile=Vars.world.tile(cx,cy);
-            if(args.length==4) Effects.effect(Fx[args[0]],Color.valueOf(args[3]),cx,cy);
-            else Effects.effect(Fx[args[0]],cx,cy);
+            if(args.length==4) Effects.effect(cfx,Color.valueOf(args[3]),cx,cy);
+            else Effects.effect(cfx,cx,cy);
             return true;
           }
           else throw "Coordinates should be above 0";
         }
         else if(args.length==1){
-          if(tile instanceof Tile) Effects.effect(Fx[args[0]],tile.worldx(),tile.worldy());
-          else Effects.effect(Fx[args[0]],tile.x,tile.y);
+          if(tile instanceof Tile) Effects.effect(cfx,tile.worldx(),tile.worldy());
+          else Effects.effect(cfx,tile.x,tile.y);
           return true;
         }
         else throw "Missing params";
@@ -953,12 +967,16 @@ const commandblocks={
         this.report(tile.rotation);
         return true;
       break;
-      case 'getseffects':
-        this.report(Vars.content.getBy(StatusEffect));
+      case 'getfx':
+        this.report(Vars.content.getBy(ContentType.effect));
+        return true;
+      break;
+      case 'getbullets':
+        this.report(Vars.content.getBy(ContentType.bullet));
         return true;
       break;
       case 'getblocks':
-        this.report(Vars.content.getBy(Block));
+        this.report(Vars.content.getBy(ContentType.block));
         return true;
       break;
       case 'effect':
@@ -1144,7 +1162,7 @@ const commandblocks={
       case 'shoot':
       case 'fire':
       //cmdfire(ptile,cbullet,cx,cy,crot,cteam,vel,life)
-        if(args.length>=3&&args.length<=8){
+        if(args.length>=3&&args.length<=9){
           var tpos=this.tilde(tile,args[1],args[2]);
           var cx=0; var cy=0;
           if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
@@ -1152,7 +1170,7 @@ const commandblocks={
           }
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
-            var crot=0; var cteam=-1; var vel=1; var life=1; var bind=false;
+            var crot=0; var cteam=-1; var vel=1; var life=1; var bind=false; var cdata=null;
             if(args.length>=4){
               if(args[3].substring(0,1)=="~"){
                 args[3]=args[3].substring(1,args[3].length);
@@ -1169,7 +1187,8 @@ const commandblocks={
             if(args.length>=6) vel=args[5];
             if(args.length>=7) life=args[6];
             if(args.length>=8&&args[7]=="true") bind=true;
-            this.cmdfire(tile,args[0],cx,cy,crot,cteam,vel,life,bind);
+            if(args.length>=9) cdata=args[8];
+            this.cmdfire(tile,args[0],cx,cy,crot,cteam,vel,life,bind,cdata);
           }
           else throw "Coordinates should be above 0";
         }
@@ -1177,7 +1196,7 @@ const commandblocks={
           var cx=0; var cy=0; var crot=0;
           if(tile instanceof Tile){ cx=tile.worldx();cy=tile.worldy(); crot=tile.rotation()*90; }
           else{ cx=tile.x; cy=tile.y; crot=tile.rotation; }
-          this.cmdfire(tile,args[0],cx,cy,crot,-1,1,1,false);
+          this.cmdfire(tile,args[0],cx,cy,crot,-1,1,1,false,null);
           return true;
         }
         else throw "Missing params";
