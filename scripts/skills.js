@@ -705,6 +705,10 @@ const skills={
 		type:"skill.atk",
 		tier:2,
 		cooltime:25,
+uses:{
+			item:"infinitodustry-visionary-glass",
+			amount:0
+		},
 		cost:[
 			{
 				item:"infinitodustry-visionary-glass",
