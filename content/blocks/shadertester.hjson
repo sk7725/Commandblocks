@@ -11,3 +11,4 @@ solid: true
 targetable: true
 //hasShadow: false
 buildVisibility: sandboxOnly
+configurable: true
