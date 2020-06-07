@@ -11,6 +11,7 @@ const wallzeta = extendContent(Door, "wallzeta", {
   Shaders.blockbuild.progress = tile.ent().scaled(tile.ent().open);
   Draw.rect(this.region, tile.drawx(), tile.drawy(), 0);
   Draw.flush();
+  Draw.shader();
  },
  update(tile){
   var entity = tile.ent();
