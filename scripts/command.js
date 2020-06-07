@@ -1100,7 +1100,7 @@ const commandblocks={
               }));
               return res;
             }
-            else if(target.r instanceof Unit||ent instanceof Bullet){
+            else if(target.r instanceof Unit||target.r instanceof Bullet){
               if(atarget==null) this.cmdtp(target.r,cx,cy,facing,facingrelative);
               else this.cmdtptarget(target.r,cx,cy,atarget.r);
               return true;
