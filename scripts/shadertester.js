@@ -6,7 +6,7 @@ var shader = new JavaAdapter(Shader, {
 },
 //todo make multiline strings work
 "uniform mat4 u_projTrans;attribute vec4 a_position;attribute vec2 a_texCoord0;attribute vec4 a_color;varying vec4 v_color;varying vec2 v_texCoord;void main(){gl_Position = u_projTrans * a_position;v_texCoord = a_texCoord0;v_color = a_color;}", "#ifdef GL_ES\nprecision mediump float;precision mediump int;\n#endif\nuniform sampler2D u_texture;uniform float u_time;varying vec4 v_color;varying vec2 v_texCoord;void main(){vec4 color = texture2D(u_texture, v_texCoord.xy);float t = clamp((sin(u_time * .01 + gl_FragCoord.x * .01 + gl_FragCoord.y * .005) + 1.) / 2., 0., 1.);vec3 c = vec3(mix(0., 1., t), mix(.89, .39, t), mix(1., .85, t));gl_FragColor = vec4(color.rgb * c.rgb, color.a);}");
-const shadertester=extendContent(MessageBlock,"shadertester",{
+const shadertester=extendContent(Block,"shadertester",{
   draw(tile){
     if(shader == null) return;
     Draw.shader(shader);
@@ -27,9 +27,9 @@ const shadertester=extendContent(MessageBlock,"shadertester",{
         if (Vars.mobile) {
             // Mobile and desktop version have different dialogs
             const input = new Input.TextInput();
-            input.text = entity.message;
+            input.text = entity.getText();
             input.multiline = true;
-            input.accepted = cons(text => Call.setMessageBlockText(null,tile,text));
+            input.accepted = cons(text => entity.setText(text));
 
             Core.input.getTextInput(input);
         } else {
@@ -38,12 +38,12 @@ const shadertester=extendContent(MessageBlock,"shadertester",{
             dialog.setFillParent(false);
 
             // Add text area to dialog
-            const textArea = new TextArea(entity.message);
+            const textArea = new TextArea(entity.getText());
             dialog.cont.add(textArea).size(380, 160);
 
             // Add "ok" button to dialog
             dialog.buttons.addButton("$ok", run(() => {
-                Call.setMessageBlockText(null,tile,textArea.getText());
+                entity.setText(textArea.getText());
                 dialog.hide();
             }));
 
@@ -57,7 +57,7 @@ const shadertester=extendContent(MessageBlock,"shadertester",{
   },
   configured(tile,player, value){
     if(value != 1) return;
-    var msg=tile.ent().message;
+    var msg=tile.ent().getText();
     if(shader != null) shader.dispose();
     try{
       shader = new JavaAdapter(Shader, {
@@ -75,9 +75,36 @@ const shadertester=extendContent(MessageBlock,"shadertester",{
   },
   placed(tile){
 		this.super$placed(tile);
-    Call.setMessageBlockText(null,tile,"#ifdef GL_ES\nprecision mediump float;precision mediump int;\n#endif\nuniform sampler2D u_texture;uniform float u_time;varying vec4 v_color;varying vec2 v_texCoord;void main(){vec4 color = texture2D(u_texture, v_texCoord.xy);float t = clamp((sin(u_time * .01 + gl_FragCoord.x * .01 + gl_FragCoord.y * .005) + 1.) / 2., 0., 1.);vec3 c = vec3(mix(0., 1., t), mix(.89, .39, t), mix(1., .85, t));gl_FragColor = vec4(color.rgb * c.rgb, color.a);}");
+    //Call.setMessageBlockText(null,tile,"#ifdef GL_ES\nprecision mediump float;precision mediump int;\n#endif\nuniform sampler2D u_texture;uniform float u_time;varying vec4 v_color;varying vec2 v_texCoord;void main(){vec4 color = texture2D(u_texture, v_texCoord.xy);float t = clamp((sin(u_time * .01 + gl_FragCoord.x * .01 + gl_FragCoord.y * .005) + 1.) / 2., 0., 1.);vec3 c = vec3(mix(0., 1., t), mix(.89, .39, t), mix(1., .85, t));gl_FragColor = vec4(color.rgb * c.rgb, color.a);}");
 	}
 });
 
+//by Summet
+
 //shadertester.maxTextLength=1300;
 //shadertester.maxNewlines=50;
+shadertester.entityType = prov(() => {
+    const entity = extend(TileEntity, {
+        getText() {
+            return this._text;
+        },
+
+        setText(text) {
+            this._text = text;
+        },
+
+
+        write(stream) {
+            this.super$write(stream);
+            stream.writeUTF(this.getText());
+        },
+
+        read(stream, revision) {
+            this.super$read(stream, revision);
+            this.setText(stream.readUTF());
+        }
+    });
+
+    entity.setText("#ifdef GL_ES\nprecision mediump float;precision mediump int;\n#endif\nuniform sampler2D u_texture;uniform float u_time;varying vec4 v_color;varying vec2 v_texCoord;void main(){vec4 color = texture2D(u_texture, v_texCoord.xy);float t = clamp((sin(u_time * .01 + gl_FragCoord.x * .01 + gl_FragCoord.y * .005) + 1.) / 2., 0., 1.);vec3 c = vec3(mix(0., 1., t), mix(.89, .39, t), mix(1., .85, t));gl_FragColor = vec4(color.rgb * c.rgb, color.a);}");
+    return entity;
+});
