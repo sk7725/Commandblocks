@@ -9,7 +9,7 @@ const wallzeta = extendContent(Door, "wallzeta", {
   Shaders.blockbuild.color = zetacolor;
   Shaders.blockbuild.region = this.region;
   Shaders.blockbuild.progress = tile.ent().scaled(tile.ent().open);
-  Draw.rect(region, tile.drawx(), tile.drawy(), 0);
+  Draw.rect(this.region, tile.drawx(), tile.drawy(), 0);
   Draw.flush();
  },
  update(tile){
