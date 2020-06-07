@@ -38,5 +38,5 @@ wallzeta.entityType=prov(() => extendContent(Door.DoorEntity , wallzeta , {
   }
 }));
 
-wallzeta.openFx=Fx.none;
-wallzeta.closeFx=Fx.none;
+wallzeta.openfx=Fx.none;
+wallzeta.closefx=Fx.none;
