@@ -1,7 +1,7 @@
 require("init");
 
-require("armorstand");
-require("gamesoccerball");
+require("units/armorstand");
+require("units/gamesoccerball");
 require("customfx");
 require("customb");
 
@@ -25,13 +25,15 @@ require("posreaderjson");
 require("unitreader");
 require("unitcacher");
 
-require("wallzeta");
-require("wallzetalarge");
-require("magicwall");
-require("magicwalllarge");
+require("walls/wallzeta");
+require("walls/wallzetalarge");
+require("walls/wallspace");
+require("walls/wallspacelarge");
+require("walls/magicwall");
+require("walls/magicwalllarge");
 
-require("camwall");
-require("camwalldir");
+require("walls/camwall");
+require("walls/camwalldir");
 
 require("playernote");
 require("playertune");
@@ -57,7 +59,7 @@ require("colorpicker");
 require("colorpickerhex");
 require("colorpickerbrush");
 
-require("armorstandmodder");
+require("units/armorstandmodder");
 require("magicrouter");
 require("magictele");
 
