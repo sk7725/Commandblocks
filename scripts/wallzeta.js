@@ -33,7 +33,10 @@ const wallzeta = extendContent(Door, "wallzeta", {
 wallzeta.entityType=prov(() => extendContent(Door.DoorEntity , wallzeta , {
   _scale:0,
   scaled(a){
-    this._scale = Mathf.lerpDelta(this._scale, (a)?0:1, 0.1);
+    this._scale = Mathf.lerpDelta(this._scale, (a)?1:0, 0.1);
     return this._scale;
   }
 }));
+
+wallzeta.openFx=Fx.none;
+wallzeta.closeFx=Fx.none;
