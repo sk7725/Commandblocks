@@ -81,3 +81,4 @@ require("skills");
 require("researchskill");
 
 require("shadertester");
+require("wallzeta");
