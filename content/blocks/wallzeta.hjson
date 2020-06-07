@@ -9,3 +9,6 @@ health: 1024
 solid: true
 targetable: true
 //hasShadow: false
+consumes: {
+  power: 6.4
+}
