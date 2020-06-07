@@ -15,10 +15,10 @@ const wallzeta = extendContent(Door, "wallzeta", {
  },
  update(tile){
   var entity = tile.ent();
-  if(entity.open && (!entity.cons.valid())){ 
+  if(entity.open && entity.cons.valid()){ 
    tile.block().tapped(tile, null);
   }
-  else if((!entity.open) && entity.cons.valid()){
+  else if((!entity.open) && (!entity.cons.valid())){
    tile.block().tapped(tile, null);
   }
  },
@@ -33,7 +33,7 @@ const wallzeta = extendContent(Door, "wallzeta", {
 wallzeta.entityType=prov(() => extendContent(Door.DoorEntity , wallzeta , {
   _scale:0,
   scaled(a){
-    this._scale = Mathf.lerpDelta(this._scale, (a)?1:0, 0.1);
+    this._scale = Mathf.lerpDelta(this._scale, (a)?0:1, 0.1);
     return this._scale;
   }
 }));
