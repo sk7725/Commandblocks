@@ -19,7 +19,7 @@ if(!Vars.headless){
       }
     },
     //todo make multiline strings work
-    "uniform mat4 u_projTrans;attribute vec4 a_position;attribute vec2 a_texCoord0;attribute vec4 a_color;varying vec4 v_color;varying vec2 v_texCoord;void main(){gl_Position = u_projTrans * a_position;v_texCoord = a_texCoord0;v_color = a_color;}", "#ifdef GL_ES \nprecision mediump float; \n#endif \nuniform sampler2D u_texture;  \nvarying vec4 v_color;  \nvarying vec2 v_texCoord;  \nuniform float u_time;  \n#define PI 2.14159  \nvoid main(void){ \nfloat time = u_time;  \nvec4 color = texture2D(u_texture, v_texCoord.xy);  \nvec2 uv = gl_FragCoord.xy / u_resolution.xy;  \nfloat formafinal  = sin(uv.x*10.*PI+time + sin(uv.y*2.*PI+time + sin(uv.x*10.*PI-time + sin(uv.y*10.*PI-time + sin(uv.x*10.*PI-time + sin(uv.y*10.*PI-time) + sin(uv.x*10.*PI-time))))))*0.5+0.5;  \nfloat formafinal2 = sin(uv.y*10.*PI+time + sin(uv.y*10.*PI+time + sin(uv.x*8.*PI-time + sin(uv.y*5.*PI-time + sin(uv.x*10.*PI-time + sin(uv.y*2.*PI-time) + sin(uv.x*9.*PI-time))))))*0.5+0.5;  \nvec3 color1 = vec3(0.900,0.1,0.7);  \nvec3 color2 = vec3(0.300,0.9,0.05);  \nvec3 fin = color1 * formafinal + color2 * formafinal2;  \ngl_FragColor = vec4(color.rgb * fin, color.a);  \n}");
+    "uniform mat4 u_projTrans;attribute vec4 a_position;attribute vec2 a_texCoord0;attribute vec4 a_color;varying vec4 v_color;varying vec2 v_texCoord;void main(){gl_Position = u_projTrans * a_position;v_texCoord = a_texCoord0;v_color = a_color;}", "#ifdef GL_ES \nprecision mediump float; \n#endif \nuniform sampler2D u_texture;  \nvarying vec4 v_color;  \nvarying vec2 v_texCoord; \nuniform vec2 u_resolution; \nuniform float u_time;  \n#define PI 2.14159  \nvoid main(void){ \nfloat time = u_time;  \nvec4 color = texture2D(u_texture, v_texCoord.xy);  \nvec2 uv = gl_FragCoord.xy / u_resolution.xy;  \nfloat formafinal  = sin(uv.x*10.*PI+time + sin(uv.y*2.*PI+time + sin(uv.x*10.*PI-time + sin(uv.y*10.*PI-time + sin(uv.x*10.*PI-time + sin(uv.y*10.*PI-time) + sin(uv.x*10.*PI-time))))))*0.5+0.5;  \nfloat formafinal2 = sin(uv.y*10.*PI+time + sin(uv.y*10.*PI+time + sin(uv.x*8.*PI-time + sin(uv.y*5.*PI-time + sin(uv.x*10.*PI-time + sin(uv.y*2.*PI-time) + sin(uv.x*9.*PI-time))))))*0.5+0.5;  \nvec3 color1 = vec3(0.900,0.1,0.7);  \nvec3 color2 = vec3(0.300,0.9,0.05);  \nvec3 fin = color1 * formafinal + color2 * formafinal2;  \ngl_FragColor = vec4(color.rgb * fin, color.a);  \n}");
     this.global.shaders.space=shader2;
   }
   catch(err){
@@ -37,6 +37,7 @@ precision mediump float;
 uniform sampler2D u_texture;
 varying vec4 v_color;
 varying vec2 v_texCoord;
+uniform vec2 u_resolution;
 uniform float u_time;
 #define PI 3.14159
 void main(void){
