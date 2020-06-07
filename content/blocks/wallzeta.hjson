@@ -12,3 +12,5 @@ targetable: true
 consumes: {
   power: 6.4
 }
+sync: true
+update: true
