@@ -12,3 +12,4 @@ targetable: true
 //hasShadow: false
 buildVisibility: sandboxOnly
 configurable: true
+update: true
