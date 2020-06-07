@@ -92,7 +92,7 @@ const shadertester=extendContent(Block,"shadertester",{
 
 //shadertester.maxTextLength=1300;
 //shadertester.maxNewlines=50;
-researchskill.entityType = prov(() => extend(TileEntity , {
+shadertester.entityType = prov(() => extend(TileEntity , {
   _text:idleshader,
   getText() {
     return this._text;
