@@ -25,6 +25,8 @@ require("posreaderjson");
 require("unitreader");
 require("unitcacher");
 
+require("wallzeta");
+require("wallzetalarge");
 require("magicwall");
 require("magicwalllarge");
 
@@ -81,4 +83,3 @@ require("skills");
 require("researchskill");
 
 require("shadertester");
-require("wallzeta");
