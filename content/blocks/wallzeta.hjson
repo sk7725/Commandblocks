@@ -1,0 +1,11 @@
+size: 1
+breakable: true
+consumesTap: false
+category: defense
+requirements: [
+  ref-zeta/6
+]
+health: 1024
+solid: true
+targetable: true
+//hasShadow: false
