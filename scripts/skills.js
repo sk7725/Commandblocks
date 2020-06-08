@@ -1431,7 +1431,10 @@ const skillfunc={
   spaceblink(player){
     Sounds.spark.at(player.getX(),player.getY(),0.4);
     Sounds.spray.at(player.getX(),player.getY(),0.4);
-    this.fire(customb.distZone, player, 1, 1);
+    if(Vars.net.client()) return;
+    var tx = player.getX()+Math.random()*Vars.tilesize*32-Vars.tilesize*16;
+    var ty = player.getY()+Math.random()*Vars.tilesize*32-Vars.tilesize*16;
+    Call.createBullet(customb.distZone, player.getTeam(), tx, ty, 0, 1, 1);
   },
   uranblast(player){
     var x=player.getX(); var y=player.getY();
