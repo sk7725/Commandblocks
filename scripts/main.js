@@ -1,14 +1,14 @@
 require("init");
+require("shaders");
 
 require("units/armorstand");
 require("units/gamesoccerball");
+
 require("customfx");
 require("customb");
 
 require("command");
 //require("commandargs");
-
-require("shaders");
 
 require("msgprotected");
 
