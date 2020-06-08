@@ -25,7 +25,7 @@ if(!Vars.headless){
     const shader3 = new JavaAdapter(Shader, {
       apply(){
         this.setUniformf("u_resolution", Core.graphics.getWidth(), Core.graphics.getHeight());
-        this.setUniformf("u_time", Time.time()%3141.5926 / Scl.scl(1.0));
+        this.setUniformf("u_time", Time.time() / Scl.scl(1.0));
       }
     },
     //todo make multiline strings work
@@ -44,7 +44,7 @@ if(!Vars.headless){
         const lowres = new JavaAdapter(Shader, {
           apply(){
             this.setUniformf("u_resolution", Core.graphics.getWidth(), Core.graphics.getHeight());
-            this.setUniformf("u_time", Time.time()%3141.5926 / Scl.scl(1.0));
+            this.setUniformf("u_time", Time.time() / Scl.scl(1.0));
           }
         },
         //todo make multiline strings work
