@@ -331,7 +331,7 @@ const distortFx = newEffect(18, e => {
 const distSplashFx = newEffect(80, e => {
   Draw.color(Pal.lancerLaser, distcolor, e.fin());
   Lines.stroke(2 * e.fout());
-  Lines.circle(b.x, b.y, 85*e.fin());
+  Lines.circle(e.x, e.y, 85*e.fin());
 });
 const distort=extendContent(StatusEffect,"distort",{});
 distort.speedMultiplier = 0.35;
@@ -342,7 +342,7 @@ const distStart = newEffect(15, e => {
 });
 const distZone = extend(BasicBulletType,{
 	draw(b){
-    Draw.color(distcolor);
+    Draw.color(distcolor, Pal.lancerLaser, Mathf.sin(b.time()*0.02)*0.5+0.5);
     Lines.stroke(1);
     Lines.circle(b.x, b.y, Mathf.clamp((1-b.fin())*20)*85);
     fillLight(b.x, b.y, Lines.circleVertices(85), Mathf.clamp((1-b.fin())*20)*85, Pal.lancerLaser.cpy().a(0), distcolor.cpy().a(0.4+0.25*Mathf.sin(b.time()*0.02)));
