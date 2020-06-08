@@ -2,7 +2,7 @@ size: 2
 breakable: true
 category: defense
 requirements: [
-  t-time/24
+  t-space/24
 ]
 health: 7600
 //solid: true
