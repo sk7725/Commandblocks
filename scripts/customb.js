@@ -23,7 +23,7 @@ const gravityTrap = extend(BasicBulletType,{
 		delete this.target[b.id];
 	},
 	update(b){
-		if(b.time()<45) return;
+		//if(b.time()<45) return;
     if(!b.velocity().isZero(0.0001)) b.velocity(0,0);
 		if(Mathf.floorPositive(Time.time())%40==0){
 			Effects.effect(gravsuck,b.x,b.y);
@@ -51,12 +51,12 @@ const gravityTrap = extend(BasicBulletType,{
 		Sounds.spray.at(b.x,b.y,0.9);
 	}
 });
-gravityTrap.speed = 5;
+gravityTrap.speed = 0;
 gravityTrap.lifetime = 260;
 gravityTrap.collidesTiles = false;
 gravityTrap.collides = false;
 gravityTrap.collidesAir = false;
-gravityTrap.keepVelocity = true;
+gravityTrap.keepVelocity = false;
 this.global.bullets.gravityTrap = gravityTrap;
 
 //Credits to EyeofDarkness
@@ -322,3 +322,69 @@ healZone.collides = false;
 healZone.collidesAir = false;
 healZone.keepVelocity = false;
 this.global.bullets.healZone = healZone;
+
+const distcolor = Color.valueOf("4c00ff");
+const distortFx = newEffect(18, e => {
+	Draw.color(Pal.lancerLaser, distcolor, e.fin());
+	Fill.square(e.x, e.y, 0.1 + e.fout() * 2.5, 45);
+});
+const distSplashFx = newEffect(80, e => {
+  Draw.color(Pal.lancerLaser, distcolor, e.fin());
+  Lines.stroke(2 * e.fout());
+  Lines.circle(b.x, b.y, 85*e.fin());
+});
+const distort=extendContent(StatusEffect,"distort",{});
+distort.speedMultiplier = 0.35;
+distort.color = distcolor;
+distort.effect= distortFx;
+const distStart = newEffect(15, e => {
+	fillLight(e.x, e.y, Lines.circleVertices(85), 85, Color.clear, Color.lancerLaser.cpy().a(e.fout()));
+});
+const distZone = extend(BasicBulletType,{
+	draw(b){
+    Draw.color(distcolor);
+    Lines.stroke(1);
+    Lines.circle(b.x, b.y, Mathf.clamp((1-b.fin())*20)*85);
+    fillLight(b.x, b.y, Lines.circleVertices(85), Mathf.clamp((1-b.fin())*20)*85, Pal.lancerLaser.cpy().a(0), distcolor.cpy().a(0.4+0.25*Mathf.sin(b.time()*0.02)));
+    Draw.color();
+	},
+	hit(b,x,y){},
+  despawned(b){},
+	update(b){
+    if(Mathf.floorPositive(Time.time())%80==0) Effects.effect(distSplashFx,b.x,b.y);
+    Units.nearby(b.getTeam(), b.x, b.y, 75, cons(e=>{
+      e.applyEffect(distort, 2);
+    }));
+    Vars.bulletGroup.intersect(b.x-85, b.y-85, b.x+85, b.y+85, cons(e=>{
+      if(Mathf.within(b.x, b.y, e.x, e.y, 85) && e != b && e.getTeam() != b.getTeam() && e != null){
+        e.velocity().x = e.velocity().x * 0.7;
+        e.velocity().y = e.velocity().y * 0.7;
+      }
+    }));
+    Vars.unitGroup.intersect(b.x-85, b.y-85, b.x+85, b.y+85, cons(e=>{
+      if(Mathf.within(b.x, b.y, e.x, e.y, 85) && e.getTeam() != b.getTeam() && e != null){
+        e.applyEffect(distort, 2);
+        e.velocity().x = e.velocity().x * 0.7;
+        e.velocity().y = e.velocity().y * 0.7;
+      }
+    }));
+    Vars.playerGroup.intersect(b.x-85, b.y-85, b.x+85, b.y+85, cons(e=>{
+      if(Mathf.within(b.x, b.y, e.x, e.y, 85) && e.getTeam() != b.getTeam() && e != null){
+        e.applyEffect(distort, 2);
+        e.velocity().x = e.velocity().x * 0.7;
+        e.velocity().y = e.velocity().y * 0.7;
+      }
+    }));
+	},
+	init(b){
+		if(b == null) return;
+    Effects.effect(distStart,b.x,b.y);
+	}
+});
+distZone.speed = 0;
+distZone.lifetime = 500;
+distZone.collidesTiles = false;
+distZone.collides = false;
+distZone.collidesAir = false;
+distZone.keepVelocity = false;
+this.global.bullets.distZone = distZone;
