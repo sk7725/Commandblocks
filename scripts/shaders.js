@@ -15,7 +15,7 @@ if(!Vars.headless){
     const shader2 = new JavaAdapter(Shader, {
       apply(){
         this.setUniformf("u_resolution", Core.graphics.getWidth(), Core.graphics.getHeight());
-        this.setUniformf("u_time", Time.time()%31.4159265 );
+        this.setUniformf("u_time", Time.time() / Scl.scl(1.0));
       }
     },
     //todo make multiline strings work
