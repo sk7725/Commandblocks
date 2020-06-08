@@ -129,5 +129,23 @@ this.global.fx = {
       Lines.lineAngle(e.x + v1.x, e.y + v1.y, angle + 270 + 15, e.fout() * 8);
       Draw.shader();
     };
+  }),
+  whirlSmall : newEffect(45, e => {
+    const v1 = new Vec2();
+    for(var i = 0; i < 2; i++){
+      var h = i * 2;
+      var rand1 = Interpolation.exp5In.apply((Mathf.randomSeedRange(e.id + h, 1) + 1) / 2);
+      var rand2 = (Mathf.randomSeedRange(e.id * 2 + h, 360) + 360) / 2;
+      var rand3 = (Mathf.randomSeedRange(e.id * 4 + h, 5) + 5) / 2;
+      var angle = rand2 + ((180 + rand3) * e.fin());
+
+      v1.trns(angle, rand1 * 30 * e.fout());
+
+      //Draw.color(Color.black);
+      Draw.shader(spaceshader);
+      Lines.stroke((1 * e.fout()) + 0.25);
+      Lines.lineAngle(e.x + v1.x, e.y + v1.y, angle + 270 + 15, e.fout() * 5);
+      Draw.shader();
+    };
   })
 };
