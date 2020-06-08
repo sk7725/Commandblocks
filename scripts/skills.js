@@ -593,14 +593,13 @@ const skills={
     parent:"zetasabo"
   },
   "spaceblink":{
-    type:"skill.move",
+    type:"skill.def",
     tier:2,
-    cooltime:4.9,
-    duration:1.5,
-    healthcost:12,
+    cooltime:30.3,
+    duration:15,
     uses:{
       item:"commandblocks-t-space",
-      amount:7
+      amount:15
     },
     cost:[
       {
@@ -1428,6 +1427,11 @@ const skillfunc={
 			Call.createBullet(gravityTrap,player.getTeam(),vec.x,vec.y,distvec.angle(),distvec.len(),1);
 		}*/
     this.fire(gravityTrap, player, 1, 1);
+  },
+  spaceblink(player){
+    Sounds.spark.at(player.getX(),player.getY(),0.4);
+    Sounds.spray.at(player.getX(),player.getY(),0.4);
+    this.fire(customb.distZone, player, 1, 1);
   },
   uranblast(player){
     var x=player.getX(); var y=player.getY();

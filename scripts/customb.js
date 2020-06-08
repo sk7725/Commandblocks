@@ -370,7 +370,7 @@ const distZone = extend(BasicBulletType,{
 	}
 });
 distZone.speed = 0;
-distZone.lifetime = 658;
+distZone.lifetime = 897;
 distZone.collidesTiles = false;
 distZone.collides = false;
 distZone.collidesAir = false;
