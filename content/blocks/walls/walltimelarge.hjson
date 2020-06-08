@@ -1,10 +1,10 @@
-size: 1
+size: 2
 breakable: true
 category: defense
 requirements: [
-  t-space/6
+  t-time/24
 ]
-health: 1900
+health: 5040
 solid: true
 targetable: true
 //hasShadow: false

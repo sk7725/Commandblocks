@@ -5,7 +5,7 @@ requirements: [
   t-space/24
 ]
 health: 7600
-//solid: true
+solid: true
 targetable: true
 //hasShadow: false
 

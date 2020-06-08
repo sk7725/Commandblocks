@@ -29,6 +29,8 @@ require("walls/wallzeta");
 require("walls/wallzetalarge");
 require("walls/wallspace");
 require("walls/wallspacelarge");
+require("walls/walltime");
+require("walls/walltimelarge");
 require("walls/magicwall");
 require("walls/magicwalllarge");
 
