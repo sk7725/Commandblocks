@@ -109,5 +109,22 @@ this.global.fx = {
       Lines.lineAngle(e.x-1.5 + x, e.y + y + offset, 0, 3);
       Lines.lineAngle(e.x + x, e.y-1.5 + y + offset, 90, 3);
     }));
+  }),
+  //credits to EyeofDarkness
+  whirl : newEffect(65, e => {
+    const v1 = new Vec2();
+    for(var i = 0; i < 2; i++){
+      var h = i * 2;
+      var rand1 = Interpolation.exp5In.apply((Mathf.randomSeedRange(e.id + h, 1) + 1) / 2);
+      var rand2 = (Mathf.randomSeedRange(e.id * 2 + h, 360) + 360) / 2;
+      var rand3 = (Mathf.randomSeedRange(e.id * 4 + h, 5) + 5) / 2;
+      var angle = rand2 + ((180 + rand3) * e.fin());
+
+      v1.trns(angle, rand1 * 70 * e.fout());
+
+      Draw.color(Color.black);
+      Lines.stroke((1 * e.fout()) + 0.25);
+      Lines.lineAngle(e.x + v1.x, e.y + v1.y, angle + 270 + 15, e.fout() * 8);
+    };
   })
 };

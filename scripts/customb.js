@@ -354,8 +354,8 @@ const distZone = extend(BasicBulletType,{
     if(b.time()%80<=1 && b.lifetime() - b.time() > 100) Effects.effect(distSplashFx,b.x,b.y);
     Vars.bulletGroup.intersect(b.x-85, b.y-85, b.x+85, b.y+85, cons(e=>{
       if(Mathf.within(b.x, b.y, e.x, e.y, 85) && e != b && e.getTeam() != b.getTeam() && e != null){
-        e.velocity().x = e.velocity().x * 0.9;
-        e.velocity().y = e.velocity().y * 0.9;
+        e.velocity().x = e.velocity().x * 0.915;
+        e.velocity().y = e.velocity().y * 0.915;
       }
     }));
     Units.nearbyEnemies(b.getTeam(), b.x-85, b.y-85, b.x+85, b.y+85, cons(e=>{
@@ -376,3 +376,63 @@ distZone.collides = false;
 distZone.collidesAir = false;
 distZone.keepVelocity = false;
 this.global.bullets.distZone = distZone;
+
+const shader=this.global.shaders.space;
+const whirl = this.global.fx.whirl;
+//creditts to EyeofDarkness
+const blackhole = extend(BasicBulletType, {
+  update(b){
+    const v1 = new Vec2();
+    const v2 = new Vec2();
+
+    if(Mathf.chance(Time.delta() * (0.7 * b.fout()))){
+      Effects.effect(whirl, b.x, b.y);
+    };
+
+    Units.nearbyEnemies(b.getTeam(), b.x - this.rangeB, b.y - this.rangeB, this.rangeB * 2, this.rangeB * 2, cons(u => {
+      if(u != null && Mathf.within(b.x, b.y, u.x, u.y, this.rangeB)){
+        if(u instanceof SolidEntity){
+          var interp = this.strength * Interpolation.pow2In.apply(b.fout());
+          var dst = Math.abs((Mathf.dst(b.x, b.y, u.x, u.y) / this.rangeB) - 1) * interp;
+          var ang = Angles.angle(u.x, u.y, b.x, b.y);
+
+          v1.trns(ang, dst);
+
+          u.velocity().add(v1);
+
+          if(u instanceof FlyingUnit){
+          	v2.set(v1).scl(0.5);
+          	u.velocity().add(v2);
+          };
+
+          u.moveBy(v1.x, v1.y);
+
+          //var data = [b, u, interp];
+
+          //Effects.effect(laserEffect, b.x, b.y, 0, data);
+        }
+      }
+    }));
+  },
+
+	draw(b){
+		Draw.shader(shader);
+		Fill.circle(b.x, b.y, b.fout() * 7.5);
+    Draw.shader();
+		Draw.color(Color.black);
+		Fill.circle(b.x, b.y, b.fout() * 5.5);
+	}
+});
+blackhole.strength = 0.42;
+blackhole.rangeB = 120;
+blackhole.speed = 0;
+blackhole.damage = 4;
+blackhole.lifetime = 7.5 * 60;
+blackhole.pierce = true;
+blackhole.bulletWidth = 12;
+blackhole.bulletHeight = 12;
+blackhole.bulletShrink = 0;
+blackhole.hitSize = 12;
+blackhole.despawnEffect = Fx.none;
+blackhole.keepVelocity = false;
+this.global.bullets.blackhole = blackhole;
