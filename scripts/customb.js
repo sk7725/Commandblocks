@@ -345,16 +345,13 @@ const distZone = extend(BasicBulletType,{
     Draw.color(Pal.lancerLaser);
     Lines.stroke(1);
     Lines.circle(b.x, b.y, Mathf.clamp((1-b.fin())*20)*85);
-    fillLight(b.x, b.y, Lines.circleVertices(85), Mathf.clamp((1-b.fin())*20)*85, Pal.lancerLaser.cpy().a(0), distcolor.cpy().a(0.4+0.25*Mathf.sin(b.time()*0.02)));
+    fillLight(b.x, b.y, Lines.circleVertices(85), Mathf.clamp((1-b.fin())*20)*85, Pal.lancerLaser.cpy().a(0), distcolor.cpy().a(0.7+0.25*Mathf.sin(b.time()*0.05)));
     Draw.color();
 	},
 	hit(b,x,y){},
   despawned(b){},
 	update(b){
-    if(Time.time()%80<=1) Effects.effect(distSplashFx,b.x,b.y);
-    Units.nearby(b.getTeam(), b.x, b.y, 75, cons(e=>{
-      e.applyEffect(distort, 2);
-    }));
+    if(b.time()%80<=1) Effects.effect(distSplashFx,b.x,b.y);
     Vars.bulletGroup.intersect(b.x-85, b.y-85, b.x+85, b.y+85, cons(e=>{
       if(Mathf.within(b.x, b.y, e.x, e.y, 85) && e != b && e.getTeam() != b.getTeam() && e != null){
         e.velocity().x = e.velocity().x * 0.95;
@@ -362,7 +359,7 @@ const distZone = extend(BasicBulletType,{
       }
     }));
     Units.nearbyEnemies(b.getTeam(), b.x-85, b.y-85, b.x+85, b.y+85, cons(e=>{
-      if(Mathf.within(b.x, b.y, e.x, e.y, 85) && e.team != b.getTeam() && e != null){
+      if(Mathf.within(b.x, b.y, e.x, e.y, 85) && e != null){
         e.applyEffect(distort, 2);
       }
     }));
