@@ -336,9 +336,9 @@ const distSplashFx = newEffect(80, e => {
 const distort=extendContent(StatusEffect,"distort",{});
 distort.speedMultiplier = 0.35;
 distort.color = distcolor;
-distort.effect= distortFx;
+distort.effect = distortFx;
 const distStart = newEffect(15, e => {
-	fillLight(e.x, e.y, Lines.circleVertices(85), 85, Color.clear, Color.lancerLaser.cpy().a(e.fout()));
+	fillLight(e.x, e.y, Lines.circleVertices(85), 85, Color.clear, Pal.lancerLaser.cpy().a(e.fout()));
 });
 const distZone = extend(BasicBulletType,{
 	draw(b){
