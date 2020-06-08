@@ -1,5 +1,6 @@
 var shieldColor = Color.valueOf("ffd37f").a(0.7);
 const shieldInColor = Color.black.cpy().a(0);
+const spaceshader = this.global.shaders.space;
 //이런 영감 아저씨
 if (typeof(floatc2)== "undefined"){
   const floatc2 = method => new Floatc2(){get : method};
@@ -122,9 +123,11 @@ this.global.fx = {
 
       v1.trns(angle, rand1 * 70 * e.fout());
 
-      Draw.color(Color.black);
+      //Draw.color(Color.black);
+      Draw.shader(spaceshader);
       Lines.stroke((1 * e.fout()) + 0.25);
       Lines.lineAngle(e.x + v1.x, e.y + v1.y, angle + 270 + 15, e.fout() * 8);
+      Draw.shader();
     };
   })
 };

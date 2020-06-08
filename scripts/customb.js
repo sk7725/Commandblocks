@@ -377,7 +377,7 @@ distZone.collidesAir = false;
 distZone.keepVelocity = false;
 this.global.bullets.distZone = distZone;
 
-const shader=this.global.shaders.space;
+const shader = this.global.shaders.space;
 const whirl = this.global.fx.whirl;
 //creditts to EyeofDarkness
 const blackhole = extend(BasicBulletType, {
