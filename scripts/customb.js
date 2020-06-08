@@ -351,7 +351,7 @@ const distZone = extend(BasicBulletType,{
 	hit(b,x,y){},
   despawned(b){},
 	update(b){
-    if(b.time()%80<=1) Effects.effect(distSplashFx,b.x,b.y);
+    if(b.time()%80<=1 && b.lifetime() - b.time() > 100) Effects.effect(distSplashFx,b.x,b.y);
     Vars.bulletGroup.intersect(b.x-85, b.y-85, b.x+85, b.y+85, cons(e=>{
       if(Mathf.within(b.x, b.y, e.x, e.y, 85) && e != b && e.getTeam() != b.getTeam() && e != null){
         e.velocity().x = e.velocity().x * 0.95;
