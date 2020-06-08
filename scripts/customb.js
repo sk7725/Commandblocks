@@ -337,12 +337,12 @@ const distort=extendContent(StatusEffect,"distort",{});
 distort.speedMultiplier = 0.35;
 distort.color = distcolor;
 distort.effect = distortFx;
-const distStart = newEffect(15, e => {
+const distStart = newEffect(45, e => {
 	fillLight(e.x, e.y, Lines.circleVertices(85), 85, Color.clear, Pal.lancerLaser.cpy().a(e.fout()));
 });
 const distZone = extend(BasicBulletType,{
 	draw(b){
-    Draw.color(distcolor, Pal.lancerLaser, Mathf.sin(b.time()*0.02)*0.5+0.5);
+    Draw.color(Pal.lancerLaser);
     Lines.stroke(1);
     Lines.circle(b.x, b.y, Mathf.clamp((1-b.fin())*20)*85);
     fillLight(b.x, b.y, Lines.circleVertices(85), Mathf.clamp((1-b.fin())*20)*85, Pal.lancerLaser.cpy().a(0), distcolor.cpy().a(0.4+0.25*Mathf.sin(b.time()*0.02)));
@@ -351,7 +351,7 @@ const distZone = extend(BasicBulletType,{
 	hit(b,x,y){},
   despawned(b){},
 	update(b){
-    if(Mathf.floorPositive(Time.time())%80==0) Effects.effect(distSplashFx,b.x,b.y);
+    if(Time.time()%80<=1) Effects.effect(distSplashFx,b.x,b.y);
     Units.nearby(b.getTeam(), b.x, b.y, 75, cons(e=>{
       e.applyEffect(distort, 2);
     }));
@@ -361,18 +361,9 @@ const distZone = extend(BasicBulletType,{
         e.velocity().y = e.velocity().y * 0.7;
       }
     }));
-    Vars.unitGroup.intersect(b.x-85, b.y-85, b.x+85, b.y+85, cons(e=>{
-      if(Mathf.within(b.x, b.y, e.x, e.y, 85) && e.getTeam() != b.getTeam() && e != null){
+    Units.nearbyEnemies(b.getTeam(), b.x-85, b.y-85, b.x+85, b.y+85, cons(e=>{
+      if(Mathf.within(b.x, b.y, e.x, e.y, 85) && e.team != b.getTeam() && e != null){
         e.applyEffect(distort, 2);
-        e.velocity().x = e.velocity().x * 0.7;
-        e.velocity().y = e.velocity().y * 0.7;
-      }
-    }));
-    Vars.playerGroup.intersect(b.x-85, b.y-85, b.x+85, b.y+85, cons(e=>{
-      if(Mathf.within(b.x, b.y, e.x, e.y, 85) && e.getTeam() != b.getTeam() && e != null){
-        e.applyEffect(distort, 2);
-        e.velocity().x = e.velocity().x * 0.7;
-        e.velocity().y = e.velocity().y * 0.7;
       }
     }));
 	},
