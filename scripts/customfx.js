@@ -129,6 +129,8 @@ this.global.fx = {
       Lines.lineAngle(e.x + v1.x, e.y + v1.y, angle + 270 + 15, e.fout() * 8);
       Draw.shader();
     };
+    Draw.color(Color.black);
+		Fill.circle(e.x, e.y, e.rotation);
   }),
   whirlSmall : newEffect(45, e => {
     const v1 = new Vec2();
@@ -147,5 +149,7 @@ this.global.fx = {
       Lines.lineAngle(e.x + v1.x, e.y + v1.y, angle + 270 + 15, e.fout() * 5);
       Draw.shader();
     };
+    Draw.color(Color.black);
+		Fill.circle(e.x, e.y, e.rotation);
   })
 };

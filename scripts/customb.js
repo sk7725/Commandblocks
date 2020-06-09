@@ -386,7 +386,7 @@ const blackhole = extend(BasicBulletType, {
     const v2 = new Vec2();
 
     if(Mathf.chance(Time.delta() * (0.7 * b.fout()))){
-      Effects.effect(whirl, b.x, b.y);
+      Effects.effect(whirl, b.x, b.y, b.fout() * 5.5);
     };
 
     Units.nearbyEnemies(b.getTeam(), b.x - this.rangeB, b.y - this.rangeB, this.rangeB * 2, this.rangeB * 2, cons(u => {
@@ -423,7 +423,7 @@ const blackhole = extend(BasicBulletType, {
 		Fill.circle(b.x, b.y, b.fout() * 5.5);
 	}
 });
-blackhole.strength = 0.9;
+blackhole.strength = 1.3;
 blackhole.rangeB = 120;
 blackhole.speed = 0;
 blackhole.damage = 16;
@@ -444,7 +444,7 @@ const blackholeSmall = extend(BasicBulletType, {
     const v2 = new Vec2();
 
     if(Mathf.chance(Time.delta() * (0.7 * b.fout()))){
-      Effects.effect(whirlSmall, b.x, b.y);
+      Effects.effect(whirlSmall, b.x, b.y, b.fout() * 2.5);
     };
 
     Units.nearbyEnemies(b.getTeam(), b.x - this.rangeB, b.y - this.rangeB, this.rangeB * 2, this.rangeB * 2, cons(u => {
@@ -481,11 +481,11 @@ const blackholeSmall = extend(BasicBulletType, {
 		Fill.circle(b.x, b.y, b.fout() * 2.5);
 	}
 });
-blackholeSmall.strength = 0.5;
+blackholeSmall.strength = 0.8;
 blackholeSmall.rangeB = 40;
 blackholeSmall.speed = 0;
 blackholeSmall.damage = 4;
-blackholeSmall.lifetime = 2 * 60;
+blackholeSmall.lifetime = 5 * 60;
 blackholeSmall.pierce = true;
 blackholeSmall.bulletWidth = 6;
 blackholeSmall.bulletHeight = 6;
