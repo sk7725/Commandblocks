@@ -385,7 +385,7 @@ const blackhole = extend(BasicBulletType, {
     const v1 = new Vec2();
     const v2 = new Vec2();
 
-    if(Mathf.chance(Time.delta() * (0.7 * b.fout()))){
+    if(Mathf.chance(Time.delta() * (0.3 * b.fout()))){
       Effects.effect(whirl, b.x, b.y, b.fout() * 5.5);
     };
 
@@ -443,7 +443,7 @@ const blackholeSmall = extend(BasicBulletType, {
     const v1 = new Vec2();
     const v2 = new Vec2();
 
-    if(Mathf.chance(Time.delta() * (0.7 * b.fout()))){
+    if(Mathf.chance(Time.delta() * (0.3 * b.fout()))){
       Effects.effect(whirlSmall, b.x, b.y, b.fout() * 2.5);
     };
 
