@@ -1,8 +1,6 @@
 const presstick=10; const timerid=0;
-const bitcolor1=Color.valueOf("00e5ff");
-const bitcolor2=Color.valueOf("ff65db");
+const shader=this.global.shaders.bittrium;
 const lasercolor=Color.valueOf("555566"); const white=Color.valueOf("ffffff");
-const bitcolorspeed=0.01;
 const magictele=extendContent(Router,"magictele",{
   handleItem(item,tile, source){
     if(!tile.ent().getConnected()) return;//this.super$handleItem(item,tile,source);
@@ -88,10 +86,9 @@ const magictele=extendContent(Router,"magictele",{
   },
   draw(tile){
     this.super$draw(tile);
-    //print("Lerp:"+(Math.sin(Time.time()*bitcolorspeed)+1)/2);
-    Draw.color(bitcolor1,bitcolor2,(Mathf.sin(Time.time()*bitcolorspeed)+1)/2);
+    Draw.shader(shader);
     Draw.rect(this.animRegion, tile.drawx(), tile.drawy());
-    Draw.color();
+    Draw.shader();
   },
   load(){
     this.super$load();

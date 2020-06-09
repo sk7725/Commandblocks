@@ -243,11 +243,11 @@ const skills={
   "pyraheal":{
 		type:"skill.support",
 		tier:1,
-		cooltime:7,
-    duration:5,
+    duration:8.3,
+    cooltime:24.8,
 		uses:{
 			item:"pyratite",
-			amount:7
+			amount:12
 		},
 		cost:[
 			{
@@ -352,11 +352,11 @@ const skills={
   "surgeshield":{
 		type:"skill.def",
 		tier:1,
-		cooltime:12.5,
-    healthcost:6,
+		cooltime:30,
+    healthcost:10,
 		uses:{
 			item:"surge-alloy",
-			amount:8
+			amount:14
 		},
 		cost:[
 			{
@@ -434,13 +434,14 @@ const skills={
       }
     ]
   },
-  "scalheadbutt":{
-    type:"skill.atk",
+  "scalshield":{
+    type:"skill.def",
     tier:2,
-    cooltime:4.5,
+    cooltime:20,
+    duration:120,
     uses:{
       item:"commandblocks-ref-scalar",
-      amount:6
+      amount:14
     },
     cost:[
       {
@@ -461,7 +462,7 @@ const skills={
   "vecradian":{
     type:"skill.atk",
     tier:1,
-    cooltime:11,
+    cooltime:13.5,
     uses:{
       item:"commandblocks-ore-vector",
       amount:12
@@ -508,7 +509,7 @@ const skills={
   "vecshot":{
     type:"skill.atk",
     tier:3,
-    cooltime:7,
+    cooltime:10.8,
     uses:{
       item:"commandblocks-ref-vector",
       amount:8
@@ -528,10 +529,11 @@ const skills={
   "zetarecharge":{
     type:"skill.support",
     tier:1,
-    cooltime:10,
+    duration:8.3,
+    cooltime:30,
     uses:{
       item:"commandblocks-ore-zeta",
-      amount:9
+      amount:15
     },
     cost:[
       {
@@ -547,7 +549,7 @@ const skills={
   "zetasabo":{
     type:"skill.support",
     tier:2,
-    cooltime:10.8,
+    cooltime:28,
     duration:10,
     uses:{
       item:"commandblocks-ore-zeta",
@@ -572,7 +574,7 @@ const skills={
   "zetatrap":{
     type:"skill.support",
     tier:3,
-    cooltime:7.6,
+    cooltime:11,
     duration:3.6,
     uses:{
       item:"commandblocks-ref-zeta",
@@ -591,14 +593,13 @@ const skills={
     parent:"zetasabo"
   },
   "spaceblink":{
-    type:"skill.move",
+    type:"skill.def",
     tier:2,
-    cooltime:4.9,
-    duration:1.5,
-    healthcost:12,
+    cooltime:30.3,
+    duration:15,
     uses:{
       item:"commandblocks-t-space",
-      amount:7
+      amount:15
     },
     cost:[
       {
@@ -676,8 +677,236 @@ const skills={
     ],
     parent:"spaceportal"
   },
+  "opticpresicion":{
+		type:"skill.atk",
+		tier:1,
+		cooltime:200,
+		uses:{
+			item:"infinitodustry-visionary-glass",
+			amount:5
+		},
+		cost:[
+			{
+				item:"infinitodustry-visionary-glass",
+				amount:115
+			},
+			{
+				item:"metaglass",
+				amount:100
+			},
+			{
+				item:"silicon",
+				amount:95
+			}
+		]
+	},
+	"opticray":{
+		type:"skill.atk",
+		tier:2,
+		cooltime:25,
+uses:{
+			item:"infinitodustry-visionary-glass",
+			amount:0
+		},
+		cost:[
+			{
+				item:"infinitodustry-visionary-glass",
+				amount:200
+			},
+			{
+				item:"infinitodustry-toughitinum",
+				amount:150
+			}
+		],
+	parent:"opticpresicion"
+	},
+	"matrixtravel":{
+		type:"skill.move",
+		tier:2,
+		cooltime:10,
+		uses:{
+			item:"infinitodustry-matrix",
+			amount:10
+		},
+		cost:[
+			{
+				item:"infinitodustry-matrix",
+				amount:95
+			},
+			{
+				item:"phase-fabric",
+				amount:115
+			},
+			{
+				item:"infinitodustry-vector",
+				amount:100
+			}
+		],
+    parent:"phasetp"
+	},
+	"matrixglitch":{
+		type:"skill.atk",
+		tier:3,
+		cooltime:45,
+		uses:{
+			item:"infinitodustry-matrix",
+			amount:30
+		},
+		cost:[
+			{
+				item:"infinitodustry-matrix",
+				amount:200
+			},
+			{
+				item:"phase-fabric",
+				amount:250
+			},
+			{
+				item:"infinitodustry-blast-fabric",
+				amount:150
+			}
+		],
+    parent:"matrixtravel"
+	},
+	"matrixempower":{
+		type:"skill.secret",
+		tier:4,
+		cooltime:100,
+		healthcost:50,
+		uses:{
+			item:"infinitodustry-matrix",
+			amount:50
+		},
+		cost:[
+			{
+				item:"infinitodustry-matrix",
+				amount:450
+			},
+			{
+				item:"surge-alloy",
+				amount:305
+			},
+			{
+				item:"infinitodustry-tensor",
+				amount:250
+			}
+		],
+    parent:"matrixglitch"
+	},
+	"toughitinumswarm":{
+		type:"skill.support",
+		tier:4,
+		cooltime:1,
+		uses:{
+			item:"infinitodustry-toughitinum",
+			amount:5
+		},
+		cost:[
+			{
+				item:"infinitodustry-toughitinum",
+				amount:200
+			},
+			{
+				item:"silicon",
+				amount:250
+			}
+		],
+    parent:"coalcrawler"
+	},
+	"toughitinumshield":{
+		type:"skill.def",
+		tier:2,
+		cooltime:45,
+		uses:{
+			item:"infinitodustry-toughitinum",
+			amount:25
+		},
+		cost:[
+			{
+				item:"infinitodustry-toughitinum",
+				amount:115
+			},
+			{
+				item:"surge-alloy",
+				amount:85
+			}
+		],
+    parent:"surgeshield"
+	},
+	"blastfabriccoat":{
+		type:"skill.def",
+		tier:3,
+		cooltime:50,
+		uses:{
+			item:"infinitodustry-blast-fabric",
+			amount:25
+		},
+		cost:[
+			{
+				item:"infinitodustry-blast-fabric",
+				amount:125
+			},
+			{
+				item:"graphite",
+				amount:140
+			},
+			{
+				item:"infinitodustry-tau-plate",
+				amount:120
+			},
+		],
+    parent:"toughitinumshield"
+	},
+	"tensorsensor":{
+		type:"skill.support",
+		tier:4,
+		cooltime:65,
+		uses:{
+			item:"infinitodustry-tensor",
+			amount:30
+		},
+		cost:[
+			{
+				item:"infinitodustry-tensor",
+				amount:225
+			},
+			{
+				item:"infinitodustry-scalar",
+				amount:250
+			},
+			{
+				item:"surge-alloy",
+				amount:215
+			},
+		],
+    parent:"matrixglitch"
+	},
+	"tensorsensor":{
+		type:"skill.secret",
+		tier:3,
+		cooltime:40,
+		uses:{
+			item:"infinitodustry-tensor",
+			amount:60
+		},
+		cost:[
+			{
+				item:"infinitodustry-tensor",
+				amount:230
+			},
+			{
+				item:"infinitodustry-infiar",
+				amount:100
+			},
+			{
+				item:"silicon",
+				amount:250
+			},
+		],
+    parent:"matrixtravel"
+	},
   "uranblast":{
-		type:"skill.attack",
+		type:"skill.atk",
 		tier:2,
 		cooltime:14,
 		healthcost:100,
@@ -700,6 +929,82 @@ const skills={
 			}
 		],
     parent:"coalfire"
+	},
+  "zincray":{
+    type:"skill.atk",
+    tier: 1,
+    cooltime:1.5,
+    uses:{
+      item:"mindblow-zinc",
+      amount:3
+    },
+    cost:[
+      {
+        item:"mindblow-zinc",
+        amount:230
+      },
+      {
+        item:"surge-alloy",
+        amount:85
+      }
+    ],
+    parent:"coalbomb"
+  },
+  "zincstorm":{
+    type:"skill.atk",
+    tier: 2,
+    cooltime:4,
+    uses:{
+      item:"mindblow-zinc",
+      amount:8
+    },
+    cost:[
+      {
+        item:"mindblow-zinc",
+        amount:650
+      },
+      {
+        item:"surge-alloy",
+        amount:125
+      }
+    ],
+    parent:"zincray"
+  },
+  "zincexplosion":{
+    type:"skill.support",
+    tier: 3,
+    cooltime:150,
+    healthcost:90,
+    uses:{
+      item:"mindblow-zinc",
+      amount:60
+    },
+    cost:[
+      {
+        item:"mindblow-zinc",
+        amount:1568
+      },
+      {
+        item:"surge-alloy",
+        amount:459
+      }
+    ],
+    parent:"zincstorm"
+  },
+	"youShallNotPass":{
+		type:"skill.support",
+		tier:1,
+		cooltime:5,
+		uses:{
+			item:"copper",
+			amount:1
+		},
+		cost:[
+			{
+				item:"copper",
+				amount:1
+			}
+		]
 	}
 };
 this.global.skills.skills=skills;
@@ -720,158 +1025,169 @@ const spellstart = newEffect(23, e => {
   Lines.stroke(e.fout() * 5);
   Lines.circle(e.x, e.y, 3 + e.fin() * 80);
 });
-const slasheffect = newEffect(90, e => {
-  Draw.color(Pal.lancerLaser);
-  Drawf.tri(e.x, e.y, 4 * e.fout(), 45, (e.id*57 + 90)%360);
-	Drawf.tri(e.x, e.y, 4 * e.fout(), 45, (e.id*57 - 90)%360);
-});
-const swordeffect = newEffect(7, e => {
-  Draw.color(Pal.lancerLaser);
-  var sign=(e.id%2==0)?1:-1;
-  var width=4;
-  var r1=sign*(45-20*e.fin());
-  var v1=Vec2(14,0).setAngle(e.rotation+r1);
-  Drawf.tri(e.x+v1.x, e.y+v1.y, width, 14.2*e.fin(), (e.rotation+sign*90+r1)%360);
-  r1=sign*(45-45*e.fin());
-  v1=Vec2(13,0).setAngle(e.rotation+r1);
-  Lines.stroke(width*0.75);
-  Lines.lineAngleCenter(e.x+v1.x, e.y+v1.y, (e.rotation+90+r1)%360, 10*e.fin());
-  r1=sign*(45-70*e.fin());
-  v1=Vec2(14,0).setAngle(e.rotation+r1);
-  Drawf.tri(e.x+v1.x, e.y+v1.y, width, 14.2*e.fin(), (e.rotation-sign*90+r1)%360);
-});
+const customfx = this.global.fx;
+const slasheffect = customfx.slash;
+const swordeffect = customfx.sword;
 
 const boostedskill= extendContent(StatusEffect,"boostedskill",{});
 boostedskill.speedMultiplier=1.45;
 boostedskill.color=Pal.redderDust;
 boostedskill.effect=boostfire;
+const jamweapons = extendContent(StatusEffect,"jamweapons",{
+  update(unit, time){
+    this.super$update(unit, time);
+    unit.getTimer().get(unit.getShootTimer(true),1);
+    unit.getTimer().get(unit.getShootTimer(false),1);
+  }
+});
+jamweapons.color=Color.orange;
+jamweapons.effect=Fx.purifystone;
+const bleach = extendContent(StatusEffect,"bleach",{
+  update(unit, time){
+    this.super$update(unit, time);
+    if(unit==Vars.player){
+      if(time<2) Draw.blend();
+      else Draw.blend(Blending.additive);
+    }
+  }
+});
+bleach.color=Color.white;
+const ram = extendContent(StatusEffect,"ram",{
+  update(unit, time){
+    this.super$update(unit, time);
+    var v1=Vec2(2,0).setAngle(unit.rotation);
+    unit.move(v1.x, v1.y);
+  }
+});
+ram.color=Pal.meltdownHit;
+ram.effect=Fx.hitMeltdown;
+
+const shieldbreak = extendContent(StatusEffect,"shieldbreak",{});
+const shieldsmall = extendContent(StatusEffect,"shieldsmall",{
+  _unithp:[],
+  _shieldhp:[],
+  update(unit, time){
+    this.super$update(unit, time);
+    try{
+      if(this._unithp[unit.id] == null){
+        this._unithp[unit.id] = unit.health();
+        if(this._shieldhp[unit.id] == null) this._shieldhp[unit.id] = 300;
+      }
+      if(time<2){
+        //do not expect this to always work, deltatime
+        delete this._unithp[unit.id];
+        delete this._shieldhp[unit.id];
+        unit.applyEffect(shieldbreak, 1);//just in case
+        Effects.effect(customfx.unitShieldEnd, unit.getX(), unit.getY(), 0, (unit instanceof BaseUnit)?unit.getType().hitsize:((unit instanceof Player)?unit.mech.hitsize*1.5:8));
+        return;
+      }
+      if(this._shieldhp[unit.id] <= 0) return;
+      if(unit.health() > this._unithp[unit.id]) this._unithp[unit.id] = unit.health();
+      else if(unit.health() < this._unithp[unit.id]){
+        var dmg = this._unithp[unit.id] - unit.health();
+        this._shieldhp[unit.id] -= dmg;
+        unit.health(this._unithp[unit.id]+0.01);
+        if(this._shieldhp[unit.id]>0) Effects.effect(customfx.unitShieldHit, unit.getX(), unit.getY(), 0, (unit instanceof BaseUnit)?unit.getType().hitsize:((unit instanceof Player)?unit.mech.hitsize*1.5:8));
+        else{
+          delete this._unithp[unit.id];
+          delete this._shieldhp[unit.id];
+          unit.applyEffect(shieldbreak, 1);//just in case
+          Effects.effect(customfx.unitShieldBreak, unit.getX(), unit.getY(), 0, (unit instanceof BaseUnit)?unit.getType().hitsize:((unit instanceof Player)?unit.mech.hitsize*1.5:8));
+        }
+      }
+    }
+    catch(err){
+      print(err);
+    }
+  },
+  getTransition(unit, to, time, newTime, result){
+    if(to == shieldbreak){
+      return result.set(to, 1);
+    }
+    else return this.super$getTransition(unit, to, time, newTime, result);
+  }
+});
+shieldsmall.color = Color.valueOf("ffd37f");
+shieldsmall.opposite(shieldbreak);
+const shieldlarge = extendContent(StatusEffect,"shieldlarge",{
+  _unithp:[],
+  _shieldhp:[],
+  update(unit, time){
+    this.super$update(unit, time);
+    try{
+      if(this._unithp[unit.id] == null){
+        this._unithp[unit.id] = unit.health();
+        if(this._shieldhp[unit.id] == null) this._shieldhp[unit.id] = 1000;
+      }
+      if(time<2){
+        //do not expect this to always work, deltatime
+        delete this._unithp[unit.id];
+        delete this._shieldhp[unit.id];
+        unit.applyEffect(shieldbreak, 1);//just in case
+        Effects.effect(customfx.unitShieldEnd, unit.getX(), unit.getY(), 0, (unit instanceof BaseUnit)?unit.getType().hitsize:((unit instanceof Player)?unit.mech.hitsize*1.5:8));
+        return;
+      }
+      if(this._shieldhp[unit.id] <= 0) return;
+      if(unit.health() > this._unithp[unit.id]) this._unithp[unit.id] = unit.health();
+      else if(unit.health() < this._unithp[unit.id]){
+        var dmg = this._unithp[unit.id] - unit.health();
+        this._shieldhp[unit.id] -= dmg;
+        unit.health(this._unithp[unit.id]+0.01);
+        if(this._shieldhp[unit.id]>0) Effects.effect(customfx.unitShieldHit, unit.getX(), unit.getY(), 0, (unit instanceof BaseUnit)?unit.getType().hitsize:((unit instanceof Player)?unit.mech.hitsize*1.5:8));
+        else{
+          delete this._unithp[unit.id];
+          delete this._shieldhp[unit.id];
+          unit.applyEffect(shieldbreak, 1);//just in case
+          Effects.effect(customfx.unitShieldBreak, unit.getX(), unit.getY(), 0, (unit instanceof BaseUnit)?unit.getType().hitsize:((unit instanceof Player)?unit.mech.hitsize*1.5:8));
+        }
+      }
+    }
+    catch(err){
+      print(err);
+    }
+  },
+  getTransition(unit, to, time, newTime, result){
+    if(to == shieldbreak){
+      return result.set(to, 1);
+    }
+    else return this.super$getTransition(unit, to, time, newTime, result);
+  }
+});
+shieldlarge.color = Color.valueOf("ffd37f");
+shieldlarge.opposite(shieldbreak);
+shieldbreak.opposite(shieldsmall);//just in case 2
+shieldbreak.opposite(shieldlarge);
 
 const zetacolor=Color.valueOf("82ffe8");
 const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
 saboskill.speedMultiplier=-1.0;
 saboskill.color=zetacolor;
 //saboskill.effect=sabofire;
+
+const pushing=extendContent(StatusEffect,"pushing",{
+	update(unit,time){
+		var x=unit.getX();
+		var y=unit.getY();
+		var radius=15*Vars.tilesize;
+		Units.nearbyEnemies(unit.getTeam(),x-radius,y-radius,2*radius,2*radius,cons(e=>{
+			if(unit.withinDst(x,y,radius)){
+				var vec=new Vec2(e.x-x,e.y-y);
+				e.velocity().add(vec.scl((radius-vec.len())/16384));
+			}
+		}))
+		this.super$update(unit,time);
+	}
+});
+
 //Partial Credit to younggam
-const gravsuck = newEffect(20, e => {
-  Draw.color(zetacolor);
-  Lines.stroke(e.fin() * 3);
-  Lines.square(e.x, e.y, 1 + e.fout() * 80);
-});
-const gravstart = newEffect(45, e => {
-	if(Time.time()%3<2) return;
-  Draw.color(zetacolor);
-  Lines.stroke(7*e.fout()+0.001);
-	//var sx=e.x+(e.data.x)*e.fout(); var sy=e.y+(e.data.y)*e.fout();
-  Lines.square(e.x, e.y, (e.fin()>0.68)?(e.fin()-0.68)*500+5:5 ,(e.fout()*350)%360);
-});
-const gravityTrap=extend(BasicBulletType,{
-	target:[],
-	draw(b){
 
-	},
-	hit(b,x,y){},
-	despawned(b){
-		delete this.target[b.id];
-	},
-	update(b){
-		if(b.time()<45) return;
-		if(Mathf.floorPositive(Time.time())%40==0){
-			Effects.effect(gravsuck,b.x,b.y);
-			Sounds.message.at(b.x,b.y,0.6);
-		}
-		var i=0;
-		if(this.target[b.id].length<=5){
-			Units.nearbyEnemies(b.getTeam(),b.x-80,b.y-80,160,160,cons(u=>{
-				if(i>=5||!u.isValid()) return;
-				var dst2=Mathf.dst2(u.x,u.y,b.x,b.y);
-				if(dst2<80*80&&this.target[b.id][u.id]==null){
-					this.target[b.id][u.id]=u;
-					i++;
-				}
-			}))
-		};
-		for(var i in this.target[b.id]){
-			if(this.target[b.id][i]!=null)	this.target[b.id][i].velocity().add((b.x-this.target[b.id][i].x)/3,(b.y-this.target[b.id][i].y)/3);
-		}
-	},
-	init(b){
-		if(b==null) return;
-		this.target[b.id]=[];
-		Effects.effect(gravstart,b.x,b.y);
-		Sounds.spray.at(b.x,b.y,0.9);
-		/*
-		var v=b.velocity().rotate(180);
-		Effects.effect(gravbullet,b.x,b.y,0,v);
-		b.velocity().set(0,0);
-		b.x+=v.x; b.y+=v.y;
-		*/
-	}
-});
-gravityTrap.speed=0;
-gravityTrap.lifetime=260;
-gravityTrap.collidesTiles=false;
-gravityTrap.collides=false;
-gravityTrap.collidesAir=false;
+const customb = this.global.bullets;
+const gravityTrap = customb.gravityTrap;
+const arcCasterBullet = customb.arcCasterBullet;
+const forceSmall = customb.forceSmall;
+const effectZone = customb.effectZone;
 
-//Credits to EyeofDarkness
-const arcCharge = newEffect(27, e => {
-	Draw.color(Color.valueOf("606571"), Color.valueOf("6c8fc7"), e.fin());
-	const hh = new Floatc2({get: function(x, y){
-		//Fill.poly(e.x + x, e.y + y, 6, 2 + e.fin() * 11, e.rotation);
-		Fill.poly(e.x + x, e.y + y, 6, 1 + Mathf.sin(e.fin() * 3, 1, 2) * 5, e.rotation);
-	}});
-
-	Angles.randLenVectors(e.id, 2, e.fout() * 40.0, e.rotation, 135.0, hh);
-});
-const arcSmokeTwo = newEffect(15, e => {
-	const trnsB = new Vec2();
-
-	Draw.color(Color.valueOf("6c8fc7"), Color.valueOf("606571"), e.fin());
-	trnsB.trns(e.rotation, e.fin() * (4.6 * 15));
-	Fill.poly(e.x + trnsB.x, e.y + trnsB.y, 6, e.fout() * 16, e.rotation);
-});
-const arcSmoke = newEffect(27, e => {
-	Draw.color(Color.valueOf("6c8fc7"), Color.valueOf("606571"), e.fin());
-	const hl = new Floatc2({get: function(x, y){
-		Fill.poly(e.x + x, e.y + y, 6, e.fout() * 9, e.rotation);
-	}});
-	Angles.randLenVectors(e.id, 3, e.finpow() * 20.0, e.rotation, 180.0, hl);
-});
-const arcCasterBullet = extend(BasicBulletType, {
-	update: function(b){
-		const trnsC = new Vec2();
-		const trnsD = new Vec2();
-		if(Mathf.chance(0.9)){
-			Effects.effect(arcSmoke, this.backColor, b.x + Mathf.range(2.0), b.y + Mathf.range(2.0), b.rot());
-		};
-		if(Mathf.chance(Time.delta() * 0.5)){
-			trnsC.trns(b.rot() + Mathf.range(2.0), 12);
-			Lightning.create(b.getTeam(), Color.valueOf("a9d8ff"), 29, b.x + trnsC.x + Mathf.range(12.0), b.y + trnsC.y + Mathf.range(12.0), b.rot() + Mathf.range(46.0), Mathf.random(4, 18));
-		};
-		if(Mathf.chance(Time.delta() * 0.2)){
-			trnsD.trns(b.rot() + Mathf.range(2.0), 12);
-			Lightning.create(b.getTeam(), Color.valueOf("8494b3"), 14, b.x + trnsD.x + Mathf.range(12.0), b.y + trnsD.y + Mathf.range(12.0), b.rot() + Mathf.range(180.0), Mathf.random(3, 12));
-		};
-		Effects.effect(arcSmokeTwo, this.backColor, b.x + Mathf.range(12.0), b.y + Mathf.range(12.0), b.rot() + Mathf.range(2.0));
-	},
-	draw: function(b){
-		Draw.color(Color.valueOf("6c8fc7"), Color.valueOf("606571"), b.fin());
-		Fill.poly(b.x, b.y, 6, 6 + b.fout() * 6.1, b.rot());
-		Draw.reset();
-	}
-});
-arcCasterBullet.speed = 4.4;
-arcCasterBullet.damage = 4;
-arcCasterBullet.lifetime = 90;
-arcCasterBullet.hitSize = 21;
-arcCasterBullet.despawnEffect = Fx.none;
-arcCasterBullet.shootEffect = Fx.none;
-arcCasterBullet.collides = true;
-arcCasterBullet.collidesTiles = false;
-arcCasterBullet.collidesAir = true;
-arcCasterBullet.pierce = true;
-
-const vanillaskills=18;
+const vanillaskills=30;
 const doubletaptick=15;
 const skillfunc={
   _lasttouch:0,
@@ -906,7 +1222,7 @@ const skillfunc={
         try{
           //this[Skill.skill](Vars.player);
           tile.configure(-1*(1+obj.n));
-          Vars.player.addItem(Vars.player.item().item,Math.floor(-1*obj.uses.amount));
+          //Vars.player.addItem(Vars.player.item().item,Math.floor(-1*obj.uses.amount));
           return true;
         }
         catch(err){
@@ -926,14 +1242,14 @@ const skillfunc={
     return false;
   },
   fire(bullet,player,v,life){
-    if(Vars.net.client()) return;
-    Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
-    //Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
+    //if(Vars.net.client()) return;
+    //Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
+    Bullet.create(bullet, player, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
   },
 	fireOffset(bullet,player,v,life,offset){
-    if(Vars.net.client()) return;
-    Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation+offset, v,life);
-    //Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation, v,life);
+    //if(Vars.net.client()) return;
+    //Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation+offset, v,life);
+    Bullet.create(bullet, player, player.getTeam(), player.getX(), player.getY(), player.rotation + offset, v,life);
   },
   coalbomb(player){
     this.fire(Bullets.bombExplosive, player, 11, 3);
@@ -971,14 +1287,12 @@ const skillfunc={
     if(Vars.net.client()) return;
     var bullets=Vars.content.bullets().toArray();
     var choice=Math.floor(Math.random()*(bullets.length));
-    this.fire(bullets[choice], player, 1, 1);
+    Call.createBullet(bullets[choice], player.getTeam(), player.getX(), player.getY(), player.rotation, 1, 1);
   },
   phaseskill(player,tile){
     if(Vars.net.client()) return;
     var arr=Object.keys(skills);
-    var n=Math.floor((vanillaskills/3*4)*Math.random());
-    if(n%4==3) n-=3;
-    n=n%3+Math.floor(n/4);
+    var n=Math.floor(vanillaskills*Math.random());
     if(arr[n]=="phaseskill") n-=1;
     Call.onTileConfig(player,tile,-1*(n+1));
   },
@@ -1015,6 +1329,10 @@ const skillfunc={
     this.fire(Bullets.lightning, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
     this.fire(Bullets.lightning, player, 1, 1);
+  },
+  pyraheal(player){
+    Sounds.unlock.at(player.getX(),player.getY(),0.75);
+    this.fire(customb.healZone, player, 1, 1);
   },
   pyraboost(player){
     var x=player.getX(); var y=player.getY();
@@ -1057,10 +1375,25 @@ const skillfunc={
     Effects.effect(Fx.lancerLaserShootSmoke, x, y,(dir+180)%360);
     player.velocity().set(Vec2(4,0).setAngle(dir));
   },
+  surgeshield(player){
+    player.damage(player.maxHealth()*0.10);
+    Sounds.laser.at(player.getX(),player.getY(),0.6);
+    this.fire(forceSmall, player, 1, 1);
+  },
   surgecloud(player){
     player.damage(player.maxHealth()*0.18);
-    Sounds.spark.at(player.getX(),player.getY(),0.6);
-    this.fire(arcCasterBullet, player, 1, 1);
+    Sounds.spark.at(player.getX(),player.getY(),0.2);
+    this.fire(arcCasterBullet, player, 0.65, 5);
+  },
+  scalshield(player){
+    var x=player.getX(); var y=player.getY();
+    Sounds.message.at(x, y, 1.6);
+    Effects.effect(spellstart,Color.valueOf("f5bbf1"), x, y);
+    Units.nearby(player.getTeam(), x, y, 10*Vars.tilesize, cons(e=>{
+      if(shieldsmall._unithp[e.id]!=null) delete shieldsmall._unithp[e.id];
+      if(shieldsmall._shieldhp[e.id]!=null) delete shieldsmall._shieldhp[e.id];
+      e.applyEffect(shieldsmall, 7200);
+    }));
   },
   vecslash(player){
     var x=player.getX(); var y=player.getY();
@@ -1068,7 +1401,7 @@ const skillfunc={
     Effects.effect(swordeffect, x, y, player.rotation);
     var v1=Vec2(6,0).setAngle(player.rotation);
     Damage.damage(player.getTeam(), x+v1.x, y+v1.y, 24, 120);
-    Vars.bulletGroup.intersect(x+v1.x-11, y+v1.y-11, x+v1.x+11, y+v1.y+11).each(cons(b=>{
+    Vars.bulletGroup.intersect(x+v1.x-6, y+v1.y-6, x+v1.x+6, y+v1.y+6).each(cons(b=>{
       //deflect
       if(b.getTeam()!=player.getTeam()){
         b.velocity().x*=-1;
@@ -1080,6 +1413,29 @@ const skillfunc={
       }
     }));
   },
+  zetarecharge(player){
+    Sounds.spark.at(player.getX(),player.getY(),0.45);
+    Bullet.create(effectZone, player, player.getTeam(), player.getX(), player.getY(), player.rotation, 1, 1, Vars.content.getByName(ContentType.status, "commandblocks-skillup"));
+  },
+  zetatrap(player){
+    /*
+		var mx=Core.input.mouseWorld().x;
+		var my=Core.input.mouseWorld().y;
+    var vec=Core.input.mouseWorld(Vars.control.input.getMouseX(),Vars.control.input.getMouseY());
+    if(player==Vars.player){
+			var distvec=Vec2(vec.x-player.getX(),vec.x-player.getX());
+			Call.createBullet(gravityTrap,player.getTeam(),vec.x,vec.y,distvec.angle(),distvec.len(),1);
+		}*/
+    this.fire(gravityTrap, player, 1, 1);
+  },
+  spaceblink(player){
+    Sounds.spark.at(player.getX(),player.getY(),0.4);
+    Sounds.spray.at(player.getX(),player.getY(),0.4);
+    if(Vars.net.client()) return;
+    var tx = player.getX()+Math.random()*Vars.tilesize*32-Vars.tilesize*16;
+    var ty = player.getY()+Math.random()*Vars.tilesize*32-Vars.tilesize*16;
+    Call.createBullet(customb.distZone, player.getTeam(), tx, ty, 0, 1, 1);
+  },
   uranblast(player){
     var x=player.getX(); var y=player.getY();
     player.damage(player.maxHealth()*1.5);
@@ -1090,16 +1446,32 @@ const skillfunc={
     if(Vars.net.client()) return;
     Damage.damage(player.getTeam(),x,y,120,690);
   },
-  zetatrap(player){
-    //if(player!=Vars.player) return;
-		var mx=Core.input.mouseWorld().x;
-		var my=Core.input.mouseWorld().y;
-    var vec=Core.input.mouseWorld(Vars.control.input.getMouseX(),Vars.control.input.getMouseY());
-    //Effects.effect(Fx.teleportOut,Color.valueOf("f4ba6e"),Vars.control.input.getMouseX(), Vars.control.input.getMouseY());
-    if(player==Vars.player){
-			var distvec=Vec2(vec.x-player.getX(),vec.x-player.getX());
-			Call.createBullet(gravityTrap,player.getTeam(),vec.x,vec.y,distvec.angle(),distvec.len(),1);
-		}
-  }
+  zincray(player){
+    Sounds.spark.at(player.getX(),player.getY(),1.4);
+    this.fire(Bullets.arc, player, 1, 1);
+  },
+  zincstorm(player){
+    Sounds.laser.at(player.getX(),player.getY(),1.1);
+    this.fire(Bullets.arc, player, 1, 1);
+    this.fire(Bullets.lancerLaser, player, 1, 1);
+  },
+  zincexplosion(player){
+    Effects.effect(Fx.explosion,player.getX(), player.getY());
+    Sounds.laser.at(player.getX(),player.getY(),0.8);
+    player.damage(player.maxHealth()*0.9);
+    if(player.tileOn().solid()){
+      for(var i=1;i<=15;i++){
+        this.fire(Bullets.bombExplosive, player, 0.01, 0.01);
+      }
+      return;
+    }
+    if(Vars.net.client()) return;
+    var chaosarrayunit=UnitTypes.chaosArray.create(player.getTeam());
+    chaosarrayunit.set(player.getX(),player.getY());
+    chaosarrayunit.add();
+  },
+	youShallNotPass(player){
+		player.applyEffect(pushing,300);
+	}
 }
 this.global.skills.func=skillfunc;

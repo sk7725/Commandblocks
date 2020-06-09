@@ -136,6 +136,7 @@ gamesoccerball.create(prov(() => new JavaAdapter(FlyingUnit, {
     if(entity instanceof Bullet){
       //kick
       var owner=entity.getOwner();
+      if(owner == null) return;
       var dist=Vec2(this.x,this.y).dst2(owner.x,owner.y);
       var power=kickpower;
       if(owner instanceof Player) power=(mechpower.hasOwnProperty(owner.mech.name))?mechpower[owner.mech.name].kick:kickpower;

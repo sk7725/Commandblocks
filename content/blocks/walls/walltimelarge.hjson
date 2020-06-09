@@ -1,0 +1,13 @@
+size: 2
+breakable: true
+category: defense
+requirements: [
+  t-time/24
+]
+health: 5040
+solid: true
+targetable: true
+//hasShadow: false
+
+//sync: true
+//update: true

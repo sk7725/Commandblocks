@@ -10,6 +10,8 @@ if(!this.global.hasOwnProperty("commandcached")) this.global.commandcached={};
 const commandcached=this.global.commandcached;
 const armorstandtype=this.global.armorstand;
 const soccerballtype=this.global.gamesoccerball;
+const customfx=this.global.fx;
+const customb=this.global.bullets;
 const commandblocks={
   tilde(tile,inx,iny){
     if(tile instanceof Tile){
@@ -463,14 +465,15 @@ const commandblocks={
     //unit.velocity().y = factory.launchVelocity;
     //Events.fire(new UnitCreateEvent(unit));
   },
-  cmdfire(ptile,cbullet,cx,cy,crot,cteam,vel,life,bind){
+  cmdfire(ptile,cbullet,cx,cy,crot,cteam,vel,life,bind,cdata){
     //Bullet.create(type, tile.entity, tile.getTeam(), tile.drawx() + tr.x, tile.drawy() + tr.y, angle);
     //Bullet create(BulletType type, Entity owner, Team team, float x, float y, float angle, float velocityScl, float lifetimeScl){ return create(type, owner, team, x, y, angle, velocityScl, lifetimeScl, null); }
-    var bultype=(!isNaN(Number(cbullet)))?Vars.content.getByID(ContentType.bullet,cbullet):Bullets[cbullet];
+    var bultype=(!isNaN(Number(cbullet)))?Vars.content.getByID(ContentType.bullet,cbullet):((customb.hasOwnProperty(cbullet))?customb[cbullet]:Bullets[cbullet]);
     //if(bultype==null) bultype=Bullets[cbullet];
     var team=this.settype(ptile,null,"team:"+cteam);
+    var data=(cdata=="null"||cdata==null)?null:this.settype(ptile,null,cdata);
     var owner=null; if((ptile instanceof Unit)&&bind) owner=ptile;
-    Bullet.create(bultype, owner, team, cx, cy, crot, vel,life);
+    Bullet.create(bultype, owner, team, cx, cy, crot, vel, life, data);
   },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
@@ -774,7 +777,8 @@ const commandblocks={
         //var eff = Vars.effectGroup.all().toArray();
         if(args.length==0) throw "Missing params";
         //var teff=eff[args[0]];
-        var cfx=(!isNaN(Number(args[0])))?Vars.content.getByID(ContentType.effect,args[0]):Fx[args[0]];
+        var cfx=(!isNaN(Number(args[0])))?Vars.content.getByID(ContentType.effect,args[0]):((customfx.hasOwnProperty(args[0]))?customfx[args[0]]:Fx[args[0]]);
+        //if(cfx==null&&customfx.hasOwnProperty(args[0])) cfx=customfx[args[0]];
         //if(cfx==null) cfx=Fx[args[0]];
         if(args.length>=3&&args.length<=4){
           var tpos=this.tilde(tile,args[1],args[2]);
@@ -1096,7 +1100,7 @@ const commandblocks={
               }));
               return res;
             }
-            else if(target.r instanceof Unit||ent instanceof Bullet){
+            else if(target.r instanceof Unit||target.r instanceof Bullet){
               if(atarget==null) this.cmdtp(target.r,cx,cy,facing,facingrelative);
               else this.cmdtptarget(target.r,cx,cy,atarget.r);
               return true;
@@ -1158,7 +1162,7 @@ const commandblocks={
       case 'shoot':
       case 'fire':
       //cmdfire(ptile,cbullet,cx,cy,crot,cteam,vel,life)
-        if(args.length>=3&&args.length<=8){
+        if(args.length>=3&&args.length<=9){
           var tpos=this.tilde(tile,args[1],args[2]);
           var cx=0; var cy=0;
           if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
@@ -1166,7 +1170,7 @@ const commandblocks={
           }
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
-            var crot=0; var cteam=-1; var vel=1; var life=1; var bind=false;
+            var crot=0; var cteam=-1; var vel=1; var life=1; var bind=false; var cdata=null;
             if(args.length>=4){
               if(args[3].substring(0,1)=="~"){
                 args[3]=args[3].substring(1,args[3].length);
@@ -1183,7 +1187,8 @@ const commandblocks={
             if(args.length>=6) vel=args[5];
             if(args.length>=7) life=args[6];
             if(args.length>=8&&args[7]=="true") bind=true;
-            this.cmdfire(tile,args[0],cx,cy,crot,cteam,vel,life,bind);
+            if(args.length>=9) cdata=args[8];
+            this.cmdfire(tile,args[0],cx,cy,crot,cteam,vel,life,bind,cdata);
           }
           else throw "Coordinates should be above 0";
         }
@@ -1191,7 +1196,7 @@ const commandblocks={
           var cx=0; var cy=0; var crot=0;
           if(tile instanceof Tile){ cx=tile.worldx();cy=tile.worldy(); crot=tile.rotation()*90; }
           else{ cx=tile.x; cy=tile.y; crot=tile.rotation; }
-          this.cmdfire(tile,args[0],cx,cy,crot,-1,1,1,false);
+          this.cmdfire(tile,args[0],cx,cy,crot,-1,1,1,false,null);
           return true;
         }
         else throw "Missing params";
