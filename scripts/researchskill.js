@@ -14,6 +14,7 @@ const skillupFx = newEffect(15, e => {
 const skillup = extendContent(StatusEffect,"skillup",{});
 skillup.color = color3;
 skillup.effect = skillupFx;
+var t = this;
 
 const researchskill = extendContent(Block, "researchskill", {
 	dialog: null,
@@ -43,6 +44,7 @@ const researchskill = extendContent(Block, "researchskill", {
 
 		Events.on(EventType.WorldLoadEvent, run(event => {
 			researchskill.blockpos = {};
+      t.global.skilltile = null;
 		}));
 	},
 	update(tile){
@@ -54,6 +56,7 @@ const researchskill = extendContent(Block, "researchskill", {
 			if(tile.getTeamID() in this.blockpos) ent.disable();
 			else this.blockpos[tile.getTeamID()] = tile.pos();
 		}
+    if(tile.getTeam() == Vars.player.getTeam() && (t.global.skilltile == null || t.global.skilltile != tile.pos())) t.global.skilltile = tile.pos();
 		if(skillfunc.update(tile.ent().skill(),tile)) tile.ent().useSkill();
     if(Vars.player.hasEffect(skillup)&&tile.ent().skill().skill!=""&&tile.ent().skill().skill!="zetarecharge") tile.ent().skillCooltimeReduce(2);
 	},
