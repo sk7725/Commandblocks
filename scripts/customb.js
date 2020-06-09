@@ -423,10 +423,10 @@ const blackhole = extend(BasicBulletType, {
 		Fill.circle(b.x, b.y, b.fout() * 5.5);
 	}
 });
-blackhole.strength = 1.3;
+blackhole.strength = 1.6;
 blackhole.rangeB = 120;
 blackhole.speed = 0;
-blackhole.damage = 16;
+blackhole.damage = 30;
 blackhole.lifetime = 7.5 * 60;
 blackhole.pierce = true;
 blackhole.bulletWidth = 12;
@@ -481,10 +481,10 @@ const blackholeSmall = extend(BasicBulletType, {
 		Fill.circle(b.x, b.y, b.fout() * 2.5);
 	}
 });
-blackholeSmall.strength = 0.8;
+blackholeSmall.strength = 0.9;
 blackholeSmall.rangeB = 40;
 blackholeSmall.speed = 0;
-blackholeSmall.damage = 4;
+blackholeSmall.damage = 8;
 blackholeSmall.lifetime = 5 * 60;
 blackholeSmall.pierce = true;
 blackholeSmall.bulletWidth = 6;
