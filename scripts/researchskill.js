@@ -21,8 +21,8 @@ const skillinstFx = newEffect(15, e => {
   Lines.poly(e.x, e.y, 4, 0.1 + e.fin() * 3);
 });
 const skillinst = extendContent(StatusEffect,"skillinst",{});
-skillup.color = Pal.accent;
-skillup.effect = skillinstFx;
+skillinst.color = Pal.accent;
+skillinst.effect = skillinstFx;
 
 const researchskill = extendContent(Block, "researchskill", {
 	dialog: null,
