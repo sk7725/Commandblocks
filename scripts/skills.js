@@ -1218,7 +1218,7 @@ const skillfunc={
 
     if(this.getInput()){
       var obj=skills[Skill.skill];
-      if(Skill.skill!=""&&Skill.lastused+obj.cooltime*60<=Time.time()&&Vars.player.item().item.name==obj.uses.item&&Vars.player.item().amount>=obj.uses.amount){
+      if(Skill.skill!=""&&Skill.lastused+obj.cooltime*60<=Time.time()&&(Vars.player.item().item.name==obj.uses.item||Vars.player.item().item.name=="skillplus-mana")&&Vars.player.item().amount>=obj.uses.amount){
         try{
           //this[Skill.skill](Vars.player);
           tile.configure(-1*(1+obj.n));
