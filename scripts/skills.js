@@ -1157,6 +1157,9 @@ shieldlarge.color = Color.valueOf("ffd37f");
 shieldlarge.opposite(shieldbreak);
 shieldbreak.opposite(shieldsmall);//just in case 2
 shieldbreak.opposite(shieldlarge);
+this.global.shieldcomp = {};
+this.global.shieldcomp.small = shieldsmall;
+this.global.shieldcomp.large = shieldlarge;
 
 const zetacolor=Color.valueOf("82ffe8");
 const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
