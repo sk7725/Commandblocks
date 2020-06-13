@@ -24,6 +24,11 @@ const skillinst = extendContent(StatusEffect,"skillinst",{});
 skillinst.color = Pal.accent;
 skillinst.effect = skillinstFx;
 
+var localSkill = {
+  skill:"",
+  lastused:0
+};
+
 const researchskill = extendContent(Block, "researchskill", {
 	dialog: null,
 	blockpos: {},
@@ -53,6 +58,8 @@ const researchskill = extendContent(Block, "researchskill", {
 		Events.on(EventType.WorldLoadEvent, run(event => {
 			researchskill.blockpos = {};
       t.global.skilltile = null;
+      localSkill.skill = "";
+      localSkill.lastused = 0;
 		}));
 	},
 	update(tile){
@@ -372,18 +379,23 @@ researchskill.entityType = prov(() => extend(TileEntity , {
 		lastused:0
 	},
 	skill(){
+		if(Vars.net.client()) return localSkill;
 		return this._skill;
 	},
 	setSkill(a){
+		if(Vars.net.client()) localSkill.skill = a;
 		this._skill.skill = a;
 	},
 	useSkill(){
+		if(Vars.net.client()) localSkill.lastused = Time.time();
 		this._skill.lastused = Time.time();
 	},
   skillCooltimeReduce(a){
+		if(Vars.net.client()) localSkill.lastused -= a;
 		this._skill.lastused -= a;
 	},
   skillCooltimeSet(a){
+		if(Vars.net.client()) localSkill.lastused = a;
 		this._skill.lastused = a;
 	},
 
