@@ -156,8 +156,8 @@ const commandblocks={
             else ret.eachFilter(boolf(e=>(e.team!=targetteam)));
           break;
           case "name":
-            if(invert) ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:((e instanceof Bullet)?e.getBulletType().name:e.name))==se)));
-            else ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:((e instanceof Bullet)?e.getBulletType().name:e.name))!=se)));
+            if(invert) ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:((e instanceof Bullet)?e.getBulletType().name:e.name)))==se));
+            else ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:((e instanceof Bullet)?e.getBulletType().name:e.name)))!=se));
           break;
           /*
           case "data":
