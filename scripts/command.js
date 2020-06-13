@@ -1176,7 +1176,7 @@ const commandblocks={
                 args[3]=args[3].substring(1,args[3].length);
                 var current=0;
                 if(tile instanceof Tile) current=tile.rotation()*90;
-                else current=tile.rotation;
+                else current=(tile instanceof Bullet)?tile.rot():tile.rotation;
                 if(args[3]=="") args[3]=0;
                 args[3]=Number(args[3]);
                 crot=(args[3]+current)%360;
