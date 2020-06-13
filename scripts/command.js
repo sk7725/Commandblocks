@@ -1189,6 +1189,7 @@ const commandblocks={
             if(args.length>=8&&args[7]=="true") bind=true;
             if(args.length>=9) cdata=args[8];
             this.cmdfire(tile,args[0],cx,cy,crot,cteam,vel,life,bind,cdata);
+            return true;
           }
           else throw "Coordinates should be above 0";
         }
