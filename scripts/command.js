@@ -836,16 +836,17 @@ const commandblocks={
       break;
       case 'give':
         if(args.length>=1&&args.length<=2){
+          var item = Vars.content.getByName(ContentType.item, args[0]);
           if(tile instanceof Tile){
             var amount=1;
             if(args.length==2) amount=args[1];
             if(amount<0){
-              var ret=tile.block().removeStack(tile,Items[args[0]],-1*amount);
+              var ret=tile.block().removeStack(tile,item,-1*amount);
               if(ret>0) return true;
               else throw "No items to remove";
             }
             else{
-              tile.block().handleStack(Items[args[0]],amount,tile,null);
+              tile.block().handleStack(item,amount,tile,null);
               return true;
             }
           }
@@ -853,7 +854,7 @@ const commandblocks={
             var amount=1;
             if(args.length==2) amount=args[1];
             if(amount<0) throw "Amount should be above 0";
-            tile.addItem(Items[args[0]],amount);
+            tile.addItem(item, amount);
           }
           else throw "This executor cannot receive items";
         }
@@ -862,7 +863,7 @@ const commandblocks={
       case 'clear':
         if(args.length>=0){
           if(tile instanceof Tile&&args.length==1){
-              var ret=tile.block().removeStack(tile,Items[args[0]],tile.block().itemCapacity+10);
+              var ret=tile.block().removeStack(tile,Vars.content.getByName(ContentType.item, args[0]), tile.block().itemCapacity+10);
               if(ret>0) return true;
               else throw "No items to remove";
           }
