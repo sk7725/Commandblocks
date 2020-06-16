@@ -5,6 +5,7 @@ gamerule.commandBlockTitle=false;
 gamerule.sendCommandFeedback=false;
 var effectextended={};
 const KeyCode=Packages.arc.input.KeyCode;
+var variables={};
 
 if(!this.global.hasOwnProperty("commandcached")) this.global.commandcached={};
 const commandcached=this.global.commandcached;
@@ -497,6 +498,14 @@ const commandblocks={
     if(cmd=="execute"){
       cmd = args[0];
       args = args.splice(1);
+    }
+    
+    for(var i=0;i<args.length;i++){
+      if(args[i].substring(0,1)=="$"){
+        variables.e = tile;
+        variables.this = this;
+        args[i] = eval(args[i].substring(1));
+      }
     }
   try{
     if(gamerule.doCommands==false&&cmd!="gamerule") return false;
