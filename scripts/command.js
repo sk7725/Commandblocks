@@ -1243,7 +1243,7 @@ const commandblocks={
           if(cx>=0&&cy>=0){
             var crot=0; var dcolor=Color.white; var cw=-1; var ch=-1;
             if(args.length>=4){
-              if(args[3].substring(0,1)=="~"){
+              if((typeof args[3]=="string")&&args[3].substring(0,1)=="~"){
                 args[3]=args[3].substring(1,args[3].length);
                 var current=0;
                 if(tile instanceof Tile) current=tile.rotation()*90;
@@ -1254,7 +1254,10 @@ const commandblocks={
               }
               else crot=Number(args[3])%360;
             }
-            if(args.length>=5) dcolor=Color.valueOf(args[4]);
+            if(args.length>=5){
+              if(args[4] instanceof Color) dcolor = args[4];
+              else dcolor=Color.valueOf(args[4]);
+            }
             if(args.length>=6&&Number(args[5])>-1) cw=Number(args[5]);
             if(args.length>=7&&Number(args[6])>-1) ch=Number(args[6]);
             this.cmddraw(Core.atlas.find(args[0]),cx,cy,crot,dcolor,cw,ch);
