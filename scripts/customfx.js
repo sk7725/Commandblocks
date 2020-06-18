@@ -175,5 +175,35 @@ this.global.fx = {
     };
     Draw.color(Color.black);
 		Fill.circle(e.x, e.y, e.rotation);
+  }),
+  poof : newEffect(120, e => {
+    var v1 = Vec2(1-e.fout()*e.fout()*30,0);
+    var r1 = e.fout()*150;
+    var c1 = e.fin()*15; if(c1>5) c1=5;
+    Draw.color(Color.black);
+    for(var i=0;i<8;i++){
+      v1.setAngle((r1+i*45)%360);
+      Fill.circle(e.x+v1.x, e.y+v1.y, c1+1);
+    }
+    Draw.color((Time.time()%40>20)?Color.white:e.color);
+    for(var i=0;i<8;i++){
+      v1.setAngle((r1+i*45)%360);
+      Fill.circle(e.x+v1.x, e.y+v1.y, c1);
+    }
+  }),
+  poofBack : newEffect(120, e => {
+    var v1 = Vec2(1-e.fin()*e.fin()*30,0);
+    var r1 = e.fout()*150;
+    var c1 = e.fin()*15; if(c1>5) c1=5;
+    Draw.color(Color.black);
+    for(var i=0;i<8;i++){
+      v1.setAngle((r1+i*45)%360);
+      Fill.circle(e.x+v1.x, e.y+v1.y, c1+1);
+    }
+    Draw.color((Time.time()%40>20)?Color.white:e.color);
+    for(var i=0;i<8;i++){
+      v1.setAngle((r1+i*45)%360);
+      Fill.circle(e.x+v1.x, e.y+v1.y, c1);
+    }
   })
 };
