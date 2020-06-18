@@ -29,13 +29,23 @@ function newGroundEffect(lifetime, staticLife, renderer){
 this.global.fx = {
   draw : newGroundEffect(0, 1, e => {
     if(e.data == null) return;
-    Draw.color(e.color);
-    Draw.rect(e.data, e.x, e.y, e.rotation);
+    try{
+      Draw.color(e.color);
+      Draw.rect(e.data, e.x, e.y, e.rotation);
+    }
+    catch(err){
+      print(err);
+    }
   }),
   drawWH : newGroundEffect(0, 1, e => {
     if(e.data == null) return;
-    Draw.color(e.color);
-    Draw.rect(e.data.texture, e.x, e.y, e.data.w, e.data.h, e.rotation);
+    try{
+      Draw.color(e.color);
+      Draw.rect(e.data.texture, e.x, e.y, e.data.w, e.data.h, e.rotation);
+    }
+    catch(err){
+      print(err);
+    }
   }),
   slash : newEffect(90, e => {
     Draw.color(Pal.lancerLaser);
