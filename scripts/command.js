@@ -25,7 +25,7 @@ const commandblocks={
     }
     else{
       var tmpobj={}; tmpobj.x=inx; tmpobj.y=iny;
-      var rtile=Vars.world.tileWorld(tile.x,tile.y);
+      var rtile=Vec2(tile.x/Vars.tilesize,tile.y/Vars.tilesize);
       if(inx=="~") tmpobj.x=rtile.x;
       else if(inx.substring(0,1)=="~") tmpobj.x=Number(inx.substring(1,inx.length))+rtile.x;
       if(iny=="~") tmpobj.y=rtile.y;
