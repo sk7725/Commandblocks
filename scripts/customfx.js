@@ -22,7 +22,21 @@ function fillLight(x, y, sides, radius, center, edge){
   }
 }
 
+function newGroundEffect(lifetime, staticLife, renderer){
+  return new GroundEffectEntity.GroundEffect(lifetime, staticLife, new Effects.EffectRenderer({render: renderer}));
+}
+
 this.global.fx = {
+  draw : newGroundEffect(0, 1, e => {
+    if(e.data == null) return;
+    Draw.color(e.color);
+    Draw.rect(e.data, e.x, e.y, e.rotation);
+  }),
+  drawWH : newGroundEffect(0, 1, e => {
+    if(e.data == null) return;
+    Draw.color(e.color);
+    Draw.rect(e.data.texture, e.x, e.y, e.data.w, e.data.h, e.rotation);
+  }),
   slash : newEffect(90, e => {
     Draw.color(Pal.lancerLaser);
     Drawf.tri(e.x, e.y, 4 * e.fout(), 45, (e.id*57 + 90)%360);

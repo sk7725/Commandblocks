@@ -476,6 +476,16 @@ const commandblocks={
     var owner=null; if((ptile instanceof Unit)&&bind) owner=ptile;
     Bullet.create(bultype, owner, team, cx, cy, crot, vel, life, data);
   },
+  cmddraw(texture,cx,cy,crot,dcolor,cw,ch){
+    if(cw>-1&&ch>-1){
+      var cdata = {};
+      cdata.texture = texture; cdata.w = cw; cdata.h = ch;
+      Effects.effect(customfx.drawWH, dcolor, cx, cy, crot, cdata);
+    }
+    else{
+      Effects.effect(customfx.draw, dcolor, cx, cy, crot, texture);
+    }
+  },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
@@ -499,7 +509,7 @@ const commandblocks={
       cmd = args[0];
       args = args.splice(1);
     }
-    
+
   try{
     if(gamerule.doCommands==false&&cmd!="gamerule") return false;
     if(Core.input.keyDown(KeyCode.F10)){
@@ -1223,7 +1233,7 @@ const commandblocks={
       break;
       case 'draw':
       //name x y rot color w h ox oy
-        if(args.length>=3&&args.length<=9){
+        if(args.length>=3&&args.length<=7){
           var tpos=this.tilde(tile,args[1],args[2]);
           var cx=0; var cy=0;
           if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
@@ -1231,7 +1241,7 @@ const commandblocks={
           }
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
-            var crot=0; var dcolor=Color.white; var cw=-1; var ch=-1; var ox=-1; var oy=-1;
+            var crot=0; var dcolor=Color.white; var cw=-1; var ch=-1;
             if(args.length>=4){
               if(args[3].substring(0,1)=="~"){
                 args[3]=args[3].substring(1,args[3].length);
@@ -1247,21 +1257,7 @@ const commandblocks={
             if(args.length>=5) dcolor=Color.valueOf(args[4]);
             if(args.length>=6&&Number(args[5])>-1) cw=Number(args[5]);
             if(args.length>=7&&Number(args[6])>-1) ch=Number(args[6]);
-            if(args.length>=8&&Number(args[7])>-1) ox=Number(args[7]);
-            if(args.length>=9&&Number(args[8])>-1) oy=Number(args[8]);
-            if(cw==-1||ch==-1){
-              Draw.color(dcolor);
-              Draw.rect(Core.atlas.find(args[0]),cx,cy,crot);
-            }
-            else if(ox==-1||oy==-1){
-              Draw.color(dcolor);
-              Draw.rect(Core.atlas.find(args[0]),cx,cy,cw,ch,crot);
-            }
-            else{
-              Draw.color(dcolor);
-              Draw.rect(Core.atlas.find(args[0]),cx,cy,cw,ch,ox,oy,crot);
-            }
-            Draw.color();
+            this.cmddraw(Core.atlas.find(args[0]),cx,cy,crot,dcolor,cw,ch);
           }
           else throw "Coordinates should be above 0";
         }
@@ -1269,7 +1265,7 @@ const commandblocks={
           var cx=0; var cy=0;
           if(tile instanceof Tile){ cx=tile.worldx();cy=tile.worldy(); }
           else{ cx=tile.x; cy=tile.y; }
-          Draw.rect(Core.atlas.find(args[0]),cx,cy);
+          this.cmddraw(Core.atlas.find(args[0]),cx,cy,0,Color.white,-1,-1);
           return true;
         }
         else throw "Missing params";
