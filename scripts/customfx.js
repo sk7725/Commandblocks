@@ -178,7 +178,7 @@ this.global.fx = {
   }),
   poof : newEffect(65, e => {
     var v1 = Vec2((1-e.fout()*e.fout())*30,0);
-    var r1 = e.fout()*270;
+    var r1 = e.fout()*170;
     var c1 = e.fout()*45; if(c1>3.5) c1=3.5;
     Draw.color(Color.black);
     for(var i=0;i<8;i++){
@@ -193,7 +193,7 @@ this.global.fx = {
   }),
   poofBack : newEffect(65, e => {
     var v1 = Vec2((1-e.fin()*e.fin())*30,0);
-    var r1 = e.fout()*270;
+    var r1 = e.fout()*170;
     var c1 = e.fin()*45; if(c1>3.5) c1=3.5;
     Draw.color(Color.black);
     for(var i=0;i<8;i++){
