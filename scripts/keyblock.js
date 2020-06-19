@@ -15,7 +15,7 @@ const keyblock = extendContent(MessageBlock, "keyblock", {
     //Draw.rect(Core.atlas.find(this.name + (Core.input.keyDown(KeyCode[message])) ? "":"-trig")), tile.drawx(), tile.drawy());
     Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
     try{
-      this.drawPlaceText(tile.ent().message.toUpperCase(),tile.x,tile.y-1,Core.input.keyDown(KeyCode[tile.ent().message.toUpperCase()]));
+      this.drawPlaceText(tile.ent().message.toUpperCase(),tile.x,tile.y-1,Core.input.keyDown(KeyCode[KeyCode.all[req.config].toString()]));
     }
     catch(err){
       this.drawPlaceText("??",tile.x,tile.y-1,false);
@@ -29,7 +29,7 @@ const keyblock = extendContent(MessageBlock, "keyblock", {
 */
   getPowerProduction(tile){
     try{
-      return (Core.input.keyDown(KeyCode[tile.ent().message.toUpperCase()])) ? 1: 0;
+      return (Core.input.keyDown(KeyCode[KeyCode.all[req.config].toString()])) ? 1: 0;
     }
     catch(err){
       //print(err);
@@ -41,3 +41,8 @@ const keyblock = extendContent(MessageBlock, "keyblock", {
     this.baseRegion=Core.atlas.find(this.name+"-base");
   }
 });
+keyblock.entityType=prov(() => extendContent(MessageBlock.MessageBlockEntity , keyblock , {
+  config(){
+    return KeyCode.all.indexOf(tile.ent().message.toUpperCase());
+  },
+};
