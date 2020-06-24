@@ -58,7 +58,7 @@ const drawtester=extendContent(Block,"drawtester",{
 //shadertester.maxTextLength=1300;
 //shadertester.maxNewlines=50;
 drawtester.entityType = prov(() => extend(TileEntity , {
-  _text:"Draw.blend(Blending.additive);\nDraw.color(Pal.accent);\nDraw.rect('router', tile.drawx(), tile.drawy());",
+  _text:"Draw.blend(Blending.additive);\nDraw.color(Pal.accent);\nDraw.rect('router', tile.drawx(), tile.drawy());\nDraw.shader();\nDraw.color();",
   getText() {
     return this._text;
   },
