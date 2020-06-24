@@ -509,6 +509,9 @@ const commandblocks={
       cmd = args[0];
       args = args.splice(1);
     }
+    var cmdparse = args.length;
+    if(cmd == "at") cmdparse = 2;
+    if(cmd == "as") cmdparse = 1;
 
   try{
     if(gamerule.doCommands==false&&cmd!="gamerule") return false;
@@ -518,7 +521,7 @@ const commandblocks={
     }
     if(gamerule.sendCommandFeedback) this.report("Command "+msg+" executed by "+tile);
 
-    for(var i=0;i<args.length;i++){
+    for(var i=0;i<cmdparse;i++){
       if(args[i].substring(0,1)=="$"){
         variables.e = tile;
         variables.this = this;
@@ -526,6 +529,13 @@ const commandblocks={
       }
     }
     switch(cmd){
+      case 'do':
+        return true;
+      break;
+      case 'check':
+        if(args[0]) return true;
+        else return false;
+      break;
       case 'overwrite':
         parentthis.setMessageBlockText(null,tile,args.join(' '));
         return true;

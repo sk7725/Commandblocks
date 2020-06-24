@@ -18,7 +18,7 @@ const shadertester=extendContent(Block,"shadertester",{
   },
   load(){
     this.super$load();
-    this.region=Core.atlas.find(this.name);
+    this.region=Core.atlas.find(this.name+"-blank");
     this.maxTextLength=1300;
     this.maxNewlines=50;
   },

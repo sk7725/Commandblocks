@@ -1,5 +1,5 @@
 require("init");
-require("collisions");
+//require("collisions");
 require("shaders");
 
 require("units/armorstand");
@@ -88,3 +88,4 @@ require("skills");
 require("researchskill");
 
 require("shadertester");
+require("drawtester");

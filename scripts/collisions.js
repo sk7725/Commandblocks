@@ -1,6 +1,6 @@
 const newmove = function(unit){
 	if(!unit.isFlying()) return;
-	
+
 	const anti = Mathf.clamp(1.0 - unit.drag() * Time.delta());
 	unit.moveBy(-unit.velocity().x / anti * Time.delta(), -unit.velocity().y / anti * Time.delta());
 	Vars.collisions.move(unit, unit.velocity().x / anti * Time.delta(), unit.velocity().y / anti * Time.delta());
@@ -10,7 +10,7 @@ Vars.collisions = extend(EntityCollisions, {
 	tmp: new Rect(),
 	rect: new Rect(),
 	rect2: new Rect(),
-	
+
 	moveDelta(entity, deltax, deltay, x){
         entity.hitboxTile(this.rect);
         entity.hitboxTile(this.rect2);
@@ -36,19 +36,19 @@ Vars.collisions = extend(EntityCollisions, {
         entity.setX(entity.getX() + this.rect.x - this.rect2.x);
         entity.setY(entity.getY() + this.rect.y - this.rect2.y);
 	},
-	
+
 	solid(x, y){
         var tile = Vars.world.tile(x, y);
         return tile != null && tile.solid();
     },
-	
+
 	shouldCollide(wx, wy, unit){
 		if(unit.isFlying()){
 			var tile = Vars.world.tile(wx, wy);
 			//todo block properties
 			return tile != null && tile.block() != null && ["commandblocks-walltimelarge", "commandblocks-walltime"].indexOf(tile.link().block().name) > -1;
 		}else{
-			return this.solid(wx, wy) && entity.collidesGrid(wx, wy);
+			return this.solid(wx, wy) && unit.collidesGrid(wx, wy);//is entity->unit the fix? also im leaving this off right now...
 		}
 	}
 });
