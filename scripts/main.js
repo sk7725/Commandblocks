@@ -87,6 +87,7 @@ require("buttongg");
 require("skills");
 require("researchskill");
 
-require("shadertester");
-require("drawtester");
-require("tabletester");
+require("sandbox/shadertester");
+require("sandbox/drawtester");
+require("sandbox/tabletester");
+require("sandbox/jstester");
