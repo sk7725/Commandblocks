@@ -89,3 +89,4 @@ require("researchskill");
 
 require("shadertester");
 require("drawtester");
+require("tabletester");
