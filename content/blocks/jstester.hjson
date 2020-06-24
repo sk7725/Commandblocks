@@ -4,7 +4,7 @@ breakable: true
 //consumesTap: true
 category: effect
 requirements: [
-  bittrium/11
+  bittrium/22
 ]
 health: 500
 solid: true
@@ -13,4 +13,3 @@ targetable: true
 buildVisibility: sandboxOnly
 configurable: true
 update: true
-expanded: true
