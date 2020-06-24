@@ -52,7 +52,7 @@ const researchskill = extendContent(Block, "researchskill", {
 			this.animRegion.push(Core.atlas.find(this.name + "-" + i));
 		}
 
-		this.dialog = new FloatingDialog(Core.bundle.get("research.title"))
+		this.dialog = new FloatingDialog(Core.bundle.get("research.title"));
 		this.dialog.addCloseButton();
 
 		Events.on(EventType.WorldLoadEvent, run(event => {
@@ -75,7 +75,7 @@ const researchskill = extendContent(Block, "researchskill", {
 		if(skillfunc.update(tile.ent().skill(),tile)) tile.ent().useSkill();
     if(Vars.player.hasEffect(skillup)&&tile.ent().skill().skill!=""&&tile.ent().skill().skill!="zetarecharge") tile.ent().skillCooltimeReduce(2);
     if(Vars.player.hasEffect(skillinst)&&tile.ent().skill().skill!="") tile.ent().skillCooltimeSet(0);
-	
+
 	},
 	draw(tile){
 		if(tile.ent().enabled()) Draw.rect(this.animRegion[Mathf.floorPositive(animwidth+2+animwidth*Mathf.sin(Time.time()*animspeed))%17], tile.drawx(), tile.drawy());

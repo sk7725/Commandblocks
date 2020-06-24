@@ -1,16 +1,15 @@
-const drawtester=extendContent(Block,"drawtester",{
-  draw(tile){
-    try{
-      eval(tile.ent().getText());
-    }
-    catch(err){
-      this.drawPlaceText(err,tile.x,tile.y,false);
-      Draw.rect(this.region, tile.drawx(), tile.drawy());
-    }
-  },
+const tabletester=extendContent(Block,"tabletester",{
+  dialog: null,
   load(){
     this.super$load();
-    this.region=Core.atlas.find(this.name);
+    this.dialog = new FloatingDialog("Dialog");
+		this.dialog.addCloseButton();
+  },
+  draw(tile){
+    this.super$draw(tile);
+    if(tile.ent().getErr()!=""){
+      this.drawPlaceText(tile.ent().getErr(),tile.x,tile.y,false);
+    }
   },
   buildConfiguration(tile, table){
     //this.super$buildConfiguration(tile, table);
@@ -33,7 +32,7 @@ const drawtester=extendContent(Block,"drawtester",{
 
         } else {
             // Create dialog
-            const dialog = new FloatingDialog("Draw");
+            const dialog = new FloatingDialog("Table");
             dialog.setFillParent(false);
 
             // Add text area to dialog
@@ -50,6 +49,18 @@ const drawtester=extendContent(Block,"drawtester",{
             dialog.show();
         }
     })).size(40);
+    table.addImageButton(Icon.star, Styles.clearTransi, run(() => {
+      tile.ent().setErr("");
+      try{
+        this.dialog.cont.clear();
+        var cont = this.dialog.cont;
+        eval(tile.ent().getText());
+        this.dialog.show();
+      }
+      catch(err){
+        tile.ent().setErr(err);
+      }
+    })).size(40);
   }
 });
 
@@ -57,13 +68,20 @@ const drawtester=extendContent(Block,"drawtester",{
 
 //shadertester.maxTextLength=1300;
 //shadertester.maxNewlines=50;
-drawtester.entityType = prov(() => extend(TileEntity , {
-  _text:"Draw.blend(Blending.additive);\nDraw.color(Pal.accent);\nDraw.rect('router', tile.drawx(), tile.drawy());",
+tabletester.entityType = prov(() => extend(TileEntity , {
+  _text:"cont.table(cons(table=>{\ntable.setBackground(TextureRegionDrawable(Core.atlas.find('router')));\n}));",
+  _err:"",
   getText() {
     return this._text;
   },
   setText(text) {
     this._text = text;
+  },
+  getErr() {
+    return this._err;
+  },
+  setErr(text) {
+    this._err = text;
   },
   write(stream) {
     this.super$write(stream);
