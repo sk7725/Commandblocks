@@ -5,7 +5,7 @@ const drawtester=extendContent(Block,"drawtester",{
     }
     catch(err){
       this.drawPlaceText(err,tile.x,tile.y,false);
-      Draw.rect(this.region);
+      Draw.rect(this.region, tile.drawx(), tile.drawy());
     }
   },
   load(){
@@ -58,7 +58,7 @@ const drawtester=extendContent(Block,"drawtester",{
 //shadertester.maxTextLength=1300;
 //shadertester.maxNewlines=50;
 drawtester.entityType = prov(() => extend(TileEntity , {
-  _text:"Draw.blend(Blending.additive);\nDraw.color(Pal.accent);Draw.blend()\nDraw.rect('router')",
+  _text:"Draw.blend(Blending.additive);\nDraw.color(Pal.accent);Draw.blend()\nDraw.rect('router', tile.drawx(), tile.drawy())",
   getText() {
     return this._text;
   },
