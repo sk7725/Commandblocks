@@ -13,10 +13,11 @@ require("command");
 
 require("msgprotected");
 
-require("commandblock");
-require("commandblockrepeating");
-require("commandblockchained");
-require("commandblockunit");
+require("commandb");
+require("legacy/commandblock");
+require("legacy/commandblockrepeating");
+require("legacy/commandblockchained");
+require("legacy/commandblockunit");
 
 require("posreader");
 require("posreaderblock");
@@ -68,7 +69,6 @@ require("magictele");
 
 require("signblock");
 
-//require("potion");
 require("timer");
 require("keyblock");
 
@@ -83,7 +83,6 @@ require("gameyoot");
 
 require("buttongg");
 
-//require("customtechtree");
 require("skills");
 require("researchskill");
 
