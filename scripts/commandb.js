@@ -29,7 +29,7 @@ const commandb = extendContent(MessageBlock, "commandb", {
     this.cmdRegion = [];
   },
   buildConfiguration(tile, table){
-    table.addImageButton(Icon.pencil, Styles.clearTransi, run(() => {
+    table.addImageButton(Icon.pencil, run(() => {
       this.dialog.cont.clear();
       try{
         this.setupDialog(tile, this.dialog);
@@ -38,7 +38,7 @@ const commandb = extendContent(MessageBlock, "commandb", {
         print(err);
       }
       this.dialog.show();
-    }));
+    })).size(40);
   },
   setupDialog(tile, dialog){
     var cont = dialog.cont;
@@ -64,9 +64,6 @@ const commandb = extendContent(MessageBlock, "commandb", {
           Core.input.getTextInput(input);
         }));
       }
-      ta.accepted = cons(tx => {
-
-      });
       table.row();
 
       if(error!=""){
