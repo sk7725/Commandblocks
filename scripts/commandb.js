@@ -26,6 +26,7 @@ const commandb = extendContent(MessageBlock, "commandb", {
   load(){
     this.super$load();
     this.dialog = new FloatingDialog(Core.bundle.get("command.title"));
+    this.dialog.addCloseButton();
     this.cmdRegion = [];
   },
   buildConfiguration(tile, table){
