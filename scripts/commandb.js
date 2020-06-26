@@ -1,4 +1,5 @@
 const cblist = ["commandblock","commandblockchained","commandblockrepeating"];
+const KeyCode=Packages.arc.input.KeyCode;
 
 const commandb = extendContent(MessageBlock, "commandb", {
   dialog: null,
@@ -111,7 +112,7 @@ const commandb = extendContent(MessageBlock, "commandb", {
       table.table(cons(r => {
         r.left();
         r.add(Core.bundle.get("command.options.type")).left().padRight(5).pad(6);
-        r.addImageButton(TextureRegionDrawable(Core.atlas.find("commandblocks-commandblock")), run(() => {
+        r.addImageButton(TextureRegionDrawable(Core.atlas.find("commandblocks-commandb-"+tile.ent().getType())), run(() => {
           //
         }));
         r.row();
@@ -141,9 +142,10 @@ const commandb = extendContent(MessageBlock, "commandb", {
     this.dialog.buttons.addImageTextButton("$back", Icon.save, run(()=>{this.dialog.hide();})).size(210, 64);
 
     this.dialog.keyDown(cons(key => {
-        if(key == KeyCode.ESCAPE || key == KeyCode.BACK){
-            Core.app.post(run(()=>{this.dialog.hide();}));
-        }
+      //아니 이게 되는게 더 신기함
+      if(key == KeyCode.ESCAPE || key == KeyCode.BACK){
+        Core.app.post(run(()=>{this.dialog.hide();}));
+      }
     }));
   }
 });
