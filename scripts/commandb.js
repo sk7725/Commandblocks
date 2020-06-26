@@ -193,7 +193,7 @@ const commandb = extendContent(MessageBlock, "commandb", {
     var result = new StringBuilder(text.length());
     text = text.trim();
     var count = 0;
-    for(int i = 0; i < text.length(); i++){
+    for(var i = 0; i < text.length(); i++){
         var c = text.charAt(i);
         if(c == '\n' || c == '\r'){
             count ++;
