@@ -152,7 +152,7 @@ const commandb = extendContent(MessageBlock, "commandb", {
             }));
           }
 
-          dialog.show();
+          popup.show();
         })).get();
         r.row();
       })).growX();
