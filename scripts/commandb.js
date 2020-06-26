@@ -78,6 +78,13 @@ const commandb = extendContent(MessageBlock, "commandb", {
     tile.ent().setCond(ccond);
     tile.ent().setDelay(cdelay);
   },
+  addCommandType(popup, ti){
+    popup.cont.addImage(Core.atlas.find("commandblocks-commandb-"+ti)).size(8 * 4).pad(3).get().clicked(run(() => {
+      this.tempType = ti;
+      popup.hide();
+      tbutton.replaceImage(Image(Core.atlas.find("commandblocks-commandb-"+this.tempType)));
+    }));
+  },
   setupDialog(tile, dialog){
     var cont = dialog.cont;
     var textarea = new TextArea(tile.ent().message.replace(/\n/g, "\r"));
@@ -145,13 +152,8 @@ const commandb = extendContent(MessageBlock, "commandb", {
           var popup = new FloatingDialog("");
           popup.setFillParent(false);
           for(var i=0;i<cblist.length;i++){
-            popup.cont.addImage(Core.atlas.find("commandblocks-commandb-"+i)).size(8 * 4).pad(3).get().clicked(run(() => {
-              this.tempType = i;
-              popup.hide();
-              tbutton.replaceImage(Image(Core.atlas.find("commandblocks-commandb-"+this.tempType)));
-            }));
+            this.addCommandType(popup, i);
           }
-
           popup.show();
         })).get();
         r.row();
