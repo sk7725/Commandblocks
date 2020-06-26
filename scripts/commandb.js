@@ -78,7 +78,7 @@ const commandb = extendContent(MessageBlock, "commandb", {
     tile.ent().setCond(ccond);
     tile.ent().setDelay(cdelay);
   },
-  addCommandType(popup, ti){
+  addCommandType(popup, tbutton, ti){
     popup.cont.addImage(Core.atlas.find("commandblocks-commandb-"+ti)).size(8 * 4).pad(3).get().clicked(run(() => {
       this.tempType = ti;
       popup.hide();
@@ -152,7 +152,7 @@ const commandb = extendContent(MessageBlock, "commandb", {
           var popup = new FloatingDialog("");
           popup.setFillParent(false);
           for(var i=0;i<cblist.length;i++){
-            this.addCommandType(popup, i);
+            this.addCommandType(popup, tbutton, i);
           }
           popup.show();
         })).get();
