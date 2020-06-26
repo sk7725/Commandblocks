@@ -1,3 +1,5 @@
+const cblist = ["commandblock","commandblockchained","commandblockrepeating"];
+
 const commandb = extendContent(MessageBlock, "commandb", {
   dialog: null,
   placed(tile) {
@@ -18,16 +20,26 @@ const commandb = extendContent(MessageBlock, "commandb", {
   handleBulletHit(entity,bullet){
     entity.damage(0);
   },
-  /*
   draw(tile) {
-
+    const entity = tile.ent();
+    Draw.rect(this.cmdRegion[entity.getType()][(entity.getCond())?1:0][tile.rotation()], tile.drawx(), tile.drawy());
   },
-  */
   load(){
     this.super$load();
     this.dialog = new FloatingDialog(Core.bundle.get("command.title"));
-    this.dialog.addCloseButton();
+    //this.dialog.addCloseButton();
     this.cmdRegion = [];
+    for(var i=0;i<cblist.length;i++){
+      var tmpi = [];
+      for(var j=0;j<2;j++){
+        var tmpj = [];
+        for(var k=0;k<4;k++){
+          tmpj.push(Core.atlas.find("commandblocks-commandb-"+i+"-"+j+"-"+k));
+        }
+        tmpi.push(tmpj);
+      }
+      this.cmdRegion.push(tmpi);
+    }
   },
   buildConfiguration(tile, table){
     table.addImageButton(Icon.pencil, run(() => {
@@ -124,10 +136,20 @@ const commandb = extendContent(MessageBlock, "commandb", {
       })).growX();
       table.row();
     })).width((Vars.mobile)?460:530);
+    this.dialog.buttons.clear();
+    this.dialog.buttons.defaults().size(210, 64);
+    this.dialog.buttons.addImageTextButton("$back", Icon.save, run(()=>{this.dialog.hide();})).size(210, 64);
+
+    this.dialog.keyDown(cons(key => {
+        if(key == KeyCode.ESCAPE || key == KeyCode.BACK){
+            Core.app.post(run(()=>{this.dialog.hide();}));
+        }
+    }));
   }
 });
 
 commandb.entityType=prov(()=>extendContent(MessageBlock.MessageBlockEntity, commandb, {
+  _run: false,
   _type: 0,
   _cond: false,
   _power: true,
@@ -137,7 +159,7 @@ commandb.entityType=prov(()=>extendContent(MessageBlock.MessageBlockEntity, comm
     return this._type;
   },
   setType(a) {
-    this._type = a%3;
+    this._type = a%cblist.length;
   },
   getCond() {
     return this._cond;
