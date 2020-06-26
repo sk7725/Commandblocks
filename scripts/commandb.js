@@ -73,19 +73,23 @@ const commandb = extendContent(MessageBlock, "commandb", {
     }
   },
   updateImpulse(tile){
-    if(tile.ent().getPower()&&tile.ent().cons.valid()){
+    if((!tile.ent().getPower())||tile.ent().cons.valid()){
       if(!tile.ent().getRun()){
         tile.ent().setRun(true);
-        var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
-        if(res) this.updateChains(tile);
+        Time.run(tile.ent().getDelay(),run(()=>{
+          var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
+          if(res) this.updateChains(tile);
+        }));
       }
     }
     else if(tile.ent().getRun()) tile.ent().setRun(false);
   },
   updateRepeating(tile){
-    if(tile.ent().getPower()&&tile.ent().cons.valid()){
-      var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
-      if(res) this.updateChains(tile);
+    if((!tile.ent().getPower())||tile.ent().cons.valid()){
+      Time.run(tile.ent().getDelay(),run(()=>{
+        var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
+        if(res) this.updateChains(tile);
+      }));
     }
   },
   updateChains(tile){
