@@ -79,7 +79,7 @@ const commandb = extendContent(MessageBlock, "commandb", {
         tile.ent().setRun(true);
         Time.run(tile.ent().getDelay(),run(()=>{
           var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
-          if(res) this.updateChains(tile);
+          this.updateChains(tile, res);
         }));
       }
     }
@@ -90,18 +90,18 @@ const commandb = extendContent(MessageBlock, "commandb", {
       if(tile.ent().getDelay() == 0){
         Time.run(tile.ent().getDelay(),run(()=>{
           var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
-          if(res) this.updateChains(tile);
+          this.updateChains(tile, res);
         }));
       }
       else if(tile.ent().timer.get(timerid, tile.ent().getDelay())){
         Time.run(tile.ent().getDelay(),run(()=>{
           var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
-          if(res) this.updateChains(tile);
+          this.updateChains(tile, res);
         }));
       }
     }
   },
-  updateChains(tile){
+  updateChains(tile, last){
     //update all the chain snek
   },
   buildConfiguration(tile, table){
