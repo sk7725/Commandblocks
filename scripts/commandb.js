@@ -1,6 +1,7 @@
 const cblist = ["commandblock","commandblockchained","commandblockrepeating"];
 const KeyCode=Packages.arc.input.KeyCode;
 const commandbFunc = this.global.commandblocks;
+const timerid = 0;
 
 const commandb = extendContent(MessageBlock, "commandb", {
   dialog: null,
@@ -86,10 +87,18 @@ const commandb = extendContent(MessageBlock, "commandb", {
   },
   updateRepeating(tile){
     if((!tile.ent().getPower())||tile.ent().cons.valid()){
-      Time.run(tile.ent().getDelay(),run(()=>{
-        var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
-        if(res) this.updateChains(tile);
-      }));
+      if(tile.ent().getDelay() == 0){
+        Time.run(tile.ent().getDelay(),run(()=>{
+          var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
+          if(res) this.updateChains(tile);
+        }));
+      }
+      else if(tile.ent().timer.get(timerid, tile.ent().getDelay())){
+        Time.run(tile.ent().getDelay(),run(()=>{
+          var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
+          if(res) this.updateChains(tile);
+        }));
+      }
     }
   },
   updateChains(tile){

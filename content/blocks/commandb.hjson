@@ -16,3 +16,4 @@ health: 7000
 solid: false
 targetable: false
 rotate: true
+timers: 1
