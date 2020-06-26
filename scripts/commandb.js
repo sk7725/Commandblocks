@@ -182,6 +182,32 @@ const commandb = extendContent(MessageBlock, "commandb", {
         Core.app.post(run(()=>{this.dialog.hide();}));
       }
     }));
+  },
+  setMessageBlockText(player, tile, text){
+    if(!Units.canInteract(player, tile)) return;
+    //can be broken while a player is typing
+    if(!(tile.block() instanceof MessageBlock)){
+        return;
+    }
+
+    var result = new StringBuilder(text.length());
+    text = text.trim();
+    var count = 0;
+    for(int i = 0; i < text.length(); i++){
+        var c = text.charAt(i);
+        if(c == '\n' || c == '\r'){
+            count ++;
+            result.append('\n');
+        }else{
+            result.append(c);
+        }
+    }
+
+    var entity = tile.ent();
+    if(entity != null){
+      entity.message = result.toString();
+      entity.lines = entity.message.split("\n");
+    }
   }
 });
 
