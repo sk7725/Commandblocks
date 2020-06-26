@@ -3,6 +3,10 @@ const KeyCode=Packages.arc.input.KeyCode;
 
 const commandb = extendContent(MessageBlock, "commandb", {
   dialog: null,
+  tempType: 0,
+  tempCond: false,
+  tempPower: true,
+  tempDelay: 0,
   placed(tile) {
     this.super$placed(tile);
   },
@@ -54,12 +58,26 @@ const commandb = extendContent(MessageBlock, "commandb", {
       this.dialog.show();
     })).size(40);
   },
+  configured(tile, player, value){
+    var ctype = value%4;
+    var cpower = Math.floor(value/4) % 2;
+    var ccond = Math.floor(value/8) % 2;
+    var cdelay = Math.floor(value/16);
+    tile.ent().setType(ctype);
+    tile.ent().setPower(cpower);
+    tile.ent().setCond(ccond);
+    tile.ent().setDelay(cdelay);
+  },
   setupDialog(tile, dialog){
     var cont = dialog.cont;
     var textarea = new TextArea(tile.ent().message.replace(/\n/g, "\r"));
     textarea.setMessageText(Core.bundle.get("command.command.textbox"));
 
     var error = tile.ent().getErr();
+    this.tempType = tile.ent().getType();
+    this.tempPower = tile.ent().getPower();
+    this.tempCond = tile.ent().getCond();
+    this.tempDelay = tile.ent().getDelay();
 
     cont.pane(cons(table => {
       table.margin(10).top();
@@ -120,29 +138,42 @@ const commandb = extendContent(MessageBlock, "commandb", {
       table.row();
 
       table.table(cons(r => {
-        r.addCheck(Core.bundle.get("command.options.needspower"),boolc(c=>{})).checked(boolp(()=>tile.ent().getPower()).get()).pad(6).growX().get().left();
+        r.addCheck(Core.bundle.get("command.options.needspower"),boolc(c=>{this.tempPower = c;})).checked(boolp(()=>tile.ent().getPower()).get()).pad(6).growX().get().left();
         r.row();
       })).growX();
       table.row();
 
       table.table(cons(r => {
-        r.addCheck(Core.bundle.get("command.options.conditional"),boolc(c=>{})).checked(boolp(()=>tile.ent().getCond()).get()).pad(6).growX().get().left();
+        r.addCheck(Core.bundle.get("command.options.conditional"),boolc(c=>{this.tempCond = c;})).checked(boolp(()=>tile.ent().getCond()).get()).pad(6).growX().get().left();
         r.row();
       })).growX();
       table.row();
 
       table.table(cons(t => {
         t.left();
-        t.add(Core.bundle.get("command.options.delay")).left().padRight(5).pad(6); Vars.platform.addDialog(t.addField(tile.ent().getDelay(), cons(tx=>{})).get());
+        t.add(Core.bundle.get("command.options.delay")).left().padRight(5).pad(6);
+        Vars.platform.addDialog(t.addField(tile.ent().getDelay(), cons(tx=>{
+          if(Math.floor(tx)>=0&&Math.floor(tx)<512){
+            this.tempDelay = Math.floor(tx);
+          }
+        })).get());
       })).growX();
       table.row();
+
     })).width((Vars.mobile)?460:530);
     this.dialog.buttons.clear();
     this.dialog.buttons.defaults().size(210, 64);
-    this.dialog.buttons.addImageTextButton("$back", Icon.save, run(()=>{this.dialog.hide();})).size(210, 64);
+    this.dialog.buttons.addImageTextButton("$back", Icon.save, run(()=>{
+      //save configs but how
+      var confvalue = this.tempType + 4*((this.tempPower)?1:0) + 8*((this.tempCond)?1:0) + 16*this.tempDelay;
+      tile.configure(confvalue);
+      Call.setMessageBlockText(Vars.player, tile, ta.getText());
+
+      this.dialog.hide();
+    })).size(210, 64);
 
     this.dialog.keyDown(cons(key => {
-      //아니 이게 되는게 더 신기함
+      //Why the fuck does this work but ill take it
       if(key == KeyCode.ESCAPE || key == KeyCode.BACK){
         Core.app.post(run(()=>{this.dialog.hide();}));
       }
