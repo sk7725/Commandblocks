@@ -78,6 +78,7 @@ const commandb = extendContent(MessageBlock, "commandb", {
     this.tempPower = tile.ent().getPower();
     this.tempCond = tile.ent().getCond();
     this.tempDelay = tile.ent().getDelay();
+    const ta = null;
 
     cont.pane(cons(table => {
       table.margin(10).top();
@@ -86,7 +87,7 @@ const commandb = extendContent(MessageBlock, "commandb", {
       table.addImage().growX().height(3).pad(6).color(Pal.accent);
       table.row();
 
-      const ta = table.add(textarea).height(200).growX().pad(6).get();
+      ta = table.add(textarea).height(200).growX().pad(6).get();
       if(Vars.mobile){
         ta.tapped(run(() => {
           const input = new Input.TextInput();
@@ -164,11 +165,14 @@ const commandb = extendContent(MessageBlock, "commandb", {
     this.dialog.buttons.clear();
     this.dialog.buttons.defaults().size(210, 64);
     this.dialog.buttons.addImageTextButton("$back", Icon.save, run(()=>{
-      //save configs but how
-      var confvalue = this.tempType + 4*((this.tempPower)?1:0) + 8*((this.tempCond)?1:0) + 16*this.tempDelay;
-      tile.configure(confvalue);
-      Call.setMessageBlockText(Vars.player, tile, ta.getText());
-
+      try{
+        var confvalue = this.tempType + 4*((this.tempPower)?1:0) + 8*((this.tempCond)?1:0) + 16*this.tempDelay;
+        tile.configure(confvalue);
+        Call.setMessageBlockText(Vars.player, tile, ta.getText());
+      }
+      catch(err){
+        print(err);
+      }
       this.dialog.hide();
     })).size(210, 64);
 
