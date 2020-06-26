@@ -6,6 +6,7 @@ gamerule.sendCommandFeedback=false;
 var effectextended={};
 const KeyCode=Packages.arc.input.KeyCode;
 var variables={};
+//Pal.anuke = Color.valueOf("ff7f50");
 
 if(!this.global.hasOwnProperty("commandcached")) this.global.commandcached={};
 const commandcached=this.global.commandcached;
