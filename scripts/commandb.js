@@ -78,7 +78,7 @@ const commandb = extendContent(MessageBlock, "commandb", {
     this.tempPower = tile.ent().getPower();
     this.tempCond = tile.ent().getCond();
     this.tempDelay = tile.ent().getDelay();
-    const ta = null;
+    var ta = null;
 
     cont.pane(cons(table => {
       table.margin(10).top();
