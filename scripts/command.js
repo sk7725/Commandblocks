@@ -538,7 +538,7 @@ const commandblocks={
         else return false;
       break;
       case 'overwrite':
-        parentthis.setMessageBlockText(null,tile,args.join(' '));
+        Call.setMessageBlockText(null,parentthis,args.join(' '));
         return true;
       break;
       case 'say':
@@ -1297,6 +1297,7 @@ const commandblocks={
     if(gamerule.commandBlockTitle) Vars.ui.showInfoToast("[scarlet]"+err+"[]",7);
     if(gamerule.commandBlockOutput&&gamerule.sendCommandFeedback) Call.sendMessage("[#aa0000]"+err.stack+"[]");
     //print("E:"+err);
+    if(parentthis.block().name == "commandblocks-commandb") parentthis.ent().setErr(err);
     return false;
   }
   }

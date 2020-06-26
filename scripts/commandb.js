@@ -1,5 +1,6 @@
 const cblist = ["commandblock","commandblockchained","commandblockrepeating"];
 const KeyCode=Packages.arc.input.KeyCode;
+const commandbFunc = this.global.commandblocks;
 
 const commandb = extendContent(MessageBlock, "commandb", {
   dialog: null,
@@ -55,6 +56,40 @@ const commandb = extendContent(MessageBlock, "commandb", {
       }
       this.cmdRegion.push(tmpi);
     }
+  },
+  update(tile){
+    this.super$update(tile);
+    var type = tile.ent().getType();
+    switch(type){
+      case 0:
+        this.updateImpulse(tile);
+      break;
+      case 1:
+        //chained command blocks should be processed at its 'head'.
+      break;
+      case 2:
+        this.updateRepeating(tile);
+      break;
+    }
+  },
+  updateImpulse(tile){
+    if(tile.ent().getPower()&&tile.entity.cons.valid()){
+      if(!tile.ent().getRun()){
+        tile.ent().setRun(true);
+        var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,entity.message,false));
+        if(res) this.updateChains(tile);
+      }
+    }
+    else if(tile.ent().getRun()) tile.ent().setRun(false);
+  },
+  updateRepeating(tile){
+    if(tile.ent().getPower()&&tile.entity.cons.valid()){
+      var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,entity.message,false));
+      if(res) this.updateChains(tile);
+    }
+  },
+  updateChains(tile){
+    //update all the chain snek
   },
   buildConfiguration(tile, table){
     table.addImageButton(Icon.pencil, run(() => {
@@ -240,6 +275,12 @@ commandb.entityType=prov(()=>extendContent(MessageBlock.MessageBlockEntity, comm
   _power: true,
   _delay: 0,
   _err: "",
+  getRun() {
+    return this._run;
+  },
+  setRun(a) {
+    this._run = (a)?true:false;
+  },
   getType() {
     return this._type;
   },

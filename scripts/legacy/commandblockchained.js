@@ -31,7 +31,7 @@ const commandblockchained = extendContent(MessageBlock, "commandblockchained", {
       const akey=awaypos.x+","+awaypos.y;
       if(commandblocksc.hasOwnProperty(akey)&&commandblocksc[akey].didsuccess){
         //if(Core.input.keyDown(KeyCode.F12)) return;
-        var res=commandblocksc.command(tile,entity.message,this,entity.message,false);
+        var res=commandblocksc.command(tile,entity.message,tile,entity.message,false);
         thiscmd.didsuccess = Boolean(res);
       }
       else{

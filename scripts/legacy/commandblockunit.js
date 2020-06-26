@@ -6,7 +6,7 @@ const commandblockunit = extendContent(MessageBlock, "commandblockunit", {
     var key=tile.x+","+tile.y;
     if(!commandblocksu.hasOwnProperty(key)) commandblocksu[key]={};
     thiscmd=commandblocksu[key];
-    var res=commandblocksu.command(unit,entity.message,this,"execute as @p[r=1] "+entity.message,true);
+    var res=commandblocksu.command(unit,entity.message,tile,"execute as @p[r=1] "+entity.message,true);
     thiscmd.didsuccess = Boolean(res);
   },
   shouldShowConfigure(tile, player){
