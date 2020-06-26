@@ -1301,6 +1301,6 @@ const commandblocks={
   }
 };
 var lflicker = "[accent]그렇다고 합니다. [sky]무언가[]를 찾으셨습니다고요.[]";
-var sharlotte = "[royal]이미 [white]아이디어[]에 파뭍여 깔렸다고 합니다.[]";
-var upalupa = "[ffaaff]처음부터 끝까지라고 합니다. [scarlet]딸기[]라고요.[]";
+var sharlotte = "[royal]이미 [orange]아이디어[]에 파뭍여 깔렸다고 합니다.[]";
+var upalupa = "[#ffaaff]처음부터 끝까지라고 합니다. [scarlet]딸기[]라고요.[]";
 this.global.commandblocks=commandblocks;
