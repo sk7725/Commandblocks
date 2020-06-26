@@ -1054,7 +1054,8 @@ const uranwaveexpand = newEffect(30, e => {
   Draw.color(Color.valueOf("fffbf7"));
   var radiusofcircle = e.fin() * 70;
   if(radiusofcircle > 50){
-	  radiusofcircle += -(e.fin() * 20 + 50)
+	  radiusofcircle += -1*(e.fin() * 20 + 50)
+  }
   Fill.circle(e.x, e.y, radiusofcircle);
 });
 const customfx = this.global.fx;
