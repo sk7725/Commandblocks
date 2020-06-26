@@ -148,7 +148,7 @@ const commandb = extendContent(MessageBlock, "commandb", {
             popup.cont.addImage(Core.atlas.find("commandblocks-commandb-"+i)).size(8 * 4).pad(3).get().clicked(run(() => {
               this.tempType = i;
               popup.hide();
-              tbutton.replaceImage(TextureRegionDrawable(Core.atlas.find("commandblocks-commandb-"+this.tempType)));
+              tbutton.replaceImage(Image(Core.atlas.find("commandblocks-commandb-"+this.tempType)));
             }));
           }
 
