@@ -930,6 +930,31 @@ uses:{
 		],
     parent:"coalfire"
 	},
+	"uranwave":{
+		type:"skill.atk",
+		tier:3,
+		cooltime:50,
+		healthcost:50,
+		uses:{
+			item:"steam-power-uranium",
+			amount:40
+		},
+		cost:[
+			{
+				item:"steam-power-iron",
+				amount:260
+			},
+			{
+				item:"plastanium",
+				amount:60
+			},
+			{
+				item:"steam-power-uranium",
+				amount:500
+			}
+		],
+    parent:"uranblast"
+	},
   "zincray":{
     type:"skill.atk",
     tier: 1,
@@ -1024,6 +1049,13 @@ const spellstart = newEffect(23, e => {
   Draw.color(e.color);
   Lines.stroke(e.fout() * 5);
   Lines.circle(e.x, e.y, 3 + e.fin() * 80);
+});
+const uranwaveexpand = newEffect(30, e => {
+  Draw.color(Color.valueOf("fffbf7"));
+  var radiusofcircle = e.fin() * 70;
+  if(radiusofcircle > 50){
+	  radiusofcircle += -(e.fin() * 20 + 50)
+  Fill.circle(e.x, e.y, radiusofcircle);
 });
 const customfx = this.global.fx;
 const slasheffect = customfx.slash;
@@ -1448,6 +1480,15 @@ const skillfunc={
     Sounds.explosionBig.at(x,y);
     if(Vars.net.client()) return;
     Damage.damage(player.getTeam(),x,y,120,690);
+  },
+  uranwave(player){
+    var x=player.getX(); var y=player.getY();
+    player.damage(player.maxHealth()*0.5);
+    Effects.effect(uranwaveexpand, x, y);
+    Damage.createIncend(x, y, 50, 6);
+    Sounds.explosionBig.at(x,y);
+    if(Vars.net.client()) return;
+    Damage.damage(player.getTeam(),x,y,50,500);
   },
   zincray(player){
     Sounds.spark.at(player.getX(),player.getY(),1.4);
