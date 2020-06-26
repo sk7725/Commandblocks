@@ -29,8 +29,18 @@ const commandb = extendContent(MessageBlock, "commandb", {
     const entity = tile.ent();
     Draw.rect(this.cmdRegion[entity.getType()][(entity.getCond())?1:0][tile.rotation()], tile.drawx(), tile.drawy());
   },
+  drawRequestConfig(req, list){
+    const value = req.config;
+    try{
+      Draw.rect(this.cmdRegion[value%4][Math.floor(value/8)%2][req.rotation], req.drawx(), req.drawy(), this.region.getWidth() * req.animScale * Draw.scl, this.region.getHeight() * req.animScale * Draw.scl, 0);
+    }
+    catch(err){
+      print(err);
+    }
+  },
   load(){
     this.super$load();
+    this.region = Core.atlas.find("commandblocks-commandb");
     this.dialog = new FloatingDialog(Core.bundle.get("command.title"));
     //this.dialog.addCloseButton();
     this.cmdRegion = [];
@@ -131,9 +141,19 @@ const commandb = extendContent(MessageBlock, "commandb", {
       table.table(cons(r => {
         r.left();
         r.add(Core.bundle.get("command.options.type")).left().padRight(5).pad(6);
-        r.addImageButton(TextureRegionDrawable(Core.atlas.find("commandblocks-commandb-"+tile.ent().getType())), run(() => {
-          //
-        }));
+        var tbutton = r.addImageButton(TextureRegionDrawable(Core.atlas.find("commandblocks-commandb-"+this.tempType)), run(() => {
+          var popup = new FloatingDialog("");
+          popup.setFillParent(false);
+          for(var i=0;i<cblist.length;i++){
+            popup.cont.addImage(Core.atlas.find("commandblocks-commandb-"+i)).size(8 * 4).pad(3).get().clicked(run(() => {
+              this.tempType = i;
+              popup.hide();
+              tbutton.replaceImage(TextureRegionDrawable(Core.atlas.find("commandblocks-commandb-"+this.tempType)));
+            }));
+          }
+
+          dialog.show();
+        })).get();
         r.row();
       })).growX();
       table.row();
