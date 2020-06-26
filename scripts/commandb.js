@@ -236,5 +236,8 @@ commandb.entityType=prov(()=>extendContent(MessageBlock.MessageBlockEntity, comm
     this.setPower(stream.readBoolean());
     this.setDelay(stream.readShort());
     this.setErr("");
+  },
+  config(){
+    return this._type + 4*((this._power)?1:0) + 8*((this._cond)?1:0) + 16*this._delay;
   }
 }));
