@@ -61,6 +61,10 @@ const commandb = extendContent(MessageBlock, "commandb", {
   update(tile){
     this.super$update(tile);
     var type = tile.ent().getType();
+    if(tile.ent().getCond()){
+      if(type == 0 && tile.ent().getRun() && !((!tile.ent().getPower())||tile.ent().cons.valid())) tile.ent().setRun(false);
+      return; //conditional command blocks should be processed at its 'head'.
+    }
     switch(type){
       case 0:
         this.updateImpulse(tile);
@@ -79,14 +83,14 @@ const commandb = extendContent(MessageBlock, "commandb", {
         tile.ent().setRun(true);
         if(tile.ent().getDelay() == 0){
           var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
-          this.updateChains(tile, res);
           if(res && tile.ent().getErr() != "") tile.ent().setErr("");
+          this.updateChains(tile, res);
         }
         else{
           Time.run(tile.ent().getDelay(),run(()=>{
             var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
-            this.updateChains(tile, res);
             if(res && tile.ent().getErr() != "") tile.ent().setErr("");
+            this.updateChains(tile, res);
           }));
         }
       }
@@ -97,20 +101,76 @@ const commandb = extendContent(MessageBlock, "commandb", {
     if((!tile.ent().getPower())||tile.ent().cons.valid()){
       if(tile.ent().getDelay() == 0){
         var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
-        this.updateChains(tile, res);
         if(res && tile.ent().getErr() != "") tile.ent().setErr("");
+        this.updateChains(tile, res);
       }
       else if(tile.ent().timer.get(timerid, tile.ent().getDelay())){
         Time.run(tile.ent().getDelay(),run(()=>{
           var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
-          this.updateChains(tile, res);
           if(res && tile.ent().getErr() != "") tile.ent().setErr("");
+          this.updateChains(tile, res);
+        }));
+      }
+    }
+  },
+  updateChained(tile){
+    if((!tile.ent().getPower())||tile.ent().cons.valid()){
+      if(tile.ent().getDelay() == 0){
+        var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
+        if(res && tile.ent().getErr() != "") tile.ent().setErr("");
+        this.updateChains(tile, res);
+      }
+      else{
+        Time.run(tile.ent().getDelay(),run(()=>{
+          var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
+          if(res && tile.ent().getErr() != "") tile.ent().setErr("");
+          this.updateChains(tile, res);
         }));
       }
     }
   },
   updateChains(tile, last){
     //update all the chain snek
+    var next = tile.getNearby(tile.rotation());
+    if(next.block().name != "commandblocks-commandb") return;//fuc:ohno: compatibility with legacy command blocks
+    if(next.getNearby((next.rotation()+2)%4) != tile) return;//someone is bound to make loops if this is not a thing
+    if(!(next.ent().getCond() || next.ent().getType()==1)) return;//already updated, it is the head
+    switch(next.ent().getType()){
+      case 0:
+        if(last){
+          this.updateImpulse(next);
+        }
+      break;
+      case 1:
+        if(next.ent().getCond()){
+          if(last){
+            this.updateChained(next);
+          }
+        }
+        else{
+          this.updateChained(next);
+        }
+      break;
+      case 2:
+        if(last){
+          this.updateRepeating(next);
+          /*
+          if(next.ent().getDelay() == 0){
+            var res = Boolean(commandbFunc.command(next,next.ent().message,next,next.ent().message,false));
+            if(res && next.ent().getErr() != "") next.ent().setErr("");
+            this.updateChains(next, res);
+          }
+          else{
+            Time.run(next.ent().getDelay(),run(()=>{
+              var res = Boolean(commandbFunc.command(next,next.ent().message,next,next.ent().message,false));
+              if(res && next.ent().getErr() != "") next.ent().setErr("");
+              this.updateChains(next, res);
+            }));
+          }
+          */
+        }
+      break;
+    }
   },
   buildConfiguration(tile, table){
     table.addImageButton(Icon.pencil, run(() => {
