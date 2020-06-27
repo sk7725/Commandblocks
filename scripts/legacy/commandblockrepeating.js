@@ -8,7 +8,7 @@ const commandblockrepeating = extendContent(MessageBlock, "commandblockrepeating
     if(tile.entity.cons.valid()){
       this.super$update(tile);
       //if(Core.input.keyDown(KeyCode.F12)) return;
-      var res=commandblocksr.command(tile,entity.message,this,entity.message,false);
+      var res=commandblocksr.command(tile,entity.message,tile,entity.message,false);
       thiscmd.didsuccess = Boolean(res);
     }
     else{

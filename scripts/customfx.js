@@ -22,7 +22,31 @@ function fillLight(x, y, sides, radius, center, edge){
   }
 }
 
+function newGroundEffect(lifetime, staticLife, renderer){
+  return new GroundEffectEntity.GroundEffect(lifetime, staticLife, new Effects.EffectRenderer({render: renderer}));
+}
+
 this.global.fx = {
+  draw : newGroundEffect(0, 1, e => {
+    if(e.data == null) return;
+    try{
+      Draw.color(e.color);
+      Draw.rect(e.data, e.x, e.y, e.rotation);
+    }
+    catch(err){
+      print(err);
+    }
+  }),
+  drawWH : newGroundEffect(0, 1, e => {
+    if(e.data == null) return;
+    try{
+      Draw.color(e.color);
+      Draw.rect(e.data.texture, e.x, e.y, e.data.w, e.data.h, e.rotation);
+    }
+    catch(err){
+      print(err);
+    }
+  }),
   slash : newEffect(90, e => {
     Draw.color(Pal.lancerLaser);
     Drawf.tri(e.x, e.y, 4 * e.fout(), 45, (e.id*57 + 90)%360);
@@ -151,5 +175,35 @@ this.global.fx = {
     };
     Draw.color(Color.black);
 		Fill.circle(e.x, e.y, e.rotation);
+  }),
+  poof : newEffect(65, e => {
+    var v1 = Vec2((1-e.fout()*e.fout())*30,0);
+    var r1 = e.fout()*170;
+    var c1 = e.fout()*45; if(c1>3.5) c1=3.5;
+    Draw.color(Color.black);
+    for(var i=0;i<8;i++){
+      v1.setAngle((r1+i*45)%360);
+      Fill.circle(e.x+v1.x, e.y+v1.y, c1+1);
+    }
+    Draw.color((Time.time()%16>8)?Color.white:e.color);
+    for(var i=0;i<8;i++){
+      v1.setAngle((r1+i*45)%360);
+      Fill.circle(e.x+v1.x, e.y+v1.y, c1);
+    }
+  }),
+  poofBack : newEffect(65, e => {
+    var v1 = Vec2((1-e.fin()*e.fin())*30,0);
+    var r1 = e.fout()*170;
+    var c1 = e.fin()*45; if(c1>3.5) c1=3.5;
+    Draw.color(Color.black);
+    for(var i=0;i<8;i++){
+      v1.setAngle((r1+i*45)%360);
+      Fill.circle(e.x+v1.x, e.y+v1.y, c1+1);
+    }
+    Draw.color((Time.time()%16>8)?Color.white:e.color);
+    for(var i=0;i<8;i++){
+      v1.setAngle((r1+i*45)%360);
+      Fill.circle(e.x+v1.x, e.y+v1.y, c1);
+    }
   })
 };

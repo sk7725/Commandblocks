@@ -18,7 +18,7 @@ const commandblock = extendContent(MessageBlock, "commandblock", {
       //entity.cons.trigger();
       if(!thiscmd.didcmd){
         //if(Core.input.keyDown(KeyCode.F12)) return;
-        var res=commandblocksi.command(tile,entity.message,this,entity.message,false);
+        var res=commandblocksi.command(tile,entity.message,tile,entity.message,false);
         thiscmd.didsuccess = Boolean(res);
         thiscmd.didcmd = true;
       }
