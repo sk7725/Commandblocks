@@ -77,10 +77,18 @@ const commandb = extendContent(MessageBlock, "commandb", {
     if((!tile.ent().getPower())||tile.ent().cons.valid()){
       if(!tile.ent().getRun()){
         tile.ent().setRun(true);
-        Time.run(tile.ent().getDelay(),run(()=>{
+        if(tile.ent().getDelay() == 0){
           var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
           this.updateChains(tile, res);
-        }));
+          if(res && tile.ent().getErr() != "") tile.ent().setErr("");
+        }
+        else{
+          Time.run(tile.ent().getDelay(),run(()=>{
+            var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
+            this.updateChains(tile, res);
+            if(res && tile.ent().getErr() != "") tile.ent().setErr("");
+          }));
+        }
       }
     }
     else if(tile.ent().getRun()) tile.ent().setRun(false);
@@ -88,15 +96,15 @@ const commandb = extendContent(MessageBlock, "commandb", {
   updateRepeating(tile){
     if((!tile.ent().getPower())||tile.ent().cons.valid()){
       if(tile.ent().getDelay() == 0){
-        Time.run(tile.ent().getDelay(),run(()=>{
-          var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
-          this.updateChains(tile, res);
-        }));
+        var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
+        this.updateChains(tile, res);
+        if(res && tile.ent().getErr() != "") tile.ent().setErr("");
       }
       else if(tile.ent().timer.get(timerid, tile.ent().getDelay())){
         Time.run(tile.ent().getDelay(),run(()=>{
           var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
           this.updateChains(tile, res);
+          if(res && tile.ent().getErr() != "") tile.ent().setErr("");
         }));
       }
     }
