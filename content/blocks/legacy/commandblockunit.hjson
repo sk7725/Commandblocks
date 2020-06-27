@@ -5,16 +5,15 @@ update: true
 category: effect
 requirements: [
   silicon/256
-  s-code/960
-  bittrium/512
+  s-code/640
+  bittrium/256
 ]
-maxTextLength: 32000
-maxNewlines: 0
 sync: true
 expanded: true
 consumes: {
-  power: 0.3
+  power: 0.0
 }
 health: 7000
 solid: false
 targetable: false
+buildVisibility: debugOnly

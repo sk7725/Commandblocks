@@ -8,8 +8,6 @@ requirements: [
   s-code/640
   bittrium/256
 ]
-maxTextLength: 32000
-maxNewlines: 0
 sync: true
 expanded: true
 consumes: {
@@ -18,3 +16,4 @@ consumes: {
 health: 7000
 solid: false
 targetable: false
+buildVisibility: debugOnly
