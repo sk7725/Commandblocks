@@ -88,9 +88,12 @@ const commandb = extendContent(MessageBlock, "commandb", {
         }
         else{
           Time.run(tile.ent().getDelay(),run(()=>{
-            var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
-            if(res && tile.ent().getErr() != "") tile.ent().setErr("");
-            this.updateChains(tile, res);
+            try{
+              var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
+              if(res && tile.ent().getErr() != "") tile.ent().setErr("");
+              this.updateChains(tile, res);
+            }
+            catch(err){}
           }));
         }
       }
@@ -106,9 +109,12 @@ const commandb = extendContent(MessageBlock, "commandb", {
       }
       else if(tile.ent().timer.get(timerid, tile.ent().getDelay())){
         Time.run(tile.ent().getDelay(),run(()=>{
-          var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
-          if(res && tile.ent().getErr() != "") tile.ent().setErr("");
-          this.updateChains(tile, res);
+          try{
+            var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
+            if(res && tile.ent().getErr() != "") tile.ent().setErr("");
+            this.updateChains(tile, res);
+          }
+          catch(err){}
         }));
       }
     }
@@ -122,9 +128,12 @@ const commandb = extendContent(MessageBlock, "commandb", {
       }
       else{
         Time.run(tile.ent().getDelay(),run(()=>{
-          var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
-          if(res && tile.ent().getErr() != "") tile.ent().setErr("");
-          this.updateChains(tile, res);
+          try{
+            var res = Boolean(commandbFunc.command(tile,tile.ent().message,tile,tile.ent().message,false));
+            if(res && tile.ent().getErr() != "") tile.ent().setErr("");
+            this.updateChains(tile, res);
+          }
+          catch(err){}
         }));
       }
     }
