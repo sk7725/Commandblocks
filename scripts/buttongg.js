@@ -1,6 +1,7 @@
 const presstick=4; const timerid=0;
 const explosionRadius = 40;
 const explosionDamage=1350;
+var bleach = false
 const buttongg = extendContent(Block, "buttongg", {
   placed(tile) {
     this.super$placed(tile);
@@ -48,10 +49,8 @@ const buttongg = extendContent(Block, "buttongg", {
   load(){
     this.super$load();
     this.topRegion=Core.atlas.find(this.name+"-top");
-  }
-/*
+  },
   update(tile){
-    if(tile.ent().timer.getTime(timerid)==presstick) Sounds.click.at(tile.worldx(),tile.worldy(),0.8);
+    if(bleach = true) Draw.blend(Blending.additive);
   }
-*/
 });
