@@ -22,7 +22,7 @@ const buttongg = extendContent(Block, "buttongg", {
       //this.boom(tile,Vars.playerGroup.all().random());
       var randomp=Vars.playerGroup.all().toArray()[value-1];
       try{
-        Draw.blend(Blending.additive);
+        var bleach = true;
         var x=randomp.x; var y=randomp.y;
         Sounds.explosionbig.at(x,y);
         Effects.shake(6, 16, x, y);
@@ -35,7 +35,7 @@ const buttongg = extendContent(Block, "buttongg", {
   },
   boom(tile,player){
     try{
-      Draw.blend(Blending.additive);
+      var bleach = true;
       var x=player.x; var y=player.y;
       Sounds.explosionbig.at(x,y);
       Effects.shake(6, 16, x, y);
