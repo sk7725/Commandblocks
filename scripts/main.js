@@ -1,5 +1,5 @@
 require("init");
-//require("collisions");
+require("collisions");
 require("shaders");
 
 require("units/armorstand");
