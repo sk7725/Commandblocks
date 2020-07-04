@@ -3,17 +3,12 @@ Mindustry Command Block Mod(MCBM)
 This mod adds Minecraft-like Command Blocks, along with other blocks.   
 This is currently in development.   
 `As of 4.8, Command Blocks require you to be an Admin to edit.`   
-+ We now have a (half) Discord Server: [https://discord.gg/RCCVQFW](https://discord.gg/RCCVQFW)
++ We now have a (dead) Discord Server: [https://discord.gg/RCCVQFW](https://discord.gg/RCCVQFW)
 
 ## Blocks   
 `Blocks that need further descriptions.`   
 + Command Block   
-Executes command once when power requirements are met.   
-+ Chained Command Block   
-Executes command when the command block it is facing away from has executed successfully.   
-It will execute one tick after the command block it is facing away from.   
-+ Repeating Command Block   
-Executes command every tick when power requirements are met.   
+A fully customizable block. You can decide whether or not is chained, repeated, normal, requires power, delay and more! It lets you execute built in functions and javascript!
 + Unit Command Block   
 Executes command as an unit, for the unit stepping on this block.   
 The unit has to be on this block and not fly.   
@@ -46,10 +41,12 @@ All walls, door, router, junction, sorter, mender, shock mine, liquid router and
 + Note Tuner   
 Tunes a note. The instrument that will be tuned depends on the block under it.   
 + Music Player   
-Plays an array of notes. First, specify the BPM, then the notes seperated by spaces, using x for rests. End the note with - for double length, and / for half(these may be stacked). This is not done yet.   
+Plays an array of notes. First, specify the BPM, then the notes seperated by spaces, using x for rests. End the note with - for double length, and / for half(these may be stacked). This is not done yet.  
 ```
 150 6e 6d 6c 6d 6e 6e 6e- 6d 6d 6d x 6e 6e 6e-   
 ```
++ Mp3 Player
+Plays a especified mp3 file of your device.
 + Camera Wall   
 Acts as a wall to the center of the camera. Can be ignored with a fast enough screen swipe.   
 The hitbox is 3x3, one block to all four directions. Turns off if it is not rendered(minimap open, or out of screen).      
@@ -59,7 +56,10 @@ The hitbox is 1 in width, and stretches infinitely to the back, making it more s
 + Key Block   
 Produces power if a key is pressed. Is not synced in multiplayer.   
 Refer [here](https://github.com/Anuken/Arc/blob/v104.6/arc-core/src/arc/input/KeyCode.java) for the list of loggable keys.   
-
++ Transistor
+Cuts power if the node on the marked position has 0 power or less.
++ Logic Gate
+2 node power block that makes its output depend on its entries, using a configurable truth table.
 ## Commands   
 `List and description of commands.`   
 Commands will fail to work when an error happens, params are invalid , or requirements below are not made.   
@@ -212,6 +212,9 @@ Bind is whether the executor becomes the owner of the bullet, default is false.
 Sets an attribute or gets an attribute of the executor. Fails if the executor is not a tile.   
 Can only be used inside an /execute.   
 Refer [here](https://github.com/Anuken/Mindustry/blob/v104.6/core/src/mindustry/world/Block.java) for the list of attributes.   
+
+### /do string:command
+Executes a command or an array of commands if you use (""). It can also run javascript by adding $ before the javascript line.
 
 ## Tilde Notation   
 Using ~ before a number for a coordinate will get the coordinate relative to the executor.   
