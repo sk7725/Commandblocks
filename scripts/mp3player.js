@@ -78,7 +78,7 @@ const mp3player = extendContent(Block, "mp3player", {
       }
     }
   } else {
-    print("NOT FOR MOBILE");
+    print("ONLY FOR MOBILE");
     tile.entity.kill();
   }
 });
