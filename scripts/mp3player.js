@@ -65,14 +65,20 @@ const mp3player = extendContent(Block, "mp3player", {
         print(err.stack);
       }
     })).size(40);
+    
   },
   update(tile){
-    if(tile.entity.cons.valid()){
-      if(this.music == null) return;
-      try{
-        if(!this.music.isPlaying()) this.music.play();
+    if(Vars.mobile){
+      if(tile.entity.cons.valid()){
+        if(this.music == null) return;
+        try{
+          if(!this.music.isPlaying()) this.music.play();
+        }
+        catch(err){}
       }
-      catch(err){}
     }
+  } else {
+    print("NOT FOR MOBILE");
+    tile.entity.kill();
   }
 });
