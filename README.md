@@ -45,7 +45,7 @@ Plays an array of notes. First, specify the BPM, then the notes seperated by spa
 ```
 150 6e 6d 6c 6d 6e 6e 6e- 6d 6d 6d x 6e 6e 6e-   
 ```
-+ Mp3 Player
++ Mp3 Player    
 Plays a especified mp3 file of your device.
 + Camera Wall   
 Acts as a wall to the center of the camera. Can be ignored with a fast enough screen swipe.   
@@ -56,9 +56,9 @@ The hitbox is 1 in width, and stretches infinitely to the back, making it more s
 + Key Block   
 Produces power if a key is pressed. Is not synced in multiplayer.   
 Refer [here](https://github.com/Anuken/Arc/blob/v104.6/arc-core/src/arc/input/KeyCode.java) for the list of loggable keys.   
-+ Transistor
++ Transistor    
 Cuts power if the node on the marked position has 0 power or less.
-+ Logic Gate
++ Logic Gate    
 2 node power block that makes its output depend on its entries, using a configurable truth table.
 ## Commands   
 `List and description of commands.`   
