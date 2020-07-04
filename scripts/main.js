@@ -1,5 +1,5 @@
-require("init");
-require("collisions");
+require("commandblocks/init");
+//require("collisions");
 require("shaders");
 
 require("units/armorstand");
