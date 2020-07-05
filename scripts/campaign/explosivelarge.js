@@ -30,8 +30,8 @@ const explosivelarge = extendContent(Block, "explosivelarge", {
     }
   },
   updateFuse(tile){
-    if(Mathf.chance(0.15)) Effects.effect(customfx.smokeRise, tile.drawx(), tile.drawy());
-    if(Mathf.chance(0.12)) Effects.effect(Fx.burning, tile.drawx(), tile.drawy());
+    if(Mathf.chance(0.15)) Effects.effect(customfx.smokeRise, tile.drawx()+Mathf.random()*10-5, tile.drawy()+Mathf.random()*10-5);
+    if(Mathf.chance(0.12)) Effects.effect(Fx.burning, tile.drawx()+Mathf.random()*6-3, tile.drawy()+Mathf.random()*6-3);
     var left = presstick - tile.ent().timer.getTime(timerid);
     if(left<=0){
       //this.onDestroyed(tile);
@@ -53,6 +53,7 @@ const explosivelarge = extendContent(Block, "explosivelarge", {
   },
   onDestroyed(tile){
     this.super$onDestroyed(tile);
+    Sounds.explosionbig.at(tile.worldx(),tile.worldy());
     if(!Vars.net.client()){
       for(var i=-3;i<=3;i++){
         for(var j=-3;j<=3;j++){
