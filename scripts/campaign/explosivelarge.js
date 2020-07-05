@@ -75,9 +75,11 @@ const explosivelarge = extendContent(Block, "explosivelarge", {
   setStats(){
     this.super$setStats();
 
+    const tier = this.tier;
+    const minTier = this.minTier;
     const statTable = new StatValue({
       display(table){
-        var list = Vars.content.blocks().select(boolf(b => b.isFloor() && b.asFloor().itemDrop != null && b.asFloor().itemDrop.hardness <= this.tier && b.asFloor().itemDrop.hardness >= this.minTier)).toArray();
+        var list = Vars.content.blocks().select(boolf(b => b.isFloor() && b.asFloor().itemDrop != null && b.asFloor().itemDrop.hardness <= tier && b.asFloor().itemDrop.hardness >= minTier)).toArray();
 
         table.table(cons(l => {
           l.left();
