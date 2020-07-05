@@ -1,7 +1,7 @@
-const presstick=140; const timerid=0;
+const presstick=200; const timerid=0;
 const customfx = this.global.fx;
 const newSounds = this.global.newSounds;
-const explosive = extendContent(Block, "explosive", {
+const explosivelarge = extendContent(Block, "explosivelarge", {
   placed(tile){
     this.super$placed(tile);
     tile.ent().timer.reset(timerid,presstick+1);
@@ -10,6 +10,7 @@ const explosive = extendContent(Block, "explosive", {
     this.super$draw(tile);
     if(tile.ent().fuse() && tile.ent().timer.getTime(timerid)%45<22.5) Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
   },
+  /*
   tapped(tile, player){
     if(!tile.ent() || tile.ent().fuse()) return;
     tile.ent().timer.reset(timerid, 0);
@@ -18,6 +19,7 @@ const explosive = extendContent(Block, "explosive", {
     newSounds.tntfuse.at(tile.worldx(),tile.worldy());
     //}catch(err){print(err);}
   },
+  */
   update(tile){
     if(!tile.ent()) return;
     if(tile.ent().fuse()) this.updateFuse(tile);
@@ -28,7 +30,8 @@ const explosive = extendContent(Block, "explosive", {
     }
   },
   updateFuse(tile){
-    if(Mathf.chance(0.08)) Effects.effect(customfx.smokeRise, tile.drawx(), tile.drawy());
+    if(Mathf.chance(0.15)) Effects.effect(customfx.smokeRise, tile.drawx(), tile.drawy());
+    if(Mathf.chance(0.12)) Effects.effect(Fx.burning, tile.drawx(), tile.drawy());
     var left = presstick - tile.ent().timer.getTime(timerid);
     if(left<=0){
       //this.onDestroyed(tile);
@@ -38,12 +41,12 @@ const explosive = extendContent(Block, "explosive", {
   },
   mineTile(tile, other, dist){
     var drops = other.drop();
-    if(this.tier < drops.hardness) return;
-    var amount = 1.5+(this.tier-drops.hardness)*0.6;
-    amount *= (3-dist)/3;
+    if(this.tier < drops.hardness || this.minTier > drops.hardness) return;
+    var amount = 0.5+(this.tier-drops.hardness)*0.9;
+    amount *= (6-dist)/8;
     if(amount <= 0) return;
-    amount *= 1.3*Mathf.random()+0.35;
-    var acceptTile = Units.findAllyTile(tile.getTeam(), tile.worldx(), tile.worldy(), 80, boolf(e=>(e.ent() != Conveyor.ConveyorEntity && e.block().acceptItem(drops, e, tile))));
+    amount *= 1.5*Mathf.random()+0.4;
+    var acceptTile = Units.findAllyTile(tile.getTeam(), tile.worldx(), tile.worldy(), 120, boolf(e=>(e.ent() != Conveyor.ConveyorEntity && e.block().acceptItem(drops, e, tile))));
     if(acceptTile == null) return;
     //um
     Call.transferItemTo(drops, amount, other.worldx(), other.worldy(), acceptTile.getTile());
@@ -51,25 +54,26 @@ const explosive = extendContent(Block, "explosive", {
   onDestroyed(tile){
     this.super$onDestroyed(tile);
     if(!Vars.net.client()){
-      for(var i=-2;i<=2;i++){
-        for(var j=-2;j<=2;j++){
+      for(var i=-3;i<=3;i++){
+        for(var j=-3;j<=3;j++){
           var other = Vars.world.tile(tile.x+i, tile.y+j);
           if(other!=null && other.drop()!=null) this.mineTile(tile, other, Math.abs(i)+Math.abs(j));
         }
       }
     }
     if(Vars.state.rules.reactorExplosions){
-      Damage.damage(tile.worldx(), tile.worldy(), 4*Vars.tilesize, 600);
+      Damage.damage(tile.worldx(), tile.worldy(), 7*Vars.tilesize, 1000);
     }
   },
   load(){
     this.super$load();
     this.topRegion = Core.atlas.find(this.name + "-top");
-    this.tier = 8;
+    this.tier = 11;
+    this.minTier = 3;
   }
 });
 
-explosive.entityType=prov(() => extend(TileEntity, {
+explosivelarge.entityType=prov(() => extend(TileEntity, {
   _trig:false,
   fuse(){
     return this._trig;

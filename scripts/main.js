@@ -93,3 +93,4 @@ require("sandbox/tabletester");
 require("sandbox/jstester");
 
 require("campaign/explosive");
+require("campaign/explosivelarge");
