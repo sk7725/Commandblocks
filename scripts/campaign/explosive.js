@@ -54,7 +54,7 @@ const explosive = extendContent(Block, "explosive", {
       }
     }
     if(Vars.state.rules.reactorExplosions){
-      Damage.damage(tile.worldx(), tile.worldy(), 2*Vars.tilesize, 500);
+      Damage.damage(tile.worldx(), tile.worldy(), 4*Vars.tilesize, 600);
     }
   },
   load(){
