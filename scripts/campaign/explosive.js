@@ -28,14 +28,6 @@ const explosive = extendContent(Block, "explosive", {
     var left = presstick - tile.ent().timer.getTime(timerid);
     if(left<=0){
       //this.onDestroyed(tile);
-      if(!Vars.net.client()){
-        for(var i=-2;i<=2;i++){
-          for(var j=-2;j<=2;j++){
-            var other = Vars.world.tile(tile.x+i, tile.y+j);
-            if(other!=null && other.drop()!=null) this.mineTile(tile, other, Math.abs(i)+Math.abs(j));
-          }
-        }
-      }
       tile.ent().kill();
       return;
     }
@@ -53,6 +45,14 @@ const explosive = extendContent(Block, "explosive", {
   },
   onDestroyed(tile){
     this.super$onDestroyed(tile);
+    if(!Vars.net.client()){
+      for(var i=-2;i<=2;i++){
+        for(var j=-2;j<=2;j++){
+          var other = Vars.world.tile(tile.x+i, tile.y+j);
+          if(other!=null && other.drop()!=null) this.mineTile(tile, other, Math.abs(i)+Math.abs(j));
+        }
+      }
+    }
     if(Vars.state.rules.reactorExplosions){
       Damage.damage(tile.worldx(), tile.worldy(), 2*Vars.tilesize, 500);
     }
