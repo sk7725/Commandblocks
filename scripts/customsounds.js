@@ -9,6 +9,7 @@ function loadsound(name){
     });
   }
   catch(err){
+    t.global.newSounds[name] = Sounds.none;
     print("Failed to load sound!");
     print(err);
   }
