@@ -1,4 +1,5 @@
 const presstick=140; const timerid=0;
+const customfx = this.global.fx;
 const explosive = extendContent(Block, "explosive", {
   placed(tile) {
     this.super$placed(tile);
@@ -21,6 +22,7 @@ const explosive = extendContent(Block, "explosive", {
     }
   },
   updateFuse(tile){
+    if(Mathf.chance(0.1)) Effects.effect(customfx.smokeRise, tile.drawx(), tile.drawy());
     var left = presstick - tile.ent().timer.getTime(timerid);
     if(left<=0){
       this.onDestroyed(tile);
