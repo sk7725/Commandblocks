@@ -24,7 +24,7 @@ const explosive = extendContent(Block, "explosive", {
     }
   },
   updateFuse(tile){
-    if(Mathf.chance(0.35)) Effects.effect(customfx.smokeRise, tile.drawx(), tile.drawy());
+    if(Mathf.chance(0.15)) Effects.effect(customfx.smokeRise, tile.drawx(), tile.drawy());
     var left = presstick - tile.ent().timer.getTime(timerid);
     if(left<=0){
       this.onDestroyed(tile);
