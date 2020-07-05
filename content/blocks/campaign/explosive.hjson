@@ -17,4 +17,5 @@ targetable: true
 rotate: false
 timers: 1
 consumesTap: true
-baseExplosiveness: 6
+baseExplosiveness: 8
+rebuildable: false
