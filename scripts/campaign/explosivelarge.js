@@ -43,7 +43,7 @@ const explosivelarge = extendContent(Block, "explosivelarge", {
     var drops = other.drop();
     if(this.tier < drops.hardness || this.minTier > drops.hardness) return;
     var amount = 0.5+(this.tier-drops.hardness)*0.9;
-    amount *= (6-dist)/6;
+    amount *= (11-dist)/11;
     amount *= 2.8*Mathf.random()+1.6;
     if(amount <= 0) return;
     var acceptTile = Units.findAllyTile(tile.getTeam(), tile.worldx(), tile.worldy(), 120, boolf(e=>(e.ent() != Conveyor.ConveyorEntity && e.block().acceptItem(drops, e, tile))));
@@ -55,8 +55,8 @@ const explosivelarge = extendContent(Block, "explosivelarge", {
     this.super$onDestroyed(tile);
     Sounds.explosionbig.at(tile.worldx(),tile.worldy());
     if(!Vars.net.client()){
-      for(var i=-3;i<=3;i++){
-        for(var j=-3;j<=3;j++){
+      for(var i=-4;i<=5;i++){
+        for(var j=-4;j<=5;j++){
           var other = Vars.world.tile(tile.x+i, tile.y+j);
           if(other!=null && other.drop()!=null) this.mineTile(tile, other, Math.abs(i)+Math.abs(j));
         }
