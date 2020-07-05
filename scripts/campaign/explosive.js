@@ -2,19 +2,21 @@ const presstick=140; const timerid=0;
 const customfx = this.global.fx;
 const newSounds = this.global.newSounds;
 const explosive = extendContent(Block, "explosive", {
-  placed(tile) {
+  placed(tile){
     this.super$placed(tile);
     tile.ent().timer.reset(timerid,presstick+1);
   },
-  draw(tile) {
+  draw(tile){
     this.super$draw(tile);
     if(tile.ent().fuse() && tile.ent().timer.getTime(timerid)%45<22.5) Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
   },
-  tapped(tile,player){
+  tapped(tile, player){
     if(!tile.ent() || tile.ent().fuse()) return;
     tile.ent().timer.reset(timerid, 0);
     tile.ent().lit();
+    try{
     newSounds.tntfuse.at(tile.worldx(),tile.worldy());
+    }catch(err){print(err);}
   },
   update(tile){
     if(!tile.ent()) return;
