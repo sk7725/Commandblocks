@@ -5,6 +5,7 @@ require("shaders");
 require("units/armorstand");
 require("units/gamesoccerball");
 
+require("customsounds");
 require("customfx");
 require("customb");
 
