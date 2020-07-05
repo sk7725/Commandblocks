@@ -18,7 +18,7 @@ const explosive = extendContent(Block, "explosive", {
   update(tile){
     if(!tile.ent()) return;
     if(tile.ent().fuse()) this.updateFuse(tile);
-    else if(tile.ent().cons.valid()){
+    else if(tile.ent().cons.valid() || tile.floor().attributes.get(Attribute.heat)>0.01){
       tile.ent().timer.reset(timerid, 0);
       tile.ent().lit();
     }
@@ -34,6 +34,9 @@ const explosive = extendContent(Block, "explosive", {
   },
   onDestroyed(tile){
     this.super$onDestroyed(tile);
+    if(Vars.state.rules.reactorExplosions){
+      Damage.damage(tile.worldx(), tile.worldy(), 2*Vars.tilesize, 200);
+    }
   },
   load(){
     this.super$load();
