@@ -206,9 +206,9 @@ this.global.fx = {
       Fill.circle(e.x+v1.x, e.y+v1.y, c1);
     }
   }),
-  smokeRise : newEffect(130, e => {
-    Draw.color(Color.gray, Pal.darkishGray.cpy().a(0), e.fin());
-    var size = 4 + e.fin()*7;
-    Draw.rect("circle", e.x+e.fin()*16, e.y+e.fin()*20, size, size);
+  smokeRise : newEffect(150, e => {
+    Draw.color(Color.gray.cpy().a(0.7), Pal.darkishGray.cpy().a(0), e.fin());
+    var size = 7 + e.fin()*8;
+    Draw.rect("circle", e.x+e.fin()*26, e.y+e.fin()*30, size, size);
   })
 };
