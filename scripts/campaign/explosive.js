@@ -10,11 +10,13 @@ const explosive = extendContent(Block, "explosive", {
     if(tile.ent().fuse() && tile.ent().timer.getTime(timerid)%45<22.5) Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
   },
   tapped(tile,player){
+    if(!tile.ent() || tile.ent().fuse()) return;
     tile.ent().timer.reset(timerid, 0);
     tile.ent().lit();
     //Sounds.click.at(tile.worldx(),tile.worldy());
   },
   update(tile){
+    if(!tile.ent()) return;
     if(tile.ent().fuse()) this.updateFuse(tile);
     else if(tile.ent().cons.valid()){
       tile.ent().timer.reset(timerid, 0);
@@ -22,10 +24,11 @@ const explosive = extendContent(Block, "explosive", {
     }
   },
   updateFuse(tile){
-    if(Mathf.chance(0.1)) Effects.effect(customfx.smokeRise, tile.drawx(), tile.drawy());
+    if(Mathf.chance(0.35)) Effects.effect(customfx.smokeRise, tile.drawx(), tile.drawy());
     var left = presstick - tile.ent().timer.getTime(timerid);
     if(left<=0){
       this.onDestroyed(tile);
+      tile.ent().kill();
       return;
     }
   },
