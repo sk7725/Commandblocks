@@ -74,21 +74,26 @@ const explosivelarge = extendContent(Block, "explosivelarge", {
   },
   setStats(){
     this.super$setStats();
-    var table = new Table();
-    var list = Vars.content.blocks().select(boolf(b => b.isFloor() && b.asFloor().itemDrop != null && b.asFloor().itemDrop.hardness <= this.tier && b.asFloor().itemDrop.hardness >= this.minTier)).toArray();
+    
+    const statTable = new statValue({
+      display(table){
+        var list = Vars.content.blocks().select(boolf(b => b.isFloor() && b.asFloor().itemDrop != null && b.asFloor().itemDrop.hardness <= this.tier && b.asFloor().itemDrop.hardness >= this.minTier)).toArray();
 
-    table.table(cons(l => {
-      l.left();
-      for(var i = 0; i < list.length; i++){
-        var item = list[i];
-        l.addImage(item.icon(Cicon.small)).size(8 * 3).padRight(2).padLeft(2).padTop(3).padBottom(3);
-        l.add(item.localizedName).left().padLeft(1).padRight(4);
-        if(i % 5 == 4){
-            l.row();
-        }
+        table.table(cons(l => {
+          l.left();
+          for(var i = 0; i < list.length; i++){
+            var item = list[i];
+            l.addImage(item.icon(Cicon.small)).size(8 * 3).padRight(2).padLeft(2).padTop(3).padBottom(3);
+            l.add(item.localizedName).left().padLeft(1).padRight(4);
+            if(i % 5 == 4){
+                l.row();
+            }
+          }
+        }));
       }
-    }));
-    this.stats.add(BlockStat.drillTier, table);
+    });
+
+    this.stats.add(BlockStat.drillTier, statTable);
   }
 });
 
