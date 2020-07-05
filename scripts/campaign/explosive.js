@@ -91,6 +91,13 @@ const explosive = extendContent(Block, "explosive", {
     });
 
     this.stats.add(BlockStat.drillTier, statTable);
+  },
+  drawSelect(tile){
+    if(Vars.player.getTeam() == tile.getTeam()) return;
+    Drawf.dashCircle(tile.drawx(), tile.drawy(), 4*Vars.tilesize, tile.getTeam().color);
+  },
+  drawPlace(x, y, rotation, valid){
+    Drawf.dashCircle(x * Vars.tilesize + this.offset(), y * Vars.tilesize + this.offset(), 4*Vars.tilesize, Pal.placing);
   }
 });
 
