@@ -24,7 +24,7 @@ const explosive = extendContent(Block, "explosive", {
     }
   },
   updateFuse(tile){
-    if(Mathf.chance(0.15)) Effects.effect(customfx.smokeRise, tile.drawx(), tile.drawy());
+    if(Mathf.chance(0.08)) Effects.effect(customfx.smokeRise, tile.drawx(), tile.drawy());
     var left = presstick - tile.ent().timer.getTime(timerid);
     if(left<=0){
       //this.onDestroyed(tile);
@@ -35,7 +35,7 @@ const explosive = extendContent(Block, "explosive", {
   onDestroyed(tile){
     this.super$onDestroyed(tile);
     if(Vars.state.rules.reactorExplosions){
-      Damage.damage(tile.worldx(), tile.worldy(), 2*Vars.tilesize, 200);
+      Damage.damage(tile.worldx(), tile.worldy(), 2*Vars.tilesize, 500);
     }
   },
   load(){
