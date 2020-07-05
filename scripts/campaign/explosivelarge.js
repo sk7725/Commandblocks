@@ -43,9 +43,9 @@ const explosivelarge = extendContent(Block, "explosivelarge", {
     var drops = other.drop();
     if(this.tier < drops.hardness || this.minTier > drops.hardness) return;
     var amount = 0.5+(this.tier-drops.hardness)*0.9;
-    amount *= (6-dist)/8;
+    amount *= (6-dist)/6;
+    amount *= 2.8*Mathf.random()+1.6;
     if(amount <= 0) return;
-    amount *= 1.5*Mathf.random()+0.4;
     var acceptTile = Units.findAllyTile(tile.getTeam(), tile.worldx(), tile.worldy(), 120, boolf(e=>(e.ent() != Conveyor.ConveyorEntity && e.block().acceptItem(drops, e, tile))));
     if(acceptTile == null) return;
     //um
