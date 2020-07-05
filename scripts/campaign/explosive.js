@@ -28,10 +28,12 @@ const explosive = extendContent(Block, "explosive", {
     var left = presstick - tile.ent().timer.getTime(timerid);
     if(left<=0){
       //this.onDestroyed(tile);
-      for(var i=-2;i<=2;i++){
-        for(var j=-2;j<=2;j++){
-          var other = Vars.world.tile(tile.x+i, tile.y+j);
-          if(other!=null && other.drop()!=null) this.mineTile(tile, other, Math.abs(i)+Math.abs(j));
+      if(!Vars.net.client()){
+        for(var i=-2;i<=2;i++){
+          for(var j=-2;j<=2;j++){
+            var other = Vars.world.tile(tile.x+i, tile.y+j);
+            if(other!=null && other.drop()!=null) this.mineTile(tile, other, Math.abs(i)+Math.abs(j));
+          }
         }
       }
       tile.ent().kill();
@@ -47,6 +49,7 @@ const explosive = extendContent(Block, "explosive", {
     var acceptTile = Units.findAllyTile(tile.getTeam(), tile.worldx(), tile.worldy(), 80, boolf(e=>(e != Conveyor.ConveyorEntity && e.getTile().block().acceptItem(drops, e.getTile(), tile))));
     if(acceptTile == null) return;
     //um
+    Call.transferItemTo(drops, amount, other.worldx(), other.worldy(), acceptTile.getTile());
   },
   onDestroyed(tile){
     this.super$onDestroyed(tile);
