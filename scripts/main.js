@@ -90,3 +90,5 @@ require("sandbox/shadertester");
 require("sandbox/drawtester");
 require("sandbox/tabletester");
 require("sandbox/jstester");
+
+require("campaign/explosive");
