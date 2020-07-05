@@ -1,4 +1,6 @@
-this.global.newSounds = {};
+if(!this.global.newSounds){
+  this.global.newSounds = {};
+}
 
 var t = this;
 
