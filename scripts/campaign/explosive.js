@@ -21,6 +21,14 @@ const explosive = extendContent(Block, "explosive", {
     }
   },
   updateFuse(tile){
+    var left = presstick - tile.ent().timer.getTime(timerid);
+    if(left<=0){
+      this.onDestroyed(tile);
+      return;
+    }
+  },
+  onDestroyed(tile){
+    this.super$onDestroyed(tile);
   },
   load(){
     this.super$load();
