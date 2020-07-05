@@ -70,7 +70,7 @@ const explosivelarge = extendContent(Block, "explosivelarge", {
     this.super$load();
     this.topRegion = Core.atlas.find(this.name + "-top");
     this.tier = 11;
-    this.minTier = 3;
+    this.minTier = 3;//this doesnt make it to setStats
   },
   setStats(){
     this.super$setStats();

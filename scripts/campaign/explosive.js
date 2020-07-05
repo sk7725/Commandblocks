@@ -42,7 +42,7 @@ const explosive = extendContent(Block, "explosive", {
     var amount = 1.5+(this.tier-drops.hardness)*0.6;
     amount *= (3-dist)/3;
     if(amount <= 0) return;
-    amount *= 3.3*Mathf.random()+0.35;
+    amount *= 3.3*Mathf.random()+1.1;
     var acceptTile = Units.findAllyTile(tile.getTeam(), tile.worldx(), tile.worldy(), 80, boolf(e=>(e.ent() != Conveyor.ConveyorEntity && e.block().acceptItem(drops, e, tile))));
     if(acceptTile == null) return;
     //um
@@ -65,7 +65,32 @@ const explosive = extendContent(Block, "explosive", {
   load(){
     this.super$load();
     this.topRegion = Core.atlas.find(this.name + "-top");
-    this.tier = 8;
+    this.tier = 6;//this doesnt make it to setStats
+  },
+  setStats(){
+    this.super$setStats();
+
+    //const tier = this.tier;
+    //const minTier = this.minTier;
+    const statTable = new StatValue({
+      display(table){
+        var list = Vars.content.blocks().select(boolf(b => b.isFloor() && b.asFloor().itemDrop != null && b.asFloor().itemDrop.hardness <= 6)).toArray();
+
+        table.table(cons(l => {
+          l.left();
+          for(var i = 0; i < list.length; i++){
+            var item = list[i];
+            l.addImage(item.icon(Cicon.small)).size(8 * 3).padRight(2).padLeft(2).padTop(3).padBottom(3);
+            l.add(item.localizedName).left().padLeft(1).padRight(4);
+            if(i % 5 == 4){
+                l.row();
+            }
+          }
+        }));
+      }
+    });
+
+    this.stats.add(BlockStat.drillTier, statTable);
   }
 });
 
