@@ -14,9 +14,9 @@ const explosive = extendContent(Block, "explosive", {
     if(!tile.ent() || tile.ent().fuse()) return;
     tile.ent().timer.reset(timerid, 0);
     tile.ent().lit();
-    try{
+    //try{
     newSounds.tntfuse.at(tile.worldx(),tile.worldy());
-    }catch(err){print(err);}
+    //}catch(err){print(err);}
   },
   update(tile){
     if(!tile.ent()) return;
