@@ -28,9 +28,25 @@ const explosive = extendContent(Block, "explosive", {
     var left = presstick - tile.ent().timer.getTime(timerid);
     if(left<=0){
       //this.onDestroyed(tile);
+      for(var i=-2;i<=2;i++){
+        for(var j=-2;j<=2;j++){
+          var other = Vars.world.tile(tile.x+i, tile.y+j);
+          if(other!=null && other.drop()!=null) this.mineTile(tile, other, Math.abs(i)+Math.abs(j));
+        }
+      }
       tile.ent().kill();
       return;
     }
+  },
+  mineTile(tile, other, dist){
+    var drops = other.drop();
+    if(this.tier < drops.hardness) return;
+    var amount = 1.5+(this.tier-drops.hardness)*0.6;
+    amount *= (5-dist)/5;
+    amount *= Mathf.random()+0.5;
+    var acceptTile = Units.findAllyTile(tile.getTeam(), tile.worldx(), tile.worldy(), 80, boolf(e=>(e != Conveyor.ConveyorEntity && e.getTile().block().acceptItem(drops, e.getTile(), tile))));
+    if(acceptTile == null) return;
+    //um
   },
   onDestroyed(tile){
     this.super$onDestroyed(tile);
@@ -41,6 +57,7 @@ const explosive = extendContent(Block, "explosive", {
   load(){
     this.super$load();
     this.topRegion = Core.atlas.find(this.name + "-top");
+    this.tier = 8;
   }
 });
 
