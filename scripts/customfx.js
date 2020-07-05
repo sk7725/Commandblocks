@@ -208,7 +208,7 @@ this.global.fx = {
   }),
   smokeRise : newEffect(100, e => {
     Draw.color(Color.gray, Pal.darkishGray.cpy().a(0), e.fin());
-    float size = 7 + e.fin()*4;
+    var size = 7 + e.fin()*4;
     Draw.rect("circle", e.x+e.fin()*8, e.y+e.fin()*13, size, size);
   })
 };
