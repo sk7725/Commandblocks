@@ -205,5 +205,10 @@ this.global.fx = {
       v1.setAngle((r1+i*45)%360);
       Fill.circle(e.x+v1.x, e.y+v1.y, c1);
     }
+  }),
+  smokeRise : newEffect(100, e => {
+    Draw.color(Color.gray, Pal.darkishGray.cpy().a(0), e.fin());
+    float size = 7 + e.fin()*4;
+    Draw.rect("circle", e.x+e.fin()*8, e.y+e.fin()*13, size, size);
   })
 };
