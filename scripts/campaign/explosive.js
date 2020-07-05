@@ -1,5 +1,6 @@
 const presstick=140; const timerid=0;
 const customfx = this.global.fx;
+const newSounds = this.global.newSounds;
 const explosive = extendContent(Block, "explosive", {
   placed(tile) {
     this.super$placed(tile);
@@ -13,12 +14,13 @@ const explosive = extendContent(Block, "explosive", {
     if(!tile.ent() || tile.ent().fuse()) return;
     tile.ent().timer.reset(timerid, 0);
     tile.ent().lit();
-    //Sounds.click.at(tile.worldx(),tile.worldy());
+    newSounds.tntfuse.at(tile.worldx(),tile.worldy());
   },
   update(tile){
     if(!tile.ent()) return;
     if(tile.ent().fuse()) this.updateFuse(tile);
     else if(tile.ent().cons.valid() || tile.floor().attributes.get(Attribute.heat)>0.01){
+      newSounds.tntfuse.at(tile.worldx(),tile.worldy());
       tile.ent().timer.reset(timerid, 0);
       tile.ent().lit();
     }
