@@ -74,7 +74,7 @@ const explosivelarge = extendContent(Block, "explosivelarge", {
   },
   setStats(){
     this.super$setStats();
-    stats.add(BlockStat.drillTier, cons(table => {
+    this.stats.add(BlockStat.drillTier, cons(table => {
       var list = Vars.content.blocks().select(boolf(b => b.isFloor() && b.asFloor().itemDrop != null && b.asFloor().itemDrop.hardness <= this.tier && b.asFloor().itemDrop.hardness >= this.minTier)).toArray();
 
       table.table(cons(l => {
