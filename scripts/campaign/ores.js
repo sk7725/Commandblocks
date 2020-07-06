@@ -3,8 +3,8 @@ if (typeof(floatc2)== "undefined"){
 }
 
 const colors = {
-  scalar: Color.valueOf("f5bbf1"),
-  vector: Color.valueOf("7f9cfa"),
+  scalar: Color.valueOf("f5ddf3"),
+  vector: Color.valueOf("afbcfa"),
   zeta: Color.valueOf("82ffe8"),
   code: Color.valueOf("5eff79")
 };
@@ -22,26 +22,26 @@ function drawBit(bit, x, y, size, stroke){
 
 const scalarFx = newEffect(45, e => {
   Draw.color(colors.scalar);
-  Angles.randLenVectors(e.id, 1, 7+5*e.fin(), floatc2((x,y) => {
+  Angles.randLenVectors(e.id, 5, 7+5*e.fin(), floatc2((x,y) => {
     Fill.circle(e.x+x, e.y+y, e.fout()*0.9);
   }));
 });
 const vectorFx = newEffect(45, e => {
   Draw.color(colors.vector);
-  Angles.randLenVectors(e.id, 1, 7+5*e.fin(), floatc2((x,y) => {
+  Angles.randLenVectors(e.id, 5, 7+5*e.fin(), floatc2((x,y) => {
     Drawf.tri(e.x+x, e.y+y, e.fout()*2.7, e.fout()*2.7, e.x%5*36*e.fin());
   }));
 });
 const zetaFx = newEffect(45, e => {
   Draw.color(colors.zeta);
   Lines.stroke(e.fout());
-  Angles.randLenVectors(e.id, 1, 7+5*e.fin(), floatc2((x,y) => {
+  Angles.randLenVectors(e.id, 6, 7+5*e.fin(), floatc2((x,y) => {
     Lines.poly(e.x+x, e.y+y, 4, e.fin()*0.6+0.3);
   }));
 });
 const codeFx = newEffect(45, e => {
   Draw.color(colors.code);
-  Angles.randLenVectors(e.id, 1, 7+5*e.fin(), floatc2((x,y) => {
+  Angles.randLenVectors(e.id, 7, 7+5*e.fin(), floatc2((x,y) => {
     drawBit(e.id%2, e.x+x, e.y+y, 1, e.fout());
   }));
 });
@@ -67,20 +67,13 @@ const depocode = extendContent(OreBlock, "depo-code", {
 const sparkling = ["commandblocks-depo-scalar", "commandblocks-depo-vector", "commandblocks-depo-zeta", "commandblocks-depo-code"];
 const sparkleFx = [scalarFx, vectorFx, zetaFx, codeFx];
 
-var v1 = new Vec2(0,0);
+var v1 = new Vec2(0,0); var tile = null;
 Events.on(EventType.Trigger.update, run(function(){
   if(Vars.state.is(GameState.State.playing)){
-    v1 = Core.camera.unproject(Mathf.random()*Core.camera.width, Mathf.random()*Core.camera.height);
-    var tile = Vars.world.tileWorld(v1.x, v1.y);
-    //print(v1+"|"+tile);
-    if(tile!=null && sparkling.indexOf(tile.overlay().name)>-1) Effects.effect(sparkleFx[sparkling.indexOf(tile.overlay().name)], tile.worldx(), tile.worldy());
-
-    v1 = Core.camera.unproject(Mathf.random()*Core.camera.width, Mathf.random()*Core.camera.height);
-    tile = Vars.world.tileWorld(v1.x, v1.y);
-    if(tile!=null && sparkling.indexOf(tile.overlay().name)>-1) Effects.effect(sparkleFx[sparkling.indexOf(tile.overlay().name)], tile.worldx(), tile.worldy());
-    
-    v1 = Core.camera.unproject(Mathf.random()*Core.camera.width, Mathf.random()*Core.camera.height);
-    tile = Vars.world.tileWorld(v1.x, v1.y);
-    if(tile!=null && sparkling.indexOf(tile.overlay().name)>-1) Effects.effect(sparkleFx[sparkling.indexOf(tile.overlay().name)], tile.worldx(), tile.worldy());
+    for(var i=0;i<4;i++){
+      v1 = Core.camera.unproject(Mathf.random()*Core.graphics.getWidth(), Mathf.random()*Core.graphics.getHeight());
+      tile = Vars.world.tileWorld(v1.x, v1.y);
+      if(tile!=null && sparkling.indexOf(tile.overlay().name)>-1) Effects.effect(sparkleFx[sparkling.indexOf(tile.overlay().name)], tile.worldx(), tile.worldy());
+    }
   }
 }));
