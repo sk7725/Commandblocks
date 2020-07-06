@@ -52,7 +52,6 @@ const fxtester=extendContent(Block,"fxtester",{
       tile.ent().trigLong();
       lb.replaceImage((tile.ent().getLong())?Icon.commandRally:Icon.commandRallySmall);
     })).get();
-    lb.size(40);
     table.addImageButton(Icon.star, Styles.clearTransi, run(() => {
       tile.ent().setErr("");
       var tmpobj = {};
