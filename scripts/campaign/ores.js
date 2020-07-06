@@ -45,7 +45,7 @@ const codeFx = newEffect(25, e => {
 const deposcalar = extendContent(OreBlock, "depo-scalar", {
   draw(tile){
     this.super$draw(tile);
-    if(!Vars.state.isPaused()&&Mathf.chance(0.05)) Effects.effect(scalarFx, tile.world(), tile.worldy());
+    if(!Vars.state.isPaused()&&Mathf.chance(0.05)) Effects.effect(scalarFx, tile.worldx(), tile.worldy());
   }
 });
 //deposcalar.updateEffect = scalarFx;
@@ -53,7 +53,7 @@ const deposcalar = extendContent(OreBlock, "depo-scalar", {
 const depovector = extendContent(OreBlock, "depo-vector", {
   draw(tile){
     this.super$draw(tile);
-    if(!Vars.state.isPaused()&&Mathf.chance(0.06)) Effects.effect(vectorFx, tile.world(), tile.worldy());
+    if(!Vars.state.isPaused()&&Mathf.chance(0.06)) Effects.effect(vectorFx, tile.worldx(), tile.worldy());
   }
 });
 //depovector.updateEffect = vectorFx;
@@ -61,7 +61,7 @@ const depovector = extendContent(OreBlock, "depo-vector", {
 const depozeta = extendContent(OreBlock, "depo-zeta", {
   draw(tile){
     this.super$draw(tile);
-    if(!Vars.state.isPaused()&&Mathf.chance(0.06)) Effects.effect(zetaFx, tile.world(), tile.worldy());
+    if(!Vars.state.isPaused()&&Mathf.chance(0.06)) Effects.effect(zetaFx, tile.worldx(), tile.worldy());
   }
 });
 //depozeta.updateEffect = zetaFx;
@@ -69,7 +69,7 @@ const depozeta = extendContent(OreBlock, "depo-zeta", {
 const depocode = extendContent(OreBlock, "depo-code", {
   draw(tile){
     this.super$draw(tile);
-    if(!Vars.state.isPaused()&&Mathf.chance(0.07)) Effects.effect(codeFx, tile.world(), tile.worldy());
+    if(!Vars.state.isPaused()&&Mathf.chance(0.07)) Effects.effect(codeFx, tile.worldx(), tile.worldy());
   }
 });
 //depocode.updateEffect = codeFx;
