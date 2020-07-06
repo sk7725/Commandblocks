@@ -22,26 +22,26 @@ function drawBit(bit, x, y, size, stroke){
 
 const scalarFx = newEffect(45, e => {
   Draw.color(colors.scalar);
-  Angles.randLenVectors(e.id, 5, 7+5*e.fin(), floatc2((x,y) => {
+  Angles.randLenVectors(e.id, 3, 7+5*e.fin(), floatc2((x,y) => {
     Fill.circle(e.x+x, e.y+y, e.fout()*0.9);
   }));
 });
 const vectorFx = newEffect(45, e => {
   Draw.color(colors.vector);
-  Angles.randLenVectors(e.id, 5, 7+5*e.fin(), floatc2((x,y) => {
+  Angles.randLenVectors(e.id, 3, 7+5*e.fin(), floatc2((x,y) => {
     Drawf.tri(e.x+x, e.y+y, e.fout()*2.7, e.fout()*2.7, e.x%5*36*e.fin());
   }));
 });
 const zetaFx = newEffect(45, e => {
   Draw.color(colors.zeta);
   Lines.stroke(e.fout());
-  Angles.randLenVectors(e.id, 6, 7+5*e.fin(), floatc2((x,y) => {
+  Angles.randLenVectors(e.id, 5, 7+5*e.fin(), floatc2((x,y) => {
     Lines.poly(e.x+x, e.y+y, 4, e.fin()*0.6+0.3);
   }));
 });
 const codeFx = newEffect(45, e => {
   Draw.color(colors.code);
-  Angles.randLenVectors(e.id, 7, 7+5*e.fin(), floatc2((x,y) => {
+  Angles.randLenVectors(e.id, 6, 7+5*e.fin(), floatc2((x,y) => {
     drawBit(e.id%2, e.x+x, e.y+y, 1, e.fout());
   }));
 });
