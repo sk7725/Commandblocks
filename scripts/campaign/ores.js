@@ -4,7 +4,7 @@ if (typeof(floatc2)== "undefined"){
 
 const colors = {
   scalar: Color.valueOf("f5ddf3"),
-  vector: Color.valueOf("bfccfa"),
+  vector: Color.valueOf("cfddff"),
   zeta: Color.valueOf("82ffe8"),
   code: Color.valueOf("5eff79")
 };
