@@ -69,7 +69,7 @@ const sparkleFx = [scalarFx, vectorFx, zetaFx, codeFx];
 
 var v1 = new Vec2(0,0);
 Events.on(EventType.Trigger.update, run(function(){
-  if(Vars.state.is(Vars.state.State.playing)){
+  if(Vars.state.is(GameState.State.playing)){
     v1 = Core.camera.unproject(Mathf.random()*Core.camera.width, Mathf.random()*Core.camera.height);
     var tile = Vars.world.tileWorld(v1.x, v1.y);;
     print(v1+"|"+tile);
