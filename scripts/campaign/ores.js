@@ -70,7 +70,7 @@ const sparkleFx = [scalarFx, vectorFx, zetaFx, codeFx];
 var v1 = new Vec2(0,0);
 Events.on(EventType.Trigger.update, run(function(){
 	v1 = Core.camera.unproject(Mathf.random()*Core.camera.width, Mathf.random()*Core.camera.height);
-  var tile = Vars.world.tileWorld(v1.x, v1.y);
-  if(tile == null) return;
-  if(sparkling.indexOf(tile.overlay().name)>-1) Effects.effect(sparkleFx[sparkling.indexOf(tile.overlay().name)], tile.x, tile.y);
+  var tile = Vars.world.tileWorld(v1.x, v1.y);;
+  print(v1+"|"+tile);
+  if(tile!=null && sparkling.indexOf(tile.overlay().name)>-1) Effects.effect(sparkleFx[sparkling.indexOf(tile.overlay().name)], tile.x, tile.y);
 }));
