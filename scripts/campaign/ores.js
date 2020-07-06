@@ -4,7 +4,7 @@ if (typeof(floatc2)== "undefined"){
 
 const colors = {
   scalar: Color.valueOf("f5bbf1"),
-  vactor: Color.valueOf("7f9cfa"),
+  vector: Color.valueOf("7f9cfa"),
   zeta: Color.valueOf("82ffe8"),
   code: Color.valueOf("5eff79")
 };
@@ -71,8 +71,16 @@ var v1 = new Vec2(0,0);
 Events.on(EventType.Trigger.update, run(function(){
   if(Vars.state.is(GameState.State.playing)){
     v1 = Core.camera.unproject(Mathf.random()*Core.camera.width, Mathf.random()*Core.camera.height);
-    var tile = Vars.world.tileWorld(v1.x, v1.y);;
-    print(v1+"|"+tile);
+    var tile = Vars.world.tileWorld(v1.x, v1.y);
+    //print(v1+"|"+tile);
+    if(tile!=null && sparkling.indexOf(tile.overlay().name)>-1) Effects.effect(sparkleFx[sparkling.indexOf(tile.overlay().name)], tile.worldx(), tile.worldy());
+
+    v1 = Core.camera.unproject(Mathf.random()*Core.camera.width, Mathf.random()*Core.camera.height);
+    tile = Vars.world.tileWorld(v1.x, v1.y);
+    if(tile!=null && sparkling.indexOf(tile.overlay().name)>-1) Effects.effect(sparkleFx[sparkling.indexOf(tile.overlay().name)], tile.worldx(), tile.worldy());
+    
+    v1 = Core.camera.unproject(Mathf.random()*Core.camera.width, Mathf.random()*Core.camera.height);
+    tile = Vars.world.tileWorld(v1.x, v1.y);
     if(tile!=null && sparkling.indexOf(tile.overlay().name)>-1) Effects.effect(sparkleFx[sparkling.indexOf(tile.overlay().name)], tile.worldx(), tile.worldy());
   }
 }));
