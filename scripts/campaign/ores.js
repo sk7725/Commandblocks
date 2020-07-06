@@ -29,7 +29,7 @@ function drawSpark(x, y, size, width, r){
 
 
 
-const scalarFx = newEffect(45, e => {
+const scalarFx = newEffect(55, e => {
   Draw.color(colors.scalar);
   var i=1;
   Angles.randLenVectors(e.id, e.id%3+1, 8, floatc2((x,y) => {
@@ -37,7 +37,7 @@ const scalarFx = newEffect(45, e => {
     i++;
   }));
 });
-const vectorFx = newEffect(45, e => {
+const vectorFx = newEffect(55, e => {
   Draw.color(colors.vector);
   var i=1;
   Angles.randLenVectors(e.id, e.id%3+1, 8, floatc2((x,y) => {
@@ -45,14 +45,14 @@ const vectorFx = newEffect(45, e => {
     i++;
   }));
 });
-const zetaFx = newEffect(50, e => {
+const zetaFx = newEffect(60, e => {
   Draw.color(colors.zeta);
   Lines.stroke(e.fout());
   Angles.randLenVectors(e.id, 4, 7+5*e.fin(), floatc2((x,y) => {
     Lines.poly(e.x+x, e.y+y, 4, e.fin()*0.6+0.45);
   }));
 });
-const codeFx = newEffect(50, e => {
+const codeFx = newEffect(60, e => {
   Draw.color(colors.code);
   var i=e.id;
   Angles.randLenVectors(e.id, 5, 7+5*e.fin(), floatc2((x,y) => {
