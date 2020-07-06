@@ -3,9 +3,9 @@ breakable: true
 update: true
 category: production
 requirements: [
-  lead/20
-  silicon/25
-  blast-compound/50
+  lead/10
+  silicon/12
+  blast-compound/25
 ]
 sync: true
 consumes: {

@@ -3,9 +3,9 @@ breakable: true
 update: true
 category: production
 requirements: [
-  thorium/90
-  blast-compound/210
-  ref-vector/60
+  thorium/45
+  blast-compound/100
+  ref-vector/30
 ]
 sync: true
 consumes: {
