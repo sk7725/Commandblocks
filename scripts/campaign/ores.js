@@ -1,3 +1,7 @@
+if (typeof(floatc2)== "undefined"){
+  const floatc2 = method => new Floatc2(){get : method};
+}
+
 const colors = {
   scalar: Color.valueOf("f5bbf1"),
   vactor: Color.valueOf("7f9cfa"),
