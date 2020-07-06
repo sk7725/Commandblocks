@@ -51,7 +51,7 @@ const fxtester=extendContent(Block,"fxtester",{
     const lb = table.addImageButton((tile.ent().getLong())?Icon.commandRally:Icon.commandRallySmall, Styles.clearTransi, 40, run(() => {
       try{
         tile.ent().trigLong();
-        lb.replaceImage((tile.ent().getLong())?Icon.commandRally:Icon.commandRallySmall);
+        lb.replaceImage(Image((tile.ent().getLong())?Icon.commandRally:Icon.commandRallySmall));
       }
       catch(err){
         print(err);
