@@ -93,5 +93,6 @@ require("sandbox/tabletester");
 require("sandbox/jstester");
 require("sandbox/fxtester");
 
+require("campaign/ores");
 require("campaign/explosive");
 require("campaign/explosivelarge");
