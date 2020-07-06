@@ -64,8 +64,6 @@ const tabletester=extendContent(Block,"tabletester",{
   }
 });
 
-//by Summet
-
 //shadertester.maxTextLength=1300;
 //shadertester.maxNewlines=50;
 tabletester.entityType = prov(() => extend(TileEntity , {

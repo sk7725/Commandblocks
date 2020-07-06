@@ -53,8 +53,6 @@ const drawtester=extendContent(Block,"drawtester",{
   }
 });
 
-//by Summet
-
 //shadertester.maxTextLength=1300;
 //shadertester.maxNewlines=50;
 drawtester.entityType = prov(() => extend(TileEntity , {

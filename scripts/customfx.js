@@ -27,6 +27,24 @@ function newGroundEffect(lifetime, staticLife, renderer){
 }
 
 this.global.fx = {
+  evalfx : newEffect(30, e => {
+    if(e.data == null || !e.data.text || !e.data.parent) return;
+    try{
+      eval(e.data.text);
+    }
+    catch(err){
+      e.data.parent.setErr(err);
+    }
+  }),
+  evalfxLong : newEffect(90, e => {
+    if(e.data == null || !e.data.text || !e.data.parent) return;
+    try{
+      eval(e.data.text);
+    }
+    catch(err){
+      e.data.parent.setErr(err);
+    }
+  }),
   draw : newGroundEffect(0, 1, e => {
     if(e.data == null) return;
     try{

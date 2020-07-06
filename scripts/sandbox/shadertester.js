@@ -89,8 +89,6 @@ const shadertester=extendContent(Block,"shadertester",{
   }
 });
 
-//by Summet
-
 //shadertester.maxTextLength=1300;
 //shadertester.maxNewlines=50;
 shadertester.entityType = prov(() => extend(TileEntity , {
