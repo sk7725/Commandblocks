@@ -48,9 +48,14 @@ const fxtester=extendContent(Block,"fxtester",{
             dialog.show();
         }
     })).size(40);
-    const lb = table.addImageButton((tile.ent().getLong())?Icon.commandRally:Icon.commandRallySmall, Styles.clearTransi, run(() => {
-      tile.ent().trigLong();
-      lb.replaceImage((tile.ent().getLong())?Icon.commandRally:Icon.commandRallySmall);
+    const lb = table.addImageButton((tile.ent().getLong())?Icon.commandRally:Icon.commandRallySmall, Styles.clearTransi, 40, run(() => {
+      try{
+        tile.ent().trigLong();
+        lb.replaceImage((tile.ent().getLong())?Icon.commandRally:Icon.commandRallySmall);
+      }
+      catch(err){
+        print(err);
+      }
     })).get();
     table.addImageButton(Icon.star, Styles.clearTransi, run(() => {
       tile.ent().setErr("");
