@@ -68,7 +68,7 @@ const depocode = extendContent(OreBlock, "depo-code", {
 */
 const sparkling = ["commandblocks-depo-scalar", "commandblocks-depo-vector", "commandblocks-depo-zeta", "commandblocks-depo-code"];
 const sparkleFx = [scalarFx, vectorFx, zetaFx, codeFx];
-const thresh = (Vars.mobile)?2:4;
+const thresh = (Vars.mobile)?3:4;
 
 var v1 = new Vec2(0,0); var tile = null;
 Events.on(EventType.Trigger.update, run(function(){
