@@ -4,7 +4,7 @@ if (typeof(floatc2)== "undefined"){
 
 const colors = {
   scalar: Color.valueOf("f5ddf3"),
-  vector: Color.valueOf("afbcfa"),
+  vector: Color.valueOf("bfccfa"),
   zeta: Color.valueOf("82ffe8"),
   code: Color.valueOf("5eff79")
 };
@@ -20,16 +20,29 @@ function drawBit(bit, x, y, size, stroke){
   }
 }
 
+function drawSpark(x, y, size, width, r){
+  Drawf.tri(x, y, width, size, r);
+  Drawf.tri(x, y, width, size, r+180);
+  Drawf.tri(x, y, width, size, r+90);
+  Drawf.tri(x, y, width, size, r+270);
+}
+
+
+
 const scalarFx = newEffect(45, e => {
   Draw.color(colors.scalar);
-  Angles.randLenVectors(e.id, 2, 7+5*e.fin(), floatc2((x,y) => {
-    Fill.circle(e.x+x, e.y+y, e.fout()*0.9);
+  var i=1;
+  Angles.randLenVectors(e.id, e.id%3+1, 8, floatc2((x,y) => {
+    drawSpark(e.x+x, e.y+y, e.fout()*2.5, 0.5+e.fout(), e.id*i);
+    i++;
   }));
 });
 const vectorFx = newEffect(45, e => {
   Draw.color(colors.vector);
-  Angles.randLenVectors(e.id, 3, 7+5*e.fin(), floatc2((x,y) => {
-    Drawf.tri(e.x+x, e.y+y, e.fout()*2.7, e.fout()*2.7, e.x%5*36*e.fin());
+  var i=1;
+  Angles.randLenVectors(e.id, e.id%3+1, 8, floatc2((x,y) => {
+    drawSpark(e.x+x, e.y+y, e.fout()*2.5, 0.5+e.fout(), e.id*i);
+    i++;
   }));
 });
 const zetaFx = newEffect(50, e => {
