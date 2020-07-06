@@ -42,15 +42,35 @@ const codeFx = newEffect(25, e => {
   }));
 });
 
-const deposcalar = extendContent(OreBlock, "depo-scalar", {});
-deposcalar.updateEffect = scalarFx;
-deposcalar.walkEffect = scalarFx;
-const depovector = extendContent(OreBlock, "depo-vector", {});
-depovector.updateEffect = vectorFx;
-depovector.walkEffect = vectorFx;
-const depozeta = extendContent(OreBlock, "depo-zeta", {});
-depozeta.updateEffect = zetaFx;
-depozeta.walkEffect = zetaFx;
-const depocode = extendContent(OreBlock, "depo-code", {});
-depocode.updateEffect = codeFx;
-depocode.walkEffect = codeFx;
+const deposcalar = extendContent(OreBlock, "depo-scalar", {
+  draw(tile){
+    this.super$draw(tile);
+    if(!Vars.state.isPaused()&&Mathf.chance(0.05)) Effects.effect(scalarFx, tile.world(), tile.worldy());
+  }
+});
+//deposcalar.updateEffect = scalarFx;
+//deposcalar.walkEffect = scalarFx;
+const depovector = extendContent(OreBlock, "depo-vector", {
+  draw(tile){
+    this.super$draw(tile);
+    if(!Vars.state.isPaused()&&Mathf.chance(0.06)) Effects.effect(vectorFx, tile.world(), tile.worldy());
+  }
+});
+//depovector.updateEffect = vectorFx;
+//depovector.walkEffect = vectorFx;
+const depozeta = extendContent(OreBlock, "depo-zeta", {
+  draw(tile){
+    this.super$draw(tile);
+    if(!Vars.state.isPaused()&&Mathf.chance(0.06)) Effects.effect(zetaFx, tile.world(), tile.worldy());
+  }
+});
+//depozeta.updateEffect = zetaFx;
+//depozeta.walkEffect = zetaFx;
+const depocode = extendContent(OreBlock, "depo-code", {
+  draw(tile){
+    this.super$draw(tile);
+    if(!Vars.state.isPaused()&&Mathf.chance(0.07)) Effects.effect(codeFx, tile.world(), tile.worldy());
+  }
+});
+//depocode.updateEffect = codeFx;
+//depocode.walkEffect = codeFx;
