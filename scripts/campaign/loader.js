@@ -1,7 +1,7 @@
 const loader=extendContent(Block, "loader",{
   canYeet(tile, other, item){
     if(other == null || other.ent() == null || !other.block().hasItems || !other.block().unloadable) return false;
-    if(other.ent().items.get(item) < other.block().getMaximumAccepted(other, item) || ((other.block() instanceof CoreBlock) && other.ent().items.get(item) < other.ent().storageCapacity)) return true;
+    if(other.ent().items.get(item) < other.block().getMaximumAccepted(other, item) || ((other.block() instanceof CoreBlock) && other.ent().items.get(item) < other.block().getMaximumAccepted(other, Items.copper))) return true;//cheaty hack
     return false;
   },
   yeetItem(tile, other, item){
