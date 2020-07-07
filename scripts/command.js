@@ -589,7 +589,7 @@ const commandblocks={
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
             var ctile=Vars.world.tile(cx,cy);
-            if(ctile.block()==Blocks[cblock]) throw "Cannot set the block";
+            if(ctile.block()==cblock) throw "Cannot set the block";
             if(args.length<=5||args[5]=="replace"||args[5]=="build"||args[5]=="destroy"||(args[5]=="keep"&&ctile.block()=="air")){
               //if(args.length==3) Vars.world.tile(cx, cy).setNet(cblock, cteam, crot);
               if(args.length==4){
