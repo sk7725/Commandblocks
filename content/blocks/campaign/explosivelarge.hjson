@@ -19,3 +19,4 @@ timers: 1
 consumesTap: false
 baseExplosiveness: 18
 rebuildable: false
+research: explosive

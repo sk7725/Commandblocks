@@ -19,3 +19,4 @@ timers: 1
 consumesTap: true
 baseExplosiveness: 8
 rebuildable: false
+research: thorium-reactor
