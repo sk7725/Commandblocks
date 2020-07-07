@@ -1,6 +1,6 @@
 const loader=extendContent(Block, "loader",{
   canYeet(tile, other, item){
-    if(other == null || other.ent() == null || !other.block().hasItems || !other.block().unloadable || other.ent().items.get(item)<other.block().getMaximumAccepted(other, item)) return false;
+    if(other == null || other.ent() == null || !other.block().hasItems || !other.block().unloadable || other.ent().items.get(item)>=other.block().getMaximumAccepted(other, item)) return false;
     return true;
   },
   yeetItem(tile, other, item){
