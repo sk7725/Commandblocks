@@ -1,10 +1,13 @@
+//INIT
 require("commandblocks/init");
 //require("collisions");
 require("shaders");
 
+//UNITS
 require("units/armorstand");
 require("units/gamesoccerball");
 
+//CUSTOM ASSETS
 require("customsounds");
 require("customfx");
 require("customb");
@@ -12,8 +15,16 @@ require("customb");
 require("command");
 //require("commandargs");
 
+//CAMPAIGN
+require("campaign/ores");
+require("campaign/explosive");
+require("campaign/explosivelarge");
+require("campaign/loader");
+
+//SERVER
 require("msgprotected");
 
+//SANDBOX
 require("commandb");
 require("legacy/commandblock");
 require("legacy/commandblockrepeating");
@@ -28,6 +39,7 @@ require("posreaderjson");
 require("unitreader");
 require("unitcacher");
 
+//WALLS
 require("walls/wallzeta");
 require("walls/wallzetalarge");
 require("walls/wallspace");
@@ -40,6 +52,7 @@ require("walls/magicwalllarge");
 require("walls/camwall");
 require("walls/camwalldir");
 
+//ETC
 require("playernote");
 require("playertune");
 require("playermusic");
@@ -84,15 +97,13 @@ require("gameyoot");
 
 require("buttongg");
 
+//SKILLS
 require("skills");
 require("researchskill");
 
+//TESTERS
 require("sandbox/shadertester");
 require("sandbox/drawtester");
 require("sandbox/tabletester");
 require("sandbox/jstester");
 require("sandbox/fxtester");
-
-require("campaign/ores");
-require("campaign/explosive");
-require("campaign/explosivelarge");
