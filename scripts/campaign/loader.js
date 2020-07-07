@@ -1,5 +1,6 @@
 const loader=extendContent(Block, "loader",{
   canYeet(tile, other, item){
+    if(other == null || other.ent() == null || !other.block().hasItems || !other.block().unloadable || other.ent().items.get(item)<other.block().getMaximumAccepted(other, item)) return false;
     return true;
   },
   yeetItem(tile, other, item){
@@ -17,7 +18,7 @@ const loader=extendContent(Block, "loader",{
   },
   draw(tile){
     Draw.rect(this.region, tile.drawx(), tile.drawy());
-    Draw.rect(this.topRegion, tile.drawx(), tile.drawy(), tile.rotation());
+    Draw.rect(this.topRegion, tile.drawx(), tile.drawy(), tile.rotation()*90);
   },
   load(){
     this.super$load();
