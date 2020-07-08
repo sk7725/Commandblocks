@@ -1,3 +1,4 @@
+var t = this;
 const tabletester=extendContent(Block,"tabletester",{
   dialog: null,
   load(){
