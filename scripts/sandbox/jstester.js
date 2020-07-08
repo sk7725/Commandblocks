@@ -1,3 +1,4 @@
+var t = this;
 const jstester=extendContent(Block,"jstester",{
   load(){
     this.super$load();
@@ -29,7 +30,7 @@ const jstester=extendContent(Block,"jstester",{
 
         } else {
             // Create dialog
-            const dialog = new FloatingDialog("Table");
+            const dialog = new FloatingDialog("JS");
             dialog.setFillParent(false);
 
             // Add text area to dialog
