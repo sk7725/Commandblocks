@@ -1,4 +1,5 @@
 const customfx = this.global.fx;
+var t = this;
 
 const fxtester=extendContent(Block,"fxtester",{
   load(){
@@ -31,7 +32,7 @@ const fxtester=extendContent(Block,"fxtester",{
 
         } else {
             // Create dialog
-            const dialog = new FloatingDialog("Table");
+            const dialog = new FloatingDialog("Effect");
             dialog.setFillParent(false);
 
             // Add text area to dialog
