@@ -1,3 +1,4 @@
+var t = this;
 const drawtester=extendContent(Block,"drawtester",{
   draw(tile){
     try{
