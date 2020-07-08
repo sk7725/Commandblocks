@@ -1,6 +1,6 @@
 const loader=extendContent(Block, "loader",{
   canYeet(tile, other, item){
-    if(other == null || other.ent() == null || !other.block().hasItems || !other.block().unloadable) return false;
+    if(other == null || other.ent() == null || !other.block().hasItems || !other.block().unloadable || other.block() instanceof Turret) return false;
     if(other.ent().items.get(item) < other.block().getMaximumAccepted(other, item) || ((other.block() instanceof CoreBlock) && other.ent().items.get(item) < other.block().getMaximumAccepted(other, Items.copper))) return true;//cheaty hack
     return false;
   },
