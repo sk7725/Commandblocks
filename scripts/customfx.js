@@ -1,3 +1,4 @@
+var t = this;
 var shieldColor = Color.valueOf("ffd37f").a(0.7);
 const shieldInColor = Color.black.cpy().a(0);
 const spaceshader = this.global.shaders.space;
