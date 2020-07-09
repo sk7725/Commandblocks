@@ -43,6 +43,7 @@ const campfire=extendContent(Block, "campfire",{
     return tile.ent().items.total()>0;
   },
   drawLight(tile){
+    if(tile.ent().items.total() <= 0) return;
     this.color1 = Pal.lightFlame;
     var index = fireitem.indexOf(tile.ent().items.first().name);
     if(index > -1){
