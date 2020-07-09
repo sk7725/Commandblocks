@@ -20,6 +20,7 @@ require("campaign/ores");
 require("campaign/explosive");
 require("campaign/explosivelarge");
 require("campaign/loader");
+require("campaign/campfire");
 
 //SERVER
 require("msgprotected");

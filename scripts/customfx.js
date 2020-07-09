@@ -229,5 +229,12 @@ this.global.fx = {
     Draw.color(Color.gray, Pal.darkishGray.cpy().a(0), e.fin());
     var size = 7 + e.fin()*8;
     Draw.rect("circle", e.x+e.fin()*26, e.y+e.fin()*30, size, size);
+  }),
+  campfire : newEffect(90, e => {
+    if(e.data == null) return;
+    Angles.randLenVectors(e.id, e.id%3+1, 0.5+4*e.fin(), floatc2((x,y) => {
+      Draw.color(e.color, e.data, y*y);
+      Fill.circle(e.x+x, e.y+Math.abs(y*10)+e.fin()*3, e.fout()*8);
+    }));
   })
 };
