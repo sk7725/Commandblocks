@@ -234,7 +234,7 @@ this.global.fx = {
     if(e.data == null) return;
     Angles.randLenVectors(e.id, e.id%3+1, 0.5+4*e.fin(), floatc2((x,y) => {
       Draw.color(e.color, e.data, y*y);
-      Fill.circle(e.x+x, e.y+Math.abs(y*10)+e.fin()*3, e.fout()*8);
+      Fill.circle(e.x+x, e.y+Math.abs(y*10)+e.fin()*3, e.fout()*(5+(e.id%4)*0.5));
     }));
   })
 };

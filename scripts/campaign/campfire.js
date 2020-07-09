@@ -27,7 +27,7 @@ const campfire=extendContent(Block, "campfire",{
   },
   update(tile){
     if(tile.ent().items.total() <= 0) return;
-    if(!Vars.net.client()&&Mathf.chance(0.005)) tile.configure(1);
+
     this.color1 = Pal.lightFlame;
     this.color2 = Pal.darkFlame;
     var index = fireitem.indexOf(tile.ent().items.first().name);
@@ -36,6 +36,8 @@ const campfire=extendContent(Block, "campfire",{
       this.color2 = firecolor[index].cpy().mul(0.25, 0.2, 0.2, 1);
     }
     Effects.effect(customfx.campfire, this.color1, tile.drawx(), tile.drawy(), 0, this.color2);
+    
+    if(!Vars.net.client()&&Mathf.chance(0.005)) tile.configure(1);
   },
   shouldActiveSound(tile){
     return tile.ent().items.total()>0;
