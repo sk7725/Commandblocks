@@ -232,7 +232,7 @@ this.global.fx = {
     var size = 7 + e.fin()*8;
     Draw.rect("circle", e.x+e.fin()*26, e.y+e.fin()*30, size, size);
   }),
-  campfire : newEffect(90, e => {
+  campfire : newEffectSize(90, 50, e => {
     if(e.data == null) return;
     Angles.randLenVectors(e.id, e.id%3+1, 0.5+4*e.fin(), floatc2((x,y) => {
       Draw.color(e.color, e.data, y*y);
