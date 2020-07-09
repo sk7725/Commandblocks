@@ -33,7 +33,7 @@ const campfire=extendContent(Block, "campfire",{
     var index = fireitem.indexOf(tile.ent().items.first().name);
     if(index > -1){
       this.color1 = firecolor[index];
-      this.color2 = firecolor[index].cpy().mul(0.45, 0.4, 0.4, 1);
+      this.color2 = firecolor[index].cpy().mul(0.55, 0.5, 0.5, 1);
     }
     Effects.effect(customfx.campfire, this.color1, tile.drawx(), tile.drawy(), 0, this.color2);
 
