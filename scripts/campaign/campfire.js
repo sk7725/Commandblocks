@@ -1,6 +1,6 @@
 const customfx = this.global.fx;
-const fireitem = ["copper", "plastanium", "surge-alloy", "lead", "pyratite", "silicon"];
-const firecolor = [Color.valueOf("66ffbf"), Pal.plastanium, Pal.surge, Color.valueOf("c2fcff"), Pal.lightPyraFlame, Color.white];
+const fireitem = ["copper", "plastanium", "surge-alloy", "lead", "pyratite", "silicon", "commandblocks-ore-scalar", "commandblocks-ore-vector", "commandblocks-ore-zeta", "commandblocks-piece-code"];
+const firecolor = [Color.valueOf("66ffbf"), Pal.plastanium, Pal.surge, Color.valueOf("c2fcff"), Pal.lightPyraFlame, Color.white, Color.valueOf("f5ddf3"), Color.valueOf("cfddff"), Color.valueOf("82ffe8"), Color.valueOf("5eff79")];
 
 const campfire=extendContent(Block, "campfire",{
   draw(tile){
