@@ -1,6 +1,6 @@
 const customfx = this.global.fx;
-const fireitem = ["copper", "plastanium", "surge-alloy", "lead", "pyratite", "silicon", "commandblocks-ore-scalar", "commandblocks-ore-vector", "commandblocks-ore-zeta", "commandblocks-piece-code"];
-const firecolor = [Color.valueOf("66ffbf"), Pal.plastanium, Pal.surge, Color.valueOf("c2fcff"), Pal.lightPyraFlame, Color.white, Color.valueOf("f5ddf3"), Color.valueOf("cfddff"), Color.valueOf("82ffe8"), Color.valueOf("5eff79")];
+const fireitem = ["copper", "plastanium", "surge-alloy", "lead", "pyratite", "silicon", "commandblocks-ore-scalar", "commandblocks-ore-vector", "commandblocks-ore-zeta", "commandblocks-piece-code", "scrap", "commandblocks-bittrium"];
+const firecolor = [Color.valueOf("66ffbf"), Pal.plastanium, Pal.surge, Color.valueOf("c2fcff"), Pal.lightPyraFlame, Color.white, Color.valueOf("f5ddf3"), Color.valueOf("cfddff"), Color.valueOf("82ffe8"), Color.valueOf("5eff79"), Color.valueOf("ff4a80"), Color.valueOf("00ffff")];
 
 const campfire=extendContent(Block, "campfire",{
   draw(tile){
@@ -41,6 +41,14 @@ const campfire=extendContent(Block, "campfire",{
   },
   shouldActiveSound(tile){
     return tile.ent().items.total()>0;
+  },
+  drawLight(tile){
+    this.color1 = Pal.lightFlame;
+    var index = fireitem.indexOf(tile.ent().items.first().name);
+    if(index > -1){
+      this.color1 = firecolor[index];
+    }
+    Vars.renderer.lights.add(tile.drawx(), tile.drawy(), 400, Tmp.c1.set(this.color1), (tile.ent().items.total()>0)?Mathf.random()*0.3+0.7:0);
   }
 });
 
