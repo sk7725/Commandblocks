@@ -35,7 +35,7 @@ const campfire=extendContent(Block, "campfire",{
       this.color1 = firecolor[index];
       this.color2 = firecolor[index].cpy().mul(0.25, 0.2, 0.2, 1);
     }
-    Effects.effect(customfx.campfire, color1, tile.drawx(), tile.drawy(), 0, color2);
+    Effects.effect(customfx.campfire, this.color1, tile.drawx(), tile.drawy(), 0, this.color2);
   },
   shouldActiveSound(tile){
     return tile.ent().items.total()>0;
