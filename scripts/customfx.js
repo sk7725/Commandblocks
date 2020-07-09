@@ -27,7 +27,7 @@ function newGroundEffect(lifetime, staticLife, renderer){
   return new GroundEffectEntity.GroundEffect(lifetime, staticLife, new Effects.EffectRenderer({render: renderer}));
 }
 //thanks to EyeofDarkness(aka Darky Daddy)
-const newEffectSize = (life, size, renderer) => new Effects.Effect(lifetime, drawDst, new Effects.EffectRenderer({render: renderer}));
+const newEffectSize = (life, size, renderer) => new Effects.Effect(life, drawDst, new Effects.EffectRenderer({render: renderer}));
 
 this.global.fx = {
   evalfx : newEffect(30, e => {
