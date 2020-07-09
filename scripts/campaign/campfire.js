@@ -6,8 +6,7 @@ const campfire=extendContent(Block, "campfire",{
   draw(tile){
     Draw.rect(this.region, tile.drawx(), tile.drawy());
     if(tile.ent().items.total() <= 0) return;
-    var amount = Mathf.floorPositive(tile.ent().items.total()/15);
-    if(amount>2) amount = 2;
+    var amount = Math.max(Mathf.floorPositive(tile.ent().items.total()/15), 2);
     Draw.rect(this.topRegion[amount], tile.drawx(), tile.drawy(), tile.rotation()*90);
 
     this.spawnFire(tile);
@@ -33,13 +32,13 @@ const campfire=extendContent(Block, "campfire",{
     this.color1 = Pal.lightFlame;
     this.color2 = Pal.darkFlame;
   },
-  configured(tile, player, value){
-    if(value != 1 || tile.ent().items.total() <= 0) return;
-    var item = tile.ent().items.first();
-    tile.ent().items.remove(item, 1);
-  },
   update(tile){
-    if(!Vars.net.client()&&Mathf.chance(0.005)) tile.configure(1);
+    if((!Vars.net.active() || Vars.net.server()) && Mathf.chance(0.005)){
+		var items = tile.ent().items;
+		if(items.total() > 0){
+			items.remove(items.first(), 1);
+		}
+	}
   },
   shouldActiveSound(tile){
     return tile.ent().items.total()>0;
@@ -54,6 +53,7 @@ const campfire=extendContent(Block, "campfire",{
     Vars.renderer.lights.add(tile.drawx(), tile.drawy(), 170+10*Mathf.random(), this.color1, (tile.ent().items.total()>0)?0.9:0);
   }
 });
+campfire.sync = true;
 
 /*
 loader.entityType=prov(() => extendContent(Router.RouterEntity , loader , {
