@@ -5,7 +5,7 @@ const firecolor = [Color.valueOf("66ffbf"), Pal.plastanium, Pal.surge, Color.val
 const campfire=extendContent(Block, "campfire",{
   draw(tile){
     Draw.rect(this.region, tile.drawx(), tile.drawy());
-    if(!tile.ent().cons.valid()) return;
+    if(tile.ent().items.total() <= 0) return;
     var amount = Mathf.floorPositive(tile.ent().items.total()/15);
     if(amount>2) amount = 2;
     Draw.rect(this.topRegion[amount], tile.drawx(), tile.drawy(), tile.rotation()*90);
