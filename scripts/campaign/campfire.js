@@ -13,7 +13,6 @@ const campfire=extendContent(Block, "campfire",{
     this.spawnFire(tile);
   },
   spawnFire(tile){
-    if(tile.ent().items.total() <= 0) return;
 
     this.color1 = Pal.lightFlame;
     this.color2 = Pal.darkFlame;
