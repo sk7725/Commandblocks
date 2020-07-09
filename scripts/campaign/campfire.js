@@ -49,7 +49,7 @@ const campfire=extendContent(Block, "campfire",{
     if(index > -1){
       this.color1 = firecolor[index];
     }
-    Vars.renderer.lights.add(tile.drawx(), tile.drawy(), 400, Tmp.c1.set(this.color1), (tile.ent().items.total()>0)?Mathf.random()*0.3+0.7:0);
+    Vars.renderer.lights.add(tile.drawx(), tile.drawy(), 230+10*Mathf.random(), Tmp.c1.set(this.color1), (tile.ent().items.total()>0)?0.9:0);
   }
 });
 
