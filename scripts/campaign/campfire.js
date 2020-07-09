@@ -9,6 +9,20 @@ const campfire=extendContent(Block, "campfire",{
     var amount = Mathf.floorPositive(tile.ent().items.total()/15);
     if(amount>2) amount = 2;
     Draw.rect(this.topRegion[amount], tile.drawx(), tile.drawy(), tile.rotation()*90);
+
+    this.spawnFire(tile);
+  },
+  spawnFire(tile){
+    if(tile.ent().items.total() <= 0) return;
+
+    this.color1 = Pal.lightFlame;
+    this.color2 = Pal.darkFlame;
+    var index = fireitem.indexOf(tile.ent().items.first().name);
+    if(index > -1){
+      this.color1 = firecolor[index];
+      this.color2 = firecolor[index].cpy().mul(0.55, 0.5, 0.5, 1);
+    }
+    Effects.effect(customfx.campfire, this.color1, tile.drawx(), tile.drawy(), 0, this.color2);
   },
   load(){
     this.super$load();
@@ -26,17 +40,6 @@ const campfire=extendContent(Block, "campfire",{
     tile.ent().items.remove(item, 1);
   },
   update(tile){
-    if(tile.ent().items.total() <= 0) return;
-
-    this.color1 = Pal.lightFlame;
-    this.color2 = Pal.darkFlame;
-    var index = fireitem.indexOf(tile.ent().items.first().name);
-    if(index > -1){
-      this.color1 = firecolor[index];
-      this.color2 = firecolor[index].cpy().mul(0.55, 0.5, 0.5, 1);
-    }
-    Effects.effect(customfx.campfire, this.color1, tile.drawx(), tile.drawy(), 0, this.color2);
-
     if(!Vars.net.client()&&Mathf.chance(0.005)) tile.configure(1);
   },
   shouldActiveSound(tile){
@@ -49,7 +52,7 @@ const campfire=extendContent(Block, "campfire",{
     if(index > -1){
       this.color1 = firecolor[index];
     }
-    Vars.renderer.lights.add(tile.drawx(), tile.drawy(), 170+10*Mathf.random(), Tmp.c1.set(this.color1), (tile.ent().items.total()>0)?0.9:0);
+    Vars.renderer.lights.add(tile.drawx(), tile.drawy(), 170+10*Mathf.random(), this.color1, (tile.ent().items.total()>0)?0.9:0);
   }
 });
 
