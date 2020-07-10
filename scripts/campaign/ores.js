@@ -82,7 +82,6 @@ const depocode = extendContent(OreBlock, "depo-code", {
 
 const bitItem = Vars.content.getByName(ContentType.item, "commandblocks-bittrium");
 const bitShader = this.global.shaders.bittrium;
-const bitsparkleFx = [bitcodeFx, bitzetaFx, bitzetaFx];
 
 const bitcodeFx = newEffect(90, e => {
   Draw.shader(bitShader);
@@ -100,6 +99,8 @@ const bitzetaFx = newEffect(90, e => {
   }));
   Draw.shader();
 });
+
+const bitsparkleFx = [bitcodeFx, bitzetaFx, bitzetaFx];
 
 const sparkling = ["commandblocks-depo-scalar", "commandblocks-depo-vector", "commandblocks-depo-zeta", "commandblocks-depo-code"];
 const sparkleFx = [scalarFx, vectorFx, zetaFx, codeFx];
