@@ -64,6 +64,7 @@ const enderchest = extendContent(Block,"enderchest",{
   acceptItem(item, tile, source){
     return tile.ent().items.get(item) < this.getMaximumAccepted(tile, item);
   },
+  /*
   handleItem(item, tile, source){
     if(this.core[tile.getTeamID()] == undefined || this.core[tile.getTeamID()] == null) this.core[tile.getTeamID()] = -1;
     if(!(tile.pos() == this.core[tile.getTeamID()])){
@@ -73,7 +74,7 @@ const enderchest = extendContent(Block,"enderchest",{
     else if(Vars.net.server() || !Vars.net.active()){
       this.super$handleItem(item, tile, source);
     }
-  },
+  },*/
   load(){
     this.super$load();
     this.region=Core.atlas.find(this.name);
@@ -125,6 +126,19 @@ const enderchest = extendContent(Block,"enderchest",{
     }
     this.super$removed(tile);
   },
+  /*
+  onProximityUpdate(tile){
+    this.super$onProximityUpdate(tile);
+    if(this.core[tile.getTeamID()] == undefined || this.core[tile.getTeamID()] == null) this.core[tile.getTeamID()] = -1;
+    if(this.localpos[tile.getTeamID()] == undefined || this.localpos[tile.getTeamID()] == null){
+      this.localpos[tile.getTeamID()] = [];
+    }
+    var index = this.localpos[tile.getTeamID()].indexOf(tile.pos());
+    print(index);
+    if(index<0) return; //not yet registered
+    if(this.core[tile.getTeamID()] == -1 || Vars.world.tile(this.core[tile.getTeamID()]).block().name != this.name) this.debugCore(tile);
+    if(this.core[tile.getTeamID()] != tile.pos()) tile.ent().items = Vars.world.tile(this.core[tile.getTeamID()]).ent().items;
+  },*/
   update(tile){
     if(this.core[tile.getTeamID()] == undefined || this.core[tile.getTeamID()] == null) this.core[tile.getTeamID()] = -1;
     if(this.localpos[tile.getTeamID()] == undefined || this.localpos[tile.getTeamID()] == null){

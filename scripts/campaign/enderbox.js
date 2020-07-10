@@ -126,6 +126,7 @@ const enderbox = extendContent(Block,"enderbox",{
     }
     this.super$removed(tile);
   },
+  /*
   onProximityUpdate(tile){
     this.super$onProximityUpdate(tile);
     if(this.core[tile.getTeamID()] == undefined || this.core[tile.getTeamID()] == null) this.core[tile.getTeamID()] = -1;
@@ -137,7 +138,7 @@ const enderbox = extendContent(Block,"enderbox",{
     if(index<0) return; //not yet registered
     if(this.core[tile.getTeamID()] == -1 || Vars.world.tile(this.core[tile.getTeamID()]).block().name != this.name) this.debugCore(tile);
     if(this.core[tile.getTeamID()] != tile.pos()) tile.ent().items = Vars.world.tile(this.core[tile.getTeamID()]).ent().items;
-  },
+  },*/
   update(tile){
     if(this.core[tile.getTeamID()] == undefined || this.core[tile.getTeamID()] == null) this.core[tile.getTeamID()] = -1;
     if(this.localpos[tile.getTeamID()] == undefined || this.localpos[tile.getTeamID()] == null){
