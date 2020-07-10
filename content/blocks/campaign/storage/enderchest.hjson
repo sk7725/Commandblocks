@@ -9,7 +9,7 @@ requirements: [
   s-code/250
   t-space/200
 ]
-sync: true
+sync: false
 health: 900
 configurable: false
 solid: true
