@@ -1,5 +1,5 @@
 
-const temp=extendContent(Block,"temp",{
+const enderbox = extendContent(Block,"enderbox",{
   localpos: [],
   core: -1,
   debugCore(tile){

@@ -11,4 +11,4 @@ health: 150
 configurable: false
 solid: true
 hasItems: true
-itemCapacity: 100
+itemCapacity: 400

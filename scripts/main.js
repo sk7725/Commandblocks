@@ -21,6 +21,7 @@ require("campaign/explosive");
 require("campaign/explosivelarge");
 require("campaign/loader");
 require("campaign/campfire");
+require("campaign/enderbox");
 
 //SERVER
 require("msgprotected");
@@ -108,4 +109,3 @@ require("sandbox/drawtester");
 require("sandbox/tabletester");
 require("sandbox/jstester");
 require("sandbox/fxtester");
-require("sandbox/temp");
