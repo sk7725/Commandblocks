@@ -12,6 +12,7 @@ const temp=extendContent(Block,"temp",{
       this.core = tile.pos();
     }
   },
+  /*
   acceptItem(item, tile, source){
     if(tile.pos() == this.core){
       return this.super$acceptItem(item, tile, source);
@@ -30,7 +31,6 @@ const temp=extendContent(Block,"temp",{
       this.drawSelect(Vars.world.tile(this.core));
     }
   },
-  /*
   removeItem(tile, item){
     var entity = tile.ent();
     if(item == null){
@@ -72,10 +72,15 @@ const temp=extendContent(Block,"temp",{
   },
   placed(tile){
     this.say(tile, "PLACED");
+    if(this.core == -1 || Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
+    if(this.core != tile.pos()){
+      tile.ent().items = Vars.world.tile(this.core).ent().items;
+    }
     this.localpos.push(tile.pos());
     for(var i=0;i<this.localpos.length;i++){
       if(this.core == -1 || this.localpos[i] < this.core) this.core = this.localpos[i];
     }
+
   },
   playerPlaced(tile){
     this.say(tile, "PLAYERPLACED");
@@ -84,10 +89,14 @@ const temp=extendContent(Block,"temp",{
     this.say(tile, "REMOVED");
     var index = this.localpos.indexOf(tile.pos());
     if(index<0) return; //this should not happen
-    if(this.core == tile.pos()) this.core = -1;
     this.localpos.splice(index, 1);
-    for(var i=0;i<this.localpos.length;i++){
-      if(this.core == -1 || this.localpos[i] < this.core) this.core = this.localpos[i];
+    if(this.core == tile.pos()){
+      this.core = -1;
+
+      for(var i=0;i<this.localpos.length;i++){
+        if(this.core == -1 || this.localpos[i] < this.core) this.core = this.localpos[i];
+      }
+      if(this.core != -1) Vars.world.tile(this.core).ent().items = tile.ent().items;
     }
   },
   onDestroyed(tile){
@@ -98,6 +107,9 @@ const temp=extendContent(Block,"temp",{
       this.localpos.push(tile.pos());
       for(var i=0;i<this.localpos.length;i++){
         if(this.core == -1 || this.localpos[i] < this.core) this.core = this.localpos[i];
+      }
+      if(this.core != tile.pos()){
+        tile.ent().items = Vars.world.tile(this.core).ent().items;
       }
     }
   },
