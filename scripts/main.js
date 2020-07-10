@@ -108,3 +108,4 @@ require("sandbox/drawtester");
 require("sandbox/tabletester");
 require("sandbox/jstester");
 require("sandbox/fxtester");
+require("sandbox/temp");

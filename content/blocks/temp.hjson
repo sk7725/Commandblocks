@@ -1,0 +1,12 @@
+
+size: 1
+breakable: true
+update: true
+category: effect
+requirements: [
+  metaglass/32
+]
+sync: true
+health: 150
+configurable: false
+solid: true
