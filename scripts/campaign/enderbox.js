@@ -87,7 +87,7 @@ const enderbox = extendContent(Block,"enderbox",{
     Call.sendMessage(msg+"|"+tile.ent());
   },
   placed(tile){
-    //this.say(tile, "PLACED");
+    this.say(tile, "PLACED");
     this.super$placed(tile);
     if(this.core[tile.getTeamID()] == undefined || this.core[tile.getTeamID()] == null) this.core[tile.getTeamID()] = -1;
     if(this.localpos[tile.getTeamID()] == undefined || this.localpos[tile.getTeamID()] == null){;
@@ -105,7 +105,8 @@ const enderbox = extendContent(Block,"enderbox",{
 
   },
   removed(tile){
-    //this.say(tile, "REMOVED");
+    this.say(tile, "REMOVED");
+    all.sendMessage(this.localpos);
     if(this.core[tile.getTeamID()] == undefined || this.core[tile.getTeamID()] == null) this.core[tile.getTeamID()] = -1;
     if(this.localpos[tile.getTeamID()] == undefined || this.localpos[tile.getTeamID()] == null){
       this.localpos[tile.getTeamID()] = [];
