@@ -26,7 +26,7 @@ const temp=extendContent(Block,"temp",{
       this.super$drawSelect(tile);
     }
     else{
-      if(this.core == -1 || Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
+      //if(this.core == -1 || Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
       this.drawSelect(Vars.world.tile(this.core));
     }
   },
