@@ -1,21 +1,24 @@
 const shader=this.global.shaders.space;
 const enderbox = extendContent(Block,"enderbox",{
   localpos: [],
-  core: -1,
+  core: [],
   debugCore(tile){
-    this.core = -1;
-    for(var i=0;i<this.localpos.length;i++){
-      if(Vars.world.tile(this.localpos[i]).block().name != this.name){
-        this.localpos.splice(i, 1);
+    this.core[tile.getTeamID()] = -1;
+    if(this.localpos[tile.getTeamID()] == undefined || this.localpos[tile.getTeamID()] == null){
+      this.localpos[tile.getTeamID()] = [];
+    }
+    for(var i=0;i<this.localpos[tile.getTeamID()].length;i++){
+      if(Vars.world.tile(this.localpos[tile.getTeamID()][i]).block().name != this.name){
+        this.localpos[tile.getTeamID()].splice(i, 1);
         i--;
       }
     }
-    for(var i=0;i<this.localpos.length;i++){
-      if(this.core == -1 || this.localpos[i] < this.core) this.core = this.localpos[i];
+    for(var i=0;i<this.localpos[tile.getTeamID()].length;i++){
+      if(this.core[tile.getTeamID()] == -1 || this.localpos[tile.getTeamID()][i] < this.core[tile.getTeamID()]) this.core[tile.getTeamID()] = this.localpos[tile.getTeamID()][i];
     }
-    if(this.core == -1){
-      this.localpos.push(tile.pos());
-      this.core = tile.pos();
+    if(this.core[tile.getTeamID()] == -1){
+      this.localpos[tile.getTeamID()].push(tile.pos());
+      this.core[tile.getTeamID()] = tile.pos();
     }
   },
   /*
@@ -62,9 +65,10 @@ const enderbox = extendContent(Block,"enderbox",{
     return tile.ent().items.get(item) < this.getMaximumAccepted(tile, item);
   },
   handleItem(item, tile, source){
-    if(!(tile.pos() == this.core)){
-      if(this.core == -1 || Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
-      this.handleItem(item, Vars.world.tile(this.core), source);
+    if(this.core[tile.getTeamID()] == undefined || this.core[tile.getTeamID()] == null) this.core[tile.getTeamID()] = -1;
+    if(!(tile.pos() == this.core[tile.getTeamID()])){
+      if(this.core[tile.getTeamID()] == -1 || Vars.world.tile(this.core[tile.getTeamID()]).block().name != this.name) this.debugCore(tile);
+      this.handleItem(item, Vars.world.tile(this.core[tile.getTeamID()]), source);
     }
     else if(Vars.net.server() || !Vars.net.active()){
       this.super$handleItem(item, tile, source);
@@ -76,7 +80,7 @@ const enderbox = extendContent(Block,"enderbox",{
     this.animRegion=Core.atlas.find(this.name+"-anim");
     Events.on(EventType.WorldLoadEvent, run(event => {
 			this.localpos = [];
-      this.core = -1;
+      this.core = [];
 		}));
   },
   say(tile, msg){
@@ -85,41 +89,53 @@ const enderbox = extendContent(Block,"enderbox",{
   placed(tile){
     //this.say(tile, "PLACED");
     this.super$placed(tile);
-    if(this.core == -1 || Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
-    if(this.core != tile.pos()){
-      tile.ent().items = Vars.world.tile(this.core).ent().items;
-      this.localpos.push(tile.pos());
+    if(this.core[tile.getTeamID()] == undefined || this.core[tile.getTeamID()] == null) this.core[tile.getTeamID()] = -1;
+    if(this.localpos[tile.getTeamID()] == undefined || this.localpos[tile.getTeamID()] == null){;
+      this.localpos[tile.getTeamID()] = [];
+    }
+    if(this.core[tile.getTeamID()] == -1 || Vars.world.tile(this.core[tile.getTeamID()]).block().name != this.name) this.debugCore(tile);
+    if(this.core[tile.getTeamID()] != tile.pos()){
+      tile.ent().items = Vars.world.tile(this.core[tile.getTeamID()]).ent().items;
+      this.localpos[tile.getTeamID()].push(tile.pos());
     }
 
-    for(var i=0;i<this.localpos.length;i++){
-      if(this.core == -1 || this.localpos[i] < this.core) this.core = this.localpos[i];
+    for(var i=0;i<this.localpos[tile.getTeamID()].length;i++){
+      if(this.core[tile.getTeamID()] == -1 || this.localpos[tile.getTeamID()][i] < this.core[tile.getTeamID()]) this.core[tile.getTeamID()] = this.localpos[tile.getTeamID()][i];
     }
 
   },
   removed(tile){
     //this.say(tile, "REMOVED");
-    var index = this.localpos.indexOf(tile.pos());
+    if(this.core[tile.getTeamID()] == undefined || this.core[tile.getTeamID()] == null) this.core[tile.getTeamID()] = -1;
+    if(this.localpos[tile.getTeamID()] == undefined || this.localpos[tile.getTeamID()] == null){
+      this.localpos[tile.getTeamID()] = [];
+    }
+    var index = this.localpos[tile.getTeamID()].indexOf(tile.pos());
     print(index);
     if(index<0) return; //this should not happen
-    this.localpos.splice(index, 1);
-    if(this.core == tile.pos()){
-      this.core = -1;
+    this.localpos[tile.getTeamID()].splice(index, 1);
+    if(this.core[tile.getTeamID()] == tile.pos()){
+      this.core[tile.getTeamID()] = -1;
 
-      for(var i=0;i<this.localpos.length;i++){
-        if(this.core == -1 || this.localpos[i] < this.core) this.core = this.localpos[i];
+      for(var i=0;i<this.localpos[tile.getTeamID()].length;i++){
+        if(this.core[tile.getTeamID()] == -1 || this.localpos[tile.getTeamID()][i] < this.core[tile.getTeamID()]) this.core[tile.getTeamID()] = this.localpos[tile.getTeamID()][i];
       }
-      if(this.core != -1) Vars.world.tile(this.core).ent().items = tile.ent().items;
+      if(this.core[tile.getTeamID()] != -1) Vars.world.tile(this.core[tile.getTeamID()]).ent().items = tile.ent().items;
     }
     this.super$removed(tile);
   },
   update(tile){
-    if(this.localpos.indexOf(tile.pos())<0){
-      this.localpos.push(tile.pos());
-      for(var i=0;i<this.localpos.length;i++){
-        if(this.core == -1 || this.localpos[i] < this.core) this.core = this.localpos[i];
+    if(this.core[tile.getTeamID()] == undefined || this.core[tile.getTeamID()] == null) this.core[tile.getTeamID()] = -1;
+    if(this.localpos[tile.getTeamID()] == undefined || this.localpos[tile.getTeamID()] == null){
+      this.localpos[tile.getTeamID()] = [];
+    }
+    if(this.localpos[tile.getTeamID()].indexOf(tile.pos())<0){
+      this.localpos[tile.getTeamID()].push(tile.pos());
+      for(var i=0;i<this.localpos[tile.getTeamID()].length;i++){
+        if(this.core[tile.getTeamID()] == -1 || this.localpos[tile.getTeamID()][i] < this.core[tile.getTeamID()]) this.core[tile.getTeamID()] = this.localpos[tile.getTeamID()][i];
       }
-      if(this.core != tile.pos()){
-        tile.ent().items = Vars.world.tile(this.core).ent().items;
+      if(this.core[tile.getTeamID()] != tile.pos()){
+        tile.ent().items = Vars.world.tile(this.core[tile.getTeamID()]).ent().items;
       }
     }
   },
