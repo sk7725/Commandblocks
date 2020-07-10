@@ -64,6 +64,7 @@ const enderbox = extendContent(Block,"enderbox",{
   acceptItem(item, tile, source){
     return tile.ent().items.get(item) < this.getMaximumAccepted(tile, item);
   },
+  /*
   handleItem(item, tile, source){
     if(this.core[tile.getTeamID()] == undefined || this.core[tile.getTeamID()] == null) this.core[tile.getTeamID()] = -1;
     if(!(tile.pos() == this.core[tile.getTeamID()])){
@@ -73,7 +74,7 @@ const enderbox = extendContent(Block,"enderbox",{
     else if(Vars.net.server() || !Vars.net.active()){
       this.super$handleItem(item, tile, source);
     }
-  },
+  },*/
   load(){
     this.super$load();
     this.region=Core.atlas.find(this.name);
