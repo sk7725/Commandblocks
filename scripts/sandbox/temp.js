@@ -4,7 +4,7 @@ const temp=extendContent(Block,"temp",{
     Call.sendMessage(msg+"|"+tile.ent());
   },
   placed(tile){
-    this.say(tile, "PLAYERPLACED");
+    this.say(tile, "PLACED");
   },
   playerPlaced(tile){
     this.say(tile, "PLAYERPLACED");
