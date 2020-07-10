@@ -139,6 +139,7 @@ const enderbox = extendContent(Block,"enderbox",{
         tile.ent().items = Vars.world.tile(this.core[tile.getTeamID()]).ent().items;
       }
     }
+    if(this.core[tile.getTeamID()] != -1 && this.core[tile.getTeamID()] != tile.pos() && tile.ent().items != Vars.world.tile(this.core[tile.getTeamID()]).ent().items) tile.ent().items = Vars.world.tile(this.core[tile.getTeamID()]).ent().items;
   },
   draw(tile){
     Draw.rect(this.region, tile.drawx(), tile.drawy());

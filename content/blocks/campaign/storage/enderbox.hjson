@@ -8,7 +8,7 @@ requirements: [
   ref-zeta/80
   t-space/40
 ]
-sync: false
+sync: true
 health: 400
 configurable: false
 solid: true
