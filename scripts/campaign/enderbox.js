@@ -106,7 +106,7 @@ const enderbox = extendContent(Block,"enderbox",{
   },
   removed(tile){
     this.say(tile, "REMOVED");
-    all.sendMessage(this.localpos);
+    Call.sendMessage(this.localpos[tile.getTeamID()]);
     if(this.core[tile.getTeamID()] == undefined || this.core[tile.getTeamID()] == null) this.core[tile.getTeamID()] = -1;
     if(this.localpos[tile.getTeamID()] == undefined || this.localpos[tile.getTeamID()] == null){
       this.localpos[tile.getTeamID()] = [];
