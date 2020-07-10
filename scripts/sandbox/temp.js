@@ -17,7 +17,7 @@ const temp=extendContent(Block,"temp",{
       return this.super$acceptItem(item, tile, source);
     }
     else{
-      if(Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
+      if(this.core == -1 || Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
       return this.acceptItem(item, Vars.world.tile(this.core), source);
     }
   },
@@ -26,7 +26,7 @@ const temp=extendContent(Block,"temp",{
       this.super$drawSelect(tile);
     }
     else{
-      if(Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
+      if(this.core == -1 || Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
       this.drawSelect(Vars.world.tile(this.core));
     }
   },
@@ -53,8 +53,8 @@ const temp=extendContent(Block,"temp",{
         }
     }*/
   handleItem(item, tile, source){
-    if(!tile.pos() == this.core){
-      if(Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
+    if(!(tile.pos() == this.core)){
+      if(this.core == -1 || Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
       this.handleItem(item, Vars.world.tile(this.core), source);
     }
     else if(Vars.net.server() || !Vars.net.active()){
