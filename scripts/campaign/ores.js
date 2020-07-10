@@ -80,7 +80,7 @@ const depocode = extendContent(OreBlock, "depo-code", {
 //depocode.walkEffect = codeFx;
 */
 
-const bitItem = Vars.content.getByName(ContentType.item, "commandblocks-bittrium");
+//const bitItem = Vars.content.getByName(ContentType.item, "commandblocks-bittrium");
 const bitShader = this.global.shaders.bittrium;
 
 const bitcodeFx = newEffect(90, e => {
@@ -114,6 +114,6 @@ Events.on(EventType.Trigger.update, run(function(){
       tile = Vars.world.tileWorld(v1.x, v1.y);
       if(tile!=null && sparkling.indexOf(tile.overlay().name)>-1) Effects.effect(sparkleFx[sparkling.indexOf(tile.overlay().name)], tile.worldx(), tile.worldy());
     }
-    if(tile!=null && tile.block() instanceof Conveyor && tile.ent().items.get(bitItem)>0) Effects.effect(bitsparkleFx[Mathf.floorPositive(Mathf.random()*3)], tile.worldx(), tile.worldy());
+    if(tile!=null && tile.block() instanceof Conveyor && tile.ent().items.total()>0 && tile.ent().items.first().name == "commandblocks-bittrium") Effects.effect(bitsparkleFx[Mathf.floorPositive(Mathf.random()*3)], tile.worldx(), tile.worldy());
   }
 }));
