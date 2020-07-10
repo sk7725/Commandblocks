@@ -44,7 +44,7 @@ const temp=extendContent(Block,"temp",{
   },
   draw(tile){
     if(this.core == tile.pos()) Draw.color(Pal.accent);
-    this.super$draw(tile);
+    Draw.rect("error", tile.drawx(), tile.drawy())
     Draw.color();
   }
 });
