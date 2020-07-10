@@ -1,5 +1,5 @@
 const shader=this.global.shaders.space;
-const enderbox = extendContent(Block,"enderbox",{
+const enderchest = extendContent(Block,"enderchest",{
   localpos: [],
   core: -1,
   debugCore(tile){

@@ -22,6 +22,7 @@ require("campaign/explosivelarge");
 require("campaign/loader");
 require("campaign/campfire");
 require("campaign/enderbox");
+require("campaign/enderchest");
 
 //SERVER
 require("msgprotected");
