@@ -6,7 +6,7 @@ const campfire=extendContent(Block, "campfire",{
   draw(tile){
     Draw.rect(this.region, tile.drawx(), tile.drawy());
     if(tile.ent().items.total() <= 0) return;
-    var amount = Math.max(Mathf.floorPositive(tile.ent().items.total()/15), 2);
+    var amount = Math.min(Mathf.floorPositive(tile.ent().items.total()/15), 2);
     Draw.rect(this.topRegion[amount], tile.drawx(), tile.drawy(), tile.rotation()*90);
 
     this.spawnFire(tile);
