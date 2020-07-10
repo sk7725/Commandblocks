@@ -25,7 +25,7 @@ const temp=extendContent(Block,"temp",{
     this.say(tile, "REMOVED");
     var index = this.localpos.indexOf(tile.pos());
     if(index<0) return; //this should not happen
-    if(this.core == tile.pos()) this.code = -1;
+    if(this.core == tile.pos()) this.core = -1;
     this.localpos.splice(index, 1);
     for(var i=0;i<this.localpos.length;i++){
       if(this.core == -1 || this.localpos[i] < this.core) this.core = this.localpos[i];
