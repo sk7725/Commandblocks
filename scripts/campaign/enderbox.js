@@ -113,7 +113,7 @@ const enderbox = extendContent(Block,"enderbox",{
     this.super$removed(tile);
   },
   update(tile){
-    if(this.core == -1){
+    if(this.localpos.indexOf(tile.pos())<0){
       this.localpos.push(tile.pos());
       for(var i=0;i<this.localpos.length;i++){
         if(this.core == -1 || this.localpos[i] < this.core) this.core = this.localpos[i];
