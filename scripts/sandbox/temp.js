@@ -84,8 +84,9 @@ const temp=extendContent(Block,"temp",{
     if(this.core == -1 || Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
     if(this.core != tile.pos()){
       tile.ent().items = Vars.world.tile(this.core).ent().items;
+      this.localpos.push(tile.pos());
     }
-    this.localpos.push(tile.pos());
+
     for(var i=0;i<this.localpos.length;i++){
       if(this.core == -1 || this.localpos[i] < this.core) this.core = this.localpos[i];
     }
