@@ -2,6 +2,65 @@
 const temp=extendContent(Block,"temp",{
   localpos: [],
   core: -1,
+  debugCore(tile){
+    this.core = -1;
+    for(var i=0;i<this.localpos.length;i++){
+      if(this.core == -1 || this.localpos[i] < this.core) this.core = this.localpos[i];
+    }
+    if(this.core == -1){
+      this.localpos.push(tile.pos());
+      this.core = tile.pos();
+    }
+  },
+  acceptItem(item, tile, source){
+    if(tile.pos() == this.core){
+      return this.super$acceptItem(item, tile, source);
+    }
+    else{
+      if(Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
+      return this.acceptItem(item, Vars.world.tile(this.core), source);
+    }
+  },
+  drawSelect(tile){
+    if(tile.pos() == this.core){
+      this.super$drawSelect(tile);
+    }
+    else{
+      if(Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
+      this.drawSelect(Vars.world.tile(this.core));
+    }
+  },
+  /*
+  removeItem(tile, item){
+    var entity = tile.ent();
+    if(item == null){
+      return entity.items.take();
+    }
+    else{
+      if(entity.items.has(item)){
+          entity.items.remove(item, 1);
+          return item;
+      }
+      return null;
+    }
+  }
+    public boolean hasItem(Tile tile, Item item){
+        TileEntity entity = tile.entity;
+        if(item == null){
+            return entity.items.total() > 0;
+        }else{
+            return entity.items.has(item);
+        }
+    }*/
+  handleItem(item, tile, source){
+    if(!tile.pos() == this.core){
+      if(Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
+      this.handleItem(item, Vars.world.tile(this.core), source);
+    }
+    else if(Vars.net.server() || !Vars.net.active()){
+      this.super$handleItem(item, tile, source);
+    }
+  },
   load(){
     Events.on(EventType.WorldLoadEvent, run(event => {
 			this.localpos = [];

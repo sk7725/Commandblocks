@@ -1,5 +1,5 @@
 
-size: 1
+size: 2
 breakable: true
 update: true
 category: effect
@@ -10,3 +10,5 @@ sync: true
 health: 150
 configurable: false
 solid: true
+hasItems: true
+itemCapacity: 100
