@@ -21,8 +21,8 @@ require("campaign/explosive");
 require("campaign/explosivelarge");
 require("campaign/loader");
 require("campaign/campfire");
-require("campaign/enderbox");
 require("campaign/enderchest");
+require("campaign/enderbox");
 
 //SERVER
 require("msgprotected");
