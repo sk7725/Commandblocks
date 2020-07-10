@@ -5,6 +5,12 @@ const temp=extendContent(Block,"temp",{
   debugCore(tile){
     this.core = -1;
     for(var i=0;i<this.localpos.length;i++){
+      if(Vars.world.tile(this.localpos[i]).block().name != this.name){
+        this.localpos.splice(i, 1);
+        i--;
+      }
+    }
+    for(var i=0;i<this.localpos.length;i++){
       if(this.core == -1 || this.localpos[i] < this.core) this.core = this.localpos[i];
     }
     if(this.core == -1){
@@ -52,6 +58,9 @@ const temp=extendContent(Block,"temp",{
             return entity.items.has(item);
         }
     }*/
+  acceptItem(item, tile, source){
+    return tile.ent().items.get(item) < this.getMaximumAccepted(tile, item);
+  },
   handleItem(item, tile, source){
     if(!(tile.pos() == this.core)){
       if(this.core == -1 || Vars.world.tile(this.core).block().name != this.name) this.debugCore(tile);
@@ -88,6 +97,7 @@ const temp=extendContent(Block,"temp",{
   removed(tile){
     this.say(tile, "REMOVED");
     var index = this.localpos.indexOf(tile.pos());
+    print(index);
     if(index<0) return; //this should not happen
     this.localpos.splice(index, 1);
     if(this.core == tile.pos()){
