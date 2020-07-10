@@ -79,6 +79,28 @@ const depocode = extendContent(OreBlock, "depo-code", {
 //depocode.updateEffect = codeFx;
 //depocode.walkEffect = codeFx;
 */
+
+const bitItem = Vars.content.getByName(ContentType.item, "commandblocks-bittrium");
+const bitShader = t.global.shaders.bittrium;
+const bitsparkleFx = [bitcodeFx, bitzetaFx, bitzetaFx];
+
+const bitcodeFx = newEffect(90, e => {
+  Draw.shader(bitShader);
+  var i=e.id; Angles.randLenVectors(e.id, e.id%2+1, 7+5*e.fin(), floatc2((x,y) => {
+    i++;
+    drawBit(i%2, e.x+x, e.y+y, 1, e.fout());
+  }));
+  Draw.shader();
+});
+
+const bitzetaFx = newEffect(90, e => {
+  Draw.shader(bitShader); Lines.stroke(e.fout()*2);
+  Angles.randLenVectors(e.id, e.id%3+1, 8, floatc2((x,y) => {
+    Lines.poly(e.x+x, e.y+y, 4, 1);
+  }));
+  Draw.shader();
+});
+
 const sparkling = ["commandblocks-depo-scalar", "commandblocks-depo-vector", "commandblocks-depo-zeta", "commandblocks-depo-code"];
 const sparkleFx = [scalarFx, vectorFx, zetaFx, codeFx];
 const thresh = (Vars.mobile)?2:3;
@@ -91,5 +113,6 @@ Events.on(EventType.Trigger.update, run(function(){
       tile = Vars.world.tileWorld(v1.x, v1.y);
       if(tile!=null && sparkling.indexOf(tile.overlay().name)>-1) Effects.effect(sparkleFx[sparkling.indexOf(tile.overlay().name)], tile.worldx(), tile.worldy());
     }
+    if(tile!=null && tile.block() instanceof Conveyor && tile.ent().items.get(bitItem)>0) Effects.effect(bitsparkleFx[Mathf.floorPositive(Mathf.random()*3)], tile.worldx(), tile.worldy());
   }
 }));
