@@ -499,9 +499,9 @@ const grenade = extend(BasicBulletType,{
   draw(b){
     var h = -1*b.fin()*(b.fin()-1)*160;
     Draw.color(this.backColor);
-    Draw.rect(this.bRegion, b.x, b.y+h, Time.time()*2);
+    Draw.rect(this.backRegion, b.x, b.y+h, Time.time()*2);
     Draw.color(this.frontColor);
-    Draw.rect(this.fRegion, b.x, b.y+h, Time.time()*2);
+    Draw.rect(this.frontRegion, b.x, b.y+h, Time.time()*2);
     Draw.color();
   },
   //hit(b,x,y){},
