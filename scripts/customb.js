@@ -497,7 +497,7 @@ this.global.bullets.blackholeSmall = blackholeSmall;
 
 const grenade = extend(BasicBulletType,{
   draw(b){
-    var h = -1*b.fin()*(b.fin()-1)*60;
+    var h = -1*b.fin()*(b.fin()-1)*160;
     Draw.color(this.backColor);
     Draw.rect(this.bRegion, b.x, b.y+h, Time.time()*2);
     Draw.color(this.frontColor);
@@ -508,8 +508,8 @@ const grenade = extend(BasicBulletType,{
   //despawned(b){},
   //update(b){}
 });
-grenade.speed = 3.5;
-grenade.lifetime = 40;
+grenade.speed = 3.2;
+grenade.lifetime = 70;
 grenade.collidesTiles = false;
 grenade.collides = false;
 grenade.collidesAir = false;
@@ -518,7 +518,7 @@ grenade.hitSound = Sounds.explosion;
 grenade.splashDamage = 210;
 grenade.splashDamageRadius = 20;
 grenade.hitEffect = Fx.flakExplosion;
-grenade.fRegion = Core.atlas.find("commandblocks-b-grenade");
-grenade.bRegion = Core.atlas.find("commandblocks-b-grenade-back");
+grenade.fRegion = Core.atlas.find("b-grenade");
+grenade.bRegion = Core.atlas.find("b-grenade-back");
 
 this.global.bullets.grenade = grenade;
