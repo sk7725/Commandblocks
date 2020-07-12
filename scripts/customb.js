@@ -518,7 +518,7 @@ grenade.hitSound = Sounds.explosion;
 grenade.splashDamage = 210;
 grenade.splashDamageRadius = 20;
 grenade.hitEffect = Fx.flakExplosion;
-grenade.bulletSprite = "b-grenade";
+grenade.bulletSprite = "commandblocks-b-grenade";
 //grenade.fRegion = Core.atlas.find("commandblocks-b-grenade");
 //grenade.bRegion = Core.atlas.find("commandblocks-b-grenade-back");
 
