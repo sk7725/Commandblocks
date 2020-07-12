@@ -497,7 +497,7 @@ this.global.bullets.blackholeSmall = blackholeSmall;
 
 const grenade = extend(BasicBulletType,{
   draw(b){
-    var h = -1*b.fin()*(b.fin()-1)*160;
+    var h = -1*b.fin()*(b.fin()-1)*190;
     Draw.color(this.backColor);
     Draw.rect(this.backRegion, b.x, b.y+h, Time.time()*2);
     Draw.color(this.frontColor);
