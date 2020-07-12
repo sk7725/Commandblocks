@@ -4,10 +4,10 @@ const skills={
 	"coalbomb":{
 		type:"skill.atk",
 		tier:1,
-		cooltime:0.5,
+		cooltime:1.5,
 		uses:{
 			item:"coal",
-			amount:3
+			amount:4
 		},
 		cost:[
 			{
@@ -1288,7 +1288,7 @@ const skillfunc={
     Bullet.create(bullet, player, player.getTeam(), player.getX(), player.getY(), player.rotation + offset, v,life);
   },
   coalbomb(player){
-    this.fire(Bullets.bombExplosive, player, 11, 3);
+    this.fire(customb.grenade, player, 1, 1);
   },
   coalfire(player){
     this.fire(Bullets.bombOil, player, 9, 3);
