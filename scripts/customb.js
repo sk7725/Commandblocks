@@ -494,3 +494,31 @@ blackholeSmall.hitSize = 6;
 blackholeSmall.despawnEffect = Fx.none;
 blackholeSmall.keepVelocity = false;
 this.global.bullets.blackholeSmall = blackholeSmall;
+
+const grenade = extend(BasicBulletType,{
+  draw(b){
+    var h = b.fin()*(b.fin()-1)*30;
+    Draw.color(this.backColor);
+    Draw.rect(this.backRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color(this.frontColor);
+    Draw.rect(this.frontRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color();
+  },
+  //hit(b,x,y){},
+  //despawned(b){},
+  //update(b){}
+});
+grenade.speed = 4;
+grenade.lifetime = 180;
+grenade.collidesTiles = false;
+grenade.collides = false;
+grenade.collidesAir = false;
+grenade.keepVelocity = false;
+grenade.hitSound = Sounds.explosion;
+grenade.splashDamage = 210;
+grenade.splashDamageRadius = 20;
+grenade.hitEffect = Fx.flakExplosion;
+grenade.frontRegion = "commandblocks-b-grenade";
+grenade.backRegion = "commandblocks-b-grenade-back";
+
+this.global.bullets.grenade = grenade;
