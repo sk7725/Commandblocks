@@ -4,7 +4,7 @@ const skills={
 	"coalbomb":{
 		type:"skill.atk",
 		tier:1,
-		cooltime:1.5,
+		cooltime:3.8,
 		uses:{
 			item:"coal",
 			amount:4
