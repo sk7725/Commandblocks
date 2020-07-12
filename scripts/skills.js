@@ -1288,7 +1288,7 @@ const skillfunc={
     Bullet.create(bullet, player, player.getTeam(), player.getX(), player.getY(), player.rotation + offset, v,life);
   },
   coalbomb(player){
-    this.fire(customb.grenade, player, 1, 1);
+    this.fire(customb.grenade, player, 0.5, 1);
   },
   coalfire(player){
     this.fire(Bullets.bombOil, player, 9, 3);
