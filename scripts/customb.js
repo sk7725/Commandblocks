@@ -526,6 +526,7 @@ grenade.bulletSprite = "commandblocks-b-grenade";
 this.global.bullets.grenade = grenade;
 
 const flashSpark = this.global.fx.flashSpark;
+const flashBeep = this.global.newSounds.beep;
 const flashbang = extend(BasicBulletType,{
   draw(b){
     var h = -1*b.fin()*(b.fin()-1)*190;
@@ -544,21 +545,29 @@ const flashbang = extend(BasicBulletType,{
     var v2 = Core.camera.unproject(Core.graphics.getWidth(), Core.graphics.getHeight());
     //print(v1); print(v2); print("Pos: ("+x+", "+y+")");
     if(v1.x<x && x<v2.x && v1.y<y && y<v2.y) this.flash((b.getTeam()==Vars.player.getTeam())?4:11);
-    
+
     this.super$hit(b, x, y);
   },
   flash(duration){
     var image = new Image();
+    const sid = flashBeep.loop(Core.settings.getInt("sfxvol") / 100);
     image.getColor().a = 1;
     image.touchable(Touchable.disabled);
     image.setFillParent(true);
     image.actions(Actions.delay(duration), Actions.fadeOut(15), Actions.remove());
-    image.update(run(() => { 
-      //image.toFront(); 
+    if(sid > -1){
+      Time.run(duration*60+15*60,run(()=>{
+        flashBeep.stop(sid);
+      }));
+    }
+    image.update(run(() => {
+      //image.toFront();
+      if(sid > -1) flashBeep.setVolume(sid, (Core.settings.getInt("sfxvol") / 100)*image.getColor().a);
       if(Vars.state.is(GameState.State.menu)||Vars.player.isDead()){
-        image.remove(); 
-      } 
-    })); 
+        image.remove();
+        if(sid > -1) flashBeep.stop(sid);
+      }
+    }));
     Core.scene.add(image);
   },
   //despawned(b){},

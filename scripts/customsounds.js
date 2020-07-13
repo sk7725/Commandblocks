@@ -5,6 +5,7 @@ if(!this.global.newSounds){
 var t = this;
 
 function loadsound(name){
+  if(t.global.newSounds[name] !== undefined && t.global.newSounds[name] !== null && t.global.newSounds[name] != Sounds.none) return;
   try{
     (Core.assets.load("sounds/"+ name +".ogg", Packages.arc.audio.Sound)).loaded = cons(a => {
       try{
@@ -30,3 +31,4 @@ function loadsound(name){
 
 loadsound("boostsound");
 loadsound("tntfuse");
+loadsound("beep");
