@@ -539,8 +539,8 @@ const flashbang = extend(BasicBulletType,{
     if(x === undefined || x === null){
       x = b.x; y = b.y;
     }
-    const v2 = Core.camera.unproject(0, 0);
-    const v1 = Core.camera.unproject(Core.graphics.getWidth(), Core.graphics.getHeight());
+    var v1 = Core.camera.unproject(0, 0);
+    var v2 = Core.camera.unproject(Core.graphics.getWidth(), Core.graphics.getHeight());
     print(v1); print(v2); print("Pos: ("+x+", "+y+")");
     if(v1.x<x && x<v2.x && v1.y<y && y<v2.y) this.flash((b.getTeam()==Vars.player.getTeam())?4:11);
     
