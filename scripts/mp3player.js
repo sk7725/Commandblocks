@@ -74,5 +74,8 @@ const mp3player = extendContent(Block, "mp3player", {
       }
       catch(err){}
     }
-  }
+  },
+  isHidden(){
+		return Vars.net.active() || !Vars.mobile;
+	}
 });
