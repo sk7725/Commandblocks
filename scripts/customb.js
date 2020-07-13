@@ -535,7 +535,7 @@ const flashbang = extend(BasicBulletType,{
     Draw.color();
   },
   hit(b, x, y){
-    this.super$hit(b, x, y);
+    this.super$hit(b);
   },
   //despawned(b){},
   //update(b){}
