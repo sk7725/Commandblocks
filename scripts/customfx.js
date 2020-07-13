@@ -241,6 +241,7 @@ this.global.fx = {
   }),
   flashbang : newEffectSize(5, 170, e => {
     fillLight(e.x, e.y, Lines.circleVertices(85), 85, Color.white, Color.white.cpy().a(0));
+    fillLight(e.x, e.y, Lines.circleVertices(85), 85, Color.white, Color.white.cpy().a(0));
     Draw.color();
   })
 };
