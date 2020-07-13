@@ -517,9 +517,41 @@ grenade.keepVelocity = false;
 grenade.hitSound = Sounds.explosion;
 grenade.splashDamage = 310;
 grenade.splashDamageRadius = 40;
+grenade.hitShake = 2;
 grenade.hitEffect = Fx.flakExplosionBig;
 grenade.bulletSprite = "commandblocks-b-grenade";
 //grenade.fRegion = Core.atlas.find("commandblocks-b-grenade");
 //grenade.bRegion = Core.atlas.find("commandblocks-b-grenade-back");
 
 this.global.bullets.grenade = grenade;
+
+const flashbang = extend(BasicBulletType,{
+  draw(b){
+    var h = -1*b.fin()*(b.fin()-1)*190;
+    Draw.color(this.backColor);
+    Draw.rect(this.backRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color(this.frontColor);
+    Draw.rect(this.frontRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color();
+  },
+  hit(b, x, y){
+    this.super$hit(b, x, y);
+  },
+  //despawned(b){},
+  //update(b){}
+});
+flashbang.speed = 3.2;
+flashbang.lifetime = 70;
+flashbang.collidesTiles = false;
+flashbang.collides = false;
+flashbang.collidesAir = false;
+flashbang.keepVelocity = false;
+flashbang.hitSound = Sounds.explosion;
+flashbang.splashDamage = 30;
+flashbang.splashDamageRadius = 60;
+flashbang.hitEffect = this.global.fx.flashbang;
+flashbang.bulletSprite = "commandblocks-b-flashbang";
+flashbang.frontColor = Color.white;
+flashbang.backColor = Color.lightGray;
+
+this.global.bullets.flashbang = flashbang;
