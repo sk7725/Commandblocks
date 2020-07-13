@@ -540,8 +540,9 @@ const flashbang = extend(BasicBulletType,{
       x = b.x; y = b.y;
     }
     var v1 = Core.camera.unproject(0, 0);
+    v1 = Vec2(v1.x, v1.y); //Dont even ask.
     var v2 = Core.camera.unproject(Core.graphics.getWidth(), Core.graphics.getHeight());
-    print(v1); print(v2); print("Pos: ("+x+", "+y+")");
+    //print(v1); print(v2); print("Pos: ("+x+", "+y+")");
     if(v1.x<x && x<v2.x && v1.y<y && y<v2.y) this.flash((b.getTeam()==Vars.player.getTeam())?4:11);
     
     this.super$hit(b, x, y);
