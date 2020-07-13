@@ -8,8 +8,6 @@ requirements: [
   silicon/5
   metaglass/1
 ]
-maxTextLength: 50
-maxNewlines: 0
 sync: true
 expanded: true
 solid: false

@@ -551,23 +551,25 @@ const flashbang = extend(BasicBulletType,{
   flash(duration){
     var image = new Image();
     var flashBeep = t.global.newSounds.beep;
-    const sid = flashBeep.loop(Core.settings.getInt("sfxvol") / 100);
+    const sid = flashBeep.play(Core.settings.getInt("sfxvol") / 100);
+    if(sid != -1) flashBeep.setLooping(sid, true);
     print(sid); print(Core.settings.getInt("sfxvol") / 100);
     image.getColor().a = 1;
     image.touchable(Touchable.disabled);
     image.setFillParent(true);
     image.actions(Actions.delay(duration), Actions.fadeOut(15), Actions.remove());
-    if(sid > -1){
+    if(sid != -1){
       Time.run(duration*60+15*60,run(()=>{
         flashBeep.stop(sid);
       }));
     }
     image.update(run(() => {
       //image.toFront();
-      if(sid > -1) flashBeep.setVolume(sid, (Core.settings.getInt("sfxvol") / 100)*image.getColor().a);
+      if(sid != -1) flashBeep.setVolume(sid, (Core.settings.getInt("sfxvol") / 100)*image.getColor().a);
+      print((Core.settings.getInt("sfxvol") / 100)*image.getColor().a);
       if(Vars.state.is(GameState.State.menu)||Vars.player.isDead()){
         image.remove();
-        if(sid > -1) flashBeep.stop(sid);
+        if(sid != -1) flashBeep.stop(sid);
       }
     }));
     Core.scene.add(image);

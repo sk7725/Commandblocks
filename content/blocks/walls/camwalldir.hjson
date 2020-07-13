@@ -14,7 +14,6 @@ sync: true
 expanded: true
 health: 600
 solid: true
-fillesTile: false
 hasShadow: false
 buildVisibility: sandboxOnly
 rotate: true

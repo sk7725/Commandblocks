@@ -1,3 +1,4 @@
+print("Command Mod Load Start!");
 //INIT
 require("commandblocks/init");
 //require("collisions");
