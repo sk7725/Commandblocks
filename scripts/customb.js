@@ -526,7 +526,7 @@ grenade.bulletSprite = "commandblocks-b-grenade";
 this.global.bullets.grenade = grenade;
 
 const flashSpark = this.global.fx.flashSpark;
-const flashBeep = this.global.newSounds.beep;
+var t = this;
 const flashbang = extend(BasicBulletType,{
   draw(b){
     var h = -1*b.fin()*(b.fin()-1)*190;
@@ -550,7 +550,9 @@ const flashbang = extend(BasicBulletType,{
   },
   flash(duration){
     var image = new Image();
+    var flashBeep = t.global.newSounds.beep;
     const sid = flashBeep.loop(Core.settings.getInt("sfxvol") / 100);
+    print(sid); print(Core.settings.getInt("sfxvol") / 100);
     image.getColor().a = 1;
     image.touchable(Touchable.disabled);
     image.setFillParent(true);
