@@ -563,18 +563,18 @@ const flashbang = extend(BasicBulletType,{
     if(sid != -1){
       Time.run(duration*60+15*60,run(()=>{
         flashBeep.stop(sid);
-        Core.settings.put("sfxvol", vol);
+        //Core.settings.put("sfxvol", vol);
       }));
     }
     image.update(run(() => {
       //image.toFront();
       if(sid != -1) flashBeep.setVolume(sid, (vol / 100)*image.getColor().a);
-      Core.settings.put("sfxvol", (1-image.getColor().a)*vol/100);
+      //Core.settings.put("sfxvol", (1-image.getColor().a)*vol/100);
       //print((Core.settings.getInt("sfxvol") / 100)*image.getColor().a);
       if(Vars.state.is(GameState.State.menu)||Vars.player.isDead()){
         image.remove();
         if(sid != -1) flashBeep.stop(sid);
-        Core.settings.put("sfxvol", vol);
+        //Core.settings.put("sfxvol", vol);
       }
     }));
     Core.scene.add(image);
