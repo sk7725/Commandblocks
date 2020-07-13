@@ -525,6 +525,7 @@ grenade.bulletSprite = "commandblocks-b-grenade";
 
 this.global.bullets.grenade = grenade;
 
+const flashSpark = this.global.fx.flashSpark;
 const flashbang = extend(BasicBulletType,{
   draw(b){
     var h = -1*b.fin()*(b.fin()-1)*190;
@@ -540,9 +541,9 @@ const flashbang = extend(BasicBulletType,{
     }
     const v1 = Core.camera.unproject(0, 0);
     const v2 = Core.camera.unproject(Core.graphics.getWidth(), Core.graphics.getHeight());
-    if(v1.x<x && x<v2.x && v1.y<y && y<v2.y) this.flash((b.getTeam()==Vars.player.getTeam)?4:11);
+    if(v1.x<x && x<v2.x && v1.y<y && y<v2.y) this.flash((b.getTeam()==Vars.player.getTeam())?4:11);
     
-    this.super$hit(b, b.x, b.y);
+    this.super$hit(b, x, y);
   },
   flash(duration){
     var image = new Image();
@@ -557,9 +558,12 @@ const flashbang = extend(BasicBulletType,{
       } 
     })); 
     Core.scene.add(image);
-  }
+  },
   //despawned(b){},
-  //update(b){}
+  update(b){
+    this.super$update(b);
+    if(Mathf.chance(0.2)) Effects.effect(flashSpark, b.x, b.y);
+  }
 });
 flashbang.speed = 3.2;
 flashbang.lifetime = 70;
