@@ -23,6 +23,14 @@ function fillLight(x, y, sides, radius, center, edge){
   }
 }
 
+function drawSpark(x, y, size, width, r){
+  Drawf.tri(x, y, width, size, r);
+  Drawf.tri(x, y, width, size, r+180);
+  Drawf.tri(x, y, width, size, r+90);
+  Drawf.tri(x, y, width, size, r+270);
+}
+
+
 function newGroundEffect(lifetime, staticLife, renderer){
   return new GroundEffectEntity.GroundEffect(lifetime, staticLife, new Effects.EffectRenderer({render: renderer}));
 }
@@ -243,5 +251,13 @@ this.global.fx = {
     fillLight(e.x, e.y, Lines.circleVertices(85), 85, Color.white, Color.white.cpy().a(0));
     fillLight(e.x, e.y, Lines.circleVertices(85), 85, Color.white, Color.white.cpy().a(0));
     Draw.color();
+  }),
+  flashSpark : newEffect(40, e => {
+    Draw.color(Color.white);
+    var i=1;
+    Angles.randLenVectors(e.id, e.id%2+1, 4+8*e.fin(), floatc2((x,y) => {
+      drawSpark(e.x+x, e.y+y, e.fout()*2.5, 0.5+e.fout(), e.id*i);
+      i++;
+    }));
   })
 };
