@@ -577,6 +577,7 @@ flashbang.hitSound = Sounds.explosion;
 flashbang.splashDamage = 30;
 flashbang.splashDamageRadius = 60;
 flashbang.hitEffect = this.global.fx.flashbang;
+flashbang.despawnEffect = Fx.none;
 flashbang.bulletSprite = "commandblocks-b-flashbang";
 flashbang.frontColor = Color.white;
 flashbang.backColor = Color.lightGray;
