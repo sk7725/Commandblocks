@@ -67,7 +67,7 @@ const skills={
   "metabomb":{
     type:"skill.support",
     tier:3,
-    cooltime:11,
+    cooltime:28.6,
     uses:{
       item:"metaglass",
       amount:9
@@ -1307,6 +1307,9 @@ const skillfunc={
     var crawler=UnitTypes.crawler.create(player.getTeam());
     crawler.set(player.getX(),player.getY());
     crawler.add();
+  },
+  metabomb(player){
+    this.fire(customb.flashbang, player, 1, 1);
   },
   phasetp(player){
     //f4ba6e windowHide
