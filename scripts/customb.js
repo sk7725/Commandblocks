@@ -601,3 +601,39 @@ flashbang.frontColor = Color.white;
 flashbang.backColor = Color.lightGray;
 
 this.global.bullets.flashbang = flashbang;
+
+const molotov = extend(BasicBulletType,{
+  draw(b){
+    var h = -1*b.fin()*(b.fin()-1)*190;
+    Draw.color(this.backColor);
+    Draw.rect(this.backRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color(this.frontColor);
+    Draw.rect(this.frontRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color();
+  },
+  //hit(b,x,y){},
+  //despawned(b){},
+  update(b){
+    this.super$update(b);
+    if(Mathf.chance(0.1)) Effects.effect(Fx.smoke, b.x, b.y - b.fin()*(b.fin()-1)*190);
+  }
+});
+molotov.speed = 3.2;
+molotov.lifetime = 70;
+molotov.collidesTiles = false;
+molotov.collides = false;
+molotov.collidesAir = false;
+molotov.keepVelocity = false;
+molotov.hitSound = Sounds.explosion;
+molotov.splashDamage = 75;
+molotov.splashDamageRadius = 70;
+molotov.hitShake = 5;
+molotov.hitEffect = Fx.explosion;
+molotov.bulletSprite = "commandblocks-b-molotov";
+molotov.frontColor = Pal.lightishOrange; 
+molotov.backColor = Pal.lightOrange;
+molotov.incendChance = 1; 
+molotov.incendAmount = 25;
+molotov.incendSpread = 25;
+
+this.global.bullets.molotov = molotov;
