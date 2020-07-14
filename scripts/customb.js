@@ -611,7 +611,17 @@ const molotov = extend(BasicBulletType,{
     Draw.rect(this.frontRegion, b.x, b.y+h, Time.time()*2);
     Draw.color();
   },
-  //hit(b,x,y){},
+  hit(b,x,y){
+    if(x === undefined || x === null){
+      x = b.x; y = b.y;
+    }
+    for(var i=1;i<7;i++){
+      Time.run(i*180,run(()=>{
+        Damage.createIncend(x, y, this.incendSpread, this.incendAmount);
+      }));
+    }
+    this.super$hit(b, x, y);
+  },
   //despawned(b){},
   update(b){
     this.super$update(b);
@@ -633,7 +643,7 @@ molotov.bulletSprite = "commandblocks-b-molotov";
 molotov.frontColor = Pal.lightishOrange; 
 molotov.backColor = Pal.lightOrange;
 molotov.incendChance = 1; 
-molotov.incendAmount = 25;
-molotov.incendSpread = 25;
+molotov.incendAmount = 35;
+molotov.incendSpread = 35;
 
 this.global.bullets.molotov = molotov;
