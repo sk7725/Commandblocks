@@ -23,10 +23,10 @@ const skills={
 	"coalfire":{
 		type:"skill.atk",
 		tier:2,
-		cooltime:16.5,
+		cooltime:12.5,
 		uses:{
 			item:"coal",
-			amount:6
+			amount:7
 		},
 		cost:[
       {
