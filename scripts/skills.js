@@ -23,10 +23,10 @@ const skills={
 	"coalfire":{
 		type:"skill.atk",
 		tier:2,
-		cooltime:1.5,
+		cooltime:16.5,
 		uses:{
 			item:"coal",
-			amount:3
+			amount:6
 		},
 		cost:[
       {
@@ -1291,8 +1291,7 @@ const skillfunc={
     this.fire(customb.grenade, player, 0.5, 1);
   },
   coalfire(player){
-    this.fire(Bullets.bombOil, player, 9, 3);
-    this.fire(Bullets.bombIncendiary, player, 9, 3);
+    this.fire(customb.molotov, player, 0.58, 1.2);
   },
   coalcrawler(player){
     if(player.tileOn().solid()){
