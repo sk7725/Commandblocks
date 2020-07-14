@@ -667,7 +667,7 @@ const emp = extend(BasicBulletType,{
   //despawned(b){},
   update(b){
     this.super$update(b);
-    if(Mathf.chance(0.075)) Effects.effect(Fx.hitLancer, b.x, b.y - b.fin()*(b.fin()-1)*190);
+    if(Mathf.chance(0.095)) Effects.effect(Fx.hitLancer, b.x, b.y - b.fin()*(b.fin()-1)*190);
   }
 });
 emp.speed = 3.2;
@@ -681,8 +681,8 @@ emp.hitShake = 7;
 emp.hitEffect = Fx.shockwave;
 emp.bulletSprite = "commandblocks-b-emp";
 emp.frontColor = Pal.surge; 
-emp.backColor = Pal.missileYellowBack;
-emp.fragBullets = 2; 
+emp.backColor = Pal.surge.cpy().mul(0.7,0.7,0.8,1);
+emp.fragBullets = 1; 
 emp.fragBullet = Bullets.arc;
 emp.lightining = 3;
 emp.lightningLength = 15;
