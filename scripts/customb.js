@@ -682,9 +682,9 @@ emp.hitEffect = Fx.shockwave;
 emp.bulletSprite = "commandblocks-b-emp";
 emp.frontColor = Pal.surge; 
 emp.backColor = Pal.surge.cpy().mul(0.7,0.7,0.8,1);
-emp.fragBullets = 1; 
+emp.fragBullets = 2; 
 emp.fragBullet = Bullets.arc;
-emp.lightining = 3;
+emp.lightining = 2;
 emp.lightningLength = 15;
 
 this.global.bullets.emp = emp;
