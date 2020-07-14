@@ -5,11 +5,11 @@ const multi = extendContent(GenericCrafter,"multi",{
     [   [["thorium",1],["surge-alloy",2]]                 ,[["slag",5]]         ,null],
     [   [["scrap",1],["plastanium",2],["spore-pod",2]]    ,[["oil",5]]          ,null],
     [   [["silicon",1]]                                   ,null                 ,null],
-    [   [["test-mod"+"-"+"gun-powder",1]]                 ,null                 ,null],
+    [   [["titanium",1]]                 ,null                 ,null],
     [   [["thorium",1],["surge-alloy",3]]                 ,[["slag",3]]         ,null],
     [   [["scrap",1],["plastanium",2],["spore-pod",2]]    ,[["oil",5]]          ,null],
     [   [["silicon",1]]                                   ,null                 ,null],
-    [   [["test-mod"+"-"+"gun-powder",1]]                 ,null                 ,null],
+    [   [["titanium",1]]                 ,null                 ,null],
     [   [["thorium",1],["surge-alloy",3]]                 ,[["slag",5],["oil",4]]         ,null],
   ],
   _input:[
