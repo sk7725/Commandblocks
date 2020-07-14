@@ -616,6 +616,10 @@ const molotov = extend(BasicBulletType,{
       x = b.x; y = b.y;
     }
     Puddle.deposit(Vars.world.tileWorld(x, y), Liquids.oil, 1200);
+    Puddle.deposit(Vars.world.tileWorld(x, y+24), Liquids.oil, 400);
+    Puddle.deposit(Vars.world.tileWorld(x+17, y-17), Liquids.oil, 400);
+    Puddle.deposit(Vars.world.tileWorld(x-17, y-17), Liquids.oil, 400);
+    
     this.super$hit(b, x, y);
   },
   //despawned(b){},
@@ -639,7 +643,7 @@ molotov.bulletSprite = "commandblocks-b-molotov";
 molotov.frontColor = Pal.lightishOrange; 
 molotov.backColor = Pal.lightOrange;
 molotov.incendChance = 1; 
-molotov.incendAmount = 25;
+molotov.incendAmount = 35;
 molotov.incendSpread = 35;
 
 this.global.bullets.molotov = molotov;
