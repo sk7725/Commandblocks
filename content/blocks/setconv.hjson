@@ -17,6 +17,6 @@ layer: overlay
 group: transportation
 itemCapacity: 4
 hasItems: true
-consumeItems: false
+//consumeItems: false
 unloadable: false
 rotate: true

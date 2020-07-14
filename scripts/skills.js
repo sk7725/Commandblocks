@@ -4,10 +4,10 @@ const skills={
 	"coalbomb":{
 		type:"skill.atk",
 		tier:1,
-		cooltime:0.5,
+		cooltime:3.8,
 		uses:{
 			item:"coal",
-			amount:3
+			amount:4
 		},
 		cost:[
 			{
@@ -67,7 +67,7 @@ const skills={
   "metabomb":{
     type:"skill.support",
     tier:3,
-    cooltime:11,
+    cooltime:28.6,
     uses:{
       item:"metaglass",
       amount:9
@@ -593,14 +593,13 @@ const skills={
     parent:"zetasabo"
   },
   "spaceblink":{
-    type:"skill.move",
+    type:"skill.def",
     tier:2,
-    cooltime:4.9,
-    duration:1.5,
-    healthcost:12,
+    cooltime:30.3,
+    duration:15,
     uses:{
       item:"commandblocks-t-space",
-      amount:7
+      amount:15
     },
     cost:[
       {
@@ -705,6 +704,10 @@ const skills={
 		type:"skill.atk",
 		tier:2,
 		cooltime:25,
+uses:{
+			item:"infinitodustry-visionary-glass",
+			amount:0
+		},
 		cost:[
 			{
 				item:"infinitodustry-visionary-glass",
@@ -927,6 +930,31 @@ const skills={
 		],
     parent:"coalfire"
 	},
+	"uranwave":{
+		type:"skill.atk",
+		tier:3,
+		cooltime:50,
+		healthcost:50,
+		uses:{
+			item:"steam-power-uranium",
+			amount:40
+		},
+		cost:[
+			{
+				item:"steam-power-iron",
+				amount:260
+			},
+			{
+				item:"plastanium",
+				amount:60
+			},
+			{
+				item:"steam-power-uranium",
+				amount:500
+			}
+		],
+    parent:"uranblast"
+	},
   "zincray":{
     type:"skill.atk",
     tier: 1,
@@ -1021,6 +1049,14 @@ const spellstart = newEffect(23, e => {
   Draw.color(e.color);
   Lines.stroke(e.fout() * 5);
   Lines.circle(e.x, e.y, 3 + e.fin() * 80);
+});
+const uranwaveexpand = newEffect(30, e => {
+  Draw.color(Color.valueOf("fffbf7"));
+  var radiusofcircle = e.fin() * 70;
+  if(radiusofcircle > 50){
+	  radiusofcircle += -1*(e.fin() * 20 + 50)
+  }
+  Fill.circle(e.x, e.y, radiusofcircle);
 });
 const customfx = this.global.fx;
 const slasheffect = customfx.slash;
@@ -1154,6 +1190,9 @@ shieldlarge.color = Color.valueOf("ffd37f");
 shieldlarge.opposite(shieldbreak);
 shieldbreak.opposite(shieldsmall);//just in case 2
 shieldbreak.opposite(shieldlarge);
+this.global.shieldcomp = {};
+this.global.shieldcomp.small = shieldsmall;
+this.global.shieldcomp.large = shieldlarge;
 
 const zetacolor=Color.valueOf("82ffe8");
 const saboskill=extendContent(StatusEffect,"sabotagedskill",{});
@@ -1215,7 +1254,7 @@ const skillfunc={
 
     if(this.getInput()){
       var obj=skills[Skill.skill];
-      if(Skill.skill!=""&&Skill.lastused+obj.cooltime*60<=Time.time()&&Vars.player.item().item.name==obj.uses.item&&Vars.player.item().amount>=obj.uses.amount){
+      if(Skill.skill!=""&&Skill.lastused+obj.cooltime*60<=Time.time()&&(Vars.player.item().item.name==obj.uses.item||Vars.player.item().item.name=="skillplus-mana")&&Vars.player.item().amount>=obj.uses.amount){
         try{
           //this[Skill.skill](Vars.player);
           tile.configure(-1*(1+obj.n));
@@ -1249,7 +1288,7 @@ const skillfunc={
     Bullet.create(bullet, player, player.getTeam(), player.getX(), player.getY(), player.rotation + offset, v,life);
   },
   coalbomb(player){
-    this.fire(Bullets.bombExplosive, player, 11, 3);
+    this.fire(customb.grenade, player, 0.5, 1);
   },
   coalfire(player){
     this.fire(Bullets.bombOil, player, 9, 3);
@@ -1268,6 +1307,9 @@ const skillfunc={
     var crawler=UnitTypes.crawler.create(player.getTeam());
     crawler.set(player.getX(),player.getY());
     crawler.add();
+  },
+  metabomb(player){
+    this.fire(customb.flashbang, player, 1, 1);
   },
   phasetp(player){
     //f4ba6e windowHide
@@ -1425,6 +1467,14 @@ const skillfunc={
 		}*/
     this.fire(gravityTrap, player, 1, 1);
   },
+  spaceblink(player){
+    Sounds.spark.at(player.getX(),player.getY(),0.4);
+    Sounds.spray.at(player.getX(),player.getY(),0.4);
+    if(Vars.net.client()) return;
+    var tx = player.getX()+Math.random()*Vars.tilesize*32-Vars.tilesize*16;
+    var ty = player.getY()+Math.random()*Vars.tilesize*32-Vars.tilesize*16;
+    Call.createBullet(customb.distZone, player.getTeam(), tx, ty, 0, 1, 1);
+  },
   uranblast(player){
     var x=player.getX(); var y=player.getY();
     player.damage(player.maxHealth()*1.5);
@@ -1434,6 +1484,15 @@ const skillfunc={
     Sounds.explosionBig.at(x,y);
     if(Vars.net.client()) return;
     Damage.damage(player.getTeam(),x,y,120,690);
+  },
+  uranwave(player){
+    var x=player.getX(); var y=player.getY();
+    player.damage(player.maxHealth()*0.5);
+    Effects.effect(uranwaveexpand, x, y);
+    Damage.createIncend(x, y, 50, 6);
+    Sounds.explosionBig.at(x,y);
+    if(Vars.net.client()) return;
+    Damage.damage(player.getTeam(),x,y,50,500);
   },
   zincray(player){
     Sounds.spark.at(player.getX(),player.getY(),1.4);

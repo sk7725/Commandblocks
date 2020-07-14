@@ -10,10 +10,24 @@ const skillupFx = newEffect(15, e => {
   Draw.color(color3);
   Lines.poly(e.x, e.y, 4, 0.1 + e.fin() * 3);
 });
-
 const skillup = extendContent(StatusEffect,"skillup",{});
 skillup.color = color3;
 skillup.effect = skillupFx;
+var t = this;
+
+const skillinstFx = newEffect(15, e => {
+  Lines.stroke(1.5 * e.fout());
+  Draw.color(Pal.accent);
+  Lines.poly(e.x, e.y, 4, 0.1 + e.fin() * 3);
+});
+const skillinst = extendContent(StatusEffect,"skillinst",{});
+skillinst.color = Pal.accent;
+skillinst.effect = skillinstFx;
+
+var localSkill = {
+  skill:"",
+  lastused:0
+};
 
 const researchskill = extendContent(Block, "researchskill", {
 	dialog: null,
@@ -38,11 +52,14 @@ const researchskill = extendContent(Block, "researchskill", {
 			this.animRegion.push(Core.atlas.find(this.name + "-" + i));
 		}
 
-		this.dialog = new FloatingDialog(Core.bundle.get("research.title"))
+		this.dialog = new FloatingDialog(Core.bundle.get("research.title"));
 		this.dialog.addCloseButton();
 
 		Events.on(EventType.WorldLoadEvent, run(event => {
 			researchskill.blockpos = {};
+      t.global.skilltile = null;
+      localSkill.skill = "";
+      localSkill.lastused = 0;
 		}));
 	},
 	update(tile){
@@ -54,8 +71,11 @@ const researchskill = extendContent(Block, "researchskill", {
 			if(tile.getTeamID() in this.blockpos) ent.disable();
 			else this.blockpos[tile.getTeamID()] = tile.pos();
 		}
+    if(tile.getTeam() == Vars.player.getTeam() && (t.global.skilltile == null || t.global.skilltile != tile.pos())) t.global.skilltile = tile.pos();
 		if(skillfunc.update(tile.ent().skill(),tile)) tile.ent().useSkill();
     if(Vars.player.hasEffect(skillup)&&tile.ent().skill().skill!=""&&tile.ent().skill().skill!="zetarecharge") tile.ent().skillCooltimeReduce(2);
+    if(Vars.player.hasEffect(skillinst)&&tile.ent().skill().skill!="") tile.ent().skillCooltimeSet(0);
+
 	},
 	draw(tile){
 		if(tile.ent().enabled()) Draw.rect(this.animRegion[Mathf.floorPositive(animwidth+2+animwidth*Mathf.sin(Time.time()*animspeed))%17], tile.drawx(), tile.drawy());
@@ -359,16 +379,24 @@ researchskill.entityType = prov(() => extend(TileEntity , {
 		lastused:0
 	},
 	skill(){
+		if(Vars.net.client()) return localSkill;
 		return this._skill;
 	},
 	setSkill(a){
+		if(Vars.net.client()) localSkill.skill = a;
 		this._skill.skill = a;
 	},
 	useSkill(){
+		if(Vars.net.client()) localSkill.lastused = Time.time();
 		this._skill.lastused = Time.time();
 	},
   skillCooltimeReduce(a){
+		if(Vars.net.client()) localSkill.lastused -= a;
 		this._skill.lastused -= a;
+	},
+  skillCooltimeSet(a){
+		if(Vars.net.client()) localSkill.lastused = a;
+		this._skill.lastused = a;
 	},
 
 	write(stream){

@@ -17,3 +17,4 @@ consumes: {
 }
 solid: true
 configurable: true
+buildVisibility: debugOnly

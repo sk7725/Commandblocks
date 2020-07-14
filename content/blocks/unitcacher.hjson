@@ -7,8 +7,6 @@ requirements: [
   surge-alloy/32
   bittrium/16
 ]
-maxTextLength: 50
-maxNewlines: 0
 sync: true
 expanded: true
 solid: false

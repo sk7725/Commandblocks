@@ -1,21 +1,39 @@
-require("init");
+print("Command Mod Load Start!");
+//INIT
+require("commandblocks/init");
+//require("collisions");
+require("shaders");
 
-require("armorstand");
-require("gamesoccerball");
+//UNITS
+require("units/armorstand");
+require("units/gamesoccerball");
+
+//CUSTOM ASSETS
+require("customsounds");
 require("customfx");
 require("customb");
 
 require("command");
 //require("commandargs");
 
-require("shaders");
+//CAMPAIGN
+require("campaign/ores");
+require("campaign/explosive");
+require("campaign/explosivelarge");
+require("campaign/loader");
+require("campaign/campfire");
+require("campaign/enderchest");
+require("campaign/enderbox");
 
+//SERVER
 require("msgprotected");
 
-require("commandblock");
-require("commandblockrepeating");
-require("commandblockchained");
-require("commandblockunit");
+//SANDBOX
+require("commandb");
+require("legacy/commandblock");
+require("legacy/commandblockrepeating");
+require("legacy/commandblockchained");
+require("legacy/commandblockunit");
 
 require("posreader");
 require("posreaderblock");
@@ -25,12 +43,20 @@ require("posreaderjson");
 require("unitreader");
 require("unitcacher");
 
-require("magicwall");
-require("magicwalllarge");
+//WALLS
+require("walls/wallzeta");
+require("walls/wallzetalarge");
+require("walls/wallspace");
+require("walls/wallspacelarge");
+require("walls/walltime");
+require("walls/walltimelarge");
+require("walls/magicwall");
+require("walls/magicwalllarge");
 
-require("camwall");
-require("camwalldir");
+require("walls/camwall");
+require("walls/camwalldir");
 
+//ETC
 require("playernote");
 require("playertune");
 require("playermusic");
@@ -55,13 +81,12 @@ require("colorpicker");
 require("colorpickerhex");
 require("colorpickerbrush");
 
-require("armorstandmodder");
+require("units/armorstandmodder");
 require("magicrouter");
 require("magictele");
 
 require("signblock");
 
-//require("potion");
 require("timer");
 require("keyblock");
 
@@ -76,8 +101,13 @@ require("gameyoot");
 
 require("buttongg");
 
-//require("customtechtree");
+//SKILLS
 require("skills");
 require("researchskill");
 
-require("shadertester");
+//TESTERS
+require("sandbox/shadertester");
+require("sandbox/drawtester");
+require("sandbox/tabletester");
+require("sandbox/jstester");
+require("sandbox/fxtester");

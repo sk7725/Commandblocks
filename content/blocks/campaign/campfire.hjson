@@ -1,0 +1,27 @@
+size: 2
+breakable: true
+update: true
+category: crafting
+requirements: [
+  copper/40
+  lead/50
+  coal/50
+]
+consumes: {
+  items: {
+    items: [
+      coal/1
+    ]
+  }
+}
+health: 300
+solid: true
+targetable: true
+rotate: false
+baseExplosiveness: 4
+research: kiln
+activeSound: Fire
+activeSoundVolume: 1
+priority: turret
+expanded: true
+itemCapacity: 60

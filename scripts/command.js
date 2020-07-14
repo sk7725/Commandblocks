@@ -5,6 +5,8 @@ gamerule.commandBlockTitle=false;
 gamerule.sendCommandFeedback=false;
 var effectextended={};
 const KeyCode=Packages.arc.input.KeyCode;
+var variables={};
+//Pal.anuke = Color.valueOf("ff7f50");
 
 if(!this.global.hasOwnProperty("commandcached")) this.global.commandcached={};
 const commandcached=this.global.commandcached;
@@ -24,7 +26,7 @@ const commandblocks={
     }
     else{
       var tmpobj={}; tmpobj.x=inx; tmpobj.y=iny;
-      var rtile=Vars.world.tileWorld(tile.x,tile.y);
+      var rtile=Vec2(tile.x/Vars.tilesize,tile.y/Vars.tilesize);
       if(inx=="~") tmpobj.x=rtile.x;
       else if(inx.substring(0,1)=="~") tmpobj.x=Number(inx.substring(1,inx.length))+rtile.x;
       if(iny=="~") tmpobj.y=rtile.y;
@@ -156,8 +158,8 @@ const commandblocks={
             else ret.eachFilter(boolf(e=>(e.team!=targetteam)));
           break;
           case "name":
-            if(invert) ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:((e instanceof Bullet)?e.getBulletType().name:e.name))==se)));
-            else ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:((e instanceof Bullet)?e.getBulletType().name:e.name))!=se)));
+            if(invert) ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:((e instanceof Bullet)?e.getBulletType().name:e.name)))==se));
+            else ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:((e instanceof Bullet)?e.getBulletType().name:e.name)))!=se));
           break;
           /*
           case "data":
@@ -475,6 +477,16 @@ const commandblocks={
     var owner=null; if((ptile instanceof Unit)&&bind) owner=ptile;
     Bullet.create(bultype, owner, team, cx, cy, crot, vel, life, data);
   },
+  cmddraw(texture,cx,cy,crot,dcolor,cw,ch){
+    if(cw>-1&&ch>-1){
+      var cdata = {};
+      cdata.texture = texture; cdata.w = cw; cdata.h = ch;
+      Effects.effect(customfx.drawWH, dcolor, cx, cy, crot, cdata);
+    }
+    else{
+      Effects.effect(customfx.draw, dcolor, cx, cy, crot, texture);
+    }
+  },
   command(tile,msg,parentthis,parentcmd,executed){
     if(msg.substring(0,1)!="/") msg="/"+msg;
     var argstmp = msg.substring(1).split('"');
@@ -498,6 +510,10 @@ const commandblocks={
       cmd = args[0];
       args = args.splice(1);
     }
+    var cmdparse = args.length;
+    if(cmd == "at") cmdparse = 2;
+    if(cmd == "as") cmdparse = 1;
+
   try{
     if(gamerule.doCommands==false&&cmd!="gamerule") return false;
     if(Core.input.keyDown(KeyCode.F10)){
@@ -505,9 +521,24 @@ const commandblocks={
       return;
     }
     if(gamerule.sendCommandFeedback) this.report("Command "+msg+" executed by "+tile);
+
+    for(var i=0;i<cmdparse;i++){
+      if(args[i].substring(0,1)=="$"){
+        variables.e = tile;
+        variables.this = this;
+        args[i] = eval(args[i].substring(1));
+      }
+    }
     switch(cmd){
+      case 'do':
+        return true;
+      break;
+      case 'check':
+        if(args[0]) return true;
+        else return false;
+      break;
       case 'overwrite':
-        parentthis.setMessageBlockText(null,tile,args.join(' '));
+        Call.setMessageBlockText(null,parentthis,args.join(' '));
         return true;
       break;
       case 'say':
@@ -549,7 +580,8 @@ const commandblocks={
       case 'setblock':
         //Call.setTile(Vars.world.tile(tile.x, tile.y), Blocks.air, tile.team, rot);
         if(args.length>=3&&args.length<=6){
-          var tpos=this.tilde(tile,args[0],args[1]); var cblock=args[2]; var crot=0; var cteam=tile.team;
+          var tpos=this.tilde(tile,args[0],args[1]); var crot=0; var cteam=tile.team;
+          var cblock=Vars.content.getByName(ContentType.block, args[2]);
           var cx=0; var cy=0;
           if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
             cx=tpos.x; cy=tpos.y;
@@ -557,9 +589,9 @@ const commandblocks={
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
             var ctile=Vars.world.tile(cx,cy);
-            if(ctile.block()==Blocks[cblock]) throw "Cannot set the block";
+            if(ctile.block()==cblock) throw "Cannot set the block";
             if(args.length<=5||args[5]=="replace"||args[5]=="build"||args[5]=="destroy"||(args[5]=="keep"&&ctile.block()=="air")){
-              //if(args.length==3) Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
+              //if(args.length==3) Vars.world.tile(cx, cy).setNet(cblock, cteam, crot);
               if(args.length==4){
                 if(args[3]>=0&&args[3]<=3) crot=args[3];
                 else throw "Rotation should be 0~3";
@@ -571,27 +603,27 @@ const commandblocks={
               if(cteam!==tile.team) cteam=Team.get(cteam);
               if(args[5]=="build"||args[5]=="destroy"){
                 if(Vars.world.tile(cx, cy).block().hasEntity()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
-                Call.onDeconstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0);
-                Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
+                Call.onDeconstructFinish(Vars.world.tile(cx, cy), cblock, 0);
+                Vars.world.tile(cx, cy).setBlock(cblock, cteam, crot);
               }
               else{
                 if(Vars.world.tile(cx, cy).ent()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
-                Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
-                //Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
+                Vars.world.tile(cx, cy).setBlock(cblock, cteam, crot);
+                //Call.onConstructFinish(Vars.world.tile(cx, cy), cblock, 0, crot, cteam, false);
                 //Call.beginBreak(Vars.world.tile(cx, cy).team, cx, cy);
                 /*
                 var entity=Vars.world.tile(cx, cy).ent();
                 Vars.world.tile(cx, cy).block().removed(Vars.world.tile(cx, cy));
                 Vars.world.tile(cx, cy).remove();
                 if(entity) entity.sleep();
-                Vars.world.tile(cx, cy).setBlock(Blocks[cblock], cteam, crot);
+                Vars.world.tile(cx, cy).setBlock(cblock, cteam, crot);
                 */
                 //Vars.world.tile(cx, cy).ent().init(Vars.world.tile(cx, cy),true);
                 //Vars.world.clearTileEntities();
               }
               if(args[5]=="build"){
                 //Call.onDeconstructFinish(ctile, ctile.block(), 0);
-                Call.onConstructFinish(Vars.world.tile(cx, cy), Blocks[cblock], 0, crot, cteam, false);
+                Call.onConstructFinish(Vars.world.tile(cx, cy), cblock, 0, crot, cteam, false);
                 Vars.world.tile(cx, cy).block().placed(Vars.world.tile(cx, cy));
               }else{
 
@@ -602,7 +634,7 @@ const commandblocks={
               crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team;
               if(cteam!==tile.team) cteam=Team.get(cteam);
               //if(ctile.ent()!=null) ctile.ent().remove();
-              Vars.world.tile(cx, cy).setNet(Blocks[cblock], cteam, crot);
+              Vars.world.tile(cx, cy).setNet(cblock, cteam, crot);
               Vars.world.notifyChanged(Vars.world.tile(cx, cy));
               //Vars.world.tile(cx, cy).changed();
               return true;
@@ -836,16 +868,17 @@ const commandblocks={
       break;
       case 'give':
         if(args.length>=1&&args.length<=2){
+          var item = Vars.content.getByName(ContentType.item, args[0]);
           if(tile instanceof Tile){
             var amount=1;
             if(args.length==2) amount=args[1];
             if(amount<0){
-              var ret=tile.block().removeStack(tile,Items[args[0]],-1*amount);
+              var ret=tile.block().removeStack(tile,item,-1*amount);
               if(ret>0) return true;
               else throw "No items to remove";
             }
             else{
-              tile.block().handleStack(Items[args[0]],amount,tile,null);
+              tile.block().handleStack(item,amount,tile,null);
               return true;
             }
           }
@@ -853,7 +886,7 @@ const commandblocks={
             var amount=1;
             if(args.length==2) amount=args[1];
             if(amount<0) throw "Amount should be above 0";
-            tile.addItem(Items[args[0]],amount);
+            tile.addItem(item, amount);
           }
           else throw "This executor cannot receive items";
         }
@@ -862,7 +895,7 @@ const commandblocks={
       case 'clear':
         if(args.length>=0){
           if(tile instanceof Tile&&args.length==1){
-              var ret=tile.block().removeStack(tile,Items[args[0]],tile.block().itemCapacity+10);
+              var ret=tile.block().removeStack(tile,Vars.content.getByName(ContentType.item, args[0]), tile.block().itemCapacity+10);
               if(ret>0) return true;
               else throw "No items to remove";
           }
@@ -1100,7 +1133,7 @@ const commandblocks={
               }));
               return res;
             }
-            else if(target.r instanceof Unit||ent instanceof Bullet){
+            else if(target.r instanceof Unit||target.r instanceof Bullet){
               if(atarget==null) this.cmdtp(target.r,cx,cy,facing,facingrelative);
               else this.cmdtptarget(target.r,cx,cy,atarget.r);
               return true;
@@ -1176,7 +1209,7 @@ const commandblocks={
                 args[3]=args[3].substring(1,args[3].length);
                 var current=0;
                 if(tile instanceof Tile) current=tile.rotation()*90;
-                else current=tile.rotation;
+                else current=(tile instanceof Bullet)?tile.rot():tile.rotation;
                 if(args[3]=="") args[3]=0;
                 args[3]=Number(args[3]);
                 crot=(args[3]+current)%360;
@@ -1189,6 +1222,7 @@ const commandblocks={
             if(args.length>=8&&args[7]=="true") bind=true;
             if(args.length>=9) cdata=args[8];
             this.cmdfire(tile,args[0],cx,cy,crot,cteam,vel,life,bind,cdata);
+            return true;
           }
           else throw "Coordinates should be above 0";
         }
@@ -1211,7 +1245,7 @@ const commandblocks={
       break;
       case 'draw':
       //name x y rot color w h ox oy
-        if(args.length>=3&&args.length<=9){
+        if(args.length>=3&&args.length<=7){
           var tpos=this.tilde(tile,args[1],args[2]);
           var cx=0; var cy=0;
           if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
@@ -1219,9 +1253,9 @@ const commandblocks={
           }
           else throw "Coordinates should be above 0";
           if(cx>=0&&cy>=0){
-            var crot=0; var dcolor=Color.white; var cw=-1; var ch=-1; var ox=-1; var oy=-1;
+            var crot=0; var dcolor=Color.white; var cw=-1; var ch=-1;
             if(args.length>=4){
-              if(args[3].substring(0,1)=="~"){
+              if((typeof args[3]=="string")&&args[3].substring(0,1)=="~"){
                 args[3]=args[3].substring(1,args[3].length);
                 var current=0;
                 if(tile instanceof Tile) current=tile.rotation()*90;
@@ -1232,24 +1266,13 @@ const commandblocks={
               }
               else crot=Number(args[3])%360;
             }
-            if(args.length>=5) dcolor=Color.valueOf(args[4]);
+            if(args.length>=5){
+              if(args[4] instanceof Color) dcolor = args[4];
+              else dcolor=Color.valueOf(args[4]);
+            }
             if(args.length>=6&&Number(args[5])>-1) cw=Number(args[5]);
             if(args.length>=7&&Number(args[6])>-1) ch=Number(args[6]);
-            if(args.length>=8&&Number(args[7])>-1) ox=Number(args[7]);
-            if(args.length>=9&&Number(args[8])>-1) oy=Number(args[8]);
-            if(cw==-1||ch==-1){
-              Draw.color(dcolor);
-              Draw.rect(Core.atlas.find(args[0]),cx,cy,crot);
-            }
-            else if(ox==-1||oy==-1){
-              Draw.color(dcolor);
-              Draw.rect(Core.atlas.find(args[0]),cx,cy,cw,ch,crot);
-            }
-            else{
-              Draw.color(dcolor);
-              Draw.rect(Core.atlas.find(args[0]),cx,cy,cw,ch,ox,oy,crot);
-            }
-            Draw.color();
+            this.cmddraw(Core.atlas.find(args[0]),cx,cy,crot,dcolor,cw,ch);
           }
           else throw "Coordinates should be above 0";
         }
@@ -1257,7 +1280,7 @@ const commandblocks={
           var cx=0; var cy=0;
           if(tile instanceof Tile){ cx=tile.worldx();cy=tile.worldy(); }
           else{ cx=tile.x; cy=tile.y; }
-          Draw.rect(Core.atlas.find(args[0]),cx,cy);
+          this.cmddraw(Core.atlas.find(args[0]),cx,cy,0,Color.white,-1,-1);
           return true;
         }
         else throw "Missing params";
@@ -1275,8 +1298,12 @@ const commandblocks={
     if(gamerule.commandBlockTitle) Vars.ui.showInfoToast("[scarlet]"+err+"[]",7);
     if(gamerule.commandBlockOutput&&gamerule.sendCommandFeedback) Call.sendMessage("[#aa0000]"+err.stack+"[]");
     //print("E:"+err);
+    if(parentthis.block().name == "commandblocks-commandb") parentthis.ent().setErr(err);
     return false;
   }
   }
 };
+var lflicker = "[accent]그렇다고 합니다. [sky]무언가[]를 찾으셨습니다고요.[]";
+var sharlotte = "[royal]이미 [orange]아이디어[]에 파뭍여 깔렸다고 합니다.[]";
+var upalupa = "[#ffaaff]처음부터 끝까지라고 합니다. [scarlet]딸기[]라고요.[]";
 this.global.commandblocks=commandblocks;

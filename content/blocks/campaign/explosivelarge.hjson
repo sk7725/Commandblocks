@@ -1,0 +1,22 @@
+size: 2
+breakable: true
+update: true
+category: production
+requirements: [
+  thorium/45
+  blast-compound/100
+  ref-vector/30
+]
+sync: true
+consumes: {
+  power: 0.4
+}
+health: 440
+solid: true
+targetable: true
+rotate: false
+timers: 1
+consumesTap: false
+baseExplosiveness: 18
+rebuildable: false
+research: explosive

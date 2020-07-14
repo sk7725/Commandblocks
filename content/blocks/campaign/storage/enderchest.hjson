@@ -1,0 +1,17 @@
+
+size: 3
+breakable: true
+update: true
+category: effect
+requirements: [
+  thorium/290
+  ref-zeta/270
+  s-code/250
+  t-space/200
+]
+sync: true
+health: 900
+configurable: false
+solid: true
+hasItems: true
+itemCapacity: 1800

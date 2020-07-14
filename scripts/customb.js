@@ -23,7 +23,7 @@ const gravityTrap = extend(BasicBulletType,{
 		delete this.target[b.id];
 	},
 	update(b){
-		if(b.time()<45) return;
+		//if(b.time()<45) return;
     if(!b.velocity().isZero(0.0001)) b.velocity(0,0);
 		if(Mathf.floorPositive(Time.time())%40==0){
 			Effects.effect(gravsuck,b.x,b.y);
@@ -51,12 +51,12 @@ const gravityTrap = extend(BasicBulletType,{
 		Sounds.spray.at(b.x,b.y,0.9);
 	}
 });
-gravityTrap.speed = 5;
+gravityTrap.speed = 0;
 gravityTrap.lifetime = 260;
 gravityTrap.collidesTiles = false;
 gravityTrap.collides = false;
 gravityTrap.collidesAir = false;
-gravityTrap.keepVelocity = true;
+gravityTrap.keepVelocity = false;
 this.global.bullets.gravityTrap = gravityTrap;
 
 //Credits to EyeofDarkness
@@ -322,3 +322,282 @@ healZone.collides = false;
 healZone.collidesAir = false;
 healZone.keepVelocity = false;
 this.global.bullets.healZone = healZone;
+
+const distcolor = Color.valueOf("4c00ff");
+const distortFx = newEffect(18, e => {
+	Draw.color(Pal.lancerLaser, distcolor, e.fin());
+	Fill.square(e.x, e.y, 0.1 + e.fout() * 2.5, 45);
+});
+const distSplashFx = newEffect(80, e => {
+  Draw.color(Pal.lancerLaser, distcolor, e.fin());
+  Lines.stroke(2 * e.fout());
+  Lines.circle(e.x, e.y, 85*e.fin());
+});
+const distort=extendContent(StatusEffect,"distort",{});
+distort.speedMultiplier = 0.35;
+distort.color = distcolor;
+distort.effect = distortFx;
+const distStart = newEffect(45, e => {
+	fillLight(e.x, e.y, Lines.circleVertices(85), 85, Color.clear, Pal.lancerLaser.cpy().a(e.fout()));
+});
+const distZone = extend(BasicBulletType,{
+	draw(b){
+    Draw.color(Pal.lancerLaser);
+    Lines.stroke(1);
+    Lines.circle(b.x, b.y, Mathf.clamp((1-b.fin())*20)*85);
+    fillLight(b.x, b.y, Lines.circleVertices(85), Mathf.clamp((1-b.fin())*20)*85, Pal.lancerLaser.cpy().a(0), distcolor.cpy().a(0.7+0.25*Mathf.sin(b.time()*0.05)));
+    Draw.color();
+	},
+	hit(b,x,y){},
+  despawned(b){},
+	update(b){
+    if(b.time()%80<=1 && b.lifetime() - b.time() > 100) Effects.effect(distSplashFx,b.x,b.y);
+    Vars.bulletGroup.intersect(b.x-85, b.y-85, b.x+85, b.y+85, cons(e=>{
+      if(Mathf.within(b.x, b.y, e.x, e.y, 85) && e != b && e.getTeam() != b.getTeam() && e != null){
+        e.velocity().x = e.velocity().x * 0.915;
+        e.velocity().y = e.velocity().y * 0.915;
+      }
+    }));
+    Units.nearbyEnemies(b.getTeam(), b.x-85, b.y-85, b.x+85, b.y+85, cons(e=>{
+      if(Mathf.within(b.x, b.y, e.x, e.y, 85) && e != null){
+        e.applyEffect(distort, 2);
+      }
+    }));
+	},
+	init(b){
+		if(b == null) return;
+    Effects.effect(distStart,b.x,b.y);
+	}
+});
+distZone.speed = 0;
+distZone.lifetime = 897;
+distZone.collidesTiles = false;
+distZone.collides = false;
+distZone.collidesAir = false;
+distZone.keepVelocity = false;
+this.global.bullets.distZone = distZone;
+
+const shader = this.global.shaders.space;
+const whirl = this.global.fx.whirl;
+//creditts to EyeofDarkness
+const blackhole = extend(BasicBulletType, {
+  update(b){
+    const v1 = new Vec2();
+    const v2 = new Vec2();
+
+    if(Mathf.chance(Time.delta() * (0.3 * b.fout()))){
+      Effects.effect(whirl, b.x, b.y, b.fout() * 5.5);
+    };
+
+    Units.nearbyEnemies(b.getTeam(), b.x - this.rangeB, b.y - this.rangeB, this.rangeB * 2, this.rangeB * 2, cons(u => {
+      if(u != null && Mathf.within(b.x, b.y, u.x, u.y, this.rangeB)){
+        if(u instanceof SolidEntity){
+          var interp = this.strength * Interpolation.pow2In.apply(b.fout());
+          var dst = Math.abs((Mathf.dst(b.x, b.y, u.x, u.y) / this.rangeB) - 1) * interp;
+          var ang = Angles.angle(u.x, u.y, b.x, b.y);
+
+          v1.trns(ang, dst);
+
+          u.velocity().add(v1);
+
+          if(u instanceof FlyingUnit){
+          	v2.set(v1).scl(0.5);
+          	u.velocity().add(v2);
+          };
+
+          u.moveBy(v1.x, v1.y);
+
+          //var data = [b, u, interp];
+
+          //Effects.effect(laserEffect, b.x, b.y, 0, data);
+        }
+      }
+    }));
+  },
+
+	draw(b){
+		Draw.shader(shader);
+		Fill.circle(b.x, b.y, b.fout() * 7.5);
+    Draw.shader();
+		Draw.color(Color.black);
+		Fill.circle(b.x, b.y, b.fout() * 5.5);
+	}
+});
+blackhole.strength = 1.6;
+blackhole.rangeB = 120;
+blackhole.speed = 0;
+blackhole.damage = 30;
+blackhole.lifetime = 7.5 * 60;
+blackhole.pierce = true;
+blackhole.bulletWidth = 12;
+blackhole.bulletHeight = 12;
+blackhole.bulletShrink = 0;
+blackhole.hitSize = 12;
+blackhole.despawnEffect = Fx.none;
+blackhole.keepVelocity = false;
+this.global.bullets.blackhole = blackhole;
+
+const whirlSmall = this.global.fx.whirlSmall;
+const blackholeSmall = extend(BasicBulletType, {
+  update(b){
+    const v1 = new Vec2();
+    const v2 = new Vec2();
+
+    if(Mathf.chance(Time.delta() * (0.3 * b.fout()))){
+      Effects.effect(whirlSmall, b.x, b.y, b.fout() * 2.5);
+    };
+
+    Units.nearbyEnemies(b.getTeam(), b.x - this.rangeB, b.y - this.rangeB, this.rangeB * 2, this.rangeB * 2, cons(u => {
+      if(u != null && Mathf.within(b.x, b.y, u.x, u.y, this.rangeB)){
+        if(u instanceof SolidEntity){
+          var interp = this.strength * Interpolation.pow2In.apply(b.fout());
+          var dst = Math.abs((Mathf.dst(b.x, b.y, u.x, u.y) / this.rangeB) - 1) * interp;
+          var ang = Angles.angle(u.x, u.y, b.x, b.y);
+
+          v1.trns(ang, dst);
+
+          u.velocity().add(v1);
+
+          if(u instanceof FlyingUnit){
+          	v2.set(v1).scl(0.5);
+          	u.velocity().add(v2);
+          };
+
+          u.moveBy(v1.x, v1.y);
+
+          //var data = [b, u, interp];
+
+          //Effects.effect(laserEffect, b.x, b.y, 0, data);
+        }
+      }
+    }));
+  },
+
+	draw(b){
+		Draw.shader(shader);
+		Fill.circle(b.x, b.y, b.fout() * 4.5);
+    Draw.shader();
+		Draw.color(Color.black);
+		Fill.circle(b.x, b.y, b.fout() * 2.5);
+	}
+});
+blackholeSmall.strength = 0.9;
+blackholeSmall.rangeB = 40;
+blackholeSmall.speed = 0;
+blackholeSmall.damage = 8;
+blackholeSmall.lifetime = 5 * 60;
+blackholeSmall.pierce = true;
+blackholeSmall.bulletWidth = 6;
+blackholeSmall.bulletHeight = 6;
+blackholeSmall.bulletShrink = 0;
+blackholeSmall.hitSize = 6;
+blackholeSmall.despawnEffect = Fx.none;
+blackholeSmall.keepVelocity = false;
+this.global.bullets.blackholeSmall = blackholeSmall;
+
+const grenade = extend(BasicBulletType,{
+  draw(b){
+    var h = -1*b.fin()*(b.fin()-1)*190;
+    Draw.color(this.backColor);
+    Draw.rect(this.backRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color(this.frontColor);
+    Draw.rect(this.frontRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color();
+  },
+  //hit(b,x,y){},
+  //despawned(b){},
+  //update(b){}
+});
+grenade.speed = 3.2;
+grenade.lifetime = 70;
+grenade.collidesTiles = false;
+grenade.collides = false;
+grenade.collidesAir = false;
+grenade.keepVelocity = false;
+grenade.hitSound = Sounds.explosion;
+grenade.splashDamage = 310;
+grenade.splashDamageRadius = 40;
+grenade.hitShake = 4;
+grenade.hitEffect = Fx.flakExplosionBig;
+grenade.bulletSprite = "commandblocks-b-grenade";
+//grenade.fRegion = Core.atlas.find("commandblocks-b-grenade");
+//grenade.bRegion = Core.atlas.find("commandblocks-b-grenade-back");
+
+this.global.bullets.grenade = grenade;
+
+const flashSpark = this.global.fx.flashSpark;
+var t = this;
+const flashbang = extend(BasicBulletType,{
+  draw(b){
+    var h = -1*b.fin()*(b.fin()-1)*190;
+    Draw.color(this.backColor);
+    Draw.rect(this.backRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color(this.frontColor);
+    Draw.rect(this.frontRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color();
+  },
+  hit(b, x, y){
+    if(x === undefined || x === null){
+      x = b.x; y = b.y;
+    }
+    var v1 = Core.camera.unproject(0, 0);
+    v1 = Vec2(v1.x, v1.y); //Dont even ask.
+    var v2 = Core.camera.unproject(Core.graphics.getWidth(), Core.graphics.getHeight());
+    //print(v1); print(v2); print("Pos: ("+x+", "+y+")");
+    if(v1.x<x && x<v2.x && v1.y<y && y<v2.y) this.flash((b.getTeam()==Vars.player.getTeam())?4:11);
+
+    this.super$hit(b, x, y);
+  },
+  flash(duration){
+    var image = new Image();
+    var flashBeep = t.global.newSounds.beep;
+    const sid = flashBeep.play(Core.settings.getInt("sfxvol") / 100);
+    const vol = Core.settings.getInt("sfxvol") -1;
+    vol++;
+    if(sid != -1) flashBeep.setLooping(sid, true);
+    //print(sid); print(Core.settings.getInt("sfxvol") / 100);
+    image.getColor().a = 1;
+    image.touchable(Touchable.disabled);
+    image.setFillParent(true);
+    image.actions(Actions.delay(duration), Actions.fadeOut(15), Actions.remove());
+    if(sid != -1){
+      Time.run(duration*60+15*60,run(()=>{
+        flashBeep.stop(sid);
+        //Core.settings.put("sfxvol", vol);
+      }));
+    }
+    image.update(run(() => {
+      //image.toFront();
+      if(sid != -1) flashBeep.setVolume(sid, (vol / 100)*image.getColor().a);
+      //Core.settings.put("sfxvol", (1-image.getColor().a)*vol/100);
+      //print((Core.settings.getInt("sfxvol") / 100)*image.getColor().a);
+      if(Vars.state.is(GameState.State.menu)||Vars.player.isDead()){
+        image.remove();
+        if(sid != -1) flashBeep.stop(sid);
+        //Core.settings.put("sfxvol", vol);
+      }
+    }));
+    Core.scene.add(image);
+  },
+  //despawned(b){},
+  update(b){
+    this.super$update(b);
+    if(Mathf.chance(0.2)) Effects.effect(flashSpark, b.x, b.y - b.fin()*(b.fin()-1)*190);
+  }
+});
+flashbang.speed = 3.2;
+flashbang.lifetime = 70;
+flashbang.collidesTiles = false;
+flashbang.collides = false;
+flashbang.collidesAir = false;
+flashbang.keepVelocity = false;
+flashbang.hitSound = Sounds.explosion;
+flashbang.splashDamage = 30;
+flashbang.splashDamageRadius = 60;
+flashbang.hitEffect = this.global.fx.flashbang;
+flashbang.despawnEffect = Fx.none;
+flashbang.bulletSprite = "commandblocks-b-flashbang";
+flashbang.frontColor = Color.white;
+flashbang.backColor = Color.lightGray;
+
+this.global.bullets.flashbang = flashbang;

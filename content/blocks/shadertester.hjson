@@ -2,7 +2,7 @@
 size: 4
 breakable: true
 //consumesTap: true
-category: defense
+category: effect
 requirements: [
   bittrium/45
 ]
@@ -11,3 +11,5 @@ solid: true
 targetable: true
 //hasShadow: false
 buildVisibility: sandboxOnly
+configurable: true
+update: true

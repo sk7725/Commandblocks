@@ -1,0 +1,18 @@
+
+size: 1
+breakable: true
+update: true
+category: effect
+requirements: [
+  silicon/30
+  thorium/40
+  surge-alloy/25
+]
+//sync: true
+health: 150
+configurable: false
+solid: true
+//hasItems: true
+//itemCapacity: 1
+rotate: true
+research: unloader
