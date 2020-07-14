@@ -647,3 +647,44 @@ molotov.incendAmount = 35;
 molotov.incendSpread = 35;
 
 this.global.bullets.molotov = molotov;
+
+const emp = extend(BasicBulletType,{
+  draw(b){
+    var h = -1*b.fin()*(b.fin()-1)*190;
+    Draw.color(this.backColor);
+    Draw.rect(this.backRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color(this.frontColor);
+    Draw.rect(this.frontRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color();
+  },
+  hit(b,x,y){
+    if(x === undefined || x === null){
+      x = b.x; y = b.y;
+    }
+    
+    this.super$hit(b, x, y);
+  },
+  //despawned(b){},
+  update(b){
+    this.super$update(b);
+    if(Mathf.chance(0.075)) Effects.effect(Fx.hitLancer, b.x, b.y - b.fin()*(b.fin()-1)*190);
+  }
+});
+emp.speed = 3.2;
+emp.lifetime = 70;
+emp.collidesTiles = false;
+emp.collides = false;
+emp.collidesAir = false;
+emp.keepVelocity = true;
+emp.hitSound = Sounds.spark;
+emp.hitShake = 7;
+emp.hitEffect = Fx.shockwave;
+emp.bulletSprite = "commandblocks-b-emp";
+emp.frontColor = Pal.surge; 
+emp.backColor = Pal.missileYellowBack;
+emp.fragBullets = 2; 
+emp.fragBullet = Bullets.arc;
+emp.lightining = 3;
+emp.lightningLength = 15;
+
+this.global.bullets.emp = emp;
