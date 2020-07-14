@@ -617,8 +617,8 @@ const molotov = extend(BasicBulletType,{
     }
     Puddle.deposit(Vars.world.tileWorld(x, y), Liquids.oil, 1200);
     Puddle.deposit(Vars.world.tileWorld(x, y+24), Liquids.oil, 400);
-    Puddle.deposit(Vars.world.tileWorld(x+17, y-17), Liquids.oil, 400);
-    Puddle.deposit(Vars.world.tileWorld(x-17, y-17), Liquids.oil, 400);
+    Puddle.deposit(Vars.world.tileWorld(x+20, y-12), Liquids.oil, 400);
+    Puddle.deposit(Vars.world.tileWorld(x-20, y-12), Liquids.oil, 400);
     
     this.super$hit(b, x, y);
   },
