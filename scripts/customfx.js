@@ -259,5 +259,13 @@ this.global.fx = {
       drawSpark(e.x+x, e.y+y, e.fout()*2.5, 0.5+e.fout(), e.id*i);
       i++;
     }));
+  }),
+  empBlast : newEffect(60, e => {
+    Draw.color(Pal.lancerLaser, Pal.surge, e.fout());
+    Lines.stroke(e.fout()*2);
+    var rand = Mathf.random();
+    Lines.poly(e.x, e.y, rand*5+10, e.fin()*e.rotation, e.fout()*300);
+    Lines.stroke(e.fout());
+    Lines.poly(e.x, e.y, rand*5+10, e.fin()*e.rotation*0.85, e.fout()*300);
   })
 };
