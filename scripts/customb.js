@@ -673,6 +673,11 @@ const emp = extend(BasicBulletType,{
       x = b.x; y = b.y;
     }
     Effects.effect(empBlast, x, y, 125);
+    Units.nearbyEnemies(b.getTeam(), b.x-125, b.y-125, b.x+125, b.y+125, cons(e=>{
+      if(Mathf.within(b.x, b.y, e.x, e.y, 125) && e != null){
+        e.applyEffect(empjam, 20);
+      }
+    }));
     this.super$hit(b, x, y);
   },
   //despawned(b){},
