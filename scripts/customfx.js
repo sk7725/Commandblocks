@@ -260,12 +260,12 @@ this.global.fx = {
       i++;
     }));
   }),
-  empBlast : newEffect(60, e => {
+  empBlast : newEffect(25, e => {
     Draw.color(Pal.lancerLaser, Pal.surge, e.fout());
-    Lines.stroke(e.fout()*2);
+    Lines.stroke(e.fout()*4.5);
     var rand = Mathf.random();
     Lines.poly(e.x, e.y, rand*5+10, e.fin()*e.rotation, e.fout()*300);
-    Lines.stroke(e.fout());
+    Lines.stroke(e.fout()*2);
     Lines.poly(e.x, e.y, rand*5+10, e.fin()*e.rotation*0.85, e.fout()*300);
   })
 };
