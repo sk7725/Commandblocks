@@ -672,10 +672,10 @@ const emp = extend(BasicBulletType,{
     if(x === undefined || x === null){
       x = b.x; y = b.y;
     }
-    Effects.effect(empBlast, x, y, 125);
-    Units.nearbyEnemies(b.getTeam(), b.x-125, b.y-125, b.x+125, b.y+125, cons(e=>{
-      if(Mathf.within(b.x, b.y, e.x, e.y, 125) && e != null){
-        e.applyEffect(empjam, 20);
+    Effects.effect(empBlast, x, y, this.empRadius);
+    Units.nearbyEnemies(b.getTeam(), b.x-this.empRadius, b.y-this.empRadius, b.x+this.empRadius, b.y+this.empRadius, cons(e=>{
+      if(Mathf.within(b.x, b.y, e.x, e.y, this.empRadius) && e != null){
+        e.applyEffect(empjam, 13*60);
       }
     }));
     this.super$hit(b, x, y);
@@ -687,6 +687,7 @@ const emp = extend(BasicBulletType,{
   }
 });
 
+emp.empRadius = 140;
 emp.speed = 3.2;
 emp.lifetime = 70;
 emp.collidesTiles = false;
