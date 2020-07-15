@@ -648,6 +648,17 @@ molotov.incendSpread = 35;
 
 this.global.bullets.molotov = molotov;
 
+const empBlast = this.global.fx.empBlast;
+const empjam = extendContent(StatusEffect,"empjam",{
+  update(unit, time){
+  this.super$update(unit, time);
+  unit.getTimer().get(unit.getShootTimer(true),1);
+  unit.getTimer().get(unit.getShootTimer(false),1);
+}});
+empjam.color=Pal.surge;
+empjam.effect=Fx.hitLancer;
+empjam.speedMultiplier=0.85;
+
 const emp = extend(BasicBulletType,{
   draw(b){
     var h = -1*b.fin()*(b.fin()-1)*190;
@@ -661,7 +672,7 @@ const emp = extend(BasicBulletType,{
     if(x === undefined || x === null){
       x = b.x; y = b.y;
     }
-    
+    Effects.effect(empBlast, x, y, 125);
     this.super$hit(b, x, y);
   },
   //despawned(b){},
@@ -670,6 +681,7 @@ const emp = extend(BasicBulletType,{
     if(Mathf.chance(0.095)) Effects.effect(Fx.hitLancer, b.x, b.y - b.fin()*(b.fin()-1)*190);
   }
 });
+
 emp.speed = 3.2;
 emp.lifetime = 70;
 emp.collidesTiles = false;
