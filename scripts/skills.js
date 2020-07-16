@@ -376,7 +376,7 @@ const skills={
     healthcost:18,
 		uses:{
 			item:"surge-alloy",
-			amount:12
+			amount:6
 		},
 		cost:[
 			{
@@ -401,7 +401,7 @@ const skills={
     duration:13,
     uses:{
       item:"surge-alloy",
-      amount:16
+      amount:13
     },
     cost:[
       {
