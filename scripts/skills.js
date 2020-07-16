@@ -1424,7 +1424,7 @@ const skillfunc={
     this.fire(arcCasterBullet, player, 0.65, 5);
   },
   surgeemp(player){
-    this.fire(customb.grenade, player, 0.5, 1);
+    this.fire(customb.emp, player, 0.5, 1);
   },
   scalshield(player){
     var x=player.getX(); var y=player.getY();
