@@ -397,8 +397,8 @@ const skills={
   "surgeemp":{
     type:"skill.support",
     tier:3,
-    cooltime:33.5,
-    duration:20,
+    cooltime:19.3,
+    duration:13,
     uses:{
       item:"surge-alloy",
       amount:16
