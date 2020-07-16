@@ -397,11 +397,11 @@ const skills={
   "surgeemp":{
     type:"skill.support",
     tier:3,
-    cooltime:15,
-    duration:7.5,
+    cooltime:33.5,
+    duration:20,
     uses:{
       item:"surge-alloy",
-      amount:10
+      amount:16
     },
     cost:[
       {
@@ -1422,6 +1422,9 @@ const skillfunc={
     player.damage(player.maxHealth()*0.18);
     Sounds.spark.at(player.getX(),player.getY(),0.2);
     this.fire(arcCasterBullet, player, 0.65, 5);
+  },
+  surgeemp(player){
+    this.fire(customb.grenade, player, 0.5, 1);
   },
   scalshield(player){
     var x=player.getX(); var y=player.getY();
