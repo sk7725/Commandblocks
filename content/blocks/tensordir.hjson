@@ -2,7 +2,7 @@ size: 1
 breakable: true
 category: distribution
 requirements: [
-  ref-tensor/6
+  ref-zeta/6
   graphite/6
 ]
 health: 60
