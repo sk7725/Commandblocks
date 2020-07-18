@@ -6,12 +6,6 @@ const sporeblock = extendContent(Block, "sporeblock",{
   }
 });
 
-const tensorbind = extendContent(Block, "tensorbind",{
-  canReplace(other){
-    return slimeBlocks.indexOf(other.name) > -1;
-  }
-});
-
 const sporedir = extendContent(Block, "sporedir",{
   canReplace(other){
     return slimeBlocks.indexOf(other.name) > -1;
@@ -24,6 +18,12 @@ const sporedir = extendContent(Block, "sporedir",{
   },
   draw(tile){
     Draw.rect(this.dirRegion[tile.rotation()], tile.drawx(), tile.drawy());
+  }
+});
+
+const tensorbind = extendContent(Block, "tensorbind",{
+  canReplace(other){
+    return slimeBlocks.indexOf(other.name) > -1;
   }
 });
 
