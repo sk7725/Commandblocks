@@ -61,8 +61,6 @@ require("playernote");
 require("playertune");
 require("playermusic");
 
-require("sporeblock");
-
 require("button");
 require("buttonbig");
 require("buttonpad");
@@ -77,6 +75,8 @@ require("powertrans");
 require("setconv");
 require("setconva");
 require("setconvmodder");
+
+require("sporeblock");
 
 require("colorcanvas");
 require("colorpicker");
