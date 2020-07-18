@@ -5,7 +5,8 @@ requirements: [
   spore-pod/6
   lead/6
 ]
-health: 20
+health: 40
 solid: true
 targetable: true
 rotate: true
+update: true
