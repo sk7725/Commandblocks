@@ -19,7 +19,8 @@ const sporedir = extendContent(Block, "sporedir",{
   load(){
     this.super$load();
     this.dirRegion = [];
-    for(var i=0;i<4;i++) this.dirRegion.push(Core.atlas.find(this.name+"-"+i));
+    this.dirRegion.push(Core.atlas.find(this.name));
+    for(var i=1;i<4;i++) this.dirRegion.push(Core.atlas.find(this.name+"-"+i));
   },
   draw(tile){
     Draw.rect(this.dirRegion[tile.rotation()], tile.drawx(), tile.drawy());
@@ -33,7 +34,8 @@ const tensordir = extendContent(Block, "tensordir",{
   load(){
     this.super$load();
     this.dirRegion = [];
-    for(var i=0;i<4;i++) this.dirRegion.push(Core.atlas.find(this.name+"-"+i));
+    this.dirRegion.push(Core.atlas.find(this.name));
+    for(var i=1;i<4;i++) this.dirRegion.push(Core.atlas.find(this.name+"-"+i));
   },
   draw(tile){
     Draw.rect(this.dirRegion[tile.rotation()], tile.drawx(), tile.drawy());
