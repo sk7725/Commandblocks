@@ -61,7 +61,7 @@ require("playernote");
 require("playertune");
 require("playermusic");
 
-require("sporeblock");
+//require("sporeblock");
 
 require("button");
 require("buttonbig");
