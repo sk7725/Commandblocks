@@ -1,5 +1,5 @@
-const modName = "commandblocks-";
-const slimeBlocks = [modName+"sporeblock", modName+"tensorbind", modName+"sporedir", modName+"tensordir"];
+//const modName = "commandblocks-";
+const slimeBlocks = ["commandblocks-sporeblock", "commandblocks-tensorbind", "commandblocks-sporedir", "commandblocks-tensordir"];
 const sporeblock = extendContent(Block, "sporeblock",{
   canReplace(other){
     return slimeBlocks.indexOf(other.name) > -1;
