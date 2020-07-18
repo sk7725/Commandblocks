@@ -9,3 +9,4 @@ health: 60
 solid: true
 targetable: true
 rotate: true
+update: true
