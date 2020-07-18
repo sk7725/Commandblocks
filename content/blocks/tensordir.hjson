@@ -5,7 +5,7 @@ requirements: [
   ref-zeta/6
   graphite/6
 ]
-health: 60
+health: 80
 solid: true
 targetable: true
 rotate: true
