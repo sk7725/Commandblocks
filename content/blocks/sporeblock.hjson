@@ -10,4 +10,4 @@ targetable: true
 //hasShadow: false
 
 //sync: true
-//update: true
+update: true
