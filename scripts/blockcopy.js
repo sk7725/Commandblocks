@@ -41,6 +41,7 @@ const blockcopy = extendContent(MessageBlock, "blockcopy", {
     Call.setMessageBlockText(null,tile,nametext);
 	},
 	gettilename(tile){
+    if(tile === null) return "router";
 		if(tile.block()=="air"){
 			return tile.floor().name;
 		}
