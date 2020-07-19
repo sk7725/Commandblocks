@@ -3,7 +3,7 @@ Mindustry Command Block Mod(MCBM)
 This mod adds Minecraft-like Command Blocks, along with other blocks.   
 This is currently in development.   
 `As of 4.8, Command Blocks require you to be an Admin to edit.`   
-+ We now have a (dead) Discord Server: [https://discord.gg/RCCVQFW](https://discord.gg/RCCVQFW)
++ We now have a (half) Discord Server: [https://discord.gg/RCCVQFW](https://discord.gg/RCCVQFW)
 
 ## Blocks   
 `Blocks that need further descriptions.`   
@@ -62,7 +62,7 @@ Cuts power if the node on the marked position has 0 power or less.
 2 node power block that makes its output depend on its entries, using a configurable truth table.
 ## Commands   
 `List and description of commands.`   
-Commands will fail to work when an error happens, params are invalid , or requirements below are not made.   
+Commands will fail to work when an error happens, params are invalid or fail to be parsed, or requirements below are not made.   
 Starting the command with a / is optional.   
 Some params are optional.   
 
@@ -213,8 +213,11 @@ Sets an attribute or gets an attribute of the executor. Fails if the executor is
 Can only be used inside an /execute.   
 Refer [here](https://github.com/Anuken/Mindustry/blob/v104.6/core/src/mindustry/world/Block.java) for the list of attributes.   
 
-### /do string:command
-Executes a command or an array of commands if you use (""). It can also run javascript by adding $ before the javascript line.
+### /do   
+A command that does nothing on its own but the `$ notation`s are parsed nonetheless. NEVER fails on its own, meaning chained conditional command blocks will always activate.   
+
+### /check (argument)   
+A command that does nothing on its own but the `$ notation`s are parsed nonetheless. Fails if the first argument is false or when parsed, returns false.   
 
 ## Tilde Notation   
 Using ~ before a number for a coordinate will get the coordinate relative to the executor.   
