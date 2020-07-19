@@ -16,3 +16,4 @@ consumes: {
 sync: true
 update: true
 outputsPower: true
+research: wallzeta

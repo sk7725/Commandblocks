@@ -10,3 +10,4 @@ health: 128
 solid: true
 targetable: true
 //hasShadow: false
+research: walltime

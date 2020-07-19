@@ -15,3 +15,4 @@ configurable: false
 solid: true
 hasItems: true
 itemCapacity: 1800
+research: enderchest
