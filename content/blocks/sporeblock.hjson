@@ -11,4 +11,4 @@ targetable: true
 
 //sync: true
 update: true
-research: conveyor
+research: router
