@@ -12,3 +12,4 @@ expanded: true
 health: 100
 configurable: true
 solid: true
+research: colorpickerbrush

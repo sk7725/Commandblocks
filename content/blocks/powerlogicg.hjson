@@ -13,3 +13,4 @@ requirements: [
 ]
 insulated: true
 rotate: true
+research: diode

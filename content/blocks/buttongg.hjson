@@ -11,3 +11,4 @@ thorium/666
 sync: true
 health: 2000
 solid: true
+research: thorium-reactor

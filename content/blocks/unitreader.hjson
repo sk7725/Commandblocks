@@ -13,3 +13,4 @@ expanded: true
 solid: false
 targetable: false
 configurable: false
+research: posreader

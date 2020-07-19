@@ -10,3 +10,4 @@ solid: true
 targetable: true
 rotate: true
 update: true
+research: tensorbind

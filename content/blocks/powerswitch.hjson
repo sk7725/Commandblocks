@@ -12,3 +12,4 @@ requirements: [
 ]
 consumesTap: true
 layer: power
+research: diode

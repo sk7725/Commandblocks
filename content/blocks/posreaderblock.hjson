@@ -11,3 +11,4 @@ requirements: [
 //buildVisibility: sandboxOnly
 configurable: false
 rotate: true
+research: posreaderjson

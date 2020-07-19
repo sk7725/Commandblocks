@@ -10,3 +10,4 @@ configurable: true
 layer: overlay
 sync: true
 expanded: true
+research: message

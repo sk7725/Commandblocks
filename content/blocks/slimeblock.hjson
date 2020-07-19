@@ -11,3 +11,4 @@ requirements: [
 sync: true
 health: 300
 solid: true
+research: command-center

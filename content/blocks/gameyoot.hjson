@@ -10,3 +10,4 @@ configurable: true
 layer: overlay
 sync: true
 timers: 1
+research: playermover

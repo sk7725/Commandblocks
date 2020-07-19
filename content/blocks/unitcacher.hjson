@@ -11,3 +11,4 @@ sync: true
 expanded: true
 solid: false
 targetable: false
+research: unitreader

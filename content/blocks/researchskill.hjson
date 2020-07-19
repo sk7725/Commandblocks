@@ -14,3 +14,4 @@ rotate: false
 solid: true
 rebuildable: false
 health: 3000
+research: dart-mech-pad
