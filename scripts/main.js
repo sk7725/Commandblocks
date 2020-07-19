@@ -96,6 +96,7 @@ require("boostpad");
 require("slimeblock");
 
 require("blockcopy");
+require("lastlog");
 require("mp3player");
 
 require("playermover");
