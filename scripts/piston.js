@@ -226,7 +226,7 @@ const pistonArm = extendContent(Block, "pistonarm", {
   isHidden(){
     return true;
   },
-  canBreak(){
+  canBreak(tile){
     return false;
   }
 });
@@ -304,13 +304,16 @@ const piston = extendContent(Block, "piston", {
     tile.ent().setExtend(true);
   },
   retractBlock(tile){
-    if(tile.getNearby(tile.rotation()).block() == pistonArm) tile.getNearby(tile.rotation()).remove();
+    if(tile != null && tile.getNearby(tile.rotation()) != null && tile.getNearby(tile.rotation()).block() == pistonArm) tile.getNearby(tile.rotation()).remove();
     tile.ent().timer.reset(timerid, 0);
     tile.ent().setExtend(false);
   },
   removed(tile){
     this.super$removed(tile);
     if(tile.getNearby(tile.rotation()).block() == pistonArm) tile.getNearby(tile.rotation()).remove();
+  },
+  canBreak(tile){
+    return tile.ent().timer.getTime(timerid)>8;
   }
 });
 
