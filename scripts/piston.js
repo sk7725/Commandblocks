@@ -77,15 +77,18 @@ function getFrontBlocks(mtile, r){
   //print(retarr);
   return retarr;
 }
+function canBreakBlock(ptile){
+  return ptile.block().canBreak(ptile);
+}
 
 function canPush(ptile){
-  return (pushInvalid.indexOf(ptile.block().name) < 0)&&ptile.breakable();
+  return (pushInvalid.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&canBreakBlock(ptile);
 }
 
 function canStick(ptile, origTile){
   var orig = origTile.block().name;
   var slimet = slimeType(ptile.block().name);
-  return ((nonSticky.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&(slimet == orig || slimet == ptile.block().name || ptile.front().link() != origTile)) || ptile.block().name == orig;
+  return ((nonSticky.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&canBreakBlock(ptile)&&(slimet == orig || slimet == ptile.block().name || ptile.front().link() != origTile)) || ptile.block().name == orig;
 }
 
 function slimeType(name){
@@ -212,6 +215,9 @@ function pushBlock(tile, stile){
 }
 
 const pistonArm = extendContent(Block, "pistonarm", {
+  draw(tile){
+
+  },
   /*
   onProximityUpdate(tile){
     var piston = tile.getNearby((tile.rotation()+2)%4);
@@ -301,6 +307,7 @@ const piston = extendContent(Block, "piston", {
       tile.getNearby(tile.rotation()).set(pistonArm, tile.getTeam(), tile.rotation());
       tile.ent().timer.reset(timerid, 0);
       tile.ent().setExtend(true);
+      pushUnits(tile.getNearby(tile.rotation()),tile.rotation());
     }
   },
   retractBlock(tile){
