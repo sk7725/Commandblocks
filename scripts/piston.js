@@ -302,12 +302,20 @@ const piston = extendContent(Block, "piston", {
   },
   extendBlock(tile){
     if(tile == null && tile.getNearby(tile.rotation()) == null) return;
+    tile.ent().setExtend(true);
     Bullet.create(pistonPushEnt, tile.ent(), tile.getTeam(), tile.worldx(), tile.worldy(), tile.rotation()*90, 1, 1);
+    Core.app.post(run(()=>{
+      this.checkAfter(tile);
+    }));
+  },
+  checkAfter(tile){
     if(tile.getNearby(tile.rotation()).block().name == "air"){
       tile.getNearby(tile.rotation()).set(pistonArm, tile.getTeam(), tile.rotation());
       tile.ent().timer.reset(timerid, 0);
-      tile.ent().setExtend(true);
       pushUnits(tile.getNearby(tile.rotation()),tile.rotation());
+    }
+    else{
+      tile.ent().setExtend(false);
     }
   },
   retractBlock(tile){
