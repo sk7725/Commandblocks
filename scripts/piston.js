@@ -215,10 +215,11 @@ const pistonArm = extendContent(Block, "pistonarm", {
   draw(tile){
     //
   },
+  /*
   onProximityUpdate(tile){
     var piston = tile.getNearby((tile.rotation()+2)%4);
     if(piston === null || piston.block() === null || piston.block().name != "commandblocks-piston") tile.remove();
-  },
+  },*/
   display(tile, table){
 
   },
