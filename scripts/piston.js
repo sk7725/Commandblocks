@@ -252,7 +252,7 @@ const pustonPushEnt = extend(BasicBulletType,{
   despawned(b){},
   update(b){},
   init(b){
-    if(b === null || b.getOwner() === null || !(b.getOwner() instanceof TileEntity)) return;
+    if(b == null || b.getOwner() == null || !(b.getOwner() instanceof TileEntity)) return;
     pushBlocks(b.getOwner().getTile());
     b.remove();
 	}
