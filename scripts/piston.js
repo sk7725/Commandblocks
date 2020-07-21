@@ -246,7 +246,7 @@ function pushBlocks(tile){
 }
 
 
-const pustonPushEnt = extend(BasicBulletType,{
+const pistonPushEnt = extend(BasicBulletType,{
   draw(b){},
   hit(b,x,y){},
   despawned(b){},
@@ -257,12 +257,12 @@ const pustonPushEnt = extend(BasicBulletType,{
     b.remove();
 	}
 });
-pustonPushEnt.speed = 0;
-pustonPushEnt.lifetime = 1;
-pustonPushEnt.collidesTiles = false;
-pustonPushEnt.collides = false;
-pustonPushEnt.collidesAir = false;
-pustonPushEnt.keepVelocity = false;
+pistonPushEnt.speed = 0;
+pistonPushEnt.lifetime = 1;
+pistonPushEnt.collidesTiles = false;
+pistonPushEnt.collides = false;
+pistonPushEnt.collidesAir = false;
+pistonPushEnt.keepVelocity = false;
 
 const timerid = 0;
 
