@@ -2,8 +2,8 @@ size: 1
 breakable: true
 category: distribution
 requirements: [
-  spore-pod/6
   lead/6
+  spore-pod/6
 ]
 health: 40
 solid: true

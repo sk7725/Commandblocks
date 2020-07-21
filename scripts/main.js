@@ -76,6 +76,8 @@ require("setconv");
 require("setconva");
 require("setconvmodder");
 
+//PISTONS
+require("piston");
 require("sporeblock");
 
 require("colorcanvas");
