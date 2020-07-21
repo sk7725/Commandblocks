@@ -295,6 +295,7 @@ const piston = extendContent(Block, "piston", {
     }
   },
   extendBlock(tile){
+    if(tile == null && tile.getNearby(tile.rotation()) == null) return;
     Bullet.create(pistonPushEnt, tile.ent(), tile.getTeam(), tile.worldx(), tile.worldy(), tile.rotation()*90, 1, 1);
     if(tile.getNearby(tile.rotation()).block().name == "air"){
       tile.getNearby(tile.rotation()).set(pistonArm, tile.getTeam(), tile.rotation());
