@@ -212,9 +212,6 @@ function pushBlock(tile, stile){
 }
 
 const pistonArm = extendContent(Block, "pistonarm", {
-  draw(tile){
-    //
-  },
   /*
   onProximityUpdate(tile){
     var piston = tile.getNearby((tile.rotation()+2)%4);
@@ -243,7 +240,6 @@ function pushBlocks(tile){
     }
 
   }
-  if(tile.getNearby(tile.rotation()).block().name == "air") tile.getNearby(tile.rotation()).set(pistonArm, tile.getTeam(), tile.rotation());
 }
 
 
@@ -300,8 +296,11 @@ const piston = extendContent(Block, "piston", {
   },
   extendBlock(tile){
     Bullet.create(pistonPushEnt, tile.ent(), tile.getTeam(), tile.worldx(), tile.worldy(), tile.rotation()*90, 1, 1);
-    tile.ent().timer.reset(timerid, 0);
-    tile.ent().setExtend(true);
+    if(tile.getNearby(tile.rotation()).block().name == "air"){
+      tile.getNearby(tile.rotation()).set(pistonArm, tile.getTeam(), tile.rotation());
+      tile.ent().timer.reset(timerid, 0);
+      tile.ent().setExtend(true);
+    }
   },
   retractBlock(tile){
     if(tile != null && tile.getNearby(tile.rotation()) != null && tile.getNearby(tile.rotation()).block() == pistonArm) tile.getNearby(tile.rotation()).remove();
@@ -313,7 +312,7 @@ const piston = extendContent(Block, "piston", {
     if(tile.getNearby(tile.rotation()).block() == pistonArm) tile.getNearby(tile.rotation()).remove();
   },
   canBreak(tile){
-    return tile.ent().timer.getTime(timerid)>8;
+    return tile.ent().timer.getTime(timerid)>8 && !tile.ent().extended();
   }
 });
 
