@@ -271,14 +271,20 @@ const piston = extendContent(Block, "piston", {
     if(tile.ent().extended()){
       this.armOffset.trns(tile.rotation()*90, Math.min(tile.ent().timer.getTime(timerid), 8));
       Draw.rect(this.topRegion, tile.drawx()+this.armOffset.x, tile.drawy()+this.armOffset.y, tile.rotation()*90);
+      if(tile.ent().timer.getTime(timerid)>4) Draw.rect(this.topRegion2, tile.drawx()+this.armOffset.x, tile.drawy()+this.armOffset.y, tile.rotation()*90);
     }
-    else Draw.rect(this.topRegion, tile.drawx(), tile.drawy(), tile.rotation()*90);
+    else{
+      this.armOffset.trns(tile.rotation()*90, 8-Math.min(tile.ent().timer.getTime(timerid), 8));
+      Draw.rect(this.topRegion, tile.drawx()+this.armOffset.x, tile.drawy()+this.armOffset.y, tile.rotation()*90);
+      if(tile.ent().timer.getTime(timerid)<4) Draw.rect(this.topRegion2, tile.drawx()+this.armOffset.x, tile.drawy()+this.armOffset.y, tile.rotation()*90);
+    }
     Draw.rect(this.baseRegion[tile.rotation()], tile.drawx(), tile.drawy());
   },
   load(){
     this.super$load();
     this.armOffset = Vec2(0, 0);
     this.topRegion = Core.atlas.find(this.name + "-arm");
+    this.topRegion2 = Core.atlas.find(this.name + "-arm2");
     this.baseRegion = [];
     for(var i=0;i<4;i++) this.baseRegion.push(Core.atlas.find(this.name+"-"+i));
   },
@@ -297,12 +303,13 @@ const piston = extendContent(Block, "piston", {
     tile.ent().setExtend(true);
   },
   retractBlock(tile){
-    if(tile.getNearby(tile.rotation()).block() == pistonarm) tile.getNearby(tile.rotation()).remove();
+    if(tile.getNearby(tile.rotation()).block() == pistonArm) tile.getNearby(tile.rotation()).remove();
+    tile.ent().timer.reset(timerid, 0);
     tile.ent().setExtend(false);
   },
   removed(tile){
     this.super$removed(tile);
-    if(tile.getNearby(tile.rotation()).block() == pistonarm) tile.getNearby(tile.rotation()).remove();
+    if(tile.getNearby(tile.rotation()).block() == pistonArm) tile.getNearby(tile.rotation()).remove();
   }
 });
 
