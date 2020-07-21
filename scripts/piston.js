@@ -1,4 +1,4 @@
-const pushInvalid = ["commandblocks-commandb", "thorium-wall", "thorium-wall-large", "commandblocks-researchskill"];
+const pushInvalid = ["commandblocks-commandb", "thorium-wall", "thorium-wall-large", "commandblocks-researchskill", "commndblocks-enderbox", "commandblocks-enderchest", "commandblocks-pistonarm"];
 var nonSticky = ["phase-wall", "phase-wall-large"];
 nonSticky = nonSticky.concat(pushInvalid);
 //const pistonArm = Blocks.copperWall;
