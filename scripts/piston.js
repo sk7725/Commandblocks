@@ -269,7 +269,7 @@ const timerid = 0;
 const piston = extendContent(Block, "piston", {
   draw(tile){
     if(tile.ent().extended()){
-      this.armOffset.trns(tile.rotation()*90, Mathf.min(tile.ent().timer.getTime(timerid), 8));
+      this.armOffset.trns(tile.rotation()*90, Math.min(tile.ent().timer.getTime(timerid), 8));
       Draw.rect(this.topRegion, tile.drawx()+this.armOffset.x, tile.drawy()+this.armOffset.y, tile.rotation()*90);
     }
     else Draw.rect(this.topRegion, tile.drawx(), tile.drawy(), tile.rotation()*90);
