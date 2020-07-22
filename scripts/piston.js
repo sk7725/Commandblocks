@@ -364,6 +364,7 @@ const pistonPushEnt = extend(BasicBulletType,{
   update(b){},
   init(b){
     if(b == null || b.getOwner() == null || !(b.getOwner() instanceof TileEntity)) return;
+    if(!(b.getOwner().getTile().block().name == "commandblocks-pistonsticky" || b.getOwner().getTile().block().name == "commandblocks-piston")) return;
     pushBlocks(b.getOwner().getTile());
     b.remove();
 	}
@@ -382,6 +383,7 @@ const pistonPullEnt = extend(BasicBulletType,{
   update(b){},
   init(b){
     if(b == null || b.getOwner() == null || !(b.getOwner() instanceof TileEntity)) return;
+    if(b.getOwner().getTile().block().name != "commandblocks-pistonsticky") return;
     pullBlocks(b.getOwner().getTile());
     b.remove();
 	}
