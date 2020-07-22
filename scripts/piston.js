@@ -128,7 +128,7 @@ function addBlock(r, stile, count){
   }
   else if(slimeDir.indexOf(stile.block().name) > -1&&(stile.rotation()-r+2)%2==1){
     slimeArray.push(stile);
-    var retSide = addSide(tile, stile.getNearby(stile.rotation()), count, stile);
+    var retSide = addSide(r, stile.getNearby(stile.rotation()), count, stile);
     if(!retSide) return false;
   }
   if(count + pusharr.length>12) return false;
