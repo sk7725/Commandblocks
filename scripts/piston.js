@@ -98,35 +98,35 @@ function slimeType(name){
   return name;
 }
 
-function getLowest(tile, stile, count){
+function getLowest(r, stile, count){
   var ret = stile;
   for(var i=0;i<12-count;i++){
-    var etile = stile.getNearby((tile.rotation()+2)%4);
+    var etile = stile.getNearby((r+2)%4);
     if(etile == null || etile.block().name == "air" || pushArray.indexOf(etile) > -1 || !canStick(etile, stile)) return stile;
-    if(slimeBlock.indexOf(etile.block().name) > -1 || (slimeDir.indexOf(etile.block().name) > -1 && (etile.rotation()-tile.rotation()+4)%4 == 2)) stile = etile;//for 2x2 slimes add .link()
+    if(slimeBlock.indexOf(etile.block().name) > -1 || (slimeDir.indexOf(etile.block().name) > -1 && (etile.rotation()-r+4)%4 == 2)) stile = etile;//for 2x2 slimes add .link()
     else return etile.link();
   }
 }
 
-function addSide(tile, stile, count, orig){
+function addSide(r, stile, count, orig){
   if(stile == null || count > 12) return false;
   if(stile.link() == null) return false;
   stile = stile.link();
   if(stile.block().name == "air" || pushArray.indexOf(stile) > -1 || slimeArray.indexOf(stile) > -1 ||  !canPush(stile) || !canStick(stile, orig)) return true;
-  return addBlock(tile, getLowest(tile, stile, count), ++count);
+  return addBlock(r, getLowest(r, stile, count), ++count);
 }
 
-function addBlock(tile, stile, count){
+function addBlock(r, stile, count){
   if(stile == null) return false;
-  var pusharr = getFrontBlocks(stile, tile.rotation());
+  var pusharr = getFrontBlocks(stile, r);
   if(slimeBlock.indexOf(stile.block().name) > -1){
     slimeArray.push(stile);
-    var retSide = addSide(tile, stile.getNearby((tile.rotation()+1)%4), count, stile);
+    var retSide = addSide(tile, stile.getNearby((r+1)%4), count, stile);
     if(!retSide) return false;
-    retSide = addSide(tile, stile.getNearby((tile.rotation()+3)%4), count, stile);
+    retSide = addSide(tile, stile.getNearby((r+3)%4), count, stile);
     if(!retSide) return false;
   }
-  else if(slimeDir.indexOf(stile.block().name) > -1&&(stile.rotation()-tile.rotation()+2)%2==1){
+  else if(slimeDir.indexOf(stile.block().name) > -1&&(stile.rotation()-r+2)%2==1){
     slimeArray.push(stile);
     var retSide = addSide(tile, stile.getNearby(stile.rotation()), count, stile);
     if(!retSide) return false;
@@ -135,7 +135,7 @@ function addBlock(tile, stile, count){
   if(count<12){
     for(var i=0;i<pusharr.length;i++){
       if(pusharr[i] == null || !canPush(pusharr[i])) return false;
-      var ret = addBlock(tile, pusharr[i], ++count);
+      var ret = addBlock(r, pusharr[i], ++count);
       if(!ret) return false;
     }
   }
@@ -215,6 +215,55 @@ function pushBlock(tile, stile){
   return true;
 }
 
+function recPushBlock(sr, stile){
+  pushUnits(stile, sr);
+  var etile = stile.getNearby(sr);
+  //pushUnits(stile, tile.rotation());
+  const block = stile.block();
+  const r = stile.rotation();
+  const team = stile.getTeam();
+  if(etile == null) return -1;
+  if(etile.block().name != "air") return 0;//push later
+  if(stile.ent() != null){
+    stile.ent().removeFromProximity();
+    const entCopy = stile.ent();
+    stile.entity = null;
+  }
+  stile.remove();
+
+  etile.set(block, team, r);
+
+  if(etile.ent() != null){
+    etile.ent().remove();
+    //etile.entity = stile.ent();
+    etile.entity = entCopy.init(etile, false);
+  }
+
+  //stile.set(pistonArm, tile.getTeam(), 0);
+  if(etile.ent() != null) etile.ent().updateProximity();
+
+  if(etile.block().hasPower){
+    if(etile.block() instanceof PowerNode){
+      //etile.configure(etile.pos());
+
+      var links = etile.ent().power.links.toArray();
+      for(var i=0;i<links.length;i++){
+        //if(!(Vars.world.tile(links[i]).block() instanceof PowerNode)) continue;
+        //Vars.world.tile(links[i]).configure(stile.pos());
+        //Vars.world.tile(links[i]).configure(etile.pos());
+        etile.configure(links[i]);
+      }
+
+    }
+    etile.ent().power.graph.reflow(etile);
+  }
+
+  //Vars.world.notifyChanged(stile);
+  Vars.world.notifyChanged(etile);
+  //etile.ent().tile = etile;
+  return 1;
+}
+
 const pistonArm = extendContent(Block, "pistonarm", {
   draw(tile){
 
@@ -241,7 +290,7 @@ function pushBlocks(tile){
   if(tile.front().block().name != "air"){
     pushArray = [];
     slimeArray = [];
-    var ret = addBlock(tile, tile.front().link(), 1);
+    var ret = addBlock(tile.rotation(), tile.front().link(), 1);
     if(ret&&pushArray.length<=12){
       for(var i=0;i<pushArray.length;i++){
         pushBlock(tile, pushArray[i]);
@@ -258,6 +307,34 @@ function pushBlocks(tile){
   tile.ent().extendingTick(false);
 }
 
+function pullBlocks(tile){
+  if(tile.front() == null || !canPush(tile.front())) return;
+  if(tile.front().block() == pistonArm){
+    tile.front().remove();
+    pushArray = [];
+    slimeArray = [];
+    //var ret = addBlock(tile, tile.front().link(), 1);
+    var pullStart = tile.front().getNearby(tile.rotation());
+    const pullDir = (tile.rotation()+2)%4;
+    if(pullStart == null){
+      tile.ent().extendingTick(false);
+      return;
+    }
+    var ret = addBlock(pullDir, getLowest(pullDir, pullStart, 1));
+    if(ret&&pushArray.length<=12){
+      var i=0;
+      while(i<=72 && pushArray.length>0){
+        var pret = recPushBlock(pullDir, pushArray[i]);
+        if(pret == -1 || pret == 1) pushArray.splice(i, 1);
+        else i++;
+        if(i>=pushArray.length) i=0;
+      }
+    }
+  }
+  else{
+  }
+  tile.ent().extendingTick(false);
+}
 
 const pistonPushEnt = extend(BasicBulletType,{
   draw(b){},
@@ -276,6 +353,24 @@ pistonPushEnt.collidesTiles = false;
 pistonPushEnt.collides = false;
 pistonPushEnt.collidesAir = false;
 pistonPushEnt.keepVelocity = false;
+
+const pistonPullEnt = extend(BasicBulletType,{
+  draw(b){},
+  hit(b,x,y){},
+  despawned(b){},
+  update(b){},
+  init(b){
+    if(b == null || b.getOwner() == null || !(b.getOwner() instanceof TileEntity)) return;
+    pullBlocks(b.getOwner().getTile());
+    b.remove();
+	}
+});
+pistonPullEnt.speed = 0;
+pistonPullEnt.lifetime = 1;
+pistonPullEnt.collidesTiles = false;
+pistonPullEnt.collides = false;
+pistonPullEnt.collidesAir = false;
+pistonPullEnt.keepVelocity = false;
 
 const timerid = 0;
 
@@ -343,6 +438,96 @@ const piston = extendContent(Block, "piston", {
 });
 
 piston.entityType = prov(() => extend(TileEntity , {
+  _extend:false,
+  extended(){
+    return this._extend;
+  },
+  setExtend(b) {
+    this._extend = b;
+  },
+  _etick:false,
+  getExtendingTick(){
+    return this._etick;
+  },
+  extendingTick(b) {
+    this._etick = b;
+  },
+  write(stream) {
+    this.super$write(stream);
+    stream.writeBoolean(this.extended());
+    stream.writeBoolean(this.getExtendingTick());
+  },
+  read(stream, revision) {
+    this.super$read(stream, revision);
+    this.setExtend(stream.readBoolean());
+    this.extendingTick(stream.readBoolean());
+  }
+}));
+
+const pistonsticky = extendContent(Block, "pistonsticky", {
+  draw(tile){
+    if(tile.ent().extended()){
+      this.armOffset.trns(tile.rotation()*90, Math.min(tile.ent().timer.getTime(timerid), 8));
+      Draw.rect(this.topRegion, tile.drawx()+this.armOffset.x, tile.drawy()+this.armOffset.y, tile.rotation()*90);
+      if(tile.ent().timer.getTime(timerid)>4) Draw.rect(this.topRegion2, tile.drawx()+this.armOffset.x, tile.drawy()+this.armOffset.y, tile.rotation()*90);
+    }
+    else{
+      this.armOffset.trns(tile.rotation()*90, 8-Math.min(tile.ent().timer.getTime(timerid), 8));
+      Draw.rect(this.topRegion, tile.drawx()+this.armOffset.x, tile.drawy()+this.armOffset.y, tile.rotation()*90);
+      if(tile.ent().timer.getTime(timerid)<4) Draw.rect(this.topRegion2, tile.drawx()+this.armOffset.x, tile.drawy()+this.armOffset.y, tile.rotation()*90);
+    }
+    Draw.rect(this.baseRegion[tile.rotation()], tile.drawx(), tile.drawy());
+  },
+  load(){
+    this.super$load();
+    this.armOffset = Vec2(0, 0);
+    this.topRegion = Core.atlas.find(this.name + "-arm");
+    this.topRegion2 = Core.atlas.find("commandblocks-piston" + "-arm2");
+    this.baseRegion = [];
+    for(var i=0;i<4;i++) this.baseRegion.push(Core.atlas.find("commandblocks-piston"+"-"+i));
+  },
+  update(tile){
+    if(tile.ent().timer.getTime(timerid)<8) return;
+    if(tile.ent().cons.valid()){
+      if(!tile.ent().extended()) this.extendBlock(tile);
+    }
+    else{
+      if(tile.ent().extended()) this.retractBlock(tile);
+    }
+  },
+  extendBlock(tile){
+    if(tile == null && tile.getNearby(tile.rotation()) == null) return;
+    tile.ent().extendingTick(true);
+    Bullet.create(pistonPushEnt, tile.ent(), tile.getTeam(), tile.worldx(), tile.worldy(), tile.rotation()*90, 1, 1);
+    //Core.app.post(run(()=>{
+    //  this.checkAfter(tile);
+    //}));
+  },
+  checkAfter(tile){
+    if(tile.getNearby(tile.rotation()).block().name == "air"){
+      tile.getNearby(tile.rotation()).set(pistonArm, tile.getTeam(), tile.rotation());
+      tile.ent().timer.reset(timerid, 0);
+      pushUnits(tile.getNearby(tile.rotation()),tile.rotation());
+    }
+    else{
+      tile.ent().setExtend(false);
+    }
+  },
+  retractBlock(tile){
+    if(tile != null && tile.getNearby(tile.rotation()) != null && tile.getNearby(tile.rotation()).block() == pistonArm) Bullet.create(pistonPullEnt, tile.ent(), tile.getTeam(), tile.worldx(), tile.worldy(), tile.rotation()*90, 1, 1);
+    tile.ent().timer.reset(timerid, 0);
+    tile.ent().setExtend(false);
+  },
+  removed(tile){
+    this.super$removed(tile);
+    if(tile.getNearby(tile.rotation()).block() == pistonArm) tile.getNearby(tile.rotation()).remove();
+  },
+  canBreak(tile){
+    return tile.ent().timer.getTime(timerid)>8 && !tile.ent().extended() && !tile.ent().getExtendingTick();
+  }
+});
+
+pistonsticky.entityType = prov(() => extend(TileEntity , {
   _extend:false,
   extended(){
     return this._extend;
