@@ -223,7 +223,7 @@ function recPushBlock(sr, stile){
   const r = stile.rotation();
   const team = stile.getTeam();
   if(etile == null) return -1;
-  if(etile.block().name != "air") return 0;//push later
+  //if(etile.block().name != "air") return 0;//push later
   if(stile.ent() != null){
     stile.ent().removeFromProximity();
     const entCopy = stile.ent();
@@ -333,7 +333,7 @@ function pullBlocks(tile){
     pullStart = pullStart.link();
     print("pullStart: "+pullStart);
     if(canStick(pullStart, tile) || slimeBlock.indexOf(pullStart.block().name)>-1){
-      var ret = addBlock(pullDir, pullStart);
+      var ret = addBlock(pullDir, pullStart, 1);
       print("pushArray: "+pushArray); print("ret: "+ret);
       if(ret&&pushArray.length<=12){
         /*
