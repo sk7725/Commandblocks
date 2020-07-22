@@ -236,17 +236,19 @@ const pistonArm = extendContent(Block, "pistonarm", {
 
 
 function pushBlocks(tile){
-  if(tile.front() == null || tile.front().block().name == "air" || !canPush(tile.front())) return;
-  pushArray = [];
-  slimeArray = [];
-  var ret = addBlock(tile, tile.front().link(), 1);
-  if(ret&&pushArray.length<=12){
-    for(var i=0;i<pushArray.length;i++){
-      pushBlock(tile, pushArray[i]);
-    }
+  if(tile.front() == null || !canPush(tile.front())) return;
+  if(tile.front().block().name != "air"){
+    pushArray = [];
+    slimeArray = [];
+    var ret = addBlock(tile, tile.front().link(), 1);
+    if(ret&&pushArray.length<=12){
+      for(var i=0;i<pushArray.length;i++){
+        pushBlock(tile, pushArray[i]);
+      }
 
+    }
   }
-  if(tile.getNearby(tile.rotation()).block().name == "air"){
+  else{
     tile.getNearby(tile.rotation()).set(pistonArm, tile.getTeam(), tile.rotation());
     tile.ent().timer.reset(timerid, 0);
     pushUnits(tile.getNearby(tile.rotation()),tile.rotation());
