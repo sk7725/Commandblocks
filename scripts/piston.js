@@ -325,7 +325,7 @@ function pullBlocks(tile){
       tile.ent().extendingTick(false);
       return;
     }
-    pullStart = getLowest(pullDir, pullStart, 1);
+    pullStart = getLowest(pullDir, pullStart.link(), 1);
     if(pullStart == null){
       tile.ent().extendingTick(false);
       return;
@@ -334,6 +334,7 @@ function pullBlocks(tile){
     if(canStick(pullStart, tile) || slimeBlock.indexOf(pullStart.block().name)>-1){
       var ret = addBlock(pullDir, pullStart);
       if(ret&&pushArray.length<=12){
+        /*
         var i=0; var j=0;
         while(j<=72 && pushArray.length>0){
           var pret = recPushBlock(pullDir, pushArray[i]);
@@ -341,6 +342,10 @@ function pullBlocks(tile){
           else i++;
           if(i>=pushArray.length) i=0;
           j++;
+        }
+        */
+        for(var i=0;i<pushArray.length;i++){
+          recPushBlock(pullDir, pushArray[i]);
         }
       }
     }
