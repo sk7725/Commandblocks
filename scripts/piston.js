@@ -308,7 +308,7 @@ function pushBlocks(tile){
 }
 
 function pullBlocks(tile){
-  if(tile.front() == null || !canPush(tile.front())) return;
+  if(tile.front() == null) return;
   if(tile.front().block() == pistonArm){
     tile.front().remove();
     pushArray = [];
@@ -514,7 +514,11 @@ const pistonsticky = extendContent(Block, "pistonsticky", {
     }
   },
   retractBlock(tile){
-    if(tile != null && tile.getNearby(tile.rotation()) != null && tile.getNearby(tile.rotation()).block() == pistonArm) Bullet.create(pistonPullEnt, tile.ent(), tile.getTeam(), tile.worldx(), tile.worldy(), tile.rotation()*90, 1, 1);
+    if(tile != null && tile.getNearby(tile.rotation()) != null && tile.getNearby(tile.rotation()).block() == pistonArm){
+      tile.ent().extendingTick(true);
+      Bullet.create(pistonPullEnt, tile.ent(), tile.getTeam(), tile.worldx(), tile.worldy(), tile.rotation()*90, 1, 1);
+
+    }
     tile.ent().timer.reset(timerid, 0);
     tile.ent().setExtend(false);
   },
