@@ -454,7 +454,7 @@ const piston = extendContent(Block, "piston", {
     if(tile.getNearby(tile.rotation()).block() == pistonArm) tile.getNearby(tile.rotation()).remove();
   },
   canBreak(tile){
-    return tile.ent().timer.getTime(timerid)>8 && !tile.ent().extended() && !tile.ent().getExtendingTick();
+    return /*tile.ent().timer.getTime(timerid)>8 &&*/ !tile.ent().extended() && !tile.ent().getExtendingTick();
   }
 });
 
@@ -548,7 +548,7 @@ const pistonsticky = extendContent(Block, "pistonsticky", {
     if(tile.getNearby(tile.rotation()).block() == pistonArm) tile.getNearby(tile.rotation()).remove();
   },
   canBreak(tile){
-    return tile.ent().timer.getTime(timerid)>8 && !tile.ent().extended() && !tile.ent().getExtendingTick();
+    return /*tile.ent().timer.getTime(timerid)>8 && */!tile.ent().extended() && !tile.ent().getExtendingTick();
   }
 });
 
