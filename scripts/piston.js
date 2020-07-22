@@ -121,9 +121,9 @@ function addBlock(r, stile, count){
   var pusharr = getFrontBlocks(stile, r);
   if(slimeBlock.indexOf(stile.block().name) > -1){
     slimeArray.push(stile);
-    var retSide = addSide(tile, stile.getNearby((r+1)%4), count, stile);
+    var retSide = addSide(r, stile.getNearby((r+1)%4), count, stile);
     if(!retSide) return false;
-    retSide = addSide(tile, stile.getNearby((r+3)%4), count, stile);
+    retSide = addSide(r, stile.getNearby((r+3)%4), count, stile);
     if(!retSide) return false;
   }
   else if(slimeDir.indexOf(stile.block().name) > -1&&(stile.rotation()-r+2)%2==1){
@@ -286,7 +286,10 @@ const pistonArm = extendContent(Block, "pistonarm", {
 
 
 function pushBlocks(tile){
-  if(tile.front() == null || !canPush(tile.front())) return;
+  if(tile.front() == null || !canPush(tile.front())){
+    tile.ent().extendingTick(false);
+    return;
+  }
   if(tile.front().block().name != "air"){
     pushArray = [];
     slimeArray = [];
@@ -295,7 +298,6 @@ function pushBlocks(tile){
       for(var i=0;i<pushArray.length;i++){
         pushBlock(tile, pushArray[i]);
       }
-
     }
   }
   else{
@@ -308,7 +310,10 @@ function pushBlocks(tile){
 }
 
 function pullBlocks(tile){
-  if(tile.front() == null) return;
+  if(tile.front() == null){
+    tile.ent().extendingTick(false);
+    return;
+  }
   if(tile.front().block() == pistonArm){
     tile.front().remove();
     pushArray = [];
@@ -320,14 +325,17 @@ function pullBlocks(tile){
       tile.ent().extendingTick(false);
       return;
     }
-    var ret = addBlock(pullDir, getLowest(pullDir, pullStart, 1));
-    if(ret&&pushArray.length<=12){
-      var i=0;
-      while(i<=72 && pushArray.length>0){
-        var pret = recPushBlock(pullDir, pushArray[i]);
-        if(pret == -1 || pret == 1) pushArray.splice(i, 1);
-        else i++;
-        if(i>=pushArray.length) i=0;
+    pullStart = getLowest(pullDir, pullStart, 1);
+    if(canStick(pullStart, tile)){
+      var ret = addBlock(pullDir, pullStart);
+      if(ret&&pushArray.length<=12){
+        var i=0;
+        while(i<=72 && pushArray.length>0){
+          var pret = recPushBlock(pullDir, pushArray[i]);
+          if(pret == -1 || pret == 1) pushArray.splice(i, 1);
+          else i++;
+          if(i>=pushArray.length) i=0;
+        }
       }
     }
   }
