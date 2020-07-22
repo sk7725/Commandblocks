@@ -326,7 +326,12 @@ function pullBlocks(tile){
       return;
     }
     pullStart = getLowest(pullDir, pullStart, 1);
-    if(canStick(pullStart, tile)){
+    if(pullStart == null){
+      tile.ent().extendingTick(false);
+      return;
+    }
+    pullStart = pullStart.link();
+    if(canStick(pullStart, tile) || slimeBlock.indexOf(pullStart.block().name)>-1){
       var ret = addBlock(pullDir, pullStart);
       if(ret&&pushArray.length<=12){
         var i=0;
