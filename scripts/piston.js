@@ -252,7 +252,7 @@ function pushBlocks(tile){
   else{
     tile.getNearby(tile.rotation()).set(pistonArm, tile.getTeam(), tile.rotation());
     tile.ent().timer.reset(timerid, 0);
-    pushUnits(tile.getNearby(tile.rotation()),tile.rotation());
+    pushUnits(tile, tile.rotation());
     tile.ent().setExtend(true);
   }
   tile.ent().extendingTick(false);
