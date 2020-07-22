@@ -82,6 +82,7 @@ function canBreakBlock(ptile){
 }
 
 function canPush(ptile){
+  if(ptile.block().name == "air") return true;
   return (pushInvalid.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&canBreakBlock(ptile);
 }
 
