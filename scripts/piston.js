@@ -246,6 +246,13 @@ function pushBlocks(tile){
     }
 
   }
+  if(tile.getNearby(tile.rotation()).block().name == "air"){
+    tile.getNearby(tile.rotation()).set(pistonArm, tile.getTeam(), tile.rotation());
+    tile.ent().timer.reset(timerid, 0);
+    pushUnits(tile.getNearby(tile.rotation()),tile.rotation());
+    tile.ent().setExtend(true);
+  }
+  tile.ent().extendingTick(false);
 }
 
 
@@ -302,11 +309,11 @@ const piston = extendContent(Block, "piston", {
   },
   extendBlock(tile){
     if(tile == null && tile.getNearby(tile.rotation()) == null) return;
-    tile.ent().setExtend(true);
+    tile.ent().extendingTick(true);
     Bullet.create(pistonPushEnt, tile.ent(), tile.getTeam(), tile.worldx(), tile.worldy(), tile.rotation()*90, 1, 1);
-    Core.app.post(run(()=>{
-      this.checkAfter(tile);
-    }));
+    //Core.app.post(run(()=>{
+    //  this.checkAfter(tile);
+    //}));
   },
   checkAfter(tile){
     if(tile.getNearby(tile.rotation()).block().name == "air"){
@@ -328,7 +335,7 @@ const piston = extendContent(Block, "piston", {
     if(tile.getNearby(tile.rotation()).block() == pistonArm) tile.getNearby(tile.rotation()).remove();
   },
   canBreak(tile){
-    return tile.ent().timer.getTime(timerid)>8 && !tile.ent().extended();
+    return tile.ent().timer.getTime(timerid)>8 && !tile.ent().extended() && !tile.ent().getExtendingTick();
   }
 });
 
@@ -340,12 +347,21 @@ piston.entityType = prov(() => extend(TileEntity , {
   setExtend(b) {
     this._extend = b;
   },
+  _etick:false,
+  getExtendingTick(){
+    return this._etick;
+  },
+  extendingTick(b) {
+    this._etick = b;
+  },
   write(stream) {
     this.super$write(stream);
     stream.writeBoolean(this.extended());
+    stream.writeBoolean(this.getExtendingTick());
   },
   read(stream, revision) {
     this.super$read(stream, revision);
     this.setExtend(stream.readBoolean());
+    this.extendingTick(stream.readBoolean());
   }
 }));
