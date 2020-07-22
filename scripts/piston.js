@@ -334,12 +334,13 @@ function pullBlocks(tile){
     if(canStick(pullStart, tile) || slimeBlock.indexOf(pullStart.block().name)>-1){
       var ret = addBlock(pullDir, pullStart);
       if(ret&&pushArray.length<=12){
-        var i=0;
-        while(i<=72 && pushArray.length>0){
+        var i=0; var j=0l
+        while(j<=72 && pushArray.length>0){
           var pret = recPushBlock(pullDir, pushArray[i]);
           if(pret == -1 || pret == 1) pushArray.splice(i, 1);
           else i++;
           if(i>=pushArray.length) i=0;
+          j++;
         }
       }
     }
