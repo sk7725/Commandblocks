@@ -21,7 +21,7 @@ const accel = extendContent(Block, "accel", {
   update(tile){
     if(!tile.ent().checkPos((tile.rotation()%2==0)?tile.x:tile.y)){
       //Sounds.click.at(tile.worldx(),tile.worldy(),1.4);
-      tile.ent().timer.reset(timerid,0);
+      //tile.ent().timer.reset(timerid,0); //happens automatically
       tile.ent().timer.reset(ballid,0);
       tile.ent().setPos((tile.rotation()%2==0)?tile.x:tile.y);
     }

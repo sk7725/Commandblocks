@@ -176,6 +176,15 @@ function pushBlock(tile, stile){
   const team = stile.getTeam();
   if(etile == null) return;
   if(stile.ent() != null){
+    if(stile.block().hasPower){
+      var links = stile.ent().power.links.toArray();
+      for(var i=0;i<links.length;i++){
+        if(Vars.world.tile(links[i]).block() instanceof PowerNode){
+          Vars.world.tile(links[i]).configure(stile.pos());
+        }
+      }
+    }
+
     stile.ent().removeFromProximity();
     const entCopy = stile.ent();
     stile.entity = null;
