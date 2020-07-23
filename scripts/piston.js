@@ -234,6 +234,14 @@ function recPushBlock(sr, stile){
   if(etile == null) return -1;
   //if(etile.block().name != "air") return 0;//push later
   if(stile.ent() != null){
+    if(stile.block().hasPower){
+      var links = stile.ent().power.links.toArray();
+      for(var i=0;i<links.length;i++){
+        if(Vars.world.tile(links[i]).block() instanceof PowerNode){
+          Vars.world.tile(links[i]).configure(stile.pos());
+        }
+      }
+    }
     stile.ent().removeFromProximity();
     const entCopy = stile.ent();
     stile.entity = null;
