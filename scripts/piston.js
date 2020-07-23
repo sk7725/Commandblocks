@@ -89,7 +89,7 @@ function canPush(ptile){
 function canStick(ptile, origTile){
   var orig = origTile.block().name;
   var slimet = slimeType(ptile.block().name);
-  return ((nonSticky.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&canBreakBlock(ptile)&&(slimet == orig || slimet == ptile.block().name || ptile.front().link() != origTile)) || ptile == slimeType(orig);
+  return ((nonSticky.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&canBreakBlock(ptile)&&(slimet == orig || slimet == ptile.block().name || ptile.front().link() != origTile)) || ptile.block().name == slimeType(orig);
 }
 
 function slimeType(name){
@@ -306,6 +306,7 @@ function pushBlocks(tile){
     tile.ent().timer.reset(timerid, 0);
     pushUnits(tile, tile.rotation());
     tile.ent().setExtend(true);
+    newSounds.pistonextend.at(tile.worldx(),tile.worldy(),1);
   }
   tile.ent().extendingTick(false);
 }
@@ -399,6 +400,8 @@ pistonPullEnt.keepVelocity = false;
 
 const timerid = 0;
 
+const newSounds = this.global.newSounds;
+
 const piston = extendContent(Block, "piston", {
   draw(tile){
     if(tile.ent().extended()){
@@ -452,6 +455,7 @@ const piston = extendContent(Block, "piston", {
     if(tile != null && tile.getNearby(tile.rotation()) != null && tile.getNearby(tile.rotation()).block() == pistonArm) tile.getNearby(tile.rotation()).remove();
     tile.ent().timer.reset(timerid, 0);
     tile.ent().setExtend(false);
+    newSounds.pistoncontract.at(tile.worldx(),tile.worldy(),1);
   },
   removed(tile){
     this.super$removed(tile);
@@ -546,6 +550,7 @@ const pistonsticky = extendContent(Block, "pistonsticky", {
     }
     tile.ent().timer.reset(timerid, 0);
     tile.ent().setExtend(false);
+    newSounds.pistoncontract.at(tile.worldx(),tile.worldy(),1);
   },
   removed(tile){
     this.super$removed(tile);

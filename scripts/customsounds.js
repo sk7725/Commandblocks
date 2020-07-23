@@ -33,3 +33,5 @@ function loadsound(name){
 loadsound("boostsound");
 loadsound("tntfuse");
 loadsound("beep");
+loadsound("pistonextend");
+loadsound("pistoncontract");

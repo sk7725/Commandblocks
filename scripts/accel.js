@@ -1,4 +1,4 @@
-const presstick=2; const timerid=0;
+const presstick=1; const timerid=0;
 const ballid = 1; const balltick = 8;
 const accel = extendContent(Block, "accel", {
   placed(tile) {
@@ -9,8 +9,8 @@ const accel = extendContent(Block, "accel", {
   draw(tile) {
     //Draw.rect(Core.atlas.find(this.name + ((tile.ent().timer.check(timerid,presstick)) ? "":"-trig")), tile.drawx(), tile.drawy());
     Draw.rect(this.baseRegion[tile.rotation()%2], tile.drawx(), tile.drawy());
-    if(tile.rotation()%2==0) Draw.rect(this.topRegion, tile.drawx() + Math.max(0, balltick-tile.ent().timer.getTime(ballid))/3*tile.ent().getLast(), tile.drawy());
-    else Draw.rect(this.topRegion, tile.drawx(), tile.drawy() + Math.max(0, balltick-tile.ent().timer.getTime(ballid))/3*tile.ent().getLast());
+    if(tile.rotation()%2==0) Draw.rect(this.topRegion, tile.drawx() - Math.max(0, balltick-tile.ent().timer.getTime(ballid))/3*tile.ent().getLast(), tile.drawy());
+    else Draw.rect(this.topRegion, tile.drawx(), tile.drawy() - Math.max(0, balltick-tile.ent().timer.getTime(ballid))/3*tile.ent().getLast());
   },
 
   /*
