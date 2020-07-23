@@ -9,8 +9,8 @@ const accel = extendContent(Block, "accel", {
   draw(tile) {
     //Draw.rect(Core.atlas.find(this.name + ((tile.ent().timer.check(timerid,presstick)) ? "":"-trig")), tile.drawx(), tile.drawy());
     Draw.rect(this.baseRegion[tile.rotation()%2], tile.drawx(), tile.drawy());
-    if(tile.rotation()%2==0) Draw.rect(this.topRegion, tile.drawx() + Math.max(0, (balltick-tile.ent().timer.getTime(ballid))/3*tile.ent().getLast()), tile.drawy());
-    else Draw.rect(this.topRegion, tile.drawx(), tile.drawy() + Math.max(0, (balltick-tile.ent().timer.getTime(ballid))/3*tile.ent().getLast()));
+    if(tile.rotation()%2==0) Draw.rect(this.topRegion, tile.drawx() + Math.max(0, balltick-tile.ent().timer.getTime(ballid))/3*tile.ent().getLast(), tile.drawy());
+    else Draw.rect(this.topRegion, tile.drawx(), tile.drawy() + Math.max(0, balltick-tile.ent().timer.getTime(ballid))/3*tile.ent().getLast());
   },
 
   /*
@@ -19,7 +19,7 @@ const accel = extendContent(Block, "accel", {
     Sounds.click.at(tile.worldx(),tile.worldy());
   },*/
   update(tile){
-    if(tile.ent().checkPos((tile.rotation()%2==0)?tile.x:tile.y)){
+    if(!tile.ent().checkPos((tile.rotation()%2==0)?tile.x:tile.y)){
       //Sounds.click.at(tile.worldx(),tile.worldy(),1.4);
       tile.ent().timer.reset(timerid,0);
       tile.ent().timer.reset(ballid,0);
