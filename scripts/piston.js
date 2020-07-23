@@ -1,10 +1,11 @@
-const pushInvalid = ["commandblocks-commandb", "thorium-wall", "thorium-wall-large", "commandblocks-researchskill", "commndblocks-enderbox", "commandblocks-enderchest", "commandblocks-pistonarm"];
+const pushInvalid = ["commandblocks-commandb", "thorium-wall", "thorium-wall-large", "commandblocks-researchskill", "commandblocks-enderbox", "commandblocks-enderchest", "commandblocks-pistonarm"];
 var nonSticky = ["phase-wall", "phase-wall-large"];
 nonSticky = nonSticky.concat(pushInvalid);
 //const pistonArm = Blocks.copperWall;
 const slimeBlock = ["commandblocks-sporeblock", "commandblocks-tensorbind"];
 const slimeDir = ["commandblocks-sporedir", "commandblocks-tensordir"];
 nonSticky = nonSticky.concat(slimeBlock);
+const pistonBlock = ["commandblocks-piston", "commandblocks-pistonsticky"];
 //print(nonSticky);
 var pushArray = [];
 var slimeArray = [];
@@ -86,10 +87,20 @@ function canPush(ptile){
   return (pushInvalid.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&canBreakBlock(ptile);
 }
 
+function canPushPiston(r, ptile, count){
+  if(pistonBlock.indexOf(ptile.block().name)<0 || !ptile.ent().extended() || (ptile.rotation()-r+4)%4 == 2) return true;
+  var etile = ptile.front();
+  if(etile == null) return true;
+  etile = etile.getNearby(r);
+  if(etile == null) return false;
+  if(etile.block().name == "air") return true;
+  return addTile(r, etile.link(), ++count);
+}
+
 function canStick(ptile, origTile){
   var orig = origTile.block().name;
   var slimet = slimeType(ptile.block().name);
-  return ((nonSticky.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&canBreakBlock(ptile)&&(slimet == orig || slimet == ptile.block().name || ptile.front().link() != origTile)) || ptile.block().name == slimeType(orig);
+  return ((nonSticky.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&canBreakBlock(ptile)&&(slimet == orig || slimet == ptile.block().name || ptile.front().link() != origTile)) || (ptile.block().name == slimeType(orig) && slimeBlock.indexOf(slimeType)>-1);
 }
 
 function slimeType(name){
@@ -102,7 +113,7 @@ function getLowest(r, stile, count){
   var ret = stile;
   for(var i=0;i<12-count;i++){
     var etile = stile.getNearby((r+2)%4);
-    if(etile == null || etile.block().name == "air" || pushArray.indexOf(etile) > -1 || !canStick(etile, stile)) return stile;
+    if(etile == null || etile.block().name == "air" || pushArray.indexOf(etile) > -1 || !canStick(etile, stile) !canPushPiston(r, etile, count)) return stile;
     if(slimeBlock.indexOf(etile.block().name) > -1 || (slimeDir.indexOf(etile.block().name) > -1 && (etile.rotation()-r+4)%4 == 2)) stile = etile;//for 2x2 slimes add .link()
     else return etile.link();
   }
@@ -112,7 +123,7 @@ function addSide(r, stile, count, orig){
   if(stile == null || count > 12) return false;
   if(stile.link() == null) return false;
   stile = stile.link();
-  if(stile.block().name == "air" || pushArray.indexOf(stile) > -1 || slimeArray.indexOf(stile) > -1 ||  !canPush(stile) || !canStick(stile, orig)) return true;
+  if(stile.block().name == "air" || pushArray.indexOf(stile) > -1 || slimeArray.indexOf(stile) > -1 ||  !canPush(stile) || !canStick(stile, orig) || !canPushPiston(r, stile, count)) return true;
   return addBlock(r, getLowest(r, stile, count), ++count);
 }
 
@@ -126,7 +137,7 @@ function addBlock(r, stile, count){
     retSide = addSide(r, stile.getNearby((r+3)%4), count, stile);
     if(!retSide) return false;
   }
-  else if(slimeDir.indexOf(stile.block().name) > -1&&(stile.rotation()-r+2)%2==1){
+  else if(slimeDir.indexOf(stile.block().name) > -1&&(stile.rotation()-r+4)%2==1){
     slimeArray.push(stile);
     var retSide = addSide(r, stile.getNearby(stile.rotation()), count, stile);
     if(!retSide) return false;
@@ -134,7 +145,7 @@ function addBlock(r, stile, count){
   if(count + pusharr.length>12) return false;
   if(count<12){
     for(var i=0;i<pusharr.length;i++){
-      if(pusharr[i] == null || !canPush(pusharr[i])) return false;
+      if(pusharr[i] == null || !canPush(pusharr[i]) || !canPushPiston(r, pusharr[i], count)) return false;
       var ret = addBlock(r, pusharr[i], ++count);
       if(!ret) return false;
     }
@@ -278,6 +289,9 @@ function recPushBlock(sr, stile){
   //Vars.world.notifyChanged(stile);
   Vars.world.notifyChanged(etile);
   //etile.ent().tile = etile;
+  if(pistonBlock.indexOf(etile.block().name)>-1 && etile.ent().extended() && etile.front() != null && etile.front().block().name == "air"){
+    etile.getNearby(etile.rotation()).set(pistonArm, etile.getTeam(), etile.rotation());
+  }
   return 1;
 }
 
@@ -479,7 +493,7 @@ const piston = extendContent(Block, "piston", {
     if(tile.getNearby(tile.rotation()).block() == pistonArm) tile.getNearby(tile.rotation()).remove();
   },
   canBreak(tile){
-    return /*tile.ent().timer.getTime(timerid)>8 &&*/ !tile.ent().extended() && !tile.ent().getExtendingTick();
+    return /*tile.ent().timer.getTime(timerid)>8 && !tile.ent().extended() &&*/ !tile.ent().getExtendingTick();
   }
 });
 
@@ -574,7 +588,7 @@ const pistonsticky = extendContent(Block, "pistonsticky", {
     if(tile.getNearby(tile.rotation()).block() == pistonArm) tile.getNearby(tile.rotation()).remove();
   },
   canBreak(tile){
-    return /*tile.ent().timer.getTime(timerid)>8 && */!tile.ent().extended() && !tile.ent().getExtendingTick();
+    return /*tile.ent().timer.getTime(timerid)>8 && !tile.ent().extended() &&*/ !tile.ent().getExtendingTick();
   }
 });
 
