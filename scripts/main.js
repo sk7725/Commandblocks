@@ -92,6 +92,7 @@ require("magictele");
 require("signblock");
 
 require("timer");
+require("accel");
 require("keyblock");
 
 require("boostpad");

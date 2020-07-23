@@ -89,7 +89,7 @@ function canPush(ptile){
 function canStick(ptile, origTile){
   var orig = origTile.block().name;
   var slimet = slimeType(ptile.block().name);
-  return ((nonSticky.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&canBreakBlock(ptile)&&(slimet == orig || slimet == ptile.block().name || ptile.front().link() != origTile)) || slimet == orig;
+  return ((nonSticky.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&canBreakBlock(ptile)&&(slimet == orig || slimet == ptile.block().name || ptile.front().link() != origTile)) || ptile == slimeType(orig);
 }
 
 function slimeType(name){
@@ -332,10 +332,10 @@ function pullBlocks(tile){
       return;
     }
     pullStart = pullStart.link();
-    print("pullStart: "+pullStart);
+    //print("pullStart: "+pullStart);
     if(canStick(pullStart, tile) || slimeBlock.indexOf(pullStart.block().name)>-1){
       var ret = addBlock(pullDir, pullStart, 1);
-      print("pushArray: "+pushArray); print("ret: "+ret);
+      //print("pushArray: "+pushArray); print("ret: "+ret);
       if(ret&&pushArray.length<=12){
         /*
         var i=0; var j=0;
