@@ -299,6 +299,7 @@ function pushBlocks(tile){
         pushBlock(tile, pushArray[i]);
       }
     }
+    tile.ent().power.graph.reflow(tile);
   }
   else{
     tile.getNearby(tile.rotation()).set(pistonArm, tile.getTeam(), tile.rotation());
@@ -325,7 +326,7 @@ function pullBlocks(tile){
       tile.ent().extendingTick(false);
       return;
     }
-    pullStart = getLowest(pullDir, pullStart.link(), 1);
+    if(slimeBlock.indexOf(slimeType(pullStart.link().block().name))>-1) pullStart = getLowest(pullDir, pullStart.link(), 1);
     if(pullStart == null){
       tile.ent().extendingTick(false);
       return;
@@ -349,6 +350,7 @@ function pullBlocks(tile){
         for(var i=0;i<pushArray.length;i++){
           recPushBlock(pullDir, pushArray[i]);
         }
+        tile.ent().power.graph.reflow(tile);
       }
     }
   }
