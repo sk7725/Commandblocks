@@ -27,7 +27,8 @@ const accel = extendContent(Block, "accel", {
     }
   },
   getPowerProduction(tile){
-    return (tile.ent().timer.check(timerid,presstick)) ? 0: 6;
+    print(tile.ent().timer.getTime(timerid));
+    return (tile.ent().timer.getTime(timerid)<1) ? 6: 0;
   },
   load(){
     this.super$load();
