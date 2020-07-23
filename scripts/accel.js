@@ -1,5 +1,6 @@
 const presstick=1; const timerid=0;
 const ballid = 1; const balltick = 8;
+
 const accel = extendContent(Block, "accel", {
   placed(tile) {
     this.super$placed(tile);
@@ -19,16 +20,24 @@ const accel = extendContent(Block, "accel", {
     Sounds.click.at(tile.worldx(),tile.worldy());
   },*/
   update(tile){
-    if(!tile.ent().checkPos((tile.rotation()%2==0)?tile.x:tile.y)){
+    /*if(!tile.ent().checkPos((tile.rotation()%2==0)?tile.x:tile.y)){
       //Sounds.click.at(tile.worldx(),tile.worldy(),1.4);
       //tile.ent().timer.reset(timerid,0); //happens automatically
       tile.ent().timer.reset(ballid,0);
       tile.ent().setPos((tile.rotation()%2==0)?tile.x:tile.y);
-    }
+    }*/
   },
   getPowerProduction(tile){
-    print(tile.ent().timer.getTime(timerid));
-    return (tile.ent().timer.getTime(timerid)<1) ? 6: 0;
+    //print(tile.ent().timer.getTime(timerid));
+    if(tile.ent().timer.getTime(timerid)<=0) return (tile.ent().getLastOutput())?8:0;
+    tile.ent().timer.reset(timerid,0);
+    var res = !(tile.ent().checkPos((tile.rotation()%2==0)?tile.x:tile.y));
+    tile.ent().setLastOutput(res);
+    if(res){
+      tile.ent().timer.reset(ballid,0);
+      tile.ent().setPos((tile.rotation()%2==0)?tile.x:tile.y);
+    }
+    return (res)?8:0;
   },
   load(){
     this.super$load();
@@ -58,5 +67,12 @@ accel.entityType = prov(() => extend(TileEntity , {
   read(stream, revision) {
     this.super$read(stream, revision);
     this.setPos(stream.readShort());
-  }
+  },
+  getLastOutput(){
+    return this._last;
+  },
+  setLastOutput(a){
+    this._last=a;
+  },
+  _last:false
 }));
