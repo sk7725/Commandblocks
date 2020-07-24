@@ -113,7 +113,7 @@ function getLowest(r, stile, count){
   var ret = stile;
   for(var i=0;i<12-count;i++){
     var etile = stile.getNearby((r+2)%4);
-    if(etile == null || etile.block().name == "air" || pushArray.indexOf(etile) > -1 || !canStick(etile, stile) !canPushPiston(r, etile, count)) return stile;
+    if(etile == null || etile.block().name == "air" || pushArray.indexOf(etile) > -1 || !canStick(etile, stile) || !canPushPiston(r, etile, count)) return stile;
     if(slimeBlock.indexOf(etile.block().name) > -1 || (slimeDir.indexOf(etile.block().name) > -1 && (etile.rotation()-r+4)%4 == 2)) stile = etile;//for 2x2 slimes add .link()
     else return etile.link();
   }
