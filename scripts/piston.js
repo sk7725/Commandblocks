@@ -130,7 +130,7 @@ function addSide(r, stile, count, orig){
   if(stile.link() == null) return false;
   stile = stile.link();
   if(stile.block().name == "air" || pushArray.indexOf(stile) > -1 || slimeArray.indexOf(stile) > -1 ||  !canPush(stile) || !canStick(stile, orig) || !canPushPiston(r, stile, count)) return true;
-  return addBlock(r, getLowest(r, stile, count), ++count);
+  return addBlock(r, getLowest(r, stile, count), count);
 }
 
 function addBlock(r, stile, count){
