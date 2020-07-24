@@ -92,15 +92,16 @@ function canPushPiston(r, ptile, count){
   var etile = ptile.front();
   if(etile == null) return true;
   etile = etile.getNearby(r);
-  if(etile == null) return false;
-  if(etile.block().name == "air") return true;
-  return addTile(r, etile.link(), ++count);
+  if(etile == null || count>12) return false;
+  if(etile.block().name == "air"||etile==stile) return true;
+  if(!canPush(petile.link()) || !canPushPiston(r, etile, ++count)) return false;
+  return addBlock(r, etile.link(), count);
 }
 
 function canStick(ptile, origTile){
   var orig = origTile.block().name;
   var slimet = slimeType(ptile.block().name);
-  return ((nonSticky.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&canBreakBlock(ptile)&&(slimet == orig || slimet == ptile.block().name || ptile.front().link() != origTile)) || (ptile.block().name == slimeType(orig) && slimeBlock.indexOf(slimeType)>-1);
+  return ((nonSticky.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&canBreakBlock(ptile)&&(slimet == orig || slimet == ptile.block().name || ptile.front().link() != origTile)) || (ptile.block().name == slimeType(orig) && slimeBlock.indexOf(slimeType(orig))>-1);
 }
 
 function slimeType(name){
@@ -111,6 +112,7 @@ function slimeType(name){
 
 function getLowest(r, stile, count){
   var ret = stile;
+  if(!(slimeBlock.indexOf(stile.block().name) > -1 || (slimeDir.indexOf(stile.block().name) > -1 && (stile.rotation()-r+4)%4 == 2))) return stile.link();
   for(var i=0;i<12-count;i++){
     var etile = stile.getNearby((r+2)%4);
     if(etile == null || etile.block().name == "air" || pushArray.indexOf(etile) > -1 || !canStick(etile, stile) || !canPushPiston(r, etile, count)) return stile;

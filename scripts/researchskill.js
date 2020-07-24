@@ -267,7 +267,6 @@ const researchskill = extendContent(Block, "researchskill", {
 					t.add(Core.bundle.get("skill.unfinished"));
 					t.left();
 				}));
-				//table.add(Core.bundle.format("skill.cooltime")+": "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
 				table.row();
 			}
 		}));
@@ -342,6 +341,13 @@ const researchskill = extendContent(Block, "researchskill", {
 			if(obj.hasOwnProperty("parent") && type == "noparent"){
 				t.table(cons(c => {
 					c.add(((type != "noparent") ? "[white]" + Core.bundle.get("research.parent") + ": []":"[scarlet]" + Core.bundle.get("research.parent") + ": []") + root[obj.parent].displayName).growX();
+				}));
+				t.row();
+			}
+      if(obj.hasOwnProperty("unfinished")){
+				t.table(cons(c => {
+					c.add(Core.bundle.get("skill.unfinished"));
+					c.left();
 				}));
 				t.row();
 			}
