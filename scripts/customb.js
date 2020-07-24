@@ -592,7 +592,7 @@ flashbang.collides = false;
 flashbang.collidesAir = false;
 flashbang.keepVelocity = true;
 flashbang.hitSound = Sounds.explosion;
-flashbang.splashDamage = 30;
+flashbang.splashDamage = 50;
 flashbang.splashDamageRadius = 60;
 flashbang.hitEffect = this.global.fx.flashbang;
 flashbang.despawnEffect = Fx.none;
@@ -704,7 +704,7 @@ emp.fragBullets = 2;
 emp.fragBullet = Bullets.arc;
 emp.lightining = 2;
 emp.lightningLength = 15;
-emp.splashDamage = 30;
+emp.splashDamage = 60;
 emp.splashDamageRadius = 60;
 
 this.global.bullets.emp = emp;
