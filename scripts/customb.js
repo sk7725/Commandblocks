@@ -619,7 +619,7 @@ const molotov = extend(BasicBulletType,{
     Puddle.deposit(Vars.world.tileWorld(x, y+24), Liquids.oil, 400);
     Puddle.deposit(Vars.world.tileWorld(x+20, y-12), Liquids.oil, 400);
     Puddle.deposit(Vars.world.tileWorld(x-20, y-12), Liquids.oil, 400);
-    
+
     this.super$hit(b, x, y);
   },
   //despawned(b){},
@@ -640,9 +640,9 @@ molotov.splashDamageRadius = 70;
 molotov.hitShake = 5;
 molotov.hitEffect = Fx.explosion;
 molotov.bulletSprite = "commandblocks-b-molotov";
-molotov.frontColor = Pal.lightishOrange; 
+molotov.frontColor = Pal.lightishOrange;
 molotov.backColor = Pal.lightOrange;
-molotov.incendChance = 1; 
+molotov.incendChance = 1;
 molotov.incendAmount = 35;
 molotov.incendSpread = 35;
 
@@ -698,11 +698,13 @@ emp.hitSound = Sounds.spark;
 emp.hitShake = 7;
 emp.hitEffect = Fx.shockwave;
 emp.bulletSprite = "commandblocks-b-emp";
-emp.frontColor = Pal.surge; 
+emp.frontColor = Pal.surge;
 emp.backColor = Pal.surge.cpy().mul(0.7,0.7,0.8,1);
-emp.fragBullets = 2; 
+emp.fragBullets = 2;
 emp.fragBullet = Bullets.arc;
 emp.lightining = 2;
 emp.lightningLength = 15;
+emp.splashDamage = 30;
+emp.splashDamageRadius = 60;
 
 this.global.bullets.emp = emp;
