@@ -53,6 +53,7 @@ require("walls/walltimelarge");
 require("walls/magicwall");
 require("walls/magicwalllarge");
 
+require("walls/wallinvi");
 require("walls/camwall");
 require("walls/camwalldir");
 

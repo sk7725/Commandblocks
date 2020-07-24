@@ -4,10 +4,10 @@ breakable: true
 //consumesTap: true
 category: defense
 requirements: [
-  bittrium/4
+  bittrium/64
 ]
-health: 512
+health: 7000
 solid: true
 targetable: true
 //hasShadow: false
-research: magicwall
+buildVisibility: sandboxOnly

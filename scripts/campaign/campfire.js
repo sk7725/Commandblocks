@@ -9,7 +9,7 @@ const campfire=extendContent(Block, "campfire",{
     var amount = Math.min(Mathf.floorPositive(tile.ent().items.total()/15), 2);
     Draw.rect(this.topRegion[amount], tile.drawx(), tile.drawy(), tile.rotation()*90);
 
-    this.spawnFire(tile);
+    if(!Vars.state.is(GameState.State.paused)) this.spawnFire(tile);
   },
   spawnFire(tile){
 
