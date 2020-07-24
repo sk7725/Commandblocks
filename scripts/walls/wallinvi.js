@@ -16,7 +16,7 @@ const bigx = newEffect(20, e => {
 
 const wallinvi = extendContent(Wall,"wallinvi",{
     handleDamage(tile,amount){
-      if(amount > 2) Effects.effect(smallx, Pal.heal, tile.worldx(), tile.worldy());
+      if(amount > 2) Effects.effect(smallx, Pal.heal, tile.drawx(), tile.drawy());
       return 0.0;
     },
     handleBulletHit(entity,bullet){
