@@ -97,7 +97,7 @@ function canPushPiston(r, ptile, count){
   if(etile == null) return true;
   etile = etile.getNearby(r);
   if(etile == null || count>12) return false;
-  if(etile.block().name == "air"||etile==stile) return true;
+  if(etile.block().name == "air"||etile==ptile) return true;
   if(!canPush(ptile.link()) || !canPushPiston(r, etile, count)) return false;
   return addBlock(r, etile.link(), count);
 }
