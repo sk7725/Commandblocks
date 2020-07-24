@@ -15,14 +15,19 @@ const bigx = newEffect(20, e => {
 });
 
 const wallinvi = extendContent(Wall,"wallinvi",{
-    handleDamage(tile,amount){
-      if(amount > 2) Effects.effect(smallx, Pal.heal, tile.drawx(), tile.drawy());
-      return 0.0;
-    },
-    handleBulletHit(entity,bullet){
-      entity.damage(0.0);
-      Effects.effect(smallx, colorx, entity.getX(), entity.getY());
-    }
+  handleDamage(tile,amount){
+    if(amount > 2) Effects.effect(smallx, Pal.heal, tile.drawx(), tile.drawy());
+    return 0.0;
+  },
+  handleBulletHit(entity,bullet){
+    entity.damage(0.0);
+    Effects.effect(smallx, colorx, entity.getX(), entity.getY());
+  },
+  setStats(){
+    this.super$setStats();
+    this.stats.remove(BlockStat.health);
+    this.stats.add(BlockStat.health, "{0}", Core.bundle.get("stat.infinity"));
+  }
 });
 
 wallinvi.entityType = prov(() => extend(TileEntity , {
@@ -33,14 +38,19 @@ wallinvi.entityType = prov(() => extend(TileEntity , {
 }));
 
 const wallinvilarge = extendContent(Wall,"wallinvilarge",{
-    handleDamage(tile,amount){
-      if(amount > 2) Effects.effect(bigx, Pal.heal, tile.drawx(), tile.drawy());
-      return 0.0;
-    },
-    handleBulletHit(entity,bullet){
-      entity.damage(0.0);
-      Effects.effect(bigx, colorx, entity.getX(), entity.getY());
-    }
+  handleDamage(tile,amount){
+    if(amount > 2) Effects.effect(bigx, Pal.heal, tile.drawx(), tile.drawy());
+    return 0.0;
+  },
+  handleBulletHit(entity,bullet){
+    entity.damage(0.0);
+    Effects.effect(bigx, colorx, entity.getX(), entity.getY());
+  },
+  setStats(){
+    this.super$setStats();
+    this.stats.remove(BlockStat.health);
+    this.stats.add(BlockStat.health, "{0}", Core.bundle.get("stat.infinity"));
+  }
 });
 
 wallinvilarge.entityType = prov(() => extend(TileEntity , {
