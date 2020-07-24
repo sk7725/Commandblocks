@@ -88,13 +88,17 @@ function canPush(ptile){
 }
 
 function canPushPiston(r, ptile, count){
-  if(pistonBlock.indexOf(ptile.block().name)<0 || !ptile.ent().extended() || (ptile.rotation()-r+4)%4 == 2) return true;
+  if(pistonBlock.indexOf(ptile.block().name)<0 || !ptile.ent().extended() || (ptile.rotation()-r+4)%4 == 2){
+    print("Cond 1:"+pistonBlock.indexOf(ptile.block().name));
+    print("Cond 3: "+(ptile.rotation()-r+4)%4);
+    return true;
+  }
   var etile = ptile.front();
   if(etile == null) return true;
   etile = etile.getNearby(r);
   if(etile == null || count>12) return false;
   if(etile.block().name == "air"||etile==stile) return true;
-  if(!canPush(petile.link()) || !canPushPiston(r, etile, ++count)) return false;
+  if(!canPush(ptile.link()) || !canPushPiston(r, etile, ++count)) return false;
   return addBlock(r, etile.link(), count);
 }
 
@@ -233,6 +237,9 @@ function pushBlock(tile, stile){
 
   //Vars.world.notifyChanged(stile);
   Vars.world.notifyChanged(etile);
+  if(pistonBlock.indexOf(etile.block().name)>-1 && etile.ent().extended() && etile.front() != null && etile.front().block().name == "air"){
+    etile.getNearby(etile.rotation()).set(pistonArm, etile.getTeam(), etile.rotation());
+  }
   //etile.ent().tile = etile;
   return true;
 }
