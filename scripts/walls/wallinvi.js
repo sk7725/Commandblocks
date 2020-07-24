@@ -2,14 +2,14 @@ const colorx = Color.valueOf("ea8878");
 
 const smallx = newEffect(20, e => {
   Draw.color(e.color);
-  Lines.stroke(e.fout());
+  Lines.stroke(e.fout()*1.5);
   Lines.lineAngleCenter(e.x, e.y, 45, 8);
   Lines.lineAngleCenter(e.x, e.y, 135, 8);
 });
 
 const bigx = newEffect(20, e => {
   Draw.color(e.color);
-  Lines.stroke(e.fout());
+  Lines.stroke(e.fout()*2.5);
   Lines.lineAngleCenter(e.x, e.y, 45, 16);
   Lines.lineAngleCenter(e.x, e.y, 135, 16);
 });
@@ -34,7 +34,7 @@ wallinvi.entityType = prov(() => extend(TileEntity , {
 
 const wallinvilarge = extendContent(Wall,"wallinvilarge",{
     handleDamage(tile,amount){
-      if(amount > 2) Effects.effect(bigx, Pal.heal, tile.worldx(), tile.worldy());
+      if(amount > 2) Effects.effect(bigx, Pal.heal, tile.drawx(), tile.drawy());
       return 0.0;
     },
     handleBulletHit(entity,bullet){
