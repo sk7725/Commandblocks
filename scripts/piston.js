@@ -191,13 +191,14 @@ function pushBlock(tile, stile){
   const block = stile.block();
   const r = stile.rotation();
   const team = stile.getTeam();
+  var slinks = [];
   if(etile == null) return;
   if(stile.ent() != null){
     if(stile.block().hasPower){
-      var links = stile.ent().power.links.toArray();
-      for(var i=0;i<links.length;i++){
-        if(Vars.world.tile(links[i]).block() instanceof PowerNode){
-          Vars.world.tile(links[i]).configure(stile.pos());
+      slinks = stile.ent().power.links.toArray();
+      for(var i=0;i<slinks.length;i++){
+        if(Vars.world.tile(slinks[i]).block() instanceof PowerNode){
+          Vars.world.tile(slinks[i]).configure(stile.pos());
         }
       }
     }
@@ -231,6 +232,11 @@ function pushBlock(tile, stile){
         etile.configure(links[i]);
       }
 
+    }
+    for(var i=0;i<slinks.length;i++){
+      if(Vars.world.tile(slinks[i]).block() instanceof PowerNode){
+        Vars.world.tile(slinks[i]).configure(etile.pos());
+      }
     }
     etile.ent().power.graph.reflow(etile);
   }
@@ -252,13 +258,14 @@ function recPushBlock(sr, stile){
   const r = stile.rotation();
   const team = stile.getTeam();
   if(etile == null) return -1;
+  var slinks = [];
   //if(etile.block().name != "air") return 0;//push later
   if(stile.ent() != null){
     if(stile.block().hasPower){
-      var links = stile.ent().power.links.toArray();
-      for(var i=0;i<links.length;i++){
-        if(Vars.world.tile(links[i]).block() instanceof PowerNode){
-          Vars.world.tile(links[i]).configure(stile.pos());
+      slinks = stile.ent().power.links.toArray();
+      for(var i=0;i<slinks.length;i++){
+        if(Vars.world.tile(slinks[i]).block() instanceof PowerNode){
+          Vars.world.tile(slinks[i]).configure(stile.pos());
         }
       }
     }
@@ -291,6 +298,11 @@ function recPushBlock(sr, stile){
         etile.configure(links[i]);
       }
 
+    }
+    for(var i=0;i<slinks.length;i++){
+      if(Vars.world.tile(slinks[i]).block() instanceof PowerNode){
+        Vars.world.tile(slinks[i]).configure(etile.pos());
+      }
     }
     etile.ent().power.graph.reflow(etile);
   }
