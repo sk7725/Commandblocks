@@ -767,7 +767,7 @@ spear.despawnEffect = Fx.hitFuse;
 spear.bulletSprite = "commandblocks-b-spear";
 spear.frontColor = Color.white.cpy();
 spear.backColor = Pal.lancerLaser.cpy();
-spear.bulletWidth = 10;
-spear.bulletHeight = 19;
+spear.bulletWidth = 20;
+spear.bulletHeight = 38;
 
 this.global.bullets.spear = spear;
