@@ -712,7 +712,7 @@ this.global.bullets.emp = emp;
 const spear = extend(BasicBulletType,{
   draw(b){
     Draw.color(this.backColor);
-    var r = (b.time()<60)?b.getData()+b.time()*12-90:b.rot()-90;
+    var r = (b.time()<60)?this.getTargetAngle(b)+Math.min(b.time()*6, 180)+180-90:b.rot()-90;
     if(b.time()<30) Draw.alpha(b.time()/30);
     Draw.rect(this.backRegion, b.x, b.y, this.bulletWidth, this.bulletHeight, r);
     Draw.color(this.frontColor);
@@ -724,21 +724,37 @@ const spear = extend(BasicBulletType,{
   update(b){
     this.super$update(b);
     if(b.time()>60&&b.velocity().isZero(0.001)){
-      b.velocity(4.5, b.getData());//set target TBA
+      b.velocity(4.5, this.getTargetAngle(b));//set target TBA
     }
   },
   init(b){
     if(b==null) return;
     b.x += b.velocity().x;
     b.y += b.velocity().y;
-    b.setData(b.rot());
+    var arr = [b.rot(), null]; 
+    b.setData(arr);
     b.velocity(0, 0);
+  },
+  getTargetAngle(b){
+    var dt = b.getData();
+    if(dt == null) dt = [b.rot(), null];
+    if(dt[1] != null && Units.invalidateTarget(dt[1], b.getTeam(), b.x, b.y, 90)) dt[1] = null;
+    if(dt[1] == null){
+      dt[1] = Units.closestTarget(b.getTeam(), b.x, b.y, 90);
+    }
+    if(dt[1] != null) dt[0] = this.angleTo(b, dt[1]);
+    b.setData(dt);
+    return dt[0];
+  },
+  angleTo(b, target){
+    return Angles.angle(b.x, b.y, target.getX(), target.getY());
   }
 });
 
 spear.speed = 8;
 spear.lifetime = 300;
 spear.pierce = true;
+spear.damage = 20;
 spear.collidesTiles = true;
 spear.collides = true;
 spear.collidesAir = true;
