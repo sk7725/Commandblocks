@@ -11,7 +11,7 @@ requirements: [
 ]
 sync: true
 consumes: {
-  power: 0.3
+  power: 0.9
 }
 health: 300
 solid: true
