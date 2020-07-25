@@ -96,7 +96,7 @@ function canPushPiston(r, ptile, count){
   var etile = ptile.front();
   if(etile == null) return true;
   etile = etile.getNearby(r);
-  if(etile == null || count>12) return false;
+  if(etile == null || count>999) return false;
   if(etile.block().name == "air"||etile==ptile) return true;
   if(!canPush(ptile.link()) || !canPushPiston(r, etile, count)) return false;
   return addBlock(r, etile.link(), count);
@@ -117,7 +117,7 @@ function slimeType(name){
 function getLowest(r, stile, count){
   var ret = stile;
   if(!(slimeBlock.indexOf(stile.block().name) > -1 || (slimeDir.indexOf(stile.block().name) > -1 && (stile.rotation()-r+4)%4 == 2))) return stile.link();
-  for(var i=0;i<12-count;i++){
+  for(var i=0;i<999-count;i++){
     var etile = stile.getNearby((r+2)%4);
     if(etile == null || etile.block().name == "air" || pushArray.indexOf(etile) > -1 || !canStick(etile, stile) || !canPushPiston(r, etile, count)) return stile;
     if(slimeBlock.indexOf(etile.block().name) > -1 || (slimeDir.indexOf(etile.block().name) > -1 && (etile.rotation()-r+4)%4 == 2)) stile = etile;//for 2x2 slimes add .link()
@@ -126,7 +126,7 @@ function getLowest(r, stile, count){
 }
 
 function addSide(r, stile, count, orig){
-  if(stile == null || count > 12) return false;
+  if(stile == null || count > 999) return false;
   if(stile.link() == null) return false;
   stile = stile.link();
   if(stile.block().name == "air" || pushArray.indexOf(stile) > -1 || slimeArray.indexOf(stile) > -1 ||  !canPush(stile) || !canStick(stile, orig) || !canPushPiston(r, stile, count)) return true;
@@ -148,8 +148,8 @@ function addBlock(r, stile, count){
     var retSide = addSide(r, stile.getNearby(stile.rotation()), count, stile);
     if(!retSide) return false;
   }
-  if(count + pusharr.length>12) return false;
-  if(count<12){
+  if(count + pusharr.length>999) return false;
+  if(count<999){
     for(var i=0;i<pusharr.length;i++){
       if(pusharr[i] == null || !canPush(pusharr[i]) || !canPushPiston(r, pusharr[i], count)) return false;
       var ret = addBlock(r, pusharr[i], ++count);
@@ -177,8 +177,8 @@ function pushBlock(tile, stile){
   /*
   if(stile == null || pushArray.indexOf(stile)>-1) return false;
   var pusharr = getFrontBlocks(stile, tile.rotation());
-  if(count + pusharr.length>12) return false;
-  if(count<12){
+  if(count + pusharr.length>999) return false;
+  if(count<999){
   for(var i=0;i<pusharr.length;i++){
   if(pusharr[i] == null || pushInvalid.indexOf(pusharr[i].block().name)>-1) return false;
   var ret = pushBlock(tile, pusharr[i], ++count);
@@ -346,7 +346,7 @@ function pushBlocks(tile){
     pushArray = [];
     slimeArray = [];
     var ret = addBlock(tile.rotation(), tile.front().link(), 1);
-    if(ret&&pushArray.length<=12){
+    if(ret&&pushArray.length<=999){
       for(var i=0;i<pushArray.length;i++){
         pushBlock(tile, pushArray[i]);
       }
@@ -389,7 +389,7 @@ function pullBlocks(tile){
     if(canStick(pullStart, tile) || slimeBlock.indexOf(pullStart.block().name)>-1){
       var ret = addBlock(pullDir, pullStart, 1);
       //print("pushArray: "+pushArray); print("ret: "+ret);
-      if(ret&&pushArray.length<=12){
+      if(ret&&pushArray.length<=999){
         /*
         var i=0; var j=0;
         while(j<=72 && pushArray.length>0){
