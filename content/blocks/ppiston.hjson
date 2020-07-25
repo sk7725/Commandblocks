@@ -1,0 +1,21 @@
+
+size: 1
+breakable: true
+update: true
+category: distribution
+requirements: [
+  graphite/25
+  silicon/20
+  titanium/40
+  surge-alloy/50
+]
+sync: true
+consumes: {
+  power: 0.3
+}
+health: 300
+solid: true
+targetable: true
+rotate: true
+timers: 1
+research: piston
