@@ -729,8 +729,8 @@ const spear = extend(BasicBulletType,{
   },
   init(b){
     if(b==null) return;
-    b.x += b.velocity().x;
-    b.y += b.velocity().y;
+    b.x = b.x + b.velocity().x*Time.delta();
+    b.y = b.y + b.velocity().y*Time.delta();
     var arr = [b.rot(), null]; 
     b.setData(arr);
     b.velocity(0, 0);
@@ -738,9 +738,9 @@ const spear = extend(BasicBulletType,{
   getTargetAngle(b){
     var dt = b.getData();
     if(dt == null) dt = [b.rot(), null];
-    if(dt[1] != null && Units.invalidateTarget(dt[1], b.getTeam(), b.x, b.y, 90)) dt[1] = null;
+    if(dt[1] != null && Units.invalidateTarget(dt[1], b.getTeam(), b.x, b.y, this.trackRange)) dt[1] = null;
     if(dt[1] == null){
-      dt[1] = Units.closestTarget(b.getTeam(), b.x, b.y, 90);
+      dt[1] = Units.closestTarget(b.getTeam(), b.x, b.y, this.trackRange);
     }
     if(dt[1] != null) dt[0] = this.angleTo(b, dt[1]);
     b.setData(dt);
@@ -751,8 +751,9 @@ const spear = extend(BasicBulletType,{
   }
 });
 
+spear.trackRange = 135;
 spear.speed = 8;
-spear.lifetime = 300;
+spear.lifetime = 90;
 spear.pierce = true;
 spear.damage = 20;
 spear.collidesTiles = true;
