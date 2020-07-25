@@ -712,7 +712,7 @@ this.global.bullets.emp = emp;
 const spear = extend(BasicBulletType,{
   draw(b){
     Draw.color(this.backColor);
-    var r = (b.time()<60)?this.getTargetAngle(b)+Math.min(b.time()*6, 180)+180-90:b.rot()-90;
+    var r = (b.time()<61)?this.getTargetAngle(b)+Math.min(b.time()*5, 180)+180-90:b.rot()-90;
     if(b.time()<30) Draw.alpha(b.time()/30);
     Draw.rect(this.backRegion, b.x, b.y, this.bulletWidth, this.bulletHeight, r);
     Draw.color(this.frontColor);
@@ -724,7 +724,7 @@ const spear = extend(BasicBulletType,{
   update(b){
     this.super$update(b);
     if(b.time()>60&&b.velocity().isZero(0.001)){
-      b.velocity(4.5, this.getTargetAngle(b));//set target TBA
+      b.velocity(4.1, this.getTargetAngle(b));//set target TBA
     }
   },
   init(b){
@@ -753,7 +753,7 @@ const spear = extend(BasicBulletType,{
 
 spear.trackRange = 135;
 spear.speed = 8;
-spear.lifetime = 90;
+spear.lifetime = 170;
 spear.pierce = true;
 spear.damage = 20;
 spear.collidesTiles = true;
@@ -767,7 +767,7 @@ spear.despawnEffect = Fx.hitFuse;
 spear.bulletSprite = "commandblocks-b-spear";
 spear.frontColor = Color.white.cpy();
 spear.backColor = Pal.lancerLaser.cpy();
-spear.bulletWidth = 5;
-spear.bulletHeight = 17;
+spear.bulletWidth = 8;
+spear.bulletHeight = 18;
 
 this.global.bullets.spear = spear;
