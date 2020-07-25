@@ -724,7 +724,7 @@ const spear = extend(BasicBulletType,{
   update(b){
     this.super$update(b);
     if(b.time()>60&&b.velocity().isZero(0.001)){
-      b.velocity(4.1, this.getTargetAngle(b));//set target TBA
+      b.velocity(4.3, this.getTargetAngle(b));//set target TBA
     }
   },
   init(b){
@@ -753,9 +753,9 @@ const spear = extend(BasicBulletType,{
 
 spear.trackRange = 135;
 spear.speed = 8;
-spear.lifetime = 110;
+spear.lifetime = 130;
 spear.pierce = true;
-spear.damage = 20;
+spear.damage = 40;
 spear.collidesTiles = true;
 spear.collides = true;
 spear.collidesAir = true;
@@ -767,7 +767,7 @@ spear.despawnEffect = Fx.hitFuse;
 spear.bulletSprite = "commandblocks-b-spear";
 spear.frontColor = Color.white.cpy();
 spear.backColor = Pal.lancerLaser.cpy();
-spear.bulletWidth = 20;
-spear.bulletHeight = 38;
+spear.bulletWidth = 26;
+spear.bulletHeight = 36;
 
 this.global.bullets.spear = spear;
