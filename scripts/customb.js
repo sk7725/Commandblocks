@@ -763,6 +763,7 @@ spear.keepVelocity = false;
 spear.hitSound = Sounds.none;//change later
 spear.hitShake = 0;
 spear.hitEffect = Fx.hitFuse;
+spear.despawnEffect = Fx.hitFuse;
 spear.bulletSprite = "commandblocks-b-spear";
 spear.frontColor = Color.white.cpy();
 spear.backColor = Pal.lancerLaser.cpy();
