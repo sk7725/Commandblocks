@@ -708,3 +708,48 @@ emp.splashDamage = 60;
 emp.splashDamageRadius = 60;
 
 this.global.bullets.emp = emp;
+
+const spear = extend(BasicBulletType,{
+  draw(b){
+    Draw.color(this.backColor);
+    var r = (b.time()<60)?b.getData()+b.time()*12-90:b.rot()-90;
+    if(b.time()<30) Draw.alpha(b.time()/30);
+    Draw.rect(this.backRegion, b.x, b.y, this.bulletWidth, this.bulletHeight, r);
+    Draw.color(this.frontColor);
+    if(b.time()<30) Draw.alpha(b.time()/30);
+    Draw.rect(this.frontRegion, b.x, b.y, this.bulletWidth, this.bulletHeight, r);
+    Draw.color();
+  },
+  //despawned(b){},
+  update(b){
+    this.super$update(b);
+    if(b.time()>60&&b.velocity().isZero(0.001)){
+      b.velocity(4.5, b.getData());//set target TBA
+    }
+  },
+  init(b){
+    if(b==null) return;
+    b.x += b.velocity().x;
+    b.y += b.velocity().y;
+    b.setData(b.rot());
+    b.velocity(0, 0);
+  }
+});
+
+spear.speed = 8;
+spear.lifetime = 300;
+spear.pierce = true;
+spear.collidesTiles = true;
+spear.collides = true;
+spear.collidesAir = true;
+spear.keepVelocity = false;
+spear.hitSound = Sounds.none;//change later
+spear.hitShake = 0;
+spear.hitEffect = Fx.hitFuse;
+spear.bulletSprite = "commandblocks-b-spear";
+spear.frontColor = Color.white.cpy();
+spear.backColor = Pal.lancerLaser.cpy();
+spear.bulletWidth = 5;
+spear.bulletHeight = 17;
+
+this.global.bullets.spear = spear;
