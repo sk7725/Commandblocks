@@ -771,3 +771,77 @@ spear.bulletWidth = 26;
 spear.bulletHeight = 36;
 
 this.global.bullets.spear = spear;
+
+const spear2 = extend(BasicBulletType,{
+  draw(b){
+    Draw.color(this.backColor);
+    var r = (b.time()<61)?this.getTargetAngle(b)+Math.min(b.time()*5, 180)+180-90:b.rot()-90;
+    if(b.time()<30) Draw.alpha(b.time()/30);
+    Draw.rect(this.backRegion, b.x, b.y, this.bulletWidth, this.bulletHeight, r);
+    Draw.color(this.frontColor);
+    if(b.time()<30) Draw.alpha(b.time()/30);
+    Draw.rect(this.frontRegion, b.x, b.y, this.bulletWidth, this.bulletHeight, r);
+    Draw.color();
+  },
+  //despawned(b){},
+  update(b){
+    this.super$update(b);
+    if(b.time()>60&&b.velocity().isZero(0.001)){
+      b.velocity(4.1, this.getTargetAngle(b));//set target TBA
+    }
+  },
+  init(b){
+    if(b==null) return;
+    //b.x = b.x + b.velocity().x*Time.delta();
+    //b.y = b.y + b.velocity().y*Time.delta();
+    var arr = [b.rot(), null]; 
+    b.setData(arr);
+    b.velocity(0, 0);
+  },
+  getTargetAngle(b){
+    var dt = b.getData();
+    if(dt == null) dt = [b.rot(), null];
+    if(dt[1] != null && Units.invalidateTarget(dt[1], b.getTeam(), b.x, b.y, this.trackRange)) dt[1] = null;
+    if(dt[1] == null){
+      dt[1] = Units.closestTarget(b.getTeam(), b.x, b.y, this.trackRange);
+    }
+    if(dt[1] != null) dt[0] = this.angleTo(b, dt[1]);
+    b.setData(dt);
+    return dt[0];
+  },
+  angleTo(b, target){
+    return Angles.angle(b.x, b.y, target.getX(), target.getY());
+  },
+  hit(b,x,y){
+    if(x === undefined || x === null){
+      x = b.x; y = b.y;
+    }
+    this.super$hit(b, x, y);
+    if(b.time()<60) return;
+    var target = Units.closestTarget(b.getTeam(), b.x, b.y, this.trackRange/1.5, boolf(e=>(Mathf.dst2(e.getX(), e.getY(), b.x, b.y)>1.5)));
+    if(target == null) b.velocity(3.9, b.rot()+180);
+    else b.velocity(4.0, this.angleTo(b, target));
+    b.scaleTime(Math.min(30, b.time()-60));
+  }
+});
+
+spear2.trackRange = 135;
+spear2.speed = 8;
+spear2.lifetime = 130;
+spear2.pierce = true;
+spear2.damage = 27;
+spear2.collidesTiles = true;
+spear2.collides = true;
+spear2.collidesAir = true;
+spear2.keepVelocity = false;
+spear2.hitSound = Sounds.none;//change later
+spear2.hitShake = 0;
+spear2.hitEffect = Fx.hitFuse;
+spear2.despawnEffect = Fx.hitFuse;
+spear2.bulletSprite = "commandblocks-b-spear";
+spear2.frontColor = Color.white.cpy();
+spear2.backColor = Pal.surge.cpy();
+spear2.bulletWidth = 26;
+spear2.bulletHeight = 36;
+
+this.global.bullets.spear2 = spear2;
