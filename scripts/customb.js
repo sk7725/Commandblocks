@@ -821,7 +821,7 @@ const spear2 = extend(BasicBulletType,{
     var target = Units.closestTarget(b.getTeam(), b.x, b.y, this.trackRange/1.5, boolf(e=>(Mathf.dst2(e.getX(), e.getY(), b.x, b.y)>1.5)));
     if(target == null) b.velocity(3.9, b.rot()+180);
     else b.velocity(4.0, this.angleTo(b, target));
-    b.scaleTime(Math.min(30, b.time()-60));
+    b.scaleTime(-1*Math.min(30, b.time()-60));
   }
 });
 
