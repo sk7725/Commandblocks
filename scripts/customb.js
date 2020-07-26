@@ -860,3 +860,31 @@ spear2.bulletWidth = 26;
 spear2.bulletHeight = 36;
 
 this.global.bullets.spear2 = spear2;
+
+const ball = extend(BasicBulletType,{
+  draw(b){
+    Draw.color();
+    Draw.rect(this.backRegion, b.x, b.y, Time.time()*(b.id%4+1)*1.5);
+    Draw.rect(this.frontRegion, b.x, b.y);
+  }
+  //hit(b,x,y){},
+  //despawned(b){},
+  //update(b){}
+});
+
+ball.speed = 2.5;
+ball.knockback = 40;
+ball.lifetime = 130;
+ball.pierce = true;
+ball.damage = 0;
+ball.collidesTiles = true;
+ball.collides = true;
+ball.collidesAir = true;
+ball.keepVelocity = true;
+ball.hitSound = Sounds.none;//change later
+ball.hitShake = 0;
+ball.hitEffect = Fx.none;
+ball.despawnEffect = Fx.absorb;
+ball.bulletSprite = "commandblocks-b-ball";
+
+this.global.bullets.ball = ball;
