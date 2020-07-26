@@ -789,18 +789,24 @@ const spear2 = extend(BasicBulletType,{
     if(b.time()>60&&b.velocity().isZero(0.001)){
       b.velocity(4.1, this.getTargetAngle(b));//set target TBA
     }
+    if(b.time()>100 && !b.getData()[2]){
+      var t1 = b.getData();
+      t1[2] = true;
+      b.setData(t1);
+      this.rerotate(b);
+    }
   },
   init(b){
     if(b==null) return;
     //b.x = b.x + b.velocity().x*Time.delta();
     //b.y = b.y + b.velocity().y*Time.delta();
-    var arr = [b.rot(), null]; 
+    var arr = [b.rot(), null, false]; 
     b.setData(arr);
     b.velocity(0, 0);
   },
   getTargetAngle(b){
     var dt = b.getData();
-    if(dt == null) dt = [b.rot(), null];
+    if(dt == null) dt = [b.rot(), null, false];
     if(dt[1] != null && Units.invalidateTarget(dt[1], b.getTeam(), b.x, b.y, this.trackRange)) dt[1] = null;
     if(dt[1] == null){
       dt[1] = Units.closestTarget(b.getTeam(), b.x, b.y, this.trackRange);
@@ -818,10 +824,15 @@ const spear2 = extend(BasicBulletType,{
     }
     this.super$hit(b, x, y);
     if(b.time()<60) return;
+    b.scaleTime(-1*Math.min(60, b.time()-60));
+    var t1 = b.getData();
+    t1[2] = false;
+    b.setData(t1);
+  },
+  rerotate(b){
     var target = Units.closestTarget(b.getTeam(), b.x, b.y, this.trackRange/1.5, boolf(e=>(Mathf.dst2(e.getX(), e.getY(), b.x, b.y)>1.5)));
     if(target == null) b.velocity(3.9, b.rot()+150);
     else b.velocity(4.0, this.angleTo(b, target));
-    b.scaleTime(-1*Math.min(30, b.time()-60));
   }
 });
 
