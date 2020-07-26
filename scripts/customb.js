@@ -872,7 +872,7 @@ const ball = extend(BasicBulletType,{
       x = b.x; y = b.y;
     }
     this.super$hit(b, x, y);
-    t.global.newSounds.boing.at(x, y, 2);
+    t.global.newSounds.boing.at(x, y, 1.2);
   }
   //despawned(b){},
   //update(b){}
