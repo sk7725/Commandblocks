@@ -725,6 +725,7 @@ const spear = extend(BasicBulletType,{
     this.super$update(b);
     if(b.time()>60&&b.velocity().isZero(0.001)){
       b.velocity(4.3, this.getTargetAngle(b));//set target TBA
+      t.global.newSounds.spearshot.at(b.x, b.y);
     }
   },
   init(b){
@@ -734,6 +735,7 @@ const spear = extend(BasicBulletType,{
     var arr = [b.rot(), null]; 
     b.setData(arr);
     b.velocity(0, 0);
+    t.global.newSounds.spearappear.at(b.x, b.y);
   },
   getTargetAngle(b){
     var dt = b.getData();
@@ -788,6 +790,7 @@ const spear2 = extend(BasicBulletType,{
     this.super$update(b);
     if(b.time()>60&&b.velocity().isZero(0.001)){
       b.velocity(4.1, this.getTargetAngle(b));//set target TBA
+      t.global.newSounds.spearshot.at(b.x, b.y);
     }
     if(b.time()>100 && !b.getData()[2]){
       var t1 = b.getData();
@@ -803,6 +806,7 @@ const spear2 = extend(BasicBulletType,{
     var arr = [b.rot(), null, false]; 
     b.setData(arr);
     b.velocity(0, 0);
+    t.global.newSounds.spearappear.at(b.x, b.y);
   },
   getTargetAngle(b){
     var dt = b.getData();
