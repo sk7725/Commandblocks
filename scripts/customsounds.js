@@ -35,3 +35,5 @@ loadsound("tntfuse");
 loadsound("beep");
 loadsound("pistonextend");
 loadsound("pistoncontract");
+loadsound("spearshot");
+loadsound("spearappear");
