@@ -732,7 +732,7 @@ const spear = extend(BasicBulletType,{
     if(b==null) return;
     //b.x = b.x + b.velocity().x*Time.delta();
     //b.y = b.y + b.velocity().y*Time.delta();
-    var arr = [b.rot(), null]; 
+    var arr = [b.rot(), null];
     b.setData(arr);
     b.velocity(0, 0);
     t.global.newSounds.spearappear.at(b.x, b.y);
@@ -803,7 +803,7 @@ const spear2 = extend(BasicBulletType,{
     if(b==null) return;
     //b.x = b.x + b.velocity().x*Time.delta();
     //b.y = b.y + b.velocity().y*Time.delta();
-    var arr = [b.rot(), null, false]; 
+    var arr = [b.rot(), null, false];
     b.setData(arr);
     b.velocity(0, 0);
     t.global.newSounds.spearappear.at(b.x, b.y);
@@ -866,8 +866,14 @@ const ball = extend(BasicBulletType,{
     Draw.color();
     Draw.rect(this.backRegion, b.x, b.y, Time.time()*(b.id%4+1)*4);
     Draw.rect(this.frontRegion, b.x, b.y);
+  },
+  hit(b,x,y){
+    if(x === undefined || x === null){
+      x = b.x; y = b.y;
+    }
+    this.super$hit(b, x, y);
+    t.global.newSounds.boing.at(x, y, 2);
   }
-  //hit(b,x,y){},
   //despawned(b){},
   //update(b){}
 });
