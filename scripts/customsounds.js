@@ -37,3 +37,4 @@ loadsound("pistonextend");
 loadsound("pistoncontract");
 loadsound("spearshot");
 loadsound("spearappear");
+loadsound("boing");
