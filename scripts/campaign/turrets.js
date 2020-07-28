@@ -1,3 +1,8 @@
+//이런 영감 아저씨
+if (typeof(floatc2)== "undefined"){
+  const floatc2 = method => new Floatc2(){get : method};
+}
+
 const undyneShoot = newEffect(25, e => {
 Draw.color(Pal.lancerLaser, Color.white, e.fout());
   Lines.stroke(e.fout());
