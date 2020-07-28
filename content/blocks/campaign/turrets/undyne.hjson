@@ -1,6 +1,6 @@
 health: 1760
 size: 2
-reload: 45
+reload: 55
 range: 175
 shootCone: 160
 inaccuracy: 360
@@ -15,7 +15,7 @@ shootSound: none
 requirements: [
   silicon/80
   titanium/75
-  plastanium/75
+  plastanium/50
 ]
 category: turret
 research: lancer
