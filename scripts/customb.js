@@ -842,7 +842,7 @@ const spear2 = extend(BasicBulletType,{
 
 spear2.trackRange = 165;
 spear2.speed = 28;
-spear2.lifetime = 130;
+spear2.lifetime = 160;
 spear2.pierce = true;
 spear2.damage = 27;
 spear2.collidesTiles = true;
