@@ -8,14 +8,14 @@ heatColor: FF0000
 ammoUseEffect: none
 rotatespeed: 5.5
 recoil: 2
-powerUse: 4
+powerUse: 5.5
 hasPower: true
 targetAir: true
 shootSound: none
 requirements: [
-  silicon/60
+  silicon/80
   titanium/75
-  plastanium/25
+  plastanium/75
 ]
 category: turret
 research: lancer
