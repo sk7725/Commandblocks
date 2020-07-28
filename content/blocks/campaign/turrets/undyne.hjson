@@ -1,6 +1,6 @@
 health: 1980
 size: 2
-reload: 60
+reload: 45
 range: 165
 shootCone: 360
 heatColor: FF0000
