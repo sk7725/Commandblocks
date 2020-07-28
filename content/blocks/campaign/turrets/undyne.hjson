@@ -1,12 +1,12 @@
-health: 1980
+health: 1760
 size: 2
 reload: 45
-range: 165
+range: 175
 shootCone: 160
 inaccuracy: 360
 heatColor: FF0000
 ammoUseEffect: none
-rotatespeed: 7.5
+rotatespeed: 5.5
 recoil: 2
 powerUse: 4
 hasPower: true
