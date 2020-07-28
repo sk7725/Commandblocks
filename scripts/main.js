@@ -18,6 +18,7 @@ require("command");
 
 //CAMPAIGN
 require("campaign/ores");
+require("campaign/turrets");
 require("campaign/explosive");
 require("campaign/explosivelarge");
 require("campaign/loader");
