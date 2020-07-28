@@ -1,0 +1,20 @@
+health: 1980
+size: 2
+reload: 60
+range: 165
+shootCone: 360
+heatColor: FF0000
+ammoUseEffect: none
+rotatespeed: 7.5
+recoil: 2
+powerUse: 4
+hasPower: true
+targetAir: true
+shootSound: none
+requirements: [
+  silicon/60
+  titanium/75
+  plastanium/25
+]
+category: turret
+research: lancer
