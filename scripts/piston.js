@@ -89,10 +89,11 @@ function canPush(ptile){
 
 function canPushPiston(r, ptile, count){
   if(pistonBlock.indexOf(ptile.block().name)<0 || !ptile.ent().extended() || (ptile.rotation()-r+4)%4 == 2){
-    print("Cond 1:"+pistonBlock.indexOf(ptile.block().name));
-    print("Cond 3: "+(ptile.rotation()-r+4)%4);
+    //print("Cond 1:"+pistonBlock.indexOf(ptile.block().name));
+    //print("Cond 3: "+(ptile.rotation()-r+4)%4);
     return true;
   }
+  return false;
   var etile = ptile.front();
   if(etile == null) return true;
   etile = etile.getNearby(r);
