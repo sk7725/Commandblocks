@@ -1,0 +1,23 @@
+health: 2680
+size: 3
+shots: 6
+reload: 60
+range: 180
+shootCone: 170
+inaccuracy: 360
+heatColor: FF0000
+ammoUseEffect: none
+rotatespeed: 4.5
+recoil: 3
+powerUse: 10.5
+hasPower: true
+targetAir: true
+shootSound: none
+requirements: [
+  silicon/180
+  titanium/400
+  plastanium/150
+  vector/350
+]
+category: turret
+research: undyne
