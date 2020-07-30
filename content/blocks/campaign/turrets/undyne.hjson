@@ -1,6 +1,6 @@
 health: 1760
 size: 2
-reload: 55
+reload: 50
 range: 175
 shootCone: 160
 inaccuracy: 360
