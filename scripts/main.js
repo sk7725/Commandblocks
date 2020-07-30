@@ -77,6 +77,7 @@ require("powertrans");
 require("setconv");
 require("setconva");
 require("setconvmodder");
+require("bundle-lib");
 
 //PISTONS
 require("piston");
