@@ -59,7 +59,7 @@ const undyne2 = extendContent(PowerTurret, "undyne2", {
     this.effects(tile);
   },
   shootSingle(tile){
-    if(!(tile.ent() instanceof TurretEntity)) return;
+    if(!(tile.ent() instanceof Turret.TurretEntity)) return;
     var entity = tile.ent();
     entity.heat = 1;
     this.tr.trns(entity.rotation, this.size * Vars.tilesize / 2, Mathf.range(this.xRand));
