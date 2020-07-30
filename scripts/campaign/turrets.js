@@ -3,6 +3,13 @@ if (typeof(floatc2)== "undefined"){
   const floatc2 = method => new Floatc2(){get : method};
 }
 
+function drawSpark(x, y, size, width, r){
+  Drawf.tri(x, y, width, size, r);
+  Drawf.tri(x, y, width, size, r+180);
+  Drawf.tri(x, y, width, size, r+90);
+  Drawf.tri(x, y, width, size, r+270);
+}
+
 const undyneShoot = newEffect(25, e => {
 Draw.color(Pal.lancerLaser, Color.white, e.fout());
   Lines.stroke(e.fout());
