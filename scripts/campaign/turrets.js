@@ -69,6 +69,11 @@ const undyne2 = extendContent(PowerTurret, "undyne2", {
   spearSingle(tile, entity){
     this.bullet(tile, this.shootType, entity.rotation + Mathf.range(this.inaccuracy));
     this.bullet(tile, this.shootType2, entity.rotation + Mathf.range(this.inaccuracy));
+  },
+  setStats(){
+    this.super$setStats();
+    this.stats.remove(BlockStat.damage);
+    this.stats.add(BlockStat.damage, "{0} / {1}", this.shootType.damage, this.shootType2.damage);
   }
 });
 undyne2.shootEffect = undyneShoot2;
