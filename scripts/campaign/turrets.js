@@ -29,9 +29,9 @@ undyne.shootType = this.global.bullets.spear;
 
 const undyneShoot2 = newEffect(30, e => {
   Draw.color(Pal.lancerLaser, Color.white, e.fout());
-  Lines.stroke(e.fout()*2);
+  Lines.stroke(e.fout()*2.5);
   var v1 = Vec2(e.fin()*7,0).setAngle(e.rotation+180);
-  Lines.circle(e.x+v1.x, e.y+v1.y, e.fin()*29);
+  Lines.circle(e.x+v1.x, e.y+v1.y, e.fin()*35);
   Lines.stroke(e.fout()*1.5);
   Draw.color(Color.white);
   Angles.randLenVectors(e.id, 6, 20*e.finpow(), e.rotation, 120, floatc2((x,y) => {
@@ -39,11 +39,11 @@ const undyneShoot2 = newEffect(30, e => {
   }));
   Draw.color(Pal.surge);
   Angles.randLenVectors(e.id, 1, 15, floatc2((x,y) => {
-    drawSpark(e.x+x, e.y+y, e.fout()*3, e.finpow()*15+10, e.finpow()*-78);
+    drawSpark(e.x+x, e.y+y, e.fout()*3, e.finpow()*15+20, e.finpow()*-78);
   }));
   Draw.color(Pal.lancerLaser);
   Angles.randLenVectors(e.id, 1, 3, floatc2((x,y) => {
-    drawSpark(e.x+x, e.y+y, e.fout()*4.5, e.finpow()*20+20, e.finpow()*67);
+    drawSpark(e.x+x, e.y+y, e.fout()*4.5, e.finpow()*25+25, e.finpow()*67);
   }));
 });
 
