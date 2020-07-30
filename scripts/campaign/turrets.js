@@ -52,7 +52,7 @@ const undyne2 = extendContent(PowerTurret, "undyne2", {
     tile.ent().recoil = this.recoil;
     const n = this.shots/2-0.5;
     for(var i=0; i<n; i++){
-      Time.run(5*i,run(()=>{
+      Time.run(8*i,run(()=>{
         this.shootSingle(tile);
       }));
     }
