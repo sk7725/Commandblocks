@@ -56,6 +56,7 @@ const undyne2 = extendContent(PowerTurret, "undyne2", {
         this.shootSingle(tile);
       }));
     }
+    this.tr.trns(entity.rotation, this.size * Vars.tilesize / 2, Mathf.range(this.xRand));
     this.effects(tile);
   },
   shootSingle(tile){
