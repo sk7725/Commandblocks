@@ -1,7 +1,7 @@
 health: 2680
 size: 3
 shots: 6
-reload: 60
+reload: 65
 range: 180
 shootCone: 170
 inaccuracy: 360
@@ -17,7 +17,7 @@ requirements: [
   silicon/180
   titanium/400
   plastanium/150
-  vector/350
+  ref-vector/350
 ]
 category: turret
 research: undyne
