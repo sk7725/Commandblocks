@@ -178,8 +178,9 @@ const researchskill = extendContent(Block, "researchskill", {
 	},
 	canresearch(tile, obj, name){
 		if(obj.hasOwnProperty("uses") && Vars.content.getByName(ContentType.item,obj.uses.item) == null) return false;
-		if(!obj.hasOwnProperty("cost"))
+		if(!obj.hasOwnProperty("cost")){
 			if(!obj.hasOwnProperty("parent")) return true;
+    }
 		else if(!Vars.state.rules.infiniteResources){
 			//test whether items are sufficient
 			var arr = obj.cost;
@@ -261,6 +262,13 @@ const researchskill = extendContent(Block, "researchskill", {
 				//table.add(Core.bundle.format("skill.cooltime")+": "+obj.cooltime+" "+Core.bundle.format("unit.seconds"));
 				table.row();
 			}
+      if(obj.hasOwnProperty("unfinished")){
+				table.table(cons(t => {
+					t.add(Core.bundle.get("skill.unfinished"));
+					t.left();
+				}));
+				table.row();
+			}
 		}));
 		infod.addCloseButton();
 		infod.show();
@@ -333,6 +341,13 @@ const researchskill = extendContent(Block, "researchskill", {
 			if(obj.hasOwnProperty("parent") && type == "noparent"){
 				t.table(cons(c => {
 					c.add(((type != "noparent") ? "[white]" + Core.bundle.get("research.parent") + ": []":"[scarlet]" + Core.bundle.get("research.parent") + ": []") + root[obj.parent].displayName).growX();
+				}));
+				t.row();
+			}
+      if(obj.hasOwnProperty("unfinished")){
+				t.table(cons(c => {
+					c.add(Core.bundle.get("skill.unfinished"));
+					c.left();
 				}));
 				t.row();
 			}

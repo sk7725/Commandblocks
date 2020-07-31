@@ -13,3 +13,4 @@ requirements: [
 configurable: true
 rotate: false
 timers: 2
+research: solar-panel-large

@@ -24,10 +24,10 @@ const posreaderjson = extendContent(MessageBlock, "posreaderjson", {
 	},
 	placed(tile) {
 		this.super$placed(tile);
-		const facepos=this.getfacingpos(tile.x,tile.y,tile.rotation());
-		const x=facepos.x;
-    const y=facepos.y;
-		var near = Vars.world.tile(x,y).block();
+		//const facepos=this.getfacingpos(tile.x,tile.y,tile.rotation());
+		//const x=facepos.x;
+    //const y=facepos.y;
+		//var near = Vars.world.tile(x,y).block();
     Call.setMessageBlockText(null,tile,Vars.mods.locateMod("commandblocks").toString());
     //this.setMessageBlockText(null,tile,near.attributes.keys());
 	}

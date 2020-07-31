@@ -19,3 +19,4 @@ itemCapacity: 1
 solid: true
 group: transportation
 //instantTransfer: false
+research: buttonrouter

@@ -14,3 +14,4 @@ health: 300
 targetable: false
 solid: false
 activeSound: "boostsound"
+research: command-center

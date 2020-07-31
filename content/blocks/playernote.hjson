@@ -16,3 +16,4 @@ consumes: {
 }
 configurable: true
 solid: true
+research: msgprotected

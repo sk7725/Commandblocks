@@ -13,3 +13,4 @@ expanded: true
 health: 50
 configurable: true
 solid: true
+research: playernote

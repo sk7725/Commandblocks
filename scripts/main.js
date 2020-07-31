@@ -18,6 +18,7 @@ require("command");
 
 //CAMPAIGN
 require("campaign/ores");
+require("campaign/turrets");
 require("campaign/explosive");
 require("campaign/explosivelarge");
 require("campaign/loader");
@@ -53,6 +54,7 @@ require("walls/walltimelarge");
 require("walls/magicwall");
 require("walls/magicwalllarge");
 
+require("walls/wallinvi");
 require("walls/camwall");
 require("walls/camwalldir");
 
@@ -75,6 +77,11 @@ require("powertrans");
 require("setconv");
 require("setconva");
 require("setconvmodder");
+require("bundle-lib");
+
+//PISTONS
+require("piston");
+require("sporeblock");
 
 require("colorcanvas");
 require("colorpicker");
@@ -88,12 +95,14 @@ require("magictele");
 require("signblock");
 
 require("timer");
+require("accel");
 require("keyblock");
 
 require("boostpad");
 require("slimeblock");
 
 require("blockcopy");
+require("lastlog");
 require("mp3player");
 
 require("playermover");

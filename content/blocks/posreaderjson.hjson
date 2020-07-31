@@ -11,3 +11,4 @@ requirements: [
 buildVisibility: hidden
 configurable: false
 //rotate: true
+research: msgprotected

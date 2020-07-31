@@ -1,0 +1,12 @@
+size: 1
+breakable: true
+update: true
+category: effect
+requirements: [
+  log-binary/6
+]
+buildVisibility: sandboxOnly
+configurable: true
+//consumesTap: true
+rotate: false
+solid: true

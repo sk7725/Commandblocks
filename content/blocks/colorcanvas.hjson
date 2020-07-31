@@ -12,3 +12,4 @@ consumesTap: true
 solid: false
 hasShadow: false
 alwaysReplace: true
+research: colorpickerbrush

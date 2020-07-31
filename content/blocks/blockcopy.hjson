@@ -10,3 +10,4 @@ requirements: [
 configurable: true
 rotate: true
 solid: true
+research: posreaderblock

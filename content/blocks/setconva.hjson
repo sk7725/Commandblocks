@@ -20,3 +20,4 @@ hasItems: true
 //consumeItems: false
 unloadable: false
 rotate: true
+research: setconv

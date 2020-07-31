@@ -17,3 +17,4 @@ solid: false
 targetable: false
 rotate: true
 timers: 1
+research: posreaderjson

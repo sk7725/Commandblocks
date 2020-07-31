@@ -16,3 +16,4 @@ hasPower: true
 outputsPower: true
 consumesPower: false
 solid: true
+research: button

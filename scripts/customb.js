@@ -513,7 +513,7 @@ grenade.lifetime = 70;
 grenade.collidesTiles = false;
 grenade.collides = false;
 grenade.collidesAir = false;
-grenade.keepVelocity = false;
+grenade.keepVelocity = true;
 grenade.hitSound = Sounds.explosion;
 grenade.splashDamage = 310;
 grenade.splashDamageRadius = 40;
@@ -590,9 +590,9 @@ flashbang.lifetime = 70;
 flashbang.collidesTiles = false;
 flashbang.collides = false;
 flashbang.collidesAir = false;
-flashbang.keepVelocity = false;
+flashbang.keepVelocity = true;
 flashbang.hitSound = Sounds.explosion;
-flashbang.splashDamage = 30;
+flashbang.splashDamage = 50;
 flashbang.splashDamageRadius = 60;
 flashbang.hitEffect = this.global.fx.flashbang;
 flashbang.despawnEffect = Fx.none;
@@ -601,3 +601,296 @@ flashbang.frontColor = Color.white;
 flashbang.backColor = Color.lightGray;
 
 this.global.bullets.flashbang = flashbang;
+
+const molotov = extend(BasicBulletType,{
+  draw(b){
+    var h = -1*b.fin()*(b.fin()-1)*190;
+    Draw.color(this.backColor);
+    Draw.rect(this.backRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color(this.frontColor);
+    Draw.rect(this.frontRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color();
+  },
+  hit(b,x,y){
+    if(x === undefined || x === null){
+      x = b.x; y = b.y;
+    }
+    Puddle.deposit(Vars.world.tileWorld(x, y), Liquids.oil, 1200);
+    Puddle.deposit(Vars.world.tileWorld(x, y+24), Liquids.oil, 400);
+    Puddle.deposit(Vars.world.tileWorld(x+20, y-12), Liquids.oil, 400);
+    Puddle.deposit(Vars.world.tileWorld(x-20, y-12), Liquids.oil, 400);
+
+    this.super$hit(b, x, y);
+  },
+  //despawned(b){},
+  update(b){
+    this.super$update(b);
+    if(Mathf.chance(0.1)) Effects.effect(Fx.smoke, b.x, b.y - b.fin()*(b.fin()-1)*190);
+  }
+});
+molotov.speed = 3.2;
+molotov.lifetime = 70;
+molotov.collidesTiles = false;
+molotov.collides = false;
+molotov.collidesAir = false;
+molotov.keepVelocity = true;
+molotov.hitSound = Sounds.explosion;
+molotov.splashDamage = 75;
+molotov.splashDamageRadius = 70;
+molotov.hitShake = 5;
+molotov.hitEffect = Fx.explosion;
+molotov.bulletSprite = "commandblocks-b-molotov";
+molotov.frontColor = Pal.lightishOrange;
+molotov.backColor = Pal.lightOrange;
+molotov.incendChance = 1;
+molotov.incendAmount = 35;
+molotov.incendSpread = 35;
+
+this.global.bullets.molotov = molotov;
+
+const empBlast = this.global.fx.empBlast;
+const empjam = extendContent(StatusEffect,"empjam",{
+  update(unit, time){
+  this.super$update(unit, time);
+  unit.getTimer().get(unit.getShootTimer(true),1);
+  unit.getTimer().get(unit.getShootTimer(false),1);
+}});
+empjam.color=Pal.surge;
+empjam.effect=Fx.hitLancer;
+empjam.speedMultiplier=0.85;
+
+const emp = extend(BasicBulletType,{
+  draw(b){
+    var h = -1*b.fin()*(b.fin()-1)*190;
+    Draw.color(this.backColor);
+    Draw.rect(this.backRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color(this.frontColor);
+    Draw.rect(this.frontRegion, b.x, b.y+h, Time.time()*2);
+    Draw.color();
+  },
+  hit(b,x,y){
+    if(x === undefined || x === null){
+      x = b.x; y = b.y;
+    }
+    Effects.effect(empBlast, x, y, this.empRadius);
+    Units.nearbyEnemies(b.getTeam(), b.x-this.empRadius, b.y-this.empRadius, b.x+this.empRadius, b.y+this.empRadius, cons(e=>{
+      if(Mathf.within(b.x, b.y, e.x, e.y, this.empRadius) && e != null){
+        e.applyEffect(empjam, 13*60);
+      }
+    }));
+    this.super$hit(b, x, y);
+  },
+  //despawned(b){},
+  update(b){
+    this.super$update(b);
+    if(Mathf.chance(0.095)) Effects.effect(Fx.hitLancer, b.x, b.y - b.fin()*(b.fin()-1)*190);
+  }
+});
+
+emp.empRadius = 140;
+emp.speed = 3.2;
+emp.lifetime = 70;
+emp.collidesTiles = false;
+emp.collides = false;
+emp.collidesAir = false;
+emp.keepVelocity = true;
+emp.hitSound = Sounds.spark;
+emp.hitShake = 7;
+emp.hitEffect = Fx.shockwave;
+emp.bulletSprite = "commandblocks-b-emp";
+emp.frontColor = Pal.surge;
+emp.backColor = Pal.surge.cpy().mul(0.7,0.7,0.8,1);
+emp.fragBullets = 2;
+emp.fragBullet = Bullets.arc;
+emp.lightining = 2;
+emp.lightningLength = 15;
+emp.splashDamage = 60;
+emp.splashDamageRadius = 60;
+
+this.global.bullets.emp = emp;
+
+const spear = extend(BasicBulletType,{
+  draw(b){
+    Draw.color(this.backColor);
+    var r = (b.time()<61)?this.getTargetAngle(b)+Math.min(b.time()*5, 180)+180-90:b.rot()-90;
+    if(b.time()<30) Draw.alpha(b.time()/30);
+    Draw.rect(this.backRegion, b.x, b.y, this.bulletWidth, this.bulletHeight, r);
+    Draw.color(this.frontColor);
+    if(b.time()<30) Draw.alpha(b.time()/30);
+    Draw.rect(this.frontRegion, b.x, b.y, this.bulletWidth, this.bulletHeight, r);
+    Draw.color();
+  },
+  //despawned(b){},
+  update(b){
+    this.super$update(b);
+    if(b.time()>60&&b.velocity().isZero(0.001)){
+      b.velocity(4.3, this.getTargetAngle(b));//set target TBA
+      t.global.newSounds.spearshot.at(b.x, b.y);
+    }
+  },
+  init(b){
+    if(b==null) return;
+    //b.x = b.x + b.velocity().x*Time.delta();
+    //b.y = b.y + b.velocity().y*Time.delta();
+    var arr = [b.rot(), null];
+    b.setData(arr);
+    b.velocity(0, 0);
+    t.global.newSounds.spearappear.at(b.x, b.y);
+  },
+  getTargetAngle(b){
+    var dt = b.getData();
+    if(dt == null) dt = [b.rot(), null];
+    if(dt[1] != null && Units.invalidateTarget(dt[1], b.getTeam(), b.x, b.y, this.trackRange)) dt[1] = null;
+    if(dt[1] == null){
+      dt[1] = Units.closestTarget(b.getTeam(), b.x, b.y, this.trackRange);
+    }
+    if(dt[1] != null) dt[0] = this.angleTo(b, dt[1]);
+    b.setData(dt);
+    return dt[0];
+  },
+  angleTo(b, target){
+    return Angles.angle(b.x, b.y, target.getX(), target.getY());
+  }
+});
+
+spear.trackRange = 145;
+spear.speed = 28;
+spear.lifetime = 130;
+spear.pierce = true;
+spear.damage = 40;
+spear.collidesTiles = true;
+spear.collides = true;
+spear.collidesAir = true;
+spear.keepVelocity = false;
+spear.hitSound = Sounds.none;//change later
+spear.hitShake = 0;
+spear.hitEffect = Fx.hitFuse;
+spear.despawnEffect = Fx.hitFuse;
+spear.bulletSprite = "commandblocks-b-spear";
+spear.frontColor = Color.white.cpy();
+spear.backColor = Pal.lancerLaser.cpy();
+spear.bulletWidth = 26;
+spear.bulletHeight = 36;
+
+this.global.bullets.spear = spear;
+
+const spear2 = extend(BasicBulletType,{
+  draw(b){
+    Draw.color(this.backColor);
+    var r = (b.time()<61)?this.getTargetAngle(b)+Math.min(b.time()*5, 180)+180-90:b.rot()-90;
+    if(b.time()<30) Draw.alpha(b.time()/30);
+    Draw.rect(this.backRegion, b.x, b.y, this.bulletWidth, this.bulletHeight, r);
+    Draw.color(this.frontColor);
+    if(b.time()<30) Draw.alpha(b.time()/30);
+    Draw.rect(this.frontRegion, b.x, b.y, this.bulletWidth, this.bulletHeight, r);
+    Draw.color();
+  },
+  //despawned(b){},
+  update(b){
+    this.super$update(b);
+    if(b.time()>60&&b.velocity().isZero(0.001)){
+      b.velocity(4.1, this.getTargetAngle(b));//set target TBA
+      t.global.newSounds.spearshot.at(b.x, b.y);
+    }
+    if(b.time()>100 && !b.getData()[2]){
+      var t1 = b.getData();
+      t1[2] = true;
+      b.setData(t1);
+      this.rerotate(b);
+    }
+  },
+  init(b){
+    if(b==null) return;
+    //b.x = b.x + b.velocity().x*Time.delta();
+    //b.y = b.y + b.velocity().y*Time.delta();
+    var arr = [b.rot(), null, false];
+    b.setData(arr);
+    b.velocity(0, 0);
+    t.global.newSounds.spearappear.at(b.x, b.y);
+  },
+  getTargetAngle(b){
+    var dt = b.getData();
+    if(dt == null) dt = [b.rot(), null, false];
+    if(dt[1] != null && Units.invalidateTarget(dt[1], b.getTeam(), b.x, b.y, this.trackRange)) dt[1] = null;
+    if(dt[1] == null){
+      dt[1] = Units.closestTarget(b.getTeam(), b.x, b.y, this.trackRange);
+    }
+    if(dt[1] != null) dt[0] = this.angleTo(b, dt[1]);
+    b.setData(dt);
+    return dt[0];
+  },
+  angleTo(b, target){
+    return Angles.angle(b.x, b.y, target.getX(), target.getY());
+  },
+  hit(b,x,y){
+    if(x === undefined || x === null){
+      x = b.x; y = b.y;
+    }
+    this.super$hit(b, x, y);
+    if(b.time()<60) return;
+    b.scaleTime(-1*Math.min(60, b.time()-60));
+    var t1 = b.getData();
+    t1[2] = false;
+    b.setData(t1);
+  },
+  rerotate(b){
+    var target = Units.closestTarget(b.getTeam(), b.x, b.y, this.trackRange/1.5, boolf(e=>(Mathf.dst2(e.getX(), e.getY(), b.x, b.y)>1.5)));
+    if(target == null) b.velocity(3.9, b.rot()+150);
+    else b.velocity(4.0, this.angleTo(b, target));
+  }
+});
+
+spear2.trackRange = 165;
+spear2.speed = 28;
+spear2.lifetime = 160;
+spear2.pierce = true;
+spear2.damage = 27;
+spear2.collidesTiles = true;
+spear2.collides = true;
+spear2.collidesAir = true;
+spear2.keepVelocity = false;
+spear2.hitSound = Sounds.none;//change later
+spear2.hitShake = 0;
+spear2.hitEffect = Fx.hitFuse;
+spear2.despawnEffect = Fx.hitFuse;
+spear2.bulletSprite = "commandblocks-b-spear";
+spear2.frontColor = Color.white.cpy();
+spear2.backColor = Pal.surge.cpy();
+spear2.bulletWidth = 26;
+spear2.bulletHeight = 36;
+
+this.global.bullets.spear2 = spear2;
+
+const ball = extend(BasicBulletType,{
+  draw(b){
+    Draw.color();
+    Draw.rect(this.backRegion, b.x, b.y, Time.time()*(b.id%4+1)*4);
+    Draw.rect(this.frontRegion, b.x, b.y);
+  },
+  hit(b,x,y){
+    if(x === undefined || x === null){
+      x = b.x; y = b.y;
+    }
+    this.super$hit(b, x, y);
+    t.global.newSounds.boing.at(x, y, 1.2);
+  }
+  //despawned(b){},
+  //update(b){}
+});
+
+ball.speed = 2.5;
+ball.knockback = 50;
+ball.lifetime = 100;
+ball.pierce = false;
+ball.damage = 0;
+ball.collidesTiles = true;
+ball.collides = true;
+ball.collidesAir = true;
+ball.keepVelocity = true;
+ball.hitSound = Sounds.none;//change later
+ball.hitShake = 0;
+ball.hitEffect = this.global.fx.ballBounce;
+ball.despawnEffect = Fx.absorb;
+ball.bulletSprite = "commandblocks-b-ball";
+
+this.global.bullets.ball = ball;

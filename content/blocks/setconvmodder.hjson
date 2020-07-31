@@ -12,3 +12,4 @@ sync: true
 health: 150
 configurable: true
 solid: true
+research: armored-conveyor

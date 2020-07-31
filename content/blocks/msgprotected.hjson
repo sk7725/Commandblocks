@@ -11,3 +11,4 @@ requirements: [
 sync: true
 health: 40
 solid: true
+research: message

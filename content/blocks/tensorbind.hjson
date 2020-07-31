@@ -1,0 +1,14 @@
+size: 1
+breakable: true
+category: distribution
+requirements: [
+  ref-zeta/6
+]
+health: 60
+solid: true
+targetable: true
+//hasShadow: false
+
+//sync: true
+update: true
+research: sporeblock

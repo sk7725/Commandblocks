@@ -259,5 +259,19 @@ this.global.fx = {
       drawSpark(e.x+x, e.y+y, e.fout()*2.5, 0.5+e.fout(), e.id*i);
       i++;
     }));
+  }),
+  empBlast : newEffect(25, e => {
+    Draw.color(Pal.lancerLaser, Pal.surge, e.fout());
+    Lines.stroke(e.fout()*4.5);
+    var rand = Mathf.random();
+    Lines.poly(e.x, e.y, rand*5+10, e.fin()*e.rotation, e.fout()*300);
+    Lines.stroke(e.fout()*2);
+    Lines.poly(e.x, e.y, rand*5+10, e.fin()*e.rotation*0.85, e.fout()*300);
+  }),
+  ballBounce : newEffect(30, e => {
+    var v1 = Vec2(e.fin()*24, 0).setAngle(e.rotation);
+    Draw.alpha(e.fout());
+    Draw.rect("commandblocks-b-ball-back", e.x+v1.x, e.y+v1.y, e.fin()*80);
+    Draw.rect("commandblocks-b-ball", e.x+v1.x, e.y+v1.y);
   })
 };

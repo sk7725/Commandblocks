@@ -12,3 +12,4 @@ solid: true
 consumes: {
   power: 1
 }
+research: playertune

@@ -1,0 +1,13 @@
+size: 1
+breakable: true
+category: distribution
+requirements: [
+  graphite/6
+  ref-zeta/6
+]
+health: 80
+solid: true
+targetable: true
+rotate: true
+update: true
+research: tensorbind

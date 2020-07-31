@@ -23,10 +23,10 @@ const skills={
 	"coalfire":{
 		type:"skill.atk",
 		tier:2,
-		cooltime:1.5,
+		cooltime:12.5,
 		uses:{
 			item:"coal",
-			amount:3
+			amount:7
 		},
 		cost:[
       {
@@ -102,7 +102,8 @@ const skills={
         amount:270
       }
     ],
-    parent:"thorshot"
+    parent:"thorshot",
+    unfinished: true
   },
   "thorshot":{
 		type:"skill.atk",
@@ -238,7 +239,8 @@ const skills={
 				amount:50
 			}
 		],
-    parent:"phaseshot"
+    parent:"phaseshot",
+    unfinished: true
 	},
   "pyraheal":{
 		type:"skill.support",
@@ -376,7 +378,7 @@ const skills={
     healthcost:18,
 		uses:{
 			item:"surge-alloy",
-			amount:12
+			amount:6
 		},
 		cost:[
 			{
@@ -397,11 +399,11 @@ const skills={
   "surgeemp":{
     type:"skill.support",
     tier:3,
-    cooltime:15,
-    duration:7.5,
+    cooltime:19.3,
+    duration:13,
     uses:{
       item:"surge-alloy",
-      amount:10
+      amount:13
     },
     cost:[
       {
@@ -432,7 +434,8 @@ const skills={
         item:"commandblocks-ref-scalar",
         amount:70
       }
-    ]
+    ],
+    unfinished: true
   },
   "scalshield":{
     type:"skill.def",
@@ -480,7 +483,8 @@ const skills={
         item:"commandblocks-ref-vector",
         amount:40
       }
-    ]
+    ],
+    unfinished: true
   },
   "vecslash":{
     type:"skill.def",
@@ -524,7 +528,8 @@ const skills={
         amount:256
       }
     ],
-    parent:"vecslash"
+    parent:"vecslash",
+    unfinished: true
   },
   "zetarecharge":{
     type:"skill.support",
@@ -569,7 +574,8 @@ const skills={
         amount:56
       }
     ],
-    parent:"zetarecharge"
+    parent:"zetarecharge",
+    unfinished: true
   },
   "zetatrap":{
     type:"skill.support",
@@ -647,7 +653,8 @@ const skills={
         amount:9,
       }
     ],
-    parent:"spaceblink"
+    parent:"spaceblink",
+    unfinished: true
   },
   "timeworld":{
     type:"skill.secret",
@@ -675,7 +682,8 @@ const skills={
         amount:18,
       }
     ],
-    parent:"spaceportal"
+    parent:"spaceportal",
+    unfinished: true
   },
   "opticpresicion":{
 		type:"skill.atk",
@@ -1222,6 +1230,7 @@ const gravityTrap = customb.gravityTrap;
 const arcCasterBullet = customb.arcCasterBullet;
 const forceSmall = customb.forceSmall;
 const effectZone = customb.effectZone;
+const empStatus = Vars.content.getByName(ContentType.status, "commandblocks-empjam");
 
 const vanillaskills=30;
 const doubletaptick=15;
@@ -1231,6 +1240,7 @@ const skillfunc={
   _lasty:0,
   _lastcharged:0,
   getInput(){
+    if(Vars.player.hasEffect(empStatus)) return false;
     if(Vars.mobile){
       if(Core.input.justTouched()){
         var inc=Math.max(Math.abs(Core.input.mouseX()-this._lastx),Math.abs(Core.input.mouseY()-this._lasty));
@@ -1291,8 +1301,7 @@ const skillfunc={
     this.fire(customb.grenade, player, 0.5, 1);
   },
   coalfire(player){
-    this.fire(Bullets.bombOil, player, 9, 3);
-    this.fire(Bullets.bombIncendiary, player, 9, 3);
+    this.fire(customb.molotov, player, 0.58, 1.2);
   },
   coalcrawler(player){
     if(player.tileOn().solid()){
@@ -1423,6 +1432,9 @@ const skillfunc={
     player.damage(player.maxHealth()*0.18);
     Sounds.spark.at(player.getX(),player.getY(),0.2);
     this.fire(arcCasterBullet, player, 0.65, 5);
+  },
+  surgeemp(player){
+    this.fire(customb.emp, player, 0.5, 1);
   },
   scalshield(player){
     var x=player.getX(); var y=player.getY();
