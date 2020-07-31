@@ -1550,6 +1550,6 @@ const skillfunc={
 	},
     shadumbomb(player){
     this.fire(customb.grenade, player, 0.5, 1);
-  },
+  }
 }
 this.global.skills.func=skillfunc;
