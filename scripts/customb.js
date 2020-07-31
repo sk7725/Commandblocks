@@ -879,9 +879,9 @@ const ball = extend(BasicBulletType,{
 });
 
 ball.speed = 2.5;
-ball.knockback = 40;
+ball.knockback = 50;
 ball.lifetime = 100;
-ball.pierce = true;
+ball.pierce = false;
 ball.damage = 0;
 ball.collidesTiles = true;
 ball.collides = true;
@@ -889,7 +889,7 @@ ball.collidesAir = true;
 ball.keepVelocity = true;
 ball.hitSound = Sounds.none;//change later
 ball.hitShake = 0;
-ball.hitEffect = Fx.none;
+ball.hitEffect = this.global.fx.ballBounce;
 ball.despawnEffect = Fx.absorb;
 ball.bulletSprite = "commandblocks-b-ball";
 
