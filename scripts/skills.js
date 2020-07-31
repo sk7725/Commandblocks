@@ -1049,7 +1049,7 @@ uses:{
              },
              cost:[ 
                     {
-                       item:"shadowmod-shadum"
+                       item:"shadowmod-shadum",
                        amount:10
                      }
                    ]
