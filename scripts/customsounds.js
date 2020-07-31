@@ -30,7 +30,7 @@ function loadsound(name){
   }*/
   var path="sounds/"+name+".ogg";
   if(Core.assets.contains(path,Sound)) t.global.newSounds[name]=Core.assets.get(path,Sound);
-  else Core.assets.load(path,Sound).loaded=cons(a=>t.gloabl.newSounds[name]=a);
+  else Core.assets.load(path,Sound).loaded=cons(a=>t.global.newSounds[name]=a);
 }
 
 loadsound("boostsound");
