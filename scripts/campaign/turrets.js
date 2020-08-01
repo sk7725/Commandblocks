@@ -121,7 +121,7 @@ const fesCharge = newEffect(15, e => {
 });
 
 const festival = extendContent(ChargeTurret, "festival", {
-  public void shoot(tile, ammo){
+  shoot(tile, ammo){
     entity = tile.ent();
     var real = this.reload/this.baseReloadSpeed(tile);
     var realclamp = this.getClamp(real);
