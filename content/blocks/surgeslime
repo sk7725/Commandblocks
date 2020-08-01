@@ -1,0 +1,14 @@
+size: 1
+breakable: true
+category: distribution
+requirements: [
+  spore-pod/6
+]
+health: 20
+solid: true
+targetable: true
+//hasShadow: false
+
+//sync: true
+update: true
+research: piston
