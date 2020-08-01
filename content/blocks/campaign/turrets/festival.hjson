@@ -1,0 +1,24 @@
+health: 1125
+size: 2
+reload: 260
+range: 240
+shootCone: 35
+inaccuracy: 1
+//heatColor: FF0000
+ammoUseEffect: none
+rotatespeed: 6.5
+recoil: 2
+
+chargeEffects: 7
+
+powerUse: 1
+hasPower: true
+targetAir: true
+shootSound: pew
+requirements: [
+  copper/60
+  lead/55
+  plastanium/20
+]
+category: turret
+research: arc
