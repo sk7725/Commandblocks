@@ -152,7 +152,7 @@ const festival = extendContent(ChargeTurret, "festival", {
     return 10;
   },
   baseReloadSpeed(tile){
-    return tile.ent().power.status*(tile.ent().power.graph.getPowerBalance()/50 + 1);
+    return tile.ent().power.status*((tile.ent().power.graph.getLastPowerProduced() - tile.ent().power.graph.getLastPowerNeeded())/50 + 1);
   }
 });
 festival.shootEffect = fesShoot;
