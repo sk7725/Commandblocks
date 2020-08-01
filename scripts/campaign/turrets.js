@@ -130,6 +130,7 @@ const festival = extendContent(ChargeTurret, "festival", {
     Effects.effect(this["chargeBeginEffect"+realclamp], tile.drawx() + this.tr.x, tile.drawy() + this.tr.y, entity.rotation);
     for(var i = 0; i < this.chargeEffects; i++){
       Time.run(Mathf.random(realclamp), run(() => {
+        entity = tile.ent();
         if(!this.isTurret(tile)) return;
         this.tr.trns(entity.rotation, this.size * Vars.tilesize / 2);
         Effects.effect(this.chargeEffect, tile.drawx() + this.tr.x, tile.drawy() + this.tr.y, entity.rotation);
@@ -137,6 +138,7 @@ const festival = extendContent(ChargeTurret, "festival", {
     }
     entity.shooting = true;
     Time.run(realclamp, run(() => {
+      entity = tile.ent();
       if(!this.isTurret(tile)) return;
       this.tr.trns(entity.rotation, this.size * Vars.tilesize / 2);
       entity.recoil = this.recoil;
