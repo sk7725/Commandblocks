@@ -1038,7 +1038,22 @@ uses:{
 				amount:1
 			}
 		]
-	}
+	},
+        "shadumbomb":{
+             type:"skill.atk",
+             tier:1,
+             cooltime:5,
+             uses:{
+                     item:"shadowmod-shadum",
+                     amount:3
+             },
+             cost:[ 
+                    {
+                       item:"copper",
+                       amount:10
+                     }
+                   ]
+        }
 };
 this.global.skills.skills=skills;
 
@@ -1532,6 +1547,9 @@ const skillfunc={
   },
 	youShallNotPass(player){
 		player.applyEffect(pushing,300);
-	}
+	},
+    shadumbomb(player){
+    this.fire(customb.grenade, player, 0.5, 1);
+  }
 }
 this.global.skills.func=skillfunc;
