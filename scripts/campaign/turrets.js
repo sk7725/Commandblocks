@@ -159,7 +159,7 @@ const festival = extendContent(ChargeTurret, "festival", {
   setStats(){
     this.super$setStats();
     this.stats.remove(BlockStat.reload);
-    this.stats.add(BlockStat.reload, "{0} ~ {1}", 60/this.reload, 60);
+    this.stats.add(BlockStat.reload, "{0} ~ {1}", Mathf.round(60/this.reload, 100), 60);
   }
 });
 festival.shootEffect = fesShoot;
