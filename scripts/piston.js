@@ -2,8 +2,8 @@ const pushInvalid = ["commandblocks-commandb", "thorium-wall", "thorium-wall-lar
 var nonSticky = ["phase-wall", "phase-wall-large"];
 nonSticky = nonSticky.concat(pushInvalid);
 //const pistonArm = Blocks.copperWall;
-const slimeBlock = ["commandblocks-sporeblock", "commandblocks-tensorbind"];
-const slimeDir = ["commandblocks-sporedir", "commandblocks-tensordir"];
+const slimeBlock = ["commandblocks-sporeblock", "commandblocks-tensorbind", "commandblocks-surgeslime"];
+const slimeDir = ["commandblocks-sporedir", "commandblocks-tensordir", "commandblocks-surgedir"];
 nonSticky = nonSticky.concat(slimeBlock);
 const pistonBlock = ["commandblocks-piston", "commandblocks-pistonsticky"];
 //print(nonSticky);
@@ -112,6 +112,7 @@ function canStick(ptile, origTile){
 function slimeType(name){
   if(name == "commandblocks-sporedir") return "commandblocks-sporeblock";
   if(name == "commandblocks-tensordir") return "commandblocks-tensorbind";
+  if(name == "commandblocks-surgedir") return "commandblocks-surgeslime";
   return name;
 }
 
