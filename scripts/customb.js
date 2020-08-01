@@ -888,7 +888,7 @@ const ball = extend(BasicBulletType,{
 });
 
 ball.speed = 2.5;
-ball.knockback = 50;
+ball.knockback = 40;
 ball.lifetime = 100;
 ball.pierce = false;
 ball.damage = 0;
