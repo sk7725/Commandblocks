@@ -6,7 +6,7 @@ shootCone: 35
 inaccuracy: 1
 //heatColor: FF0000
 ammoUseEffect: none
-rotatespeed: 6.5
+rotatespeed: 4.5
 recoil: 2
 
 chargeEffects: 7
