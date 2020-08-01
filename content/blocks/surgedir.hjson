@@ -12,3 +12,6 @@ targetable: true
 rotate: true
 update: true
 research: surgeslime
+hasPower: true
+consumesPower: false
+outputsPower: false
