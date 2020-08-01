@@ -123,7 +123,7 @@ const fesCharge = newEffect(15, e => {
 const festival = extendContent(ChargeTurret, "festival", {
   public void shoot(tile, ammo){
     entity = tile.ent();
-    var real = 60;//real reload
+    var real = this.reload/this.baseReloadSpeed(tile);
     var realclamp = this.getClamp(real);
     this.useAmmo(tile);
     this.tr.trns(entity.rotation, this.size * Vars.tilesize / 2);
@@ -150,6 +150,9 @@ const festival = extendContent(ChargeTurret, "festival", {
     if(n>90) return 90;
     if(n>45) return 45;
     return 10;
+  },
+  baseReloadSpeed(tile){
+    return tile.ent().power.status/30+1;
   }
 });
 festival.shootEffect = fesShoot;
