@@ -82,6 +82,44 @@ undyne2.shootType = this.global.bullets.spear;
 undyne2.shootType2 = this.global.bullets.spear2;
 
 
+const fesShoot = newEffect(25, e => {
+  Draw.color(Pal.accent);
+  Lines.stroke(e.fout()*5);
+  Lines.circle(e.x, e.y, e.fin()*10);
+  Draw.color(Pal.accent, Color.green, e.fin());
+  Angles.randLenVectors(e.id, 3, 30*e.finpow(), e.rotation, 40, floatc2((x,y) => {
+    Fill.circle(e.x+x, e.y+y, e.fout()*3);
+  }));
+  Draw.color(Pal.accent, Color.yellow, e.fin());
+  Angles.randLenVectors(e.id, 2, 30*e.finpow(), e.rotation, 40, floatc2((x,y) => {
+    Fill.circle(e.x+x, e.y+y, e.fout()*2.5);
+  }));
+});
+const fes90 = newEffect(90, e => {
+  Draw.color(Pal.accent);
+  Fill.circle(e.x, e.y, e.fin()*7);
+  Draw.color(Color.white);
+  Fill.circle(e.x, e.y, e.fin()*5.5);
+});
+const fes45 = newEffect(45, e => {
+  Draw.color(Pal.accent);
+  Fill.circle(e.x, e.y, e.fin()*7);
+  Draw.color(Color.white);
+  Fill.circle(e.x, e.y, e.fin()*5.5);
+});
+const fes10 = newEffect(10, e => {
+  Draw.color(Pal.accent);
+  Fill.circle(e.x, e.y, e.fin()*7);
+  Draw.color(Color.white);
+  Fill.circle(e.x, e.y, e.fin()*5.5);
+});
+const fesCharge = newEffect(15, e => {
+  Draw.color(Pal.accent);
+  Angles.randLenVectors(e.id, 1, 30*e.fout(), floatc2((x,y) => {
+    Fill.circle(e.x+x, e.y+y, e.finpow());
+  }));
+});
+
 const festival = extendContent(ChargeTurret, "festival", {
   public void shoot(tile, ammo){
     entity = tile.ent();
@@ -114,10 +152,10 @@ const festival = extendContent(ChargeTurret, "festival", {
     return 10;
   }
 });
-festival.shootEffect = undyneShoot;
-festival.chargeBeginEffect90 = undyneShoot;
-festival.chargeBeginEffect45 = undyneShoot;
-festival.chargeBeginEffect10 = undyneShoot;
-festival.chargeEffect = undyneShoot;
+festival.shootEffect = fesShoot;
+festival.chargeBeginEffect90 = fes90;
+festival.chargeBeginEffect45 = fes45;
+festival.chargeBeginEffect10 = fes10;
+festival.chargeEffect = fesCharge;
 festival.shootType = this.global.bullets.ball;
 
