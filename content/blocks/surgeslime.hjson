@@ -3,6 +3,7 @@ breakable: true
 category: distribution
 requirements: [
   spore-pod/6
+  surge-alloy/6
 ]
 health: 20
 solid: true
@@ -11,4 +12,4 @@ targetable: true
 
 //sync: true
 update: true
-research: piston
+research: sporeblock
