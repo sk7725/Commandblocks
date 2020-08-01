@@ -1,0 +1,14 @@
+size: 1
+breakable: true
+category: distribution
+requirements: [
+  lead/6
+  spore-pod/6
+  surge-alloy/6
+]
+health: 40
+solid: true
+targetable: true
+rotate: true
+update: true
+research: surgeslime
