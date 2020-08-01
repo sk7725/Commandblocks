@@ -144,7 +144,7 @@ const festival = extendContent(ChargeTurret, "festival", {
       this.bullet(tile, ammo, entity.rotation + Mathf.range(this.inaccuracy));
       this.effects(tile);
       entity.shooting = false; 
-    });
+    }));
   },
   getClamp(n){
     if(n>90) return 90;
