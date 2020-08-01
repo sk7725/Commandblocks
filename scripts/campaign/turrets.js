@@ -142,10 +142,10 @@ const festival = extendContent(ChargeTurret, "festival", {
       if(!this.isTurret(tile)) return;
       this.tr.trns(entity.rotation, this.size * Vars.tilesize / 2);
       entity.recoil = this.recoil;
-      entity.heat = 1; 
+      entity.heat = 1;
       this.bullet(tile, ammo, entity.rotation + Mathf.range(this.inaccuracy));
       this.effects(tile);
-      entity.shooting = false; 
+      entity.shooting = false;
     }));
   },
   getClamp(n){
@@ -155,6 +155,11 @@ const festival = extendContent(ChargeTurret, "festival", {
   },
   baseReloadSpeed(tile){
     return tile.ent().power.status*((tile.ent().power.graph.getLastPowerProduced() - tile.ent().power.graph.getLastPowerNeeded())/50 + 1);
+  },
+  setStats(){
+    this.super$setStats();
+    this.stats.remove(BlockStat.reload);
+    this.stats.add(BlockStat.reload, "{0} ~ {1}", 60/this.reload, 60);
   }
 });
 festival.shootEffect = fesShoot;
@@ -163,4 +168,3 @@ festival.chargeBeginEffect45 = fes45;
 festival.chargeBeginEffect10 = fes10;
 festival.chargeEffect = fesCharge;
 festival.shootType = this.global.bullets.ball;
-
