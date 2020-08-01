@@ -269,7 +269,7 @@ this.global.fx = {
     Lines.poly(e.x, e.y, rand*5+10, e.fin()*e.rotation*0.85, e.fout()*300);
   }),
   ballBounce : newEffect(30, e => {
-    var v1 = Vec2(e.fin()*24, 0).setAngle(e.rotation);
+    var v1 = Vec2(e.fin()*24, 0).setAngle(e.rotation+Mathf.randomSeed(e.id, 165, 195));
     Draw.alpha(e.fout());
     Draw.rect("commandblocks-b-ball-back", e.x+v1.x, e.y+v1.y, e.fin()*80);
     Draw.rect("commandblocks-b-ball", e.x+v1.x, e.y+v1.y);
