@@ -861,6 +861,15 @@ spear2.bulletHeight = 36;
 
 this.global.bullets.spear2 = spear2;
 
+const ballstun = extendContent(StatusEffect,"ballstun",{
+  update(unit, time){
+  this.super$update(unit, time);
+  unit.getTimer().get(unit.getShootTimer(true),1);
+  unit.getTimer().get(unit.getShootTimer(false),1);
+}});
+ballstun.color=Pal.accent;
+ballstun.effect=Fx.generate;
+ballstun.speedMultiplier=0;
 const ball = extend(BasicBulletType,{
   draw(b){
     Draw.color();
@@ -892,5 +901,7 @@ ball.hitShake = 0;
 ball.hitEffect = this.global.fx.ballBounce;
 ball.despawnEffect = Fx.absorb;
 ball.bulletSprite = "commandblocks-b-ball";
+ball.status = ballstun;
+ball.statusDuration = 240;
 
 this.global.bullets.ball = ball;
