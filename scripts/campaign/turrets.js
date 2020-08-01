@@ -80,3 +80,44 @@ const undyne2 = extendContent(PowerTurret, "undyne2", {
 undyne2.shootEffect = undyneShoot2;
 undyne2.shootType = this.global.bullets.spear;
 undyne2.shootType2 = this.global.bullets.spear2;
+
+
+const festival = extendContent(ChargeTurret, "festival", {
+  public void shoot(tile, ammo){
+    entity = tile.ent();
+    var real = 60;//real reload
+    var realclamp = this.getClamp(real);
+    this.useAmmo(tile);
+    this.tr.trns(entity.rotation, this.size * Vars.tilesize / 2);
+    Effects.effect(this["chargeBeginEffect"+realclamp], tile.drawx() + this.tr.x, tile.drawy() + this.tr.y, entity.rotation);
+    for(var i = 0; i < this.chargeEffects; i++){
+      Time.run(Mathf.random(realclamp), run(() => {
+        if(!this.isTurret(tile)) return;
+        this.tr.trns(entity.rotation, this.size * Vars.tilesize / 2);
+        Effects.effect(this.chargeEffect, tile.drawx() + this.tr.x, tile.drawy() + this.tr.y, entity.rotation);
+      }));
+    }
+    entity.shooting = true;
+    Time.run(realclamp, run(() => {
+      if(!this.isTurret(tile)) return;
+      this.tr.trns(entity.rotation, this.size * Vars.tilesize / 2);
+      entity.recoil = this.recoil;
+      entity.heat = 1; 
+      this.bullet(tile, ammo, entity.rotation + Mathf.range(this.inaccuracy));
+      this.effects(tile);
+      entity.shooting = false; 
+    });
+  },
+  getClamp(n){
+    if(n>90) return 90;
+    if(n>45) return 45;
+    return 10;
+  }
+});
+festival.shootEffect = undyneShoot;
+festival.chargeBeginEffect90 = undyneShoot;
+festival.chargeBeginEffect45 = undyneShoot;
+festival.chargeBeginEffect10 = undyneShoot;
+festival.chargeEffect = undyneShoot;
+festival.shootType = this.global.bullets.ball;
+
