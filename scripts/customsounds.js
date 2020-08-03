@@ -28,6 +28,10 @@ function loadsound(name){
     t.global.newSounds[name] = Sounds.none;
     //print("Failed to load sound! Please restart the game!");
   }*/
+  if(Vars.headless) {
+    sounds[name]=new MockSound();
+    return;
+  }
   var path="sounds/"+name+".ogg";
   if(Core.assets.contains(path,Sound)) t.global.newSounds[name]=Core.assets.get(path,Sound);
   else Core.assets.load(path,Sound).loaded=cons(a=>t.global.newSounds[name]=a);
