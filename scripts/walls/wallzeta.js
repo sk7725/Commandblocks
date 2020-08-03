@@ -15,10 +15,10 @@ const wallzeta = extendContent(Door, "wallzeta", {
  },
  update(tile){
   var entity = tile.ent();
-  if(entity.open && entity.cons.valid()){ 
+  if(entity.open && this.powered(tile)){ 
    tile.block().tapped(tile, null);
   }
-  else if((!entity.open) && (!entity.cons.valid())){
+  else if((!entity.open) && (!this.powered(tile))){
    tile.block().tapped(tile, null);
   }
  },
@@ -27,7 +27,10 @@ const wallzeta = extendContent(Door, "wallzeta", {
    return;  
   }
   this.super$tapped(tile, player);
- }
+ },
+  powered(tile){
+    return tile.ent().power.status >= 0.99;
+  }
 });
 
 wallzeta.entityType=prov(() => extendContent(Door.DoorEntity , wallzeta , {
