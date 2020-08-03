@@ -869,7 +869,7 @@ const ballstun = extendContent(StatusEffect,"ballstun",{
 }});
 ballstun.color=Pal.accent;
 ballstun.effect=Fx.generate;
-ballstun.speedMultiplier=0;
+//ballstun.speedMultiplier=0;
 const ball = extend(BasicBulletType,{
   draw(b){
     Draw.color();
@@ -888,7 +888,7 @@ const ball = extend(BasicBulletType,{
 });
 
 ball.speed = 2.5;
-ball.knockback = 40;
+ball.knockback = 50;
 ball.lifetime = 100;
 ball.pierce = false;
 ball.damage = 0;
@@ -902,6 +902,6 @@ ball.hitEffect = this.global.fx.ballBounce;
 ball.despawnEffect = Fx.absorb;
 ball.bulletSprite = "commandblocks-b-ball";
 ball.status = ballstun;
-ball.statusDuration = 240;
+ball.statusDuration = 140;
 
 this.global.bullets.ball = ball;
