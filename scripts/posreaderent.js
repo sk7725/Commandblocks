@@ -37,7 +37,7 @@ const posreaderent = extendContent(MessageBlock, "posreaderent", {
 		var near = Vars.world.tile(x,y);
 		if(near === null || !near.link().ent()) return;
     //Call.setMessageBlockText(null,tile,JSON.stringify(Blocks));
-    Call.setMessageBlockText(null,tile,near.ent().toString());
+    Call.setMessageBlockText(null,tile,near.link().ent().toString());
 	}
 /*
 	removed(tile) {
