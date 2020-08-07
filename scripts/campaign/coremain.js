@@ -32,16 +32,16 @@ const coremain = extendContent(CoreBlock, "coremain",{
   forceGameOver(){
     Vars.state.gameOver = true;
     Events.fire(new EventType.GameOverEvent(Vars.state.rules.waveTeam));
-  }
-  /*
-  onDestroyed(tile){
+  },
+  removed(tile){
     if(coremainbuild.blockpos[tile.getTeamID()] == tile.pos()){
 			delete coremainbuild.blockpos[tile.getTeamID()];
 		}
-    this.checkpos[tile.pos()] = false;
-		this.super$onDestroyed(tile);
-    if(Vars.state.rules.mode() == GameMode.survival || Vars.state.rules.mode() == GameMode.attack) this.forceGameOver();
-  }*/
+    this.super$removed(tile);
+    //this.checkpos[tile.pos()] = false;
+		//this.super$onDestroyed(tile);
+    //if(Vars.state.rules.mode() == GameMode.survival || Vars.state.rules.mode() == GameMode.attack) this.forceGameOver();
+  }
 });
 
 const coremainbuild = extendContent(Block, "coremainbuild",{
