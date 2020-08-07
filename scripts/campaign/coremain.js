@@ -27,6 +27,13 @@ const coremain = extendContent(CoreBlock, "coremain",{
       coremainbuild.blockpos[tile.getTeamID()] = tile.pos();
       this.checkpos[tile.pos()] = true;
     }
+  },
+  removed(tile){
+    if(coremainbuild.blockpos[tile.getTeamID()] == tile.pos()){
+			delete coremainbuild.blockpos[tile.getTeamID()];
+		}
+    this.checkpos[tile.pos()] = false;
+		this.super$removed(tile);
   }
 });
 
@@ -62,6 +69,9 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     var yoff = tile.drawy() + 20 + Mathf.sin(Time.time()*0.05);
     Draw.rect(this.itemRegion, tile.drawx(), yoff);
     Draw.rect(tile.ent().getItem().icon(Cicon.medium), tile.drawx(), yoff);
+  },
+  getDisplayName(tile){
+    return Core.bundle.format("block.constructing", coremain.localizedName);
   },
   canPlaceOn(tile){
 		if(Vars.headless){
@@ -125,7 +135,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
   selectNextItem(tile, avoid){
     //use EoD item auctioner
     var arr = Vars.content.items().toArray();
-    arr.filter(item => item.name.substring(0, 14) != "commandblocks-");
+    arr.filter(item => item.name.includes("commandblocks-"));
     arr.sort(function(i1, i2) {
       return i1.cost*i1.cost*(i1.hardness+1) - i2.cost*i2.cost*(i2.hardness+1);
     });
