@@ -59,7 +59,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
   },
   drawLayer(tile){
     if(tile.ent().getItem() == null) return;
-    var yoff = tile.drawy() + 16 + Mathf.sin(Time.time()*0.05);
+    var yoff = tile.drawy() + 20 + Mathf.sin(Time.time()*0.05);
     Draw.rect(this.itemRegion, tile.drawx(), yoff);
     Draw.rect(tile.ent().getItem().icon(Cicon.medium), tile.drawx(), yoff);
   },
@@ -73,7 +73,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
 	},
   placed(tile){
     //show dialog
-    if(!Vars.net.client()) this.selectNextItem(tile);
+    if(!Vars.net.client()) this.selectNextItem(tile, null);
   },
   removed(tile){
 		if(this.blockpos[tile.getTeamID()] == tile.pos()){
@@ -102,16 +102,16 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
       tile.ent().setProg(0);
       tile.ent().incWave();
       if(tile.ent().getWave() >= 10) this.finishBuild(tile, tile.getTeam());
-      else this.newWave(tile);
+      else this.newWave(tile, tile.ent().getItemID());
       return true;
     }
     else return false;
   },
-  newWave(tile){
+  newWave(tile, avoid){
     tile.ent().nullItem();//until it is synced
     Effects.effect(customfx.coreMainPhase, tile.drawx(), tile.drawy());
     Effects.shake(3, 3, tile.ent());
-    if(!Vars.net.client()) this.selectNextItem(tile);
+    if(!Vars.net.client()) this.selectNextItem(tile, avoid);
   },
   finishBuild(tile, team){
     Effects.effect(customfx.coreMainSpark, tile.drawx(), tile.drawy());
@@ -122,10 +122,17 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     this.blockpos[tile.getTeamID()] = tile.pos();
   },
 
-  selectNextItem(tile){
+  selectNextItem(tile, avoid){
     //use EoD item auctioner
-    var arr = Vars.content.items().toArray();
-    tile.configure(Mathf.random(1, arr.length));
+    var arr = Vars.content.items().copy().eachFilter(boolf(item=>item.name.substring(0, 14) == "commandblocks-")).toArray();
+    arr.sort(function(i1, i2) {
+      return i1.cost*i1.cost*(i1.hardness+1) - i2.cost*i2.cost*(i2.hardness+1);
+    });
+
+    var arrpos = Mathf.floorPositive(Math.max((tile.ent().getWave()/10 + Mathf.random(-0.1, 0.1))*arr.length, 0));
+    if(arrpos >= arr.length) arrpos = arr.length - 1;
+    if(avoid != null && arr[arrpos] == avoid && arrpos+1 < arr.length) arrpos++;
+    tile.configure(arr[arrpos].id+1);
   },
   configured(tile, player, value){
     if(value <= 0) return;
@@ -145,6 +152,17 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
           prov(() => Tmp.c1.set(bitcolor1).lerp(bitcolor2, Mathf.sin(Time.time()*0.02)*0.5+0.5)),
           floatp(() => {
             return (entity.getProg() + entity.getWave()*4000)/40000;
+          })
+        )
+      })
+    );
+    this.bars.add(
+      "itemcount", func(entity => {
+        return new Bar(
+          prov(() => entity.getProg() + "/4000"),
+          prov(() => (entity.getItem() == null)?Color.white:entity.getItem().color),
+          floatp(() => {
+            return entity.getProg()/4000;
           })
         )
       })
