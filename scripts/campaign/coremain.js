@@ -5,6 +5,7 @@ const bitcolor1=Color.valueOf("00e5ff");
 const bitcolor2=Color.valueOf("ff65db");
 
 const coremain = extendContent(CoreBlock, "coremain",{
+  checkpos: [],
   draw(tile){
     this.super$draw(tile);
     Draw.shader(shader);
@@ -15,6 +16,17 @@ const coremain = extendContent(CoreBlock, "coremain",{
     this.super$load();
     this.region = Core.atlas.find(this.name);
     this.animRegion = Core.atlas.find(this.name+"-anim");
+
+    Events.on(EventType.WorldLoadEvent, run(event => {
+			coremain.checkpos = [];
+		}));
+  },
+  update(tile){
+    this.super$update(tile);
+    if(!this.checkpos[tile.pos()]){
+      coremainbuild.blockpos[tile.getTeamID()] = tile.pos();
+      this.checkpos[tile.pos()] = true;
+    }
   }
 });
 
@@ -39,13 +51,17 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     this.super$load();
     this.region = Core.atlas.find(coremain.name);
     this.animRegion = Core.atlas.find(coremain.name+"-anim");
+    this.itemRegion = Core.atlas.find(this.name+"-item");
 
     Events.on(EventType.WorldLoadEvent, run(event => {
 			coremainbuild.blockpos = {};
 		}));
   },
   drawLayer(tile){
-    //말풍선
+    if(tile.ent().getItem() == null) return;
+    var yoff = tile.drawy() + 16 + Mathf.sin(Time.time()*0.05);
+    Draw.rect(this.itemRegion, tile.drawx(), yoff);
+    Draw.rect(tile.ent().getItem().icon(Cicon.medium), tile.drawx(), yoff);
   },
   canPlaceOn(tile){
 		if(Vars.headless){
@@ -55,6 +71,10 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
 			return !(Vars.player.getTeam().id in this.blockpos);
 		}
 	},
+  placed(tile){
+    //show dialog
+    if(!Vars.net.client()) this.selectNextItem(tile);
+  },
   removed(tile){
 		if(this.blockpos[tile.getTeamID()] == tile.pos()){
 			delete this.blockpos[tile.getTeamID()];
@@ -71,22 +91,27 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
 			else this.blockpos[tile.getTeamID()] = tile.pos();
 		}
     //stuff
-    this.testUpdate(tile);
+    //this.testUpdate(tile);
 	},
   testUpdate(tile){
-    tile.ent().incProg();
+    tile.ent().addProg(80);
+    this.updateWave(tile);
+  },
+  updateWave(tile){
     if(tile.ent().getProg() >= 4000){
       tile.ent().setProg(0);
       tile.ent().incWave();
       if(tile.ent().getWave() >= 10) this.finishBuild(tile, tile.getTeam());
       else this.newWave(tile);
+      return true;
     }
+    else return false;
   },
   newWave(tile){
+    tile.ent().nullItem();//until it is synced
     Effects.effect(customfx.coreMainPhase, tile.drawx(), tile.drawy());
     Effects.shake(3, 3, tile.ent());
     if(!Vars.net.client()) this.selectNextItem(tile);
-    else tile.ent().nullItem();//until it is synced
   },
   finishBuild(tile, team){
     Effects.effect(customfx.coreMainSpark, tile.drawx(), tile.drawy());
@@ -94,24 +119,52 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     Effects.shake(4, 3, tile.ent());
     tile.remove();
     tile.set(coremain, team);
+    this.blockpos[tile.getTeamID()] = tile.pos();
   },
+
   selectNextItem(tile){
     //use EoD item auctioner
+    var arr = Vars.content.items().toArray();
+    tile.configure(Mathf.random(1, arr.length));
   },
+  configured(tile, player, value){
+    if(value <= 0) return;
+    tile.ent().setItemID(value-1);
+  },
+
+  canBreak(tile){
+    return !tile.ent().enabled() || tile.ent().getWave()<1;
+  },
+
   setBars(){
-		this.super$setBars();
-		this.bars.add(
-			"progress", func(entity => {
-				return new Bar(
-					prov(() => Core.bundle.get("bar.progress")),
-					prov(() => Tmp.c1.set(bitcolor1).lerp(bitcolor2, Mathf.sin(Time.time()*0.02)*0.5+0.5)),
-					floatp(() => {
-						return (entity.getProg() + entity.getWave()*4000)/40000;
-					})
-				)
-			})
-		);
-	}
+    this.super$setBars();
+    this.bars.add(
+      "progress", func(entity => {
+        return new Bar(
+          prov(() => Core.bundle.get("bar.progress")),
+          prov(() => Tmp.c1.set(bitcolor1).lerp(bitcolor2, Mathf.sin(Time.time()*0.02)*0.5+0.5)),
+          floatp(() => {
+            return (entity.getProg() + entity.getWave()*4000)/40000;
+          })
+        )
+      })
+    );
+  },
+
+  getMaximumAccepted(tile, item){
+    return 1024;//I CAN DO ANYTHING!
+  },
+  handleStack(item, amount, tile, source){
+    tile.ent().addProg(amount);
+    this.updateWave(tile);
+  },
+  handleItem(item, tile, source){
+    tile.ent().incProg();
+    this.updateWave(tile);
+  },
+  acceptItem(item, tile, source){
+    return tile.ent().getItem() != null && tile.ent().getItem() == item;
+  }
 });
 
 coremainbuild.entityType = prov(() => extend(TileEntity , {
@@ -139,6 +192,9 @@ coremainbuild.entityType = prov(() => extend(TileEntity , {
 	},
 	incProg(){
 		this._progress += 1;
+	},
+  addProg(a){
+		this._progress += a;
 	},
   setProg(a){
 		this._progress = a;
