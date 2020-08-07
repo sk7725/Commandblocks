@@ -1,4 +1,8 @@
 const shader=this.global.shaders.bittrium;
+const customfx = this.global.fx;
+
+const bitcolor1=Color.valueOf("00e5ff");
+const bitcolor2=Color.valueOf("ff65db");
 
 const coremain = extendContent(CoreBlock, "coremain",{
   draw(tile){
@@ -17,10 +21,19 @@ const coremain = extendContent(CoreBlock, "coremain",{
 const coremainbuild = extendContent(Block, "coremainbuild",{
   blockpos: {},
   draw(tile){
-    this.super$draw(tile);
-    Draw.shader(shader);
-    Draw.rect(this.animRegion, tile.drawx(), tile.drawy());
+    Tmp.c1.set(bitcolor1).lerp(bitcolor2 ,Mathf.sin(Time.time()*0.02)*0.5+0.5); //Haha Sonnicon, you thought you've gotten rid of me for good, but I'M BACK!
+
+    Draw.shader(Shaders.blockbuild, true);
+    Shaders.blockbuild.color = Tmp.c1;
+    Shaders.blockbuild.region = this.region;
+    Shaders.blockbuild.progress = (tile.ent().getProg() + tile.ent().getWave()*4000)/40000;
+    Draw.rect(this.region, tile.drawx(), tile.drawy());
+    Draw.flush();
     Draw.shader();
+
+    Draw.mixcol(Tmp.c1, 1);
+    Draw.rect(this.animRegion, tile.drawx(), tile.drawy());
+    Draw.mixcol();
   },
   load(){
     this.super$load();
@@ -30,6 +43,9 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     Events.on(EventType.WorldLoadEvent, run(event => {
 			coremainbuild.blockpos = {};
 		}));
+  },
+  drawLayer(tile){
+    //말풍선
   },
   canPlaceOn(tile){
 		if(Vars.headless){
@@ -62,15 +78,25 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     if(tile.ent().getProg() >= 4000){
       tile.ent().setProg(0);
       tile.ent().incWave();
-      if(tile.ent().getWave() >= 10) this.finishBuild(tile);
+      if(tile.ent().getWave() >= 10) this.finishBuild(tile, tile.getTeam());
       else this.newWave(tile);
     }
   },
   newWave(tile){
-    //
+    Effects.effect(customfx.coreMainPhase, tile.drawx(), tile.drawy());
+    Effects.shake(3, 3, tile.ent());
+    if(!Vars.net.client()) this.selectNextItem(tile);
+    else tile.ent().nullItem();//until it is synced
   },
-  finishBuild(tile){
-    //
+  finishBuild(tile, team){
+    Effects.effect(customfx.coreMainSpark, tile.drawx(), tile.drawy());
+    Effects.effect(customfx.coreMainSquare, tile.drawx(), tile.drawy());
+    Effects.shake(4, 3, tile.ent());
+    tile.remove();
+    tile.set(coremain, team);
+  },
+  selectNextItem(tile){
+    //use EoD item auctioner
   }
 });
 
@@ -112,6 +138,22 @@ coremainbuild.entityType = prov(() => extend(TileEntity , {
   setWave(a){
 		this._wave = a;
 	},
+
+  nullItem(){
+		this._itemID = 0;
+    //itemID = realID + 1
+	},
+  getItemID(){
+    return this._itemID - 1;
+  },
+  setItemID(id){
+    if(id < 0) id = -1;
+    this._itemID = i+1;
+  },
+  getItem(){
+    return Vars.content.getByID(ContentType.item, this._itemID - 1);
+    //can be null
+  },
 
 	write(stream){
 		this.super$write(stream);
