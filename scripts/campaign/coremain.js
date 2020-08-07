@@ -55,7 +55,23 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
 			else this.blockpos[tile.getTeamID()] = tile.pos();
 		}
     //stuff
-	}
+    this.testUpdate(tile);
+	},
+  testUpdate(tile){
+    tile.ent().incProg();
+    if(tile.ent().getProg() >= 4000){
+      tile.ent().setProg(0);
+      tile.ent().incWave();
+      if(tile.ent().getWave() >= 10) this.finishBuild(tile);
+      else this.newWave(tile);
+    }
+  },
+  newWave(tile){
+    //
+  },
+  finishBuild(tile){
+    //
+  }
 });
 
 coremainbuild.entityType = prov(() => extend(TileEntity , {
@@ -74,13 +90,41 @@ coremainbuild.entityType = prov(() => extend(TileEntity , {
 	disable(){
 		this._enabled = false;
 	},
+  _progress: 0,
+  _wave: 0,
+  _itemID: 0,
+
+  getProg(){
+		return this._progress;
+	},
+	incProg(){
+		this._progress += 1;
+	},
+  setProg(a){
+		this._progress = a;
+	},
+  getWave(){
+		return this._wave;
+	},
+	incWave(){
+		this._wave += 1;
+	},
+  setWave(a){
+		this._wave = a;
+	},
 
 	write(stream){
 		this.super$write(stream);
 		stream.writeBoolean(this._enabled);
+    stream.writeShort(this._progress);
+    stream.writeShort(this._wave);
+    stream.writeShort(this._itemID);
 	},
 	read(stream,revision){
 		this.super$read(stream,revision);
-		this._enabled=stream.readBoolean();
+		this._enabled = stream.readBoolean();
+    this._progress = stream.readShort();
+    this._wave = stream.readShort();
+    this._itemID = stream.readShort();
 	}
 }));
