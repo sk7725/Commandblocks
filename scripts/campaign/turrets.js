@@ -174,7 +174,7 @@ const festival = extendContent(ChargeTurret, "festival", {
 				)
 			})
 		);
-	},
+	}
 });
 festival.shootEffect = fesShoot;
 festival.chargeBeginEffect90 = fes90;

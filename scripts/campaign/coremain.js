@@ -97,7 +97,21 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
   },
   selectNextItem(tile){
     //use EoD item auctioner
-  }
+  },
+  setBars(){
+		this.super$setBars();
+		this.bars.add(
+			"progress", func(entity => {
+				return new Bar(
+					prov(() => Core.bundle.get("bar.progress")),
+					prov(() => Tmp.c1.set(bitcolor1).lerp(bitcolor2, Mathf.sin(Time.time()*0.02)*0.5+0.5)),
+					floatp(() => {
+						return (entity.getProg() + entity.getWave()*4000)/40000;
+					})
+				)
+			})
+		);
+	}
 });
 
 coremainbuild.entityType = prov(() => extend(TileEntity , {
