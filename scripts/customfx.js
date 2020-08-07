@@ -2,6 +2,10 @@ var t = this;
 var shieldColor = Color.valueOf("ffd37f").a(0.7);
 const shieldInColor = Color.black.cpy().a(0);
 const spaceshader = this.global.shaders.space;
+
+const bitcolor1=Color.valueOf("00e5ff");
+const bitcolor2=Color.valueOf("ff65db");
+
 //이런 영감 아저씨
 if (typeof(floatc2)== "undefined"){
   const floatc2 = method => new Floatc2(){get : method};
@@ -273,5 +277,29 @@ this.global.fx = {
     Draw.alpha(e.fout());
     Draw.rect("commandblocks-b-ball-back", e.x+v1.x, e.y+v1.y, e.fin()*80);
     Draw.rect("commandblocks-b-ball", e.x+v1.x, e.y+v1.y);
+  }),
+  coreMainSquare : newEffectSize(90, 230, e => {
+    Lines.stroke(15*e.fout());
+    Draw.color(bitcolor1, bitcolor2, e.fin());
+    Lines.square(e.x, e.y, e.finpow()*210+12, e.finpow()*135);
+  }),
+  coreMainSpark : newEffectSize(150, 800, e => {
+    Draw.color(bitcolor1, bitcolor2, e.fout());
+    drawSpark(e.x, e.y, e.fin()*700+40, e.fout()*54, (1-e.finpow())*215);
+  }),
+  coreMainPhase : newEffectSize(90, 70, e => {
+    Draw.color(bitcolor1, bitcolor2, e.fin());
+
+    Lines.stroke(Math.max(6*e.fout()-3, 0));
+    Lines.square(e.x, e.y, 12);
+
+    Angles.randLenVectors(e.id+1, 7, 90*e.finpow()+12, floatc2((x,y) => {
+      Fill.square(e.x+x, e.y+y, e.fout()*3, 45);
+    }));
+
+    Draw.color(bitcolor1, bitcolor2, e.fout());
+    Angles.randLenVectors(e.id, 7, 90*e.finpow()+12, floatc2((x,y) => {
+      Fill.square(e.x+x, e.y+y, e.fout()*3, 45);
+    }));
   })
 };
