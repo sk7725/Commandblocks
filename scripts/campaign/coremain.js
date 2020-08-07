@@ -1,5 +1,6 @@
 const shader=this.global.shaders.bittrium;
 const customfx = this.global.fx;
+const newSounds = this.global.newSounds;
 
 const bitcolor1=Color.valueOf("00e5ff");
 const bitcolor2=Color.valueOf("ff65db");
@@ -28,11 +29,7 @@ const coremain = extendContent(CoreBlock, "coremain",{
       this.checkpos[tile.pos()] = true;
     }
   },
-  onDestroyed(tile){
-    this.super$onDestroyed(tile);
-    if(Vars.state.rules.mode() == GameMode.survival || Vars.state.rules.mode() == GameMode.attack) this.forceGameOver(tile);
-  },
-  forceGameOver(tile){
+  forceGameOver(){
     Vars.state.gameOver = true;
     Events.fire(new EventType.GameOverEvent(Vars.state.rules.waveTeam));
   },
@@ -42,6 +39,7 @@ const coremain = extendContent(CoreBlock, "coremain",{
 		}
     this.checkpos[tile.pos()] = false;
 		this.super$removed(tile);
+    if(Vars.state.rules.mode() == GameMode.survival || Vars.state.rules.mode() == GameMode.attack) this.forceGameOver();
   }
 });
 
@@ -127,11 +125,13 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
   },
   newWave(tile, avoid){
     tile.ent().nullItem();//until it is synced
+    newSounds.boostsound.at(tile.drawx(), tile.drawy());
     Effects.effect(customfx.coreMainPhase, tile.drawx(), tile.drawy());
     Effects.shake(3, 3, tile.ent());
     if(!Vars.net.client()) this.selectNextItem(tile, avoid);
   },
   finishBuild(tile, team){
+    Sounds.corexplode.at(tile.drawx(), tile.drawy());
     Effects.effect(customfx.coreMainSpark, tile.drawx(), tile.drawy());
     Effects.effect(customfx.coreMainSquare, tile.drawx(), tile.drawy());
     Effects.shake(4, 3, tile.ent());
@@ -143,8 +143,9 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
   selectNextItem(tile, avoid){
     //use EoD item auctioner
     var arr = Vars.content.items().toArray();
-    arr.filter(item => item.name.includes("commandblocks-"));
-    arr.sort(function(i1, i2) {
+    arr = arr.filter(item => item.name.includes("commandblocks-"));
+    //print(item.name);
+    arr = arr.sort(function(i1, i2) {
       return i1.cost*(i1.hardness+1) - i2.cost*(i2.hardness+1);
     });
 
