@@ -28,6 +28,14 @@ const coremain = extendContent(CoreBlock, "coremain",{
       this.checkpos[tile.pos()] = true;
     }
   },
+  onDestroyed(tile){
+    this.super$onDestroyed(tile);
+    if(Vars.state.rules.mode() == GameMode.survival || Vars.state.rules.mode() == GameMode.attack) this.forceGameOver(tile);
+  },
+  forceGameOver(tile){
+    Vars.state.gameOver = true;
+    Events.fire(new EventType.GameOverEvent(Vars.state.rules.waveTeam));
+  },
   removed(tile){
     if(coremainbuild.blockpos[tile.getTeamID()] == tile.pos()){
 			delete coremainbuild.blockpos[tile.getTeamID()];
@@ -137,7 +145,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     var arr = Vars.content.items().toArray();
     arr.filter(item => item.name.includes("commandblocks-"));
     arr.sort(function(i1, i2) {
-      return i1.cost*i1.cost*(i1.hardness+1) - i2.cost*i2.cost*(i2.hardness+1);
+      return i1.cost*(i1.hardness+1) - i2.cost*(i2.hardness+1);
     });
 
     var arrpos = Mathf.floorPositive(Math.max((tile.ent().getWave()/10 + Mathf.random(-0.1, 0.1))*arr.length, 0));
