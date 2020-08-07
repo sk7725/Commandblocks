@@ -218,7 +218,7 @@ coremainbuild.entityType = prov(() => extend(TileEntity , {
   },
   setItemID(id){
     if(id < 0) id = -1;
-    this._itemID = i+1;
+    this._itemID = id+1;
   },
   getItem(){
     return Vars.content.getByID(ContentType.item, this._itemID - 1);
