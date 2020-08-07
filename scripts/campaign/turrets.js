@@ -166,7 +166,7 @@ const festival = extendContent(ChargeTurret, "festival", {
 		this.bars.add(
 			"reload", func(entity => {
 				return new Bar(
-					prov(() => (60/(this.reload/this.baseReloadSpeed(entity.tile))).toFixed(2)+ " " + Core.bundle.get("blocks.reload")),
+					prov(() => Math.min((60/(this.reload/this.baseReloadSpeed(entity.tile))).toFixed(2),60) + " " + Core.bundle.get("blocks.reload")),
 					prov(() => Pal.accent),
 					floatp(() => {
 						return (60/(this.reload/this.baseReloadSpeed(entity.tile)))/60;
