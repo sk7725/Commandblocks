@@ -124,7 +124,8 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
 
   selectNextItem(tile, avoid){
     //use EoD item auctioner
-    var arr = Vars.content.items().copy().eachFilter(boolf(item=>(item.name.substring(0, 14) == "commandblocks-"))).toArray();
+    var arr = Vars.content.items().toArray();
+    arr.filter(item => item.name.substring(0, 14) != "commandblocks-");
     arr.sort(function(i1, i2) {
       return i1.cost*i1.cost*(i1.hardness+1) - i2.cost*i2.cost*(i2.hardness+1);
     });
