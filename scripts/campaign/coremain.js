@@ -33,12 +33,12 @@ const coremain = extendContent(CoreBlock, "coremain",{
     Vars.state.gameOver = true;
     Events.fire(new EventType.GameOverEvent(Vars.state.rules.waveTeam));
   },
-  removed(tile){
+  onDestroyed(tile){
     if(coremainbuild.blockpos[tile.getTeamID()] == tile.pos()){
 			delete coremainbuild.blockpos[tile.getTeamID()];
 		}
     this.checkpos[tile.pos()] = false;
-		this.super$removed(tile);
+		this.super$onDestroyed(tile);
     if(Vars.state.rules.mode() == GameMode.survival || Vars.state.rules.mode() == GameMode.attack) this.forceGameOver();
   }
 });
@@ -143,13 +143,13 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
   selectNextItem(tile, avoid){
     //use EoD item auctioner
     var arr = Vars.content.items().toArray();
-    arr = arr.filter(item => item.name.includes("commandblocks-"));
+    arr = arr.filter(item => !item.name.includes("commandblocks-"));
     //print(item.name);
     arr = arr.sort(function(i1, i2) {
       return i1.cost*(i1.hardness+1) - i2.cost*(i2.hardness+1);
     });
 
-    var arrpos = Mathf.floorPositive(Math.max((tile.ent().getWave()/10 + Mathf.random(-0.1, 0.1))*arr.length, 0));
+    var arrpos = Mathf.floorPositive(Math.max((tile.ent().getWave()/10 + Mathf.random(-0.1, 0.09))*arr.length, 0));
     if(arrpos >= arr.length) arrpos = arr.length - 1;
     if(avoid != null && arr[arrpos] == avoid && arrpos+1 < arr.length) arrpos++;
     tile.configure(arr[arrpos].id+1);
