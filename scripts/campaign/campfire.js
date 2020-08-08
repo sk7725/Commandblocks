@@ -1,6 +1,6 @@
 const customfx = this.global.fx;
-const fireitem = ["copper", "plastanium", "surge-alloy", "lead", "pyratite", "silicon", "commandblocks-ore-scalar", "commandblocks-ore-vector", "commandblocks-ore-zeta", "commandblocks-piece-code", "scrap", "commandblocks-bittrium", "commandblocks-log-binary", "commandblocks-log-redblack", "sand"];
-const firecolor = [Color.valueOf("66ffbf"), Pal.plastanium, Pal.surge, Color.valueOf("c2fcff"), Pal.lightPyraFlame, Color.white, Color.valueOf("f5ddf3"), Color.valueOf("cfddff"), Color.valueOf("82ffe8"), Color.valueOf("5eff79"), Color.valueOf("ff4a80"), Color.valueOf("00ffff"), Color.valueOf("ffff77"), Color.valueOf("ff4444"), Color.clear];
+const fireitem = ["copper", "plastanium", "surge-alloy", "lead", "pyratite", "silicon", "commandblocks-ore-scalar", "commandblocks-ore-vector", "commandblocks-ore-zeta", "commandblocks-piece-code", "scrap", "commandblocks-bittrium", "commandblocks-log-binary", "commandblocks-log-redblack", "sand", "mindblow-zinc"];
+const firecolor = [Color.valueOf("66ffbf"), Pal.plastanium, Pal.surge, Color.valueOf("c2fcff"), Pal.lightPyraFlame, Color.white, Color.valueOf("f5ddf3"), Color.valueOf("cfddff"), Color.valueOf("82ffe8"), Color.valueOf("5eff79"), Color.valueOf("ff4a80"), Color.valueOf("00ffff"), Color.valueOf("ffff77"), Color.valueOf("ff4444"), Color.clear, Color.valueOf("b3ffe4")];
 const firecolorBit = Color.valueOf("ff00ff");
 
 const campfire=extendContent(Block, "campfire",{
