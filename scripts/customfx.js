@@ -278,7 +278,7 @@ this.global.fx = {
     Draw.rect("commandblocks-b-ball-back", e.x+v1.x, e.y+v1.y, e.fin()*80);
     Draw.rect("commandblocks-b-ball", e.x+v1.x, e.y+v1.y);
   }),
-  coreMainSquare : newEffectSize(90, 230, e => {
+  coreMainSquare : newEffectSize(90, 450, e => {
     Lines.stroke(15*e.fout());
     Draw.color(bitcolor1, bitcolor2, e.fin());
     Lines.square(e.x, e.y, e.finpow()*210+12, e.finpow()*135);

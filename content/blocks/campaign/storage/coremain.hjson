@@ -13,3 +13,4 @@ buildVisibility: debugOnly
 solid: true
 //layer: power
 //expanded: true
+rebuildable: false

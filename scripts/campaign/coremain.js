@@ -37,10 +37,11 @@ const coremain = extendContent(CoreBlock, "coremain",{
     if(coremainbuild.blockpos[tile.getTeamID()] == tile.pos()){
 			delete coremainbuild.blockpos[tile.getTeamID()];
 		}
+    this.checkpos[tile.pos()] = false;
     this.super$removed(tile);
-    //this.checkpos[tile.pos()] = false;
+
 		//this.super$onDestroyed(tile);
-    //if(Vars.state.rules.mode() == GameMode.survival || Vars.state.rules.mode() == GameMode.attack) this.forceGameOver();
+    if(Vars.state.rules.mode() == GameMode.survival || Vars.state.rules.mode() == GameMode.attack) this.forceGameOver();
   }
 });
 
@@ -81,6 +82,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     return Core.bundle.format("block.constructing", coremain.localizedName);
   },
   canPlaceOn(tile){
+    if(Vars.state.rules.mode() == GameMode.survival && Vars.state.wave < 99) return false;
 		if(Vars.headless){
 			//todo find a good way to check team on non-local clients
 			return true;
@@ -131,6 +133,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     Effects.effect(customfx.coreMainPhase, tile.drawx(), tile.drawy());
     Effects.shake(3, 3, tile.ent());
     if(!Vars.net.client()) this.selectNextItem(tile, avoid);
+    this.forceEnemyWave(tile.ent().getWave());
   },
   finishBuild(tile, team){
     Sounds.corexplode.at(tile.drawx(), tile.drawy());
@@ -143,6 +146,12 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     tile.remove();
     tile.set(coremain, team);
     this.blockpos[tile.getTeamID()] = tile.pos();
+  },
+
+  forceEnemyWave(n){
+    for(var i=0; i<n; i++){
+      Vars.logic.runWave();//UNLEASH HELL
+    }
   },
 
   placeOres(tile){
