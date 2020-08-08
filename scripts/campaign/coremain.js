@@ -90,6 +90,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
 	},
   placed(tile){
     //show dialog
+    Vars.ui.showOkText(Core.bundle.get("hardmode.name"), Core.bundle.get("hardmode.description"), run(()=>{}));
     if(!Vars.net.client()) this.selectNextItem(tile, null);
   },
   removed(tile){
@@ -136,9 +137,15 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     Effects.effect(customfx.coreMainSpark, tile.drawx(), tile.drawy());
     Effects.effect(customfx.coreMainSquare, tile.drawx(), tile.drawy());
     Effects.shake(4, 3, tile.ent());
+    Vars.ui.showOkText(Core.bundle.get("hardmode.name"), Core.bundle.get("hardmode.start"), run(()=>{}));
+    this.placeOres(tile);
     tile.remove();
     tile.set(coremain, team);
     this.blockpos[tile.getTeamID()] = tile.pos();
+  },
+
+  placeOres(tile){
+    //
   },
 
   selectNextItem(tile, avoid){
