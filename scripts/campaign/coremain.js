@@ -100,6 +100,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
 		this.super$removed(tile);
 	},
   update(tile){
+    if(tile.ent() instanceof CoreBlock.CoreEntity) return;//but this should not happen
 		this.super$update(tile);
 		var ent = tile.ent();
 		if(!ent.enabled()) return;
