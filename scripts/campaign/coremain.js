@@ -137,7 +137,8 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     Effects.effect(customfx.coreMainSpark, tile.drawx(), tile.drawy());
     Effects.effect(customfx.coreMainSquare, tile.drawx(), tile.drawy());
     Effects.shake(4, 3, tile.ent());
-    Vars.ui.showOkText(Core.bundle.get("hardmode.name"), Core.bundle.get("hardmode.start"), run(()=>{}));
+    //Vars.ui.showOkText(Core.bundle.get("hardmode.name"), Core.bundle.get("hardmode.start"), run(()=>{}));
+    Vars.ui.hudfrag.showToast(Core.bundle.get("hardmode.start"));
     this.placeOres(tile);
     tile.remove();
     tile.set(coremain, team);
