@@ -40,8 +40,13 @@ const coremain = extendContent(CoreBlock, "coremain",{
     this.checkpos[tile.pos()] = false;
     this.super$removed(tile);
 
-		//this.super$onDestroyed(tile);
-    if(Vars.state.rules.mode() == GameMode.survival || Vars.state.rules.mode() == GameMode.attack) this.forceGameOver();
+  },
+  onDestroyed(tile){
+    this.super$onDestroyed(tile);
+    if(this.canGameOver()) this.forceGameOver();
+  },
+  canGameOver(){
+    return !Vars.state.rules.pvp && !Vars.state.rules.infiniteResources && Vars.state.rules.canGameOver && !Vars.state.rules.editor;
   }
 });
 
@@ -82,7 +87,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     return Core.bundle.format("block.constructing", coremain.localizedName);
   },
   canPlaceOn(tile){
-    if(Vars.state.rules.mode() == GameMode.survival && Vars.state.wave < 99) return false;
+    if(this.hasWave() && Vars.state.wave < 99) return false;
 		if(Vars.headless){
 			//todo find a good way to check team on non-local clients
 			return true;
@@ -90,6 +95,9 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
 			return !(Vars.player.getTeam().id in this.blockpos);
 		}
 	},
+  hasWave(){
+    return Vars.state.rules.waves && Vars.state.rules.waveTimer && !Vars.state.rules.pvp && !Vars.state.rules.attackMode && !Vars.state.rules.infiniteResources && !Vars.state.rules.editor;
+  },
   placed(tile){
     //show dialog
     Vars.ui.showOkText(Core.bundle.get("hardmode.name"), Core.bundle.get("hardmode.description"), run(()=>{}));
