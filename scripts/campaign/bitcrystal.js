@@ -193,12 +193,13 @@ bitcrystal.entityType = prov(() => extend(TileEntity , {
 		return this._parent;
 	},
   parentTile(){
-    if(this._parent == -1 || !this._parent || this.tile == this._parent) return null;
+    if(this._parent == -1 || !this._parent || this.getTile().pos() == this._parent) return null;
     var rtile = Vars.world.tile(this._parent);
     if(rtile.block() != bitcrystal) return null;
     return rtile;
   },
 	setParent(p){
+    if(p == this.getTile().pos()) p = -1;
 		this._parent = p;
 	},
   _itemID: 0,
