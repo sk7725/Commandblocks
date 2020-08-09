@@ -15,6 +15,9 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     Draw.shader(shader);
     Draw.rect(this.animRegion, tile.drawx(), tile.drawy());
     Draw.shader();
+
+    //debug
+    this.drawPlaceText("TilePos:"+tile.pos()+" Parent:"tile.ent().getParent()+" BlockPos:"+this.blockpos[tile.getTeamID()]);
   },
   load(){
     this.super$load();
