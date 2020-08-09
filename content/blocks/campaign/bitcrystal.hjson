@@ -1,0 +1,19 @@
+size: 2
+breakable: true
+update: true
+category: crafting
+requirements: [
+  copper/256
+  silicon/256
+  thorium/128
+  surge-alloy/64
+]
+
+health: 1024
+solid: true
+targetable: false
+rotate: false
+research: coremainbuild
+activeSound: Fire
+activeSoundVolume: 1
+itemCapacity: 32

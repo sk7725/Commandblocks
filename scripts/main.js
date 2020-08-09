@@ -19,6 +19,7 @@ require("command");
 //CAMPAIGN
 require("campaign/ores");
 require("campaign/coremain");
+require("campaign/bitcrystal");
 require("campaign/turrets");
 require("campaign/explosive");
 require("campaign/explosivelarge");
