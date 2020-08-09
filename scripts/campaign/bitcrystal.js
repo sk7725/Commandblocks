@@ -35,10 +35,6 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
 		}));
     //bitcrystal.activeSound = newSounds.sparklebg;
   },
-  shouldIdleSound(tile){
-    return this.isPowered(tile);
-    //tba set item to null at start
-  },
   /*
   drawLight(tile){
 
@@ -108,6 +104,8 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     }
 
     this.tryDump(tile, null);
+
+    if(this.isPowered(tile) && newSounds.sparklebg != Sounds.none) Vars.loops.play(newSounds.sparklebg, Vec2(tile.drawx(), tile.drawy()), 0.5);
 	},
   getParentEnt(entity){
     if(entity.parentTile() == null) return entity;
@@ -305,6 +303,7 @@ bitcrystal.entityType = prov(() => extend(TileEntity , {
 }));
 
 //sparkle audio
+/*
 importPackage(Packages.arc.audio);
 function loadsound(){
   if(Vars.headless) {
@@ -314,3 +313,4 @@ function loadsound(){
   if(Core.assets.contains(path, Sound)) bitcrystal.idleSound = Core.assets.get(path, Sound);
   else Core.assets.load(path, Sound).loaded = cons(a => bitcrystal.idleSound = a);
 }
+*/
