@@ -145,7 +145,7 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
   }
 });
 
-coremainbuild.entityType = prov(() => extend(TileEntity , {
+bitcrystal.entityType = prov(() => extend(TileEntity , {
 	//to reduce checks
 	_validated: false,
 	isValidated(){
