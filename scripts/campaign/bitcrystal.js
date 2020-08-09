@@ -27,7 +27,7 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
       bitcrystal.blockcount = [];
       bitcrystal.checkpos = [];
 		}));
-    bitcrystal.activeSound = newSounds.sparklebg;
+    //bitcrystal.activeSound = newSounds.sparklebg;
   },
   shouldActiveSound(tile){
     return tile.ent().cons.valid() && this.getParentEnt(tile.ent()).getProg(tile.ent().getItemID()) > 0;
@@ -82,6 +82,7 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     if(!(tile.getTeamID() in this.blockpos) && this.hasLast[tile.getTeamID()]){
       this.hasLast[tile.getTeamID()] = false;
       this.blockpos[tile.getTeamID()] = tile.pos();
+      ent.setParent(-1);
       ent.setProgArr(this.lastProgs[tile.getTeamID()]);
       ent.setCostArr(this.lastCosts[tile.getTeamID()]);
     }
@@ -136,9 +137,14 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
   },
 
   getMaximumAccepted(tile, item){
+    if(item.name == "commandblocks-bittrium") return 0;
     return 1024;//I CAN DO ANYTHING!
   },
   handleStack(item, amount, tile, source){
+    if(item.name == "commandblocks-bittrium"){
+      this.super$handleStack(item, amount, tile, source);
+      return;
+    }
     var pent = this.getParentEnt(tile.ent());
     tile.ent().setItemID(item.id);
     pent.addProg(item.id, amount);
@@ -243,7 +249,7 @@ bitcrystal.entityType = prov(() => extend(TileEntity , {
 		this.super$write(stream);
 		stream.writeInt(this._parent);
     stream.writeShort(this._itemID);
-    if(this.parent != -1){
+    if(this.parent == -1){
       var len = this._itemProgs.length;
       stream.writeShort(len);
       for(var i=0; i<len; i++){
@@ -262,7 +268,7 @@ bitcrystal.entityType = prov(() => extend(TileEntity , {
 		this.super$read(stream,revision);
 		this._parent = stream.readInt();
     this._itemID = stream.readShort();
-    if(this._parent != -1){
+    if(this._parent == -1){
       var len = stream.readShort();
       for(var i=0; i<len; i++){
         this._itemProgs[i] = stream.readInt();
