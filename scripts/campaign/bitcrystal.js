@@ -84,7 +84,7 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
       ent.setProgArr(this.lastProgs);
       ent.setCostArr(this.lastCosts);
     }
-    if(ent.parentTile() == null && this.blockpos[tile.getTeamID()] != tile.pos()) ent.setParent(this.blockpos[tile.getTeamID()]);
+    if(ent.parentTile() == null && this.blockpos[tile.getTeamID()] != tile.pos() && (tile.getTeamID() in this.blockpos)) ent.setParent(this.blockpos[tile.getTeamID()]);
 		if(ent.parentTile() == null && !ent.isValidated()){
 			ent.validate();
 			if(tile.getTeamID() in this.blockpos) ent.setParent(this.blockpos[tile.getTeamID()]);
@@ -159,7 +159,7 @@ bitcrystal.entityType = prov(() => extend(TileEntity , {
 		return this._parent;
 	},
   parentTile(){
-    if(this._parent == -1) return null;
+    if(this._parent == -1 || !this._parent) return null;
     var rtile = Vars.world.tile(this._parent);
     if(rtile.block() != bitcrystal) return null;
     return rtile;
