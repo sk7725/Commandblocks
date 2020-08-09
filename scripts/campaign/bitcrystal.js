@@ -17,7 +17,7 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     Draw.shader();
 
     //debug
-    this.drawPlaceText("TilePos:"+tile.pos()+" Parent:"tile.ent().getParent()+" BlockPos:"+this.blockpos[tile.getTeamID()]);
+    this.drawPlaceText("TilePos:"+tile.pos()+" Parent:"+tile.ent().getParent()+" BlockPos:"+this.blockpos[tile.getTeamID()]);
   },
   load(){
     this.super$load();
