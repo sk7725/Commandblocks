@@ -51,20 +51,18 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     //hmm
   },
   removed(tile){
-    if(!tile.ent().parent()){
+    if(this.blockpos[tile.getTeamID()] == tile.pos()){
+      delete this.blockpos[tile.getTeamID()];
       this.lastProgs[tile.getTeamID()] = tile.ent().getProgArr();
       this.lastCosts[tile.getTeamID()] = tile.ent().getCostArr();
       this.hasLast[tile.getTeamID()] = true;
     }
-		if(this.blockpos[tile.getTeamID()] == tile.pos()){
-			delete this.blockpos[tile.getTeamID()];
-		}
     if(this.checkpos[tile.pos()]){
       this.checkpos[tile.pos()] = false;
       this.blockcount[tile.getTeamID()]--;
     }
-		this.super$removed(tile);
-	},
+    this.super$removed(tile);
+  },
   handleDamage(tile, amount){
     if(this.blockcount[tile.getTeamID()] <= 1) return 0;
     return this.super$handleDamage(tile, amount);
@@ -103,7 +101,9 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     if(pent.getProg(tile.ent().getItemID()) >= pent.getCostPow(tile.ent().getItemID())){
       pent.addProg(tile.ent().getItemID(), -1*pent.getCostPow(tile.ent().getItemID()));
       pent.incCost(tile.ent().getItemID());
+      this.useContent(tile, this.bittrium);
       this.offloadNear(tile, this.bittrium);
+      newSounds.boostsound.at(tile.drawx(), tile.drawy());
     }
 
     this.tryDump(tile, this.bittrium);
@@ -128,6 +128,10 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
       })
     );
   },
+  setStats(){
+    this.super$setStats();
+    this.stats.add(BlockStat.output, Vars.content.getByName(ContentType.item, "commandblocks-bittrium"));
+  },
 
   getMaximumAccepted(tile, item){
     return 1024;//I CAN DO ANYTHING!
@@ -138,6 +142,10 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     pent.addProg(item.id, amount);
   },
   handleItem(item, tile, source){
+    if(item.name == "commandblocks-bittrium"){
+      this.super$handleItem(item, tile, source);
+      return;
+    }
     var pent = this.getParentEnt(tile.ent());
     tile.ent().setItemID(item.id);
     pent.incProg(item.id);
