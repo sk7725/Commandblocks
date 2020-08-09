@@ -45,3 +45,4 @@ loadsound("pistoncontract");
 loadsound("spearshot");
 loadsound("spearappear");
 loadsound("boing");
+loadsound("sparklebg");
