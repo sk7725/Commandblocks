@@ -5,7 +5,7 @@ const newSounds = this.global.newSounds;
 const bitcrystal = extendContent(Block, "bitcrystal",{
   blockpos: {},
   blockcount: [],
-  checked: [],
+  checkpos: [],
   lastCosts: [],
   lastProgs: [],
   hasLast: false,
@@ -25,7 +25,7 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
       bitcrystal.hasLast = false;
 			bitcrystal.blockpos = {};
       bitcrystal.blockcount = [];
-      bitcrystal.checked = [];
+      bitcrystal.checkpos = [];
 		}));
   },
   shouldActiveSound(tile){
