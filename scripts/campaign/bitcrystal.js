@@ -22,7 +22,7 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     this.animRegion = Core.atlas.find(this.name+"-anim");
 
     Events.on(EventType.WorldLoadEvent, run(event => {
-      bitcrystal.hasLast = false;
+      bitcrystal.hasLast = [];
 			bitcrystal.blockpos = {};
       bitcrystal.blockcount = [];
       bitcrystal.checkpos = [];
@@ -52,9 +52,9 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
   },
   removed(tile){
     if(!tile.ent().parent()){
-      this.lastProgs = tile.ent().getProgArr();
-      this.lastCosts = tile.ent().getCostArr();
-      this.hasLast = true;
+      this.lastProgs[tile.getTeamID()] = tile.ent().getProgArr();
+      this.lastCosts[tile.getTeamID()] = tile.ent().getCostArr();
+      this.hasLast[tile.getTeamID()] = true;
     }
 		if(this.blockpos[tile.getTeamID()] == tile.pos()){
 			delete this.blockpos[tile.getTeamID()];
@@ -79,12 +79,13 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
   update(tile){
 		this.super$update(tile);
 		var ent = tile.ent();
-    if(ent.parentTile() == null && this.blockpos[tile.getTeamID()] != tile.pos() && this.hasLast && !(tile.getTeamID() in this.blockpos)){
+    if(!(tile.getTeamID() in this.blockpos) && this.hasLast[tile.getTeamID()]){
+      this.hasLast[tile.getTeamID()] = false;
       this.blockpos[tile.getTeamID()] = tile.pos();
-      ent.setProgArr(this.lastProgs);
-      ent.setCostArr(this.lastCosts);
+      ent.setProgArr(this.lastProgs[tile.getTeamID()]);
+      ent.setCostArr(this.lastCosts[tile.getTeamID()]);
     }
-    if(ent.parentTile() == null && this.blockpos[tile.getTeamID()] != tile.pos() && (tile.getTeamID() in this.blockpos)) ent.setParent(this.blockpos[tile.getTeamID()]);
+    else if(ent.parentTile() == null && this.blockpos[tile.getTeamID()] != tile.pos() && (tile.getTeamID() in this.blockpos)) ent.setParent(this.blockpos[tile.getTeamID()]);
 		if(ent.parentTile() == null && !ent.isValidated()){
 			ent.validate();
 			if(tile.getTeamID() in this.blockpos) ent.setParent(this.blockpos[tile.getTeamID()]);
@@ -107,13 +108,16 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
 
     this.tryDump(tile, this.bittrium);
 	},
+  getParentEnt(entity){
+    if(entity.parentTile() == null) return entity;
+    else return entity.parentTile().ent();
+  },
 
   setBars(){
     this.super$setBars();
     this.bars.add(
       "itemcount", func(entity => {
-        var pent = entity;
-        if(entity.parentTile() != null) pent = entity.parentTile().entity;
+        var pent = this.getParentEnt(entity);
         return new Bar(
           prov(() => pent.getProg(entity.getItemID()) + "/" + pent.getCostPow(entity.getItemID())),
           prov(() => (entity.getItem() == null)?Color.white:entity.getItem().color),
@@ -129,19 +133,17 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     return 1024;//I CAN DO ANYTHING!
   },
   handleStack(item, amount, tile, source){
-    var pent = tile.ent();
-    if(tile.ent().parentTile() != null) pent = tile.ent().parentTile().ent();
-    pent.setItemID(item.id);
+    var pent = this.getParentEnt(tile.ent());
+    tile.ent().setItemID(item.id);
     pent.addProg(item.id, amount);
   },
   handleItem(item, tile, source){
-    var pent = tile.ent();
-    if(tile.ent().parentTile() != null) pent = tile.ent().parentTile().ent();
-    pent.setItemID(item.id);
+    var pent = this.getParentEnt(tile.ent());
+    tile.ent().setItemID(item.id);
     pent.incProg(item.id);
   },
   acceptItem(item, tile, source){
-    return item.name != "commandblocks-bittrium";
+    return (item.name != "commandblocks-bittrium") || tile == source;
   }
 });
 
@@ -197,6 +199,7 @@ bitcrystal.entityType = prov(() => extend(TileEntity , {
 	incCost(id){
     if(!this._itemCosts[id]) this._itemCosts[id] = 0;
 		this._itemCosts[id] += 1;
+    if(this._itemCosts[id] > 20) this._itemCosts[id] = 20;
 	},
   setCost(id, a){
 		this._itemCosts[id] = a;
@@ -228,7 +231,7 @@ bitcrystal.entityType = prov(() => extend(TileEntity , {
 
 	write(stream){
 		this.super$write(stream);
-		stream.writeIntn(this._parent);
+		stream.writeInt(this._parent);
     stream.writeShort(this._itemID);
 	},
 	read(stream,revision){

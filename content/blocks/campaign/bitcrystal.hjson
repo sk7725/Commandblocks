@@ -17,3 +17,4 @@ research: coremainbuild
 activeSound: Fire
 activeSoundVolume: 1
 itemCapacity: 32
+hasItems: true
