@@ -27,6 +27,7 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
       bitcrystal.blockcount = [];
       bitcrystal.checkpos = [];
 		}));
+    bitcrystal.activeSound = newSounds.sparklebg;
   },
   shouldActiveSound(tile){
     return tile.ent().cons.valid() && this.getParentEnt(tile.ent()).getProg(tile.ent().getItemID()) > 0;
@@ -155,7 +156,6 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     return (item.name != "commandblocks-bittrium") || tile == source;
   }
 });
-bitcrystal.activeSound = newSounds.sparklebg;
 
 bitcrystal.entityType = prov(() => extend(TileEntity , {
 	//to reduce checks
