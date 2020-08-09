@@ -301,5 +301,26 @@ this.global.fx = {
     Angles.randLenVectors(e.id, 7, 90*e.finpow()+12, floatc2((x,y) => {
       Fill.square(e.x+x, e.y+y, e.fout()*3, 45);
     }));
+  }),
+  bittriumCenter : newEffect(300, e => {
+    var size = Mathf.sin(Time.time()*0.1)*0.5 + 3;
+    Draw.color(bitcolor1, bitcolor2, Mathf.sin(Time.time()*0.041));
+    Draw.alpha(e.fout()*5);
+    Fill.square(e.x, e.y, size, 45);
+    Draw.color();
+    Draw.alpha(e.fout()*2);
+    Fill.square(e.x, e.y, size-1, 45);
+  }),
+  bittriumSquare : newEffect(90, e => {
+    Lines.stroke(e.fout()*2);
+    Draw.shader(t.global.shaders.bittrium);
+    Lines.square(e.x, e.y, e.finpow()*8, e.finpow()*45+45);
+    Draw.shader();
+  }),
+  bittriumCharge : newEffect(30, e => {
+    Draw.color(bitcolor1, bitcolor2, Mathf.sin(Time.time()*0.041));
+    Angles.randLenVectors(e.id, 1, 20*e.fout(), floatc2((x,y) => {
+      Fill.circle(e.x+x, e.y+y, e.finpow()*1.5);
+    }));
   })
 };

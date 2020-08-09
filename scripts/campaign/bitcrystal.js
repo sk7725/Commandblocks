@@ -1,6 +1,8 @@
 const shader=this.global.shaders.bittrium;
 const customfx = this.global.fx;
 const newSounds = this.global.newSounds;
+const squaretimer = 0;
+const chargetimer = 1;
 
 const bitcrystal = extendContent(Block, "bitcrystal",{
   blockpos: {},
@@ -16,8 +18,9 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     Draw.rect(this.animRegion, tile.drawx(), tile.drawy());
     Draw.shader();
 
+    if(!Vars.state.is(GameState.State.paused) && this.isPowered(tile) && tile.ent().timer.get(squaretimer, 120)) Effects.effect(customfx.bittriumSquare, tile.drawx(), tile.drawy());
     //debug
-    this.drawPlaceText("TilePos:"+tile.pos()+" Parent:"+tile.ent().parent()+" BlockPos:"+this.blockpos[tile.getTeamID()], tile.x, tile.y, tile.ent().parentTile() != null);
+    //this.drawPlaceText("TilePos:"+tile.pos()+" Parent:"+tile.ent().parent()+" BlockPos:"+this.blockpos[tile.getTeamID()], tile.x, tile.y, tile.ent().parentTile() != null);
   },
   load(){
     this.super$load();
@@ -166,6 +169,9 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
 
   tryGive(tile){
     if(this.bittrium == null || this.bittrium.name != "commandblocks-bittrium") this.bittrium = Vars.content.getByName(ContentType.item, "commandblocks-bittrium");
+
+    Effects.effect(customfx.bittriumCharge, tile.drawx(), tile.drawy());
+    if(tile.ent().timer.get(chargetimer, 240)) Effects.effect(customfx.bittriumCenter, tile.drawx(), tile.drawy());
 
     var pent = tile.ent();
     if(tile.ent().parentTile() != null) pent = tile.ent().parentTile().ent();
