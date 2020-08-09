@@ -241,10 +241,34 @@ bitcrystal.entityType = prov(() => extend(TileEntity , {
 		this.super$write(stream);
 		stream.writeInt(this._parent);
     stream.writeShort(this._itemID);
+    if(this.parent != -1){
+      var len = this._itemProgs.length;
+      stream.writeShort(len);
+      for(var i=0; i<len; i++){
+        if(!this._itemProgs[i]) stream.writeInt(0);
+        else stream.writeInt(this._itemProgs[i]);//heavy but fuk u
+      }
+      len = this._itemCosts.length;
+      stream.writeShort(len);
+      for(var i=0; i<len; i++){
+        if(!this._itemCosts[i]) stream.writeByte(0);
+        else stream.writeByte(this._itemCosts[i]);
+      }
+    }
 	},
 	read(stream,revision){
 		this.super$read(stream,revision);
 		this._parent = stream.readInt();
     this._itemID = stream.readShort();
+    if(this._parent != -1){
+      var len = stream.readShort();
+      for(var i=0; i<len; i++){
+        this._itemProgs[i] = stream.readInt();
+      }
+      len = stream.readShort();
+      for(var i=0; i<len; i++){
+        this._itemCosts[i] = stream.readByte();
+      }
+    }
 	}
 }));
