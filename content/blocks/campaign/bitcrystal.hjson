@@ -19,7 +19,7 @@ activeSoundVolume: 1
 itemCapacity: 32
 hasItems: true
 //outputItem: bittrium
-idleSoundVolume: 0.25
+idleSoundVolume: 1
 consumes: {
   power: 8.533
 }

@@ -36,7 +36,7 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     //bitcrystal.activeSound = newSounds.sparklebg;
   },
   shouldIdleSound(tile){
-    return this.isPowered(tile) && this.getParentEnt(tile.ent()).getProg(tile.ent().getItemID()) > 0;
+    return this.isPowered(tile);
     //tba set item to null at start
   },
   /*
