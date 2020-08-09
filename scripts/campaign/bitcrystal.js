@@ -29,8 +29,8 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
 		}));
     //bitcrystal.activeSound = newSounds.sparklebg;
   },
-  shouldActiveSound(tile){
-    return tile.ent().cons.valid() && this.getParentEnt(tile.ent()).getProg(tile.ent().getItemID()) > 0;
+  shouldIdleSound(tile){
+    return this.isPowered(tile) && this.getParentEnt(tile.ent()).getProg(tile.ent().getItemID()) > 0;
     //tba set item to null at start
   },
   /*
@@ -98,18 +98,7 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
       this.blockcount[tile.getTeamID()]++;
     }
 
-    if(this.bittrium == null || this.bittrium.name != "commandblocks-bittrium") this.bittrium =  Vars.content.getByName(ContentType.item, "commandblocks-bittrium");
-    var pent = tile.ent();
-    if(tile.ent().parentTile() != null) pent = tile.ent().parentTile().ent();
-    if(pent.getProg(tile.ent().getItemID()) >= pent.getCostPow(tile.ent().getItemID())){
-      pent.addProg(tile.ent().getItemID(), -1*pent.getCostPow(tile.ent().getItemID()));
-      pent.incCost(tile.ent().getItemID());
-      this.useContent(tile, this.bittrium);
-      this.offloadNear(tile, this.bittrium);
-      newSounds.boostsound.at(tile.drawx(), tile.drawy());
-    }
-
-    this.tryDump(tile, this.bittrium);
+    this.tryDump(tile, null);
 	},
   getParentEnt(entity){
     if(entity.parentTile() == null) return entity;
@@ -148,6 +137,7 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     var pent = this.getParentEnt(tile.ent());
     tile.ent().setItemID(item.id);
     pent.addProg(item.id, amount);
+    this.tryGive(tile);
   },
   handleItem(item, tile, source){
     if(item.name == "commandblocks-bittrium"){
@@ -157,9 +147,29 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     var pent = this.getParentEnt(tile.ent());
     tile.ent().setItemID(item.id);
     pent.incProg(item.id);
+    this.tryGive(tile);
   },
   acceptItem(item, tile, source){
+    if(!this.isPowered(tile)) return false;
     return (item.name != "commandblocks-bittrium") || tile == source;
+  },
+
+  isPowered(tile){
+    return tile.ent().power.status >= 0.95;
+  },
+
+  tryGive(tile){
+    if(this.bittrium == null || this.bittrium.name != "commandblocks-bittrium") this.bittrium = Vars.content.getByName(ContentType.item, "commandblocks-bittrium");
+
+    var pent = tile.ent();
+    if(tile.ent().parentTile() != null) pent = tile.ent().parentTile().ent();
+    if(pent.getProg(tile.ent().getItemID()) >= pent.getCostPow(tile.ent().getItemID())){
+      pent.addProg(tile.ent().getItemID(), -1*pent.getCostPow(tile.ent().getItemID()));
+      pent.incCost(tile.ent().getItemID());
+      this.useContent(tile, this.bittrium);
+      this.offloadNear(tile, this.bittrium);
+      Sounds.bigshot.at(tile.drawx(), tile.drawy());
+    }
   }
 });
 
@@ -249,7 +259,7 @@ bitcrystal.entityType = prov(() => extend(TileEntity , {
 		this.super$write(stream);
 		stream.writeInt(this._parent);
     stream.writeShort(this._itemID);
-    if(this.parent == -1){
+    if(this._parent == -1){
       var len = this._itemProgs.length;
       stream.writeShort(len);
       for(var i=0; i<len; i++){
@@ -280,3 +290,14 @@ bitcrystal.entityType = prov(() => extend(TileEntity , {
     }
 	}
 }));
+
+//sparkle audio
+importPackage(Packages.arc.audio);
+function loadsound(){
+  if(Vars.headless) {
+    return;
+  }
+  var path = "sounds/sparklebg.ogg";
+  if(Core.assets.contains(path, Sound)) bitcrystal.idleSound = Core.assets.get(path, Sound);
+  else Core.assets.load(path, Sound).loaded = cons(a => bitcrystal.idleSound = a);
+}
