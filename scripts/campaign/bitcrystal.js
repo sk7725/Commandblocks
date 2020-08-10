@@ -72,7 +72,7 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     return this.super$handleDamage(tile, amount);
   },
   handleBulletHit(entity, bullet){
-    if(this.blockcount[tile.getTeamID()] <= 1) entity.damage(0);
+    if(this.blockcount[entity.getTile().getTeamID()] <= 1) entity.damage(0);
     else this.super$handleBulletHit(entity, bullet);
   },
   canBreak(tile){
