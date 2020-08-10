@@ -49,7 +49,7 @@ const playernote = extendContent(MessageBlock, "playernote", {
     if(n>=notelength) n=0;
     else if(n<0) n=notelength-1;
     Call.setMessageBlockText(null,tile,n+"");
-    Vars.ui.showInfoToast((Math.floor((n+9)/12)+2)+""+notes[n %12],1);
+    if(!Vars.headless) Vars.ui.showInfoToast((Math.floor((n+9)/12)+2)+""+notes[n %12],1);
     this.playnote(tile,n);
 	},
   playnote(tile,notein){

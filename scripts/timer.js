@@ -45,7 +45,7 @@ const timer=extendContent(PowerBlock,"timer",{
         //myslider.width(240);
         myslider.changed(run(() => {
           tile.configure(myslider.getValue());
-          Vars.ui.showInfoToast(myslider.getValue(),0);
+          if(!Vars.headless) Vars.ui.showInfoToast(myslider.getValue(),0);
         }));//this needs its other half
     },
   configured(tile, player, value){

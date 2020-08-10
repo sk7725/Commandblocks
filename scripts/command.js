@@ -346,7 +346,7 @@ const commandblocks={
   },
   report(err){
     if(gamerule.commandBlockOutput) Call.sendMessage("[lightgray]C:"+err+"[]");
-    if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(err,7);
+    if(gamerule.commandBlockTitle && !Vars.headless) Vars.ui.showInfoToast(err,7);
     //print("C:"+err);
   },
   cmdeffect(punit,eff,duration,intensity,hidep){
@@ -550,6 +550,7 @@ const commandblocks={
         return true;
       break;
       case 'title':
+        if(Vars.headless) return;
         if(args.length>=4){
           var tpos=this.tilde(tile,args[0],args[1]);
           var cx=0; var cy=0;
@@ -989,7 +990,7 @@ const commandblocks={
       break;
       case 'assert':
         if(gamerule.commandBlockOutput) Call.sendMessage(tile+" is asserting dominance!");
-        if(gamerule.commandBlockTitle) Vars.ui.showInfoToast(tile+" is asserting dominance!",2);
+        if(gamerule.commandBlockTitle && !Vars.headless) Vars.ui.showInfoToast(tile+" is asserting dominance!",2);
         return true;
       break;
       case 'gethp':
@@ -1295,7 +1296,7 @@ const commandblocks={
   }
   catch(err){
     if(gamerule.commandBlockOutput) Call.sendMessage("[scarlet]E:"+err+"[]");
-    if(gamerule.commandBlockTitle) Vars.ui.showInfoToast("[scarlet]"+err+"[]",7);
+    if(gamerule.commandBlockTitle && !Vars.headless) Vars.ui.showInfoToast("[scarlet]"+err+"[]",7);
     if(gamerule.commandBlockOutput&&gamerule.sendCommandFeedback) Call.sendMessage("[#aa0000]"+err.stack+"[]");
     //print("E:"+err);
     if(parentthis.block().name == "commandblocks-commandb") parentthis.ent().setErr(err);

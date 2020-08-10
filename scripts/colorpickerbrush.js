@@ -51,7 +51,7 @@ const colorpickerbrush = extendContent(Block, "colorpickerbrush", {
     }
     if(player==null) return;
     t.global.colors.brushtype["U-"+player.name]=value;
-    Vars.ui.showInfoToast(brushesname[value],1);
+    if(!Vars.headless) Vars.ui.showInfoToast(brushesname[value],1);
   }
   //save load brush
 });

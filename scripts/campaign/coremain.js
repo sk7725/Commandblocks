@@ -100,6 +100,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
   },
   placed(tile){
     //show dialog
+    if(Vars.headless) return;
     Vars.ui.showOkText(Core.bundle.get("hardmode.name"), Core.bundle.get("hardmode.description"), run(()=>{}));
     if(!Vars.net.client()) this.selectNextItem(tile, null);
   },
@@ -150,7 +151,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     Effects.effect(customfx.coreMainSquare, tile.drawx(), tile.drawy());
     Effects.shake(4, 3, tile.ent());
     //Vars.ui.showOkText(Core.bundle.get("hardmode.name"), Core.bundle.get("hardmode.start"), run(()=>{}));
-    Vars.ui.hudfrag.showToast(Core.bundle.get("hardmode.start"));
+    if(!Vars.headless) Vars.ui.hudfrag.showToast(Core.bundle.get("hardmode.start"));
     this.placeOres(tile);
     tile.remove();
     tile.set(coremain, team);
