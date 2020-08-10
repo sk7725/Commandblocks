@@ -3,7 +3,7 @@ gamerule.commandBlockOutput=true;
 gamerule.doCommands=true;
 gamerule.commandBlockTitle=false;
 gamerule.sendCommandFeedback=false;
-var effectextended={};
+const effectextended = this.global.potionEffects;
 const KeyCode=Packages.arc.input.KeyCode;
 var variables={};
 //Pal.anuke = Color.valueOf("ff7f50");
@@ -353,86 +353,15 @@ const commandblocks={
     const potionlist=["speed","wither","slowness","strength","weakness","resistance","pain","poison","regeneration","instant_health","instant_damage"];
     if(potionlist.indexOf(eff.trim())<0){
       var seff=Vars.content.getByName(ContentType.status,eff);
-      punit.applyEffect(seff,duration);
+      punit.applyEffect(seff, duration);
       return;
     }
+    if(intensity > 9) intensity = 9;
     if(effectextended.hasOwnProperty(eff+"-"+intensity+"-"+hidep)){
-      punit.applyEffect(effectextended[eff+"-"+intensity+"-"+hidep],duration);//땜빵!
+      if(eff == "instant_damage" || eff == "instant_health") duration = 1;
+      punit.applyEffect(effectextended[eff+"-"+intensity+"-"+hidep], duration);//땜빵!
       return;
     }
-    var seff= extendContent(StatusEffect,eff+"-"+intensity+"-"+hidep,{});
-    seff.speedMultiplier=1;
-    seff.damageMultiplier=1;
-    seff.armorMultiplier=1;
-    seff.damage=0;
-    var seffcolor= Color.valueOf("ffffff");
-    switch(eff.trim()){
-      case "speed":
-        seff.speedMultiplier=intensity*0.1+1.1;
-        seffcolor= Color.valueOf("7cafc6");
-      break;
-      case "slowness":
-        seff.speedMultiplier=-1*intensity*0.05+0.95;
-        seffcolor= Color.valueOf("5a6c81");
-      break;
-      case "strength":
-        seff.damageMultiplier=intensity*0.1+1.1;
-        seffcolor= Color.valueOf("932423");
-      break;
-      case "weakness":
-        seff.damageMultiplier=-1*intensity*0.05+0.95;
-        seffcolor= Color.valueOf("484d48");
-      break;
-      case "resistance":
-        seff.armorMultiplier=intensity*0.2+1.1;
-        seffcolor= Color.valueOf("99453a");
-      break;
-      case "pain":
-        seff.armorMultiplier=-1*intensity*0.05+0.95;
-        seffcolor= Color.valueOf("e49a3a");
-      break;
-      case "poison":
-        seff.damage=0.05*intensity+0.05;
-        seffcolor= Color.valueOf("4e9331");
-      break;
-      case "wither":
-        seff.damage=0.1*intensity+0.1;
-        seffcolor= Color.valueOf("352a27");
-      break;
-      case "regeneration":
-        seff.damage=-0.01*intensity-0.01;
-        if(seff.damage<-1) seff.damage=-1;
-        seffcolor= Color.valueOf("cd5cab");
-      break;
-      case "instant_health":
-        duration=1;
-        seff.damage=-0.1*intensity-0.1;
-        if(seff.damage<-1) seff.damage=-1;
-        seffcolor= Color.valueOf("f82423");
-      break;
-      case "instant_damage":
-        duration=1;
-        seff.damage=10*intensity+10;
-        seffcolor= Color.valueOf("430a09");
-      break;
-    }
-    if(!hidep){
-      var potion = newEffect(25, e => {
-        Draw.color(seffcolor);
-        Lines.stroke(e.fout() + 0.15);
-        /*
-        Angles.randLenVectors(e.id, 2, 6, (x, y) => {
-          Lines.circle(e.x + x, e.y + y, 0.5 + e.fin() * 1.7);
-        });
-        */
-        //new Floatc2({get: function(x, y){/*code*/}})
-        Angles.randLenVectors(e.id, 2, 8.2, new Floatc2({get: function(x, y){Lines.circle(e.x + x, e.y + y, 0.5 + e.fin() * 1.8);}}));
-      });
-      seff.color=seffcolor;
-      seff.effect=potion;
-    }
-    effectextended[eff+"-"+intensity+"-"+hidep]=seff;
-    punit.applyEffect(seff,duration);
   },
   cmdtp(punit,cx,cy,facing,facingrelative){
     //um...
