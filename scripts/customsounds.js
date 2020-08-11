@@ -29,7 +29,7 @@ function loadsound(name){
     //print("Failed to load sound! Please restart the game!");
   }*/
   if(Vars.headless) {
-    sounds[name]=new MockSound();
+    t.global.newSounds[name] = new MockSound();
     return;
   }
   var path="sounds/"+name+".ogg";

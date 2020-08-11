@@ -168,7 +168,7 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
   tryGive(tile){
     if(this.bittrium == null || this.bittrium.name != "commandblocks-bittrium") this.bittrium = Vars.content.getByName(ContentType.item, "commandblocks-bittrium");
 
-    Effects.effect(customfx.bittriumCharge, tile.drawx(), tile.drawy());
+    if(Mathf.chance(0.1)) Effects.effect(customfx.bittriumCharge, tile.drawx(), tile.drawy());
     if(tile.ent().timer.get(chargetimer, 240)) Effects.effect(customfx.bittriumCenter, tile.drawx(), tile.drawy());
 
     var pent = tile.ent();
