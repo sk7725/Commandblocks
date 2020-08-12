@@ -1,0 +1,31 @@
+type: GenericSmelter
+itemCapacity: 10
+outputItem: {
+  ref-scalar/1
+}
+size: 2
+hasPower: true
+hasItems: true
+craftTime: 60
+updateEffect: smeltSmoke
+consumes: {
+  power: 5
+  items: {
+    items: [
+      plastanium/3
+      thorium/10
+      ore-scalar/5
+    ]
+  }
+}
+
+requirements: [
+  titanium/80
+  thorium/120
+  log-binary/50
+]
+
+category: crafting
+research: alloy-smelter
+idleSound: respawning
+idleSoundVolume: 0.5
