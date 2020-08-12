@@ -1,5 +1,5 @@
 type: GenericCrafter
-itemCapacity: 10
+itemCapacity: 30
 outputItem: ref-zeta/1
 
 size: 2
