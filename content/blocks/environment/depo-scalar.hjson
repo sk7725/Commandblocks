@@ -1,3 +1,5 @@
 type: OreBlock
 itemDrop: ore-scalar
 oreDefault: false
+oreThreshold: 0.883
+oreScale: 25.580953

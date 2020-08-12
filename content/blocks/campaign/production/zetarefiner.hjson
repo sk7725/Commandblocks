@@ -34,4 +34,4 @@ requirements: [
 category: crafting
 research: vectorkiln
 idleSound: spark
-idleSoundVolume: 0.15
+idleSoundVolume: 0.05

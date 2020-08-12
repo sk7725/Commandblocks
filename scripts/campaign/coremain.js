@@ -5,6 +5,30 @@ const newSounds = this.global.newSounds;
 const bitcolor1=Color.valueOf("00e5ff");
 const bitcolor2=Color.valueOf("ff65db");
 
+var simplex = new Packages.arc.util.noise.Simplex();
+
+function getNoise(x, y, scl, mag, oct, pers, o){
+  return simplex.octaveNoise2D(oct, pers, 1 / scl, x + o, y + o) * mag;
+}
+
+function isOre(x, y, scl, oct, fall, thresh, o){
+  var noise = getNoise(x, y, scl, 1, oct, fall, o);
+  return noise > thresh;
+}
+
+function placeOre(x, y, ore){
+  var otile = Vars.world.tile(x, y);
+  if(otile == null || otile.overlay().name == "spawn" || otlie.floor().isLiquid) return;
+  if(!(otile.block().name == "air" || otile.synthetic())) return; //do not place under static blocks
+  if() Effects.effect(customfx.placeOre, ore.itemDrop.color, otile.worldx(), otile.worldy(), 0);
+  otile.setOverlay(ore);
+}
+
+function tryOre(x, y, scl, oct, fall, thresh, ore, o){
+  if(isOre(x, y, scl, oct, fall, thresh, o)) placeOre(x, y, ore);
+}
+
+
 const coremain = extendContent(CoreBlock, "coremain",{
   checkpos: [],
   draw(tile){
@@ -165,7 +189,19 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
   },
 
   placeOres(tile){
-    //
+    simplex.setSeed(tile.pos());
+    placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-scalar"), 0);
+    placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-vector"), 628);
+    placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-zeta"), 9999);
+    placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-code"), 654321);
+  },
+
+  placeOreType(ore, o){
+    for(var i=0; i<Vars.world.width(); i++){
+      for(var j=0; j<Vars.world.height(); j++){
+        tryOre(i, j, ore.oreScale, 2, 0.3, ore.oreThreshold, ore, o);
+      }
+    }
   },
 
   selectNextItem(tile, avoid){

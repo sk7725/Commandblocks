@@ -322,5 +322,10 @@ this.global.fx = {
     Angles.randLenVectors(e.id, 1, 20*e.fout(), floatc2((x,y) => {
       Fill.circle(e.x+x, e.y+y, e.finpow()*1.5);
     }));
+  }),
+  placeOre : newEffect(30, e => {
+    Draw.color(e.color);
+    Lines.stroke(e.fout()*4);
+    Lines.square(e.x, e.y+16, e.fin()*2+3);
   })
 };
