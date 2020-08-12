@@ -18,7 +18,11 @@ consumes: {
       ore-zeta/8
     ]
   }
-  liquid: cryofluid/48
+  liquid:{
+    liquid: cryofluid
+    amount: 24
+    timePeriod: 25
+  }
 }
 
 requirements: [
