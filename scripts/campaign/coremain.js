@@ -18,7 +18,7 @@ function isOre(x, y, scl, oct, fall, thresh, o){
 
 function placeOre(x, y, ore){
   var otile = Vars.world.tile(x, y);
-  if(otile == null || otile.overlay().name == "spawn" || otlie.floor().isLiquid) return;
+  if(otile == null || otile.overlay().name == "spawn" || otile.floor().isLiquid) return;
   if(!(otile.block().name == "air" || otile.synthetic())) return; //do not place under static blocks
   Effects.effect(customfx.placeOre, ore.itemDrop.color, otile.worldx(), otile.worldy(), 0);
   otile.setOverlay(ore);
