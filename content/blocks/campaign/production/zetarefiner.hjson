@@ -1,0 +1,34 @@
+type: GenericCrafter
+itemCapacity: 10
+outputItem: ref-zeta/1
+
+size: 2
+hasPower: true
+hasItems: true
+hasLiquid: true
+craftTime: 25
+updateEffect: generate
+consumes: {
+  power: 6
+  items: {
+    items: [
+      surge-alloy/8
+      ref-scalar/4
+      ref-vector/2
+      ore-zeta/8
+    ]
+  }
+  liquid: cryofluid/48
+}
+
+requirements: [
+  titanium/90
+  plastanium/100
+  log-binary/120
+  ref-scalar/30
+]
+
+category: crafting
+research: vectorkiln
+idleSound: spark
+idleSoundVolume: 0.15

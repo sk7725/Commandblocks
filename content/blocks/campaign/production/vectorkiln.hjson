@@ -14,7 +14,7 @@ consumes: {
       silicon/5
       pyratite/5
       ref-scalar/2
-      ore-vector/8
+      ore-vector/6
     ]
   }
 }
