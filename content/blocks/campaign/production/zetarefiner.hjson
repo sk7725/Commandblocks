@@ -6,7 +6,7 @@ size: 2
 hasPower: true
 hasItems: true
 hasLiquid: true
-craftTime: 25
+craftTime: 35
 updateEffect: generate
 consumes: {
   power: 6
