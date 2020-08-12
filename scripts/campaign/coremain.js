@@ -194,6 +194,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     this.placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-vector"), 628);
     this.placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-zeta"), 9999);
     this.placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-code"), 654321);
+    if(!Vars.headless) Vars.renderer.blocks.floor.clearTiles();
   },
 
   placeOreType(ore, o){
