@@ -1,8 +1,7 @@
 type: GenericSmelter
 itemCapacity: 10
-outputItem: {
-  ref-vector/1
-}
+outputItem: ref-vector/1
+
 size: 2
 hasPower: true
 hasItems: true
