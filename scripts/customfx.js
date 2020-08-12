@@ -326,6 +326,6 @@ this.global.fx = {
   placeOre : newEffect(30, e => {
     Draw.color(e.color);
     Lines.stroke(e.fout()*4);
-    Lines.square(e.x, e.y+16, e.fin()*2+3);
+    Lines.square(e.x, e.y, e.fin()*2+3);
   })
 };
