@@ -11,8 +11,8 @@ consumes: {
   power: 5.5
   items: {
     items: [
-      metaglass/4
-      titanium/5
+      silicon/5
+      pyratite/5
       ref-scalar/2
       ore-vector/8
     ]
