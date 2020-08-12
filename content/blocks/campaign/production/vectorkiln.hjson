@@ -21,8 +21,8 @@ consumes: {
 
 requirements: [
   titanium/90
-  thorium/90
   surge-alloy/30
+  ref-scalar/10
   log-binary/65
 ]
 

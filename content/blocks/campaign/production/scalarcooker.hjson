@@ -19,7 +19,7 @@ consumes: {
 }
 
 requirements: [
-  titanium/80
+  copper/80
   thorium/120
   log-binary/50
 ]

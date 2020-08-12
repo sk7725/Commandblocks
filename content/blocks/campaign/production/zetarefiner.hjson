@@ -29,6 +29,7 @@ requirements: [
   plastanium/100
   log-binary/120
   ref-scalar/30
+  ref-vector/10
 ]
 
 category: crafting
