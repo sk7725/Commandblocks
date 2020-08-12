@@ -190,10 +190,10 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
 
   placeOres(tile){
     simplex.setSeed(tile.pos());
-    placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-scalar"), 0);
-    placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-vector"), 628);
-    placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-zeta"), 9999);
-    placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-code"), 654321);
+    this.placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-scalar"), 0);
+    this.placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-vector"), 628);
+    this.placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-zeta"), 9999);
+    this.placeOreType(Vars.content.getByName(ContentType.block, "commandblocks-depo-code"), 654321);
   },
 
   placeOreType(ore, o){
