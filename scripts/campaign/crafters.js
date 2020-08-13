@@ -26,15 +26,15 @@ const colors = {
 };
 
 const scalarFx = newEffect(15, e => {
+  Draw.color(Color.white, colors.scalar, e.fout());
   Angles.randLenVectors(e.id, 6, 4 + e.fin() * 5, floatc2((x,y) => {
-    Draw.color(Color.white, colors.scalar, e.fout());
     Fill.circle(e.x + x, e.y + y, 0.5 + e.fout() * 2);
   }));
 });
 
 const vectorFx = newEffect(15, e => {
+  Draw.color(Color.white, colors.vector, e.fout());
   Angles.randLenVectors(e.id, 6, 4 + e.fin() * 5, floatc2((x,y) => {
-    Draw.color(Color.white, colors.vector, e.fout());
     Fill.square(e.x + x, e.y + y, 0.5 + e.fout() * 2, 45);
   }));
 });
@@ -47,11 +47,18 @@ const zetaFx = newEffect(20, e => {
 });
 
 const codeFx = newEffect(25, e => {
-  Draw.color(Pal.accent);
-  var i=e.id;
-  Angles.randLenVectors(e.id, 3, 7+5*e.fin(), floatc2((x,y) => {
+  //Draw.color(Pal.accent);
+  //var i=e.id;
+  Draw.color(Color.white, colors.code, e.fout());
+  /*Angles.randLenVectors(e.id, 3, 7+5*e.fin(), floatc2((x,y) => {
     i++;
     drawBit(i%2, e.x+x, e.y+y, 1, e.fout());
+  }));*/
+  Angles.randLenVectors(e.id, 3, 4 + e.fin() * 7, floatc2((x,y) => {
+    Fill.circle(e.x + x, e.y + y, 0.5 + e.fout() * 2);
+  }));
+  Angles.randLenVectors(e.id, 3, 4 + e.fin() * 7, floatc2((x,y) => {
+    Fill.square(e.x + x, e.y + y, 0.5 + e.fout() * 2, 45);
   }));
 });
 

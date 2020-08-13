@@ -7,7 +7,7 @@ health: 210
 hasPower: true
 hasItems: true
 //hasLiquid: true
-craftTime: 210
+craftTime: 240
 
 consumes: {
   power: 7
