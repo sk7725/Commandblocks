@@ -38,5 +38,5 @@ requirements: [
 
 category: crafting
 research: zetarefiner
-idleSound: message
+idleSound: machine
 idleSoundVolume: 0.5
