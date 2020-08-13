@@ -1,5 +1,5 @@
 //type: GenericSmelter
-itemCapacity: 20
+itemCapacity: 30
 outputItem: ref-scalar/1
 
 size: 2
