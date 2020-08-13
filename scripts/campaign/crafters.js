@@ -31,9 +31,9 @@ const vectorFx = newEffect(15, e => {
 
 const zetaFx = newEffect(20, e => {
   Draw.color(Color.white, colors.zeta, e.finpow());
-  drawSpark(e.x, e.y, e.fout()*1.4, e.finpow()*12, 0);
+  drawSpark(e.x, e.y, e.fout()*1.6, e.finpow()*15, 0);
   Lines.stroke(e.fout());
-  Lines.circle(e.x, e.y, e.finpow()*4);
+  Lines.circle(e.x, e.y, e.finpow()*4.4);
 });
 
 const scalarcooker = extendContent(GenericSmelter, "scalarcooker", {
@@ -42,8 +42,8 @@ scalarcooker.updateEffect = scalarFx;
 
 const vectorkiln = extendContent(GenericSmelter, "vectorkiln", {
 });
-scalarcooker.updateEffect = vectorFx;
+vectorkiln.updateEffect = vectorFx;
 
 const zetarefiner = extendContent(GenericCrafter, "zetarefiner", {
 });
-scalarcooker.updateEffect = zetaFx;
+zetarefiner.updateEffect = zetaFx;
