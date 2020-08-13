@@ -1,0 +1,42 @@
+//type: GenericCrafter
+itemCapacity: 48
+outputItem: s-code/1
+
+size: 3
+health: 210
+hasPower: true
+hasItems: true
+//hasLiquid: true
+craftTime: 210
+
+consumes: {
+  power: 7
+  items: {
+    items: [
+      copper/12
+      metaglass/8
+      log-binary/5
+      ref-scalar/4
+      ref-vector/3
+      ref-zeta/5
+    ]
+  }
+  liquid:{
+    liquid: water
+    amount: 0.8
+  }
+}
+
+requirements: [
+  metaglass/120
+  titanium/100
+  log-binary/150
+  ref-scalar/30
+  ref-vector/20
+  ref-zeta/20
+]
+
+category: crafting
+research: zetarefiner
+idleSound: message
+idleSoundVolume: 0.5

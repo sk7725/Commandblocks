@@ -3,6 +3,7 @@ itemCapacity: 40
 outputItem: ref-zeta/1
 
 size: 2
+health: 100
 hasPower: true
 hasItems: true
 //hasLiquid: true
