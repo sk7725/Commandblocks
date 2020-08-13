@@ -43,7 +43,7 @@ const explosive = extendContent(Block, "explosive", {
     amount *= (3-dist)/3;
     if(amount <= 0) return;
     amount *= 3.3*Mathf.random()+1.1;
-    var acceptTile = Units.findAllyTile(tile.getTeam(), tile.worldx(), tile.worldy(), 80, boolf(e=>(e.block().itemCapacity > 5 && !(e.block() instanceof Conveyor) && e.block().acceptItem(drops, e, tile))));
+    var acceptTile = Units.findAllyTile(tile.getTeam(), tile.worldx(), tile.worldy(), 80, boolf(e=>(e.block().itemCapacity > 5 && !(e.block() instanceof Conveyor) && e.block().acceptStack(drops, amount, e, tile) >= 1)));
     if(acceptTile == null) return;
     //um
     Call.transferItemTo(drops, amount, other.worldx(), other.worldy(), acceptTile.getTile());
