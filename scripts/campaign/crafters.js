@@ -89,7 +89,7 @@ const codecrafter = extendContent(GenericSmelter, "codecrafter", {
     Draw.shader();
     Draw.color(Pal.accent);
     Draw.alpha(entity.progress>0.0001?0.6:0);
-    Lines.lineAngleCenter(tile.drawx() + Mathf.sin(entity.progress*150, 20, Vars.tilesize / 2 * this.size - 2)/2,tile.drawy(), 90, this.size * Vars.tilesize - Vars.tilesize * 1.6);
+    Lines.lineAngleCenter(tile.drawx() + Mathf.sin(entity.progress*314.15, 40, Vars.tilesize / 2 * this.size - 2)/2,tile.drawy(), 90, this.size * Vars.tilesize - Vars.tilesize * 1.6);
     Draw.reset();
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
     //Draw.rect(this.region, tile.drawx(), tile.drawy())
