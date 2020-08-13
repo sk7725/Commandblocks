@@ -5,7 +5,7 @@ outputItem: ref-zeta/1
 size: 2
 hasPower: true
 hasItems: true
-hasLiquid: true
+//hasLiquid: true
 craftTime: 35
 
 consumes: {

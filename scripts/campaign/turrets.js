@@ -154,7 +154,7 @@ const festival = extendContent(ChargeTurret, "festival", {
     return 10;
   },
   baseReloadSpeed(tile){
-    return (tile instanceof ChargeTurret)?tile.ent().power.status*((tile.ent().power.graph.getLastPowerProduced() - tile.ent().power.graph.getLastPowerNeeded())/50 + 1):0;
+    return (tile.block() instanceof ChargeTurret)?tile.ent().power.status*((tile.ent().power.graph.getLastPowerProduced() - tile.ent().power.graph.getLastPowerNeeded())/50 + 1):0;
   },
   setStats(){
     this.super$setStats();
