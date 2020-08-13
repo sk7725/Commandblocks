@@ -46,7 +46,7 @@ const zetaFx = newEffect(20, e => {
   Lines.circle(e.x, e.y, e.finpow()*4.4);
 });
 
-const codeFx = newEffect(25, e => {
+const codeFx = newEffect(15, e => {
   //Draw.color(Pal.accent);
   //var i=e.id;
   Draw.color(Color.white, colors.code, e.fout());
@@ -57,7 +57,7 @@ const codeFx = newEffect(25, e => {
   Angles.randLenVectors(e.id, 3, 4 + e.fin() * 7, floatc2((x,y) => {
     Fill.circle(e.x + x, e.y + y, 0.5 + e.fout() * 2);
   }));
-  Angles.randLenVectors(e.id, 3, 4 + e.fin() * 7, floatc2((x,y) => {
+  Angles.randLenVectors(e.id+1, 3, 4 + e.fin() * 7, floatc2((x,y) => {
     Fill.square(e.x + x, e.y + y, 0.5 + e.fout() * 2, 45);
   }));
 });
