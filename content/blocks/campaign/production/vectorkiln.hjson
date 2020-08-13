@@ -1,4 +1,4 @@
-type: GenericSmelter
+//type: GenericSmelter
 itemCapacity: 20
 outputItem: ref-vector/1
 
@@ -6,7 +6,7 @@ size: 2
 hasPower: true
 hasItems: true
 craftTime: 120
-updateEffect: smeltsmoke
+
 consumes: {
   power: 5.5
   items: {

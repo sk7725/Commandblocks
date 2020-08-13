@@ -327,5 +327,11 @@ this.global.fx = {
     Draw.color(e.color);
     Lines.stroke(e.fout()*4);
     Lines.square(e.x, e.y, e.fin()*2+3);
+  }),
+  shine : newEffect(30, e => {
+    Draw.color(Color.white, e.color, e.finpow());
+    drawSpark(e.x, e.y, e.fout()*2, e.finpow()*15, 0);
+    Lines.stroke(e.fout());
+    Lines.circle(e.x, e.y, e.finpow()*5);
   })
 };

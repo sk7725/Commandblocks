@@ -1,4 +1,4 @@
-type: GenericCrafter
+//type: GenericCrafter
 itemCapacity: 30
 outputItem: ref-zeta/1
 
@@ -7,7 +7,7 @@ hasPower: true
 hasItems: true
 hasLiquid: true
 craftTime: 35
-updateEffect: generate
+
 consumes: {
   power: 6
   items: {
