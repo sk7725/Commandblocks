@@ -155,11 +155,13 @@ const researchskill = extendContent(Block, "researchskill", {
 		if(value < 0){
 			var obj = root[Object.keys(root)[-1*value-1]];
 			try{
+        print("Use: " + obj.name);
 				if(obj.name == "phaseskill") skillfunc[obj.name](player, tile);
 				else skillfunc[obj.name](player);
-        if(!Vars.net.client()) player.addItem(player.item().item,Math.floor(-1*obj.uses.amount));
+        if(!Vars.net.client()) player.addItem(player.item().item, Math.floor(-1*obj.uses.amount));
 			}catch(err){
-				print("err:" + err);
+				print("Err:" + err);
+        print(err.stack);
 			}
 			return;
 		}
@@ -168,7 +170,7 @@ const researchskill = extendContent(Block, "researchskill", {
 		//use up cost
 		if(!Vars.state.rules.infiniteResources){
 			var arr = obj.cost;
-			var core = Vars.state.teams.get(Vars.player.getTeam()).cores.first();
+			var core = Vars.state.teams.get(player.getTeam()).cores.first();
 			for(var i = 0;i<arr.length;i++){
 				var item = Vars.content.getByName(ContentType.item, arr[i].item);
 				core.items.remove(item, arr[i].amount);
