@@ -15,10 +15,10 @@ consumes: {
     items: [
       copper/12
       metaglass/8
-      log-binary/5
       ref-scalar/4
       ref-vector/3
       ref-zeta/5
+      piece-code/6
     ]
   }
   liquid:{
