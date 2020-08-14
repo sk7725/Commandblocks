@@ -34,7 +34,7 @@ requirements: [
   titanium/100
   silicon/150
   surge-alloy/70
-  ref-tensor/50
+  ref-vector/50
 ]
 
 category: crafting
