@@ -115,9 +115,9 @@ codecrafter.updateEffect = codeFx;
 const grinder = extendContent(GenericCrafter, "grinder", {
   draw(tile){
     Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
-    Draw.rect(this.spinnerRegion, tile.drawx(), tile.drawy(), tile.ent().getRot()%360);
+    Draw.rect(this.spinnerRegion, tile.drawx(), tile.drawy(), tile.ent().getRot());
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
-    print(tile.ent().getRot());
+    //print(tile.ent().getRot());
   },
   load(){
     this.super$load();
@@ -125,7 +125,7 @@ const grinder = extendContent(GenericCrafter, "grinder", {
     this.spinnerRegion = Core.atlas.find(this.name + "-rotator");
     this.topRegion = Core.atlas.find(this.name + "-top");
   },
-  updare(tile){
+  update(tile){
     this.super$update(tile);
     tile.ent().addRot(tile.ent().warmup*10);
   }
