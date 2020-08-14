@@ -57,7 +57,7 @@ const tree = {
     })
   },
   "commandblocks-log-redblack": {
-    sapling: "commandblocks-rbsapling",
+    sapling: "commandblocks-rb-sapling",
     tree: "commandblocks-rb-tree",
     harvest: newEffect(90, e => {
       Draw.color(colors.leaf3, colors.leaf4, e.finpow());
