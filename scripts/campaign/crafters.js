@@ -117,6 +117,7 @@ const grinder = extendContent(GenericCrafter, "grinder", {
     Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
     Draw.rect(this.spinnerRegion, tile.drawx(), tile.drawy(), tile.ent().getRot());
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
+    print(tile.ent().warmup);
   },
   load(){
     this.super$load();
