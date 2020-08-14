@@ -66,6 +66,7 @@ const sporegrower = extendContent(GenericCrafter, "sporegrower", {
     this.rimRegion = Core.atlas.find(this.name + "-rim");
   },
   draw(tile){
+    Draw.rect(tile.floor().generateIcons()[0], tile.drawx(), tile.drawy(), 18, 18);
     Draw.rect(this.rimRegion, tile.drawx(), tile.drawy());
     if(!tile.ent().ready()){
       var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
@@ -82,7 +83,7 @@ const sporegrower = extendContent(GenericCrafter, "sporegrower", {
           tile.ent().finishGrow();//just in case
         }
         else{
-          if(tile.ent().cons.valid() && Mathf.chance(0.9)) tile.ent().addGrowth(1);
+          if(tile.ent().cons.valid() && Mathf.chance(0.9)) tile.ent().addGrowth(this.getProgressIncrease(tile.ent(), this.craftTime)*this.craftTime);
           //TODO add affinities
         }
       }
@@ -155,6 +156,7 @@ const treegrower = extendContent(GenericCrafter, "treegrower", {
     this.rimRegion = Core.atlas.find(this.name + "-rim");
   },
   draw(tile){
+    Draw.rect(tile.floor().generateIcons()[0], tile.drawx(), tile.drawy(), 18, 18);
     Draw.rect(this.rimRegion, tile.drawx(), tile.drawy());
     if(!tile.ent().ready()){
       var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
@@ -171,7 +173,7 @@ const treegrower = extendContent(GenericCrafter, "treegrower", {
           tile.ent().finishGrow();//just in case
         }
         else{
-          if(tile.ent().cons.valid() && Mathf.chance(0.9)) tile.ent().addGrowth(1);
+          if(tile.ent().cons.valid() && Mathf.chance(0.9)) tile.ent().addGrowth(this.getProgressIncrease(tile.ent(), this.craftTime)*this.craftTime);
           //TODO add affinities
         }
       }
@@ -244,6 +246,7 @@ const rbgrower = extendContent(GenericCrafter, "rbgrower", {
     this.rimRegion = Core.atlas.find(this.name + "-rim");
   },
   draw(tile){
+    Draw.rect(tile.floor().generateIcons()[0], tile.drawx(), tile.drawy(), 22, 22);
     Draw.rect(this.rimRegion, tile.drawx(), tile.drawy());
     if(!tile.ent().ready()){
       var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
@@ -260,7 +263,7 @@ const rbgrower = extendContent(GenericCrafter, "rbgrower", {
           tile.ent().finishGrow();//just in case
         }
         else{
-          if(tile.ent().cons.valid() && Mathf.chance(0.9)) tile.ent().addGrowth(1);
+          if(tile.ent().cons.valid() && Mathf.chance(0.9)) tile.ent().addGrowth(this.getProgressIncrease(tile.ent(), this.craftTime)*this.craftTime);
           //TODO add affinities
         }
       }
