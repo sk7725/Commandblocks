@@ -22,8 +22,8 @@ consumes: {
     ]
   }
   liquid:{
-    liquid: water
-    amount: 0.8
+    liquid: coffee
+    amount: 0.6
   }
 }
 

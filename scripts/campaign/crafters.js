@@ -111,3 +111,6 @@ const codecrafter = extendContent(GenericSmelter, "codecrafter", {
 	}
 });
 codecrafter.updateEffect = codeFx;
+
+const cmachine = extendContent(Fracker, "cmachine", {
+});
