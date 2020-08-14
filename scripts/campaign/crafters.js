@@ -115,9 +115,9 @@ codecrafter.updateEffect = codeFx;
 const grinder = extendContent(GenericCrafter, "grinder", {
   draw(tile){
     Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
-    Draw.rect(this.spinnerRegion, tile.drawx(), tile.drawy(), tile.ent().getRot());
+    Draw.rect(this.spinnerRegion, tile.drawx(), tile.drawy(), tile.ent().getRot()%360);
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
-    print(tile.ent().warmup);
+    print(tile.ent().getRot());
   },
   load(){
     this.super$load();
@@ -127,7 +127,7 @@ const grinder = extendContent(GenericCrafter, "grinder", {
   },
   updare(tile){
     this.super$update(tile);
-    tile.ent().addRot(10);
+    tile.ent().addRot(tile.ent().warmup*10);
   }
 });
 grinder.entityType = prov(() => extend(GenericCrafter.GenericCrafterEntity, {
