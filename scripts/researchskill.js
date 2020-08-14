@@ -437,5 +437,5 @@ researchskill.entityType = prov(() => extend(TileEntity , {
 	}
 }));
 
-print("Skills: "+root);
-print("SkillFunc: "+skillfunc);
+print("Skills: "+Object.keys(root));
+print("SkillFunc: "+Object.keys(skillfunc));
