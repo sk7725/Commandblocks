@@ -112,9 +112,6 @@ const codecrafter = extendContent(GenericSmelter, "codecrafter", {
 });
 codecrafter.updateEffect = codeFx;
 
-const cmachine = extendContent(Fracker, "cmachine", {
-});
-
 const disassembler = extendContent(Separator, "disassembler", {
   //credits to younggam
   update(tile){
@@ -135,4 +132,7 @@ const disassembler = extendContent(Separator, "disassembler", {
     }
     return true;
   }
+});
+
+const cmachine = extendContent(Fracker, "cmachine", {
 });

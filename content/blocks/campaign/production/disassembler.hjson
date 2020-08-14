@@ -21,10 +21,10 @@ consumes: {
 }
 
 results: [
-  sand/8
-  graphite/4
-  titanium/2
-  thorium/2
+  sand/16
+  graphite/8
+  titanium/4
+  thorium/4
   ore-scalar/1
   ore-vector/1
 ]
