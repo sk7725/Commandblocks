@@ -172,12 +172,12 @@ sporegrower.entityType=prov(() => extend(TileEntity, {
 const treegrower = extendContent(GenericCrafter, "treegrower", {
   load(){
     this.super$load();
-    this.rimRegion = Core.atlas.find(this.name + "-rim");
+    this.rimRegion = Core.atlas.find(this.name + "-rim2");
   },
   draw(tile){
-    Draw.color(Color.lightGray);
+    //Draw.color(Color.lightGray);
     Draw.rect(tile.floor().generateIcons()[0], tile.drawx(), tile.drawy(), 18, 18);
-    Draw.color();
+    //Draw.color();
     Draw.rect(this.rimRegion, tile.drawx(), tile.drawy());
     if(!tile.ent().ready()){
       var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
@@ -223,7 +223,21 @@ const treegrower = extendContent(GenericCrafter, "treegrower", {
     if(tile.ent().ready()){
       Draw.rect(tree[this.outputItem.item.name].tree, tile.drawx(), tile.drawy(), rot);
     }
-  }
+  },
+  setBars(){
+		this.super$setBars();
+		this.bars.add(
+			"items", func(entity => {
+				return new Bar(
+					prov(() => Core.bundle.format("bar.items", entity.items.total())),
+					prov(() => Pal.items),
+					floatp(() => {
+						return entity.items.total() / this.itemCapacity;
+					})
+				)
+			})
+		);
+	}
 });
 
 treegrower.entityType=prov(() => extend(TileEntity, {
