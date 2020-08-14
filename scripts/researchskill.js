@@ -33,11 +33,9 @@ const researchskill = extendContent(Block, "researchskill", {
 	dialog: null,
 	blockpos: {},
 
-	load(){
-		this.super$load();
-
-		//load languages
-		var uparr = Object.keys(root);
+  init(){
+    this.super$init();
+    var uparr = Object.keys(root);
 		for(var i=0; i<uparr.length; i++){
 			root[uparr[i]].n = i;
 			root[uparr[i]].name = uparr[i];
@@ -45,6 +43,15 @@ const researchskill = extendContent(Block, "researchskill", {
 			root[uparr[i]].shortDesc = Core.bundle.get("skill." + uparr[i] + ".short");
 			root[uparr[i]].description = Core.bundle.get("skill." + uparr[i] + ".description");
 		}
+    Events.on(EventType.WorldLoadEvent, run(event => {
+			researchskill.blockpos = {};
+      t.global.skilltile = null;
+      localSkill.skill = "";
+      localSkill.lastused = 0;
+		}));
+  },
+	load(){
+		this.super$load();
 
 		this.animRegion = [];
 		for(var i=0; i<19; i++){
@@ -54,13 +61,6 @@ const researchskill = extendContent(Block, "researchskill", {
 
 		this.dialog = new FloatingDialog(Core.bundle.get("research.title"));
 		this.dialog.addCloseButton();
-
-		Events.on(EventType.WorldLoadEvent, run(event => {
-			researchskill.blockpos = {};
-      t.global.skilltile = null;
-      localSkill.skill = "";
-      localSkill.lastused = 0;
-		}));
 	},
 	update(tile){
 		this.super$update(tile);
@@ -155,9 +155,9 @@ const researchskill = extendContent(Block, "researchskill", {
 		if(value < 0){
 			var obj = root[Object.keys(root)[-1*value-1]];
 			try{
-        print("UseVal: " + value);
-        print("UseID: " + (-1*value-1));
-        print("UseName: " + Object.keys(root)[-1*value-1]);
+        //print("UseVal: " + value);
+        //print("UseID: " + (-1*value-1));
+        //print("UseName: " + Object.keys(root)[-1*value-1]);
 				if(obj.name == "phaseskill") skillfunc[obj.name](player, tile);
 				else skillfunc[obj.name](player);
         if(!Vars.net.client()) player.addItem(player.item().item, Math.floor(-1*obj.uses.amount));
