@@ -1,5 +1,5 @@
 itemCapacity: 750
-outputItem: log-binary/500
+outputItem: log-binary/440
 
 size: 3
 health: 80
@@ -11,7 +11,7 @@ consumes: {
   power: 1
   liquid: {
     liquid: water
-    amount: 1
+    amount: 0.002
   }
 }
 
