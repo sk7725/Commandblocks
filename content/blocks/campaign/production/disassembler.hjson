@@ -1,0 +1,43 @@
+itemCapacity: 20
+
+size: 3
+health: 100
+hasPower: true
+hasItems: true
+//hasLiquid: true
+craftTime: 15
+
+consumes: {
+  power: 4
+  items: {
+    items: [
+      scrap/2
+    ]
+  }
+  liquid:{
+    liquid: slag
+    amount: 0.24
+  }
+}
+
+results: [
+  sand/8
+  graphite/4
+  titanium/2
+  thorium/2
+  ore-scalar/1
+  ore-vector/1
+]
+
+requirements: [
+  graphite/140
+  titanium/100
+  silicon/150
+  surge-alloy/70
+  ref-tensor/50
+]
+
+category: crafting
+research: separator
+idleSound: machine
+idleSoundVolume: 0.05

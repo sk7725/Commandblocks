@@ -71,7 +71,7 @@ const researchskill = extendContent(Block, "researchskill", {
 			if(tile.getTeamID() in this.blockpos) ent.disable();
 			else this.blockpos[tile.getTeamID()] = tile.pos();
 		}
-    if(Vars.headless) return;
+    if(Vars.player == null) return;
     if(tile.getTeam() == Vars.player.getTeam() && (t.global.skilltile == null || t.global.skilltile != tile.pos())) t.global.skilltile = tile.pos();
 		if(skillfunc.update(tile.ent().skill(),tile)) tile.ent().useSkill();
     if(Vars.player.hasEffect(skillup)&&tile.ent().skill().skill!=""&&tile.ent().skill().skill!="zetarecharge") tile.ent().skillCooltimeReduce(2);
