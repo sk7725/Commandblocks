@@ -1047,7 +1047,7 @@ uses:{
                      item:"shadowmod-shadum",
                      amount:3
              },
-             cost:[ 
+             cost:[
                     {
                        item:"copper",
                        amount:10
@@ -1553,3 +1553,5 @@ const skillfunc={
   }
 }
 this.global.skills.func=skillfunc;
+
+print("Skills successfully loaded!");
