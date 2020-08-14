@@ -62,6 +62,20 @@ const codeFx = newEffect(15, e => {
   }));
 });
 
+const grindFx = newEffect(15, e => {
+  Draw.color(Color.white);
+  Angles.randLenVectors(e.id+1, e.id%4, 4 + e.fin() * 5, floatc2((x,y) => {
+    Fill.square(e.x + x, e.y + y, 0.5 + e.fout() * 2, 45);
+  }));
+
+  Draw.color(Color.white, Pal.lightOrange, e.fin());
+  Lines.stroke(0.5 + e.fout());
+  Angles.randLenVectors(e.id, 3, 4 + e.fin() * 7, floatc2((x,y) => {
+    var ang = Mathf.angle(x, y);
+    Lines.lineAngle(e.x + x, e.y + y, ang, e.fout() * 3 + 1);
+  }));
+});
+
 const scalarcooker = extendContent(GenericSmelter, "scalarcooker", {
 });
 scalarcooker.updateEffect = scalarFx;
@@ -139,6 +153,7 @@ grinder.entityType = prov(() => extend(GenericCrafter.GenericCrafterEntity, {
     this._rot += a;
   }
 }));
+grinder.updateEffect = grindFx;
 
 const disassembler = extendContent(Separator, "disassembler", {
   //credits to younggam
