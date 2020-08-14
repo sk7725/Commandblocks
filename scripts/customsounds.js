@@ -46,3 +46,4 @@ loadsound("spearshot");
 loadsound("spearappear");
 loadsound("boing");
 loadsound("sparklebg");
+loadsound("tree");
