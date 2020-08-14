@@ -31,7 +31,7 @@ const tree = {
   }
 }
 
-const sporegrower = extendContent(Block, "sporegrower", {
+const sporegrower = extendContent(GenericCrafter, "sporegrower", {
   load(){
     this.super$load();
     this.rimRegion = Core.atlas.find(this.name + "-rim");
@@ -111,10 +111,10 @@ sporegrower.entityType=prov(() => extend(TileEntity, {
 }));
 
 
-const treegrower = extendContent(Block, "treegrower", {
+const treegrower = extendContent(GenericCrafter, "treegrower", {
 
 });
 
-const rbgrower = extendContent(Block, "rbgrower", {
+const rbgrower = extendContent(GenericCrafter, "rbgrower", {
 
 });
