@@ -25,6 +25,7 @@ require("campaign/crafters");
 require("campaign/turrets");
 require("campaign/explosive");
 require("campaign/explosivelarge");
+require("campaign/treegrower");
 require("campaign/loader");
 require("campaign/enderchest");
 require("campaign/enderbox");

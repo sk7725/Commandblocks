@@ -1,0 +1,35 @@
+itemCapacity: 750
+outputItem: log-redblack/300
+
+size: 4
+health: 80
+hasPower: true
+hasItems: true
+craftTime: 65000
+
+consumes: {
+  power: 1.5
+  liquid: {
+    liquid: water
+    amount: 2
+  }
+}
+
+requirements: [
+  copper/120
+  metaglass/80
+  titanium/90
+  log-binary/80
+  s-code/40
+]
+
+layer: power
+expanded: true
+
+category: production
+research: treegrower
+idleSound: none
+idleSoundVolume: 0
+updateEffect: none
+
+consumesTap: true
