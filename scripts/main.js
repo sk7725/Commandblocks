@@ -124,4 +124,4 @@ require("sandbox/tabletester");
 require("sandbox/jstester");
 require("sandbox/fxtester");
 
-print("Load COmplete!");
+print("Load Complete!");

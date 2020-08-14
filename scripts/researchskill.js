@@ -149,13 +149,15 @@ const researchskill = extendContent(Block, "researchskill", {
 		})).width(Vars.mobile ? 460 : 530);
 	},
 
-	configured(tile,player,value){
+	configured(tile, player, value){
 		//research in sync
 		if(value == 0) return;
 		if(value < 0){
 			var obj = root[Object.keys(root)[-1*value-1]];
 			try{
-        print("Use: " + obj.name);
+        print("UseVal: " value);
+        print("UseID: " + (-1*value-1));
+        print("UseName: " + Object.keys(root)[-1*value-1]);
 				if(obj.name == "phaseskill") skillfunc[obj.name](player, tile);
 				else skillfunc[obj.name](player);
         if(!Vars.net.client()) player.addItem(player.item().item, Math.floor(-1*obj.uses.amount));
