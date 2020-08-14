@@ -112,6 +112,14 @@ const codecrafter = extendContent(GenericSmelter, "codecrafter", {
 });
 codecrafter.updateEffect = codeFx;
 
+const grinder = extendContent(GenericCrafter, "grinder", {
+  draw(tile){
+    Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
+    Draw.rect(this.spinnerRegion, tile.drawx(), tile.drawy(), tile.ent().totalProgress * 360);
+    Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
+  }
+});
+
 const disassembler = extendContent(Separator, "disassembler", {
   //credits to younggam
   update(tile){
