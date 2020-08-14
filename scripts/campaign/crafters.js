@@ -62,7 +62,7 @@ const codeFx = newEffect(15, e => {
   }));
 });
 
-const grindFx = newEffect(15, e => {
+const grindFx = newEffect(20, e => {
   Draw.color(Color.white);
   Angles.randLenVectors(e.id+1, e.id%4, 4 + e.fin() * 5, floatc2((x,y) => {
     Fill.square(e.x + x, e.y + y, 0.5 + e.fout() * 2, 45);
