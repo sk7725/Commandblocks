@@ -12,7 +12,9 @@ const colors = {
   spore: Color.valueOf("7457ce"),
   spore2: Color.valueOf("5e4e91"),
   leaf: Color.valueOf("84f491"),
-  leaf2: Color.valueOf("62ae7f")
+  leaf2: Color.valueOf("62ae7f"),
+  leaf3: Color.valueOf("ff4444"),
+  leaf4: Color.valueOf("b50000")
 };
 
 const tree = {
@@ -56,7 +58,22 @@ const tree = {
   },
   "commandblocks-log-redblack": {
     sapling: "commandblocks-rbsapling",
-    tree: "commandblocks-rb-tree"
+    tree: "commandblocks-rb-tree",
+    harvest: newEffect(90, e => {
+      Draw.color(colors.leaf3, colors.leaf4, e.finpow());
+      var i=0;
+      Angles.randLenVectors(e.id, 13, 40 + e.finpow()*4, floatc2((x,y) => {
+        i++;
+        Draw.alpha(e.fout()*Mathf.randomSeed(e.id+i)*8);
+        Fill.circle(e.x + x, e.y + y, 2);
+      }));
+    }),
+    grow: newEffect(90, e => {
+      Draw.color(Color.white, Pal.health, e.fin());
+      Angles.randLenVectors(e.id, 13, 25 + e.fin()*25, floatc2((x,y) => {
+        drawSpark(e.x+x, e.y+y, e.fout()*3, 8, 0);
+      }));
+    })
   }
 }
 
