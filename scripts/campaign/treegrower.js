@@ -104,6 +104,7 @@ const sporegrower = extendContent(GenericCrafter, "sporegrower", {
     this.useContent(tile, this.outputItem.item);
     for(var i=0; i<this.outputItem.amount; i++) this.offloadNear(tile, this.outputItem.item);
     Effects.effect(tree[this.outputItem.item.name].harvest, tile.drawx(), tile.drawy());
+    Sounds.artillery.at(tile.worldx(),tile.worldy(),0.8);
   },
   drawLayer(tile){
     var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
@@ -192,6 +193,7 @@ const treegrower = extendContent(GenericCrafter, "treegrower", {
     this.useContent(tile, this.outputItem.item);
     for(var i=0; i<this.outputItem.amount; i++) this.offloadNear(tile, this.outputItem.item);
     Effects.effect(tree[this.outputItem.item.name].harvest, tile.drawx(), tile.drawy());
+    Sounds.artillery.at(tile.worldx(),tile.worldy(),0.8);
   },
   drawLayer(tile){
     var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
@@ -280,6 +282,7 @@ const rbgrower = extendContent(GenericCrafter, "rbgrower", {
     this.useContent(tile, this.outputItem.item);
     for(var i=0; i<this.outputItem.amount; i++) this.offloadNear(tile, this.outputItem.item);
     Effects.effect(tree[this.outputItem.item.name].harvest, tile.drawx(), tile.drawy());
+    Sounds.artillery.at(tile.worldx(),tile.worldy(),0.8);
   },
   drawLayer(tile){
     var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
