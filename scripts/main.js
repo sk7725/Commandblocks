@@ -123,3 +123,5 @@ require("sandbox/drawtester");
 require("sandbox/tabletester");
 require("sandbox/jstester");
 require("sandbox/fxtester");
+
+print("Load COmplete!");
