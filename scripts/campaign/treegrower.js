@@ -83,7 +83,9 @@ const sporegrower = extendContent(GenericCrafter, "sporegrower", {
     this.rimRegion = Core.atlas.find(this.name + "-rim");
   },
   draw(tile){
+    Draw.color(Color.lightGray);
     Draw.rect(tile.floor().generateIcons()[0], tile.drawx(), tile.drawy(), 18, 18);
+    Draw.color();
     Draw.rect(this.rimRegion, tile.drawx(), tile.drawy());
     if(!tile.ent().ready()){
       var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
@@ -173,7 +175,9 @@ const treegrower = extendContent(GenericCrafter, "treegrower", {
     this.rimRegion = Core.atlas.find(this.name + "-rim");
   },
   draw(tile){
+    Draw.color(Color.lightGray);
     Draw.rect(tile.floor().generateIcons()[0], tile.drawx(), tile.drawy(), 18, 18);
+    Draw.color();
     Draw.rect(this.rimRegion, tile.drawx(), tile.drawy());
     if(!tile.ent().ready()){
       var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
@@ -263,7 +267,9 @@ const rbgrower = extendContent(GenericCrafter, "rbgrower", {
     this.rimRegion = Core.atlas.find(this.name + "-rim");
   },
   draw(tile){
+    Draw.color(Color.lightGray);
     Draw.rect(tile.floor().generateIcons()[0], tile.drawx(), tile.drawy(), 22, 22);
+    Draw.color();
     Draw.rect(this.rimRegion, tile.drawx(), tile.drawy());
     if(!tile.ent().ready()){
       var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
