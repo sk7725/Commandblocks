@@ -115,10 +115,29 @@ codecrafter.updateEffect = codeFx;
 const grinder = extendContent(GenericCrafter, "grinder", {
   draw(tile){
     Draw.rect(this.baseRegion, tile.drawx(), tile.drawy());
-    Draw.rect(this.spinnerRegion, tile.drawx(), tile.drawy(), tile.ent().totalProgress * 360);
+    Draw.rect(this.spinnerRegion, tile.drawx(), tile.drawy(), tile.ent().getRot() * 360);
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
+  },
+  load(){
+    this.super$load();
+    this.baseRegion = Core.atlas.find(this.name + "-base");
+    this.spinnerRegion = Core.atlas.find(this.name + "-rotator");
+    this.topRegion = Core.atlas.find(this.name + "-top");
+  },
+  updare(tile){
+    this.super$update(tile);
+    tile.ent().addRot(tile.ent().warmup);
   }
 });
+grinder.entityType=prov(() => extendContent(GenericCrafter.GenericCrafterEntity, grinder, {
+  _rot: 0,
+  getRot(){
+    return this._rot;
+  },
+  addRot(a){
+    this._rot += a;
+  }
+}));
 
 const disassembler = extendContent(Separator, "disassembler", {
   //credits to younggam
