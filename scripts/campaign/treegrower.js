@@ -35,7 +35,7 @@ const tree = {
       }));
     })
   },
-  "log-binary": {
+  "commandblocks-log-binary": {
     sapling: "commandblocks-sapling",
     tree: "commandblocks-binary-tree",
     harvest: newEffect(90, e => {
@@ -54,7 +54,7 @@ const tree = {
       }));
     })
   },
-  "log-redblack": {
+  "commandblocks-log-redblack": {
     sapling: "commandblocks-rbsapling",
     tree: "commandblocks-rb-tree"
   }
