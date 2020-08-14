@@ -129,7 +129,7 @@ const grinder = extendContent(GenericCrafter, "grinder", {
     tile.ent().addRot(tile.ent().warmup);
   }
 });
-grinder.entityType=prov(() => extendContent(GenericCrafter.GenericCrafterEntity, grinder, {
+grinder.entityType = prov(() => extend(GenericCrafter.GenericCrafterEntity, {
   _rot: 0,
   getRot(){
     return this._rot;
