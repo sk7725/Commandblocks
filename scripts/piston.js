@@ -106,7 +106,7 @@ function canPushPiston(r, ptile, count, maxCount){
 function canStick(ptile, origTile){
   var orig = origTile.block().name;
   var slimet = slimeType(ptile.block().name);
-  return ((nonSticky.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&canBreakBlock(ptile)&&(!(ptile.block() instanceof BuildBlock))&&(slimet == orig || slimet == ptile.block().name || ptile.front().link() != origTile)) || (ptile.block().name == slimeType(orig) && slimeBlock.indexOf(slimeType(orig))>-1);
+  return ((nonSticky.indexOf(ptile.block().name) < 0)&&ptile.breakable()&&canBreakBlock(ptile)&&(!(ptile.block() instanceof BuildBlock))&&(slimet == orig || slimet == ptile.block().name || ptile.front().link() != origTile)) || ((ptile.block().name == slimeType(orig) || ptile.block().name == "commandblocks-surgejoint") && slimeBlock.indexOf(slimeType(orig))>-1);
 }
 
 function slimeType(name){
@@ -150,8 +150,8 @@ function addBlock(r, stile, count, maxCount){
     var retSide = addSide(r, stile.getNearby(stile.rotation()), count, stile);
     if(!retSide) return false;
   }
-  //if(count + pusharr.length>maxCount) return false;
-  if(count <= maxCount){
+  if(count + pusharr.length>maxCount) return false;
+  if(count < maxCount){
     for(var i=0;i<pusharr.length;i++){
       if(pusharr[i] == null || !canPush(pusharr[i]) || !canPushPiston(r, pusharr[i], count, maxCount)) return false;
       var ret = addBlock(r, pusharr[i], ++count, maxCount);
