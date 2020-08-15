@@ -26,10 +26,10 @@ const tree = {
     harvest: newEffect(90, e => {
       Draw.color(colors.spore, colors.spore2, e.finpow());
       var i=0;
-      Angles.randLenVectors(e.id, 13, 40 + e.finpow()*4, floatc2((x,y) => {
+      Angles.randLenVectors(e.id, 16, 40 + e.finpow()*4, floatc2((x,y) => {
         i++;
         Draw.alpha(e.fout()*Mathf.randomSeed(e.id+i)*8);
-        Fill.circle(e.x + x, e.y + y, 2);
+        Fill.circle(e.x + x, e.y + y, 1.3);
       }));
     }),
     grow: newEffect(90, e => {
