@@ -22,7 +22,7 @@ const colors = {
 const tree = {
   "spore-pod": {
     sapling: "spore-cluster",
-    tree: "white-tree",
+    tree: "white-tree2",
     harvest: newEffect(90, e => {
       Draw.color(colors.spore, colors.spore2, e.finpow());
       var i=0;
@@ -84,6 +84,7 @@ const sporegrower = extendContent(GenericCrafter, "sporegrower", {
   load(){
     this.super$load();
     this.rimRegion = Core.atlas.find(this.name + "-rim");
+    this.shadowRegion = Core.atlas.find("commandblocks-tree-shadow");
   },
   draw(tile){
     //Draw.color(Color.lightGray);
@@ -131,8 +132,9 @@ const sporegrower = extendContent(GenericCrafter, "sporegrower", {
     newSounds.tree.at(tile.worldx(), tile.worldy(), 0.9);
   },
   drawLayer(tile){
-    var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
     if(tile.ent().ready()){
+      var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
+      Draw.rect(this.shadowRegion, tile.drawx(), tile.drawy(), rot);
       Draw.rect(tree[this.outputItem.item.name].tree, tile.drawx(), tile.drawy(), rot);
     }
   },
@@ -191,6 +193,7 @@ const treegrower = extendContent(GenericCrafter, "treegrower", {
   load(){
     this.super$load();
     this.rimRegion = Core.atlas.find(this.name + "-rim");
+    this.shadowRegion = Core.atlas.find("commandblocks-tree-shadow");
   },
   draw(tile){
     //Draw.color(Color.lightGray);
@@ -238,8 +241,9 @@ const treegrower = extendContent(GenericCrafter, "treegrower", {
     newSounds.tree.at(tile.worldx(), tile.worldy(), 0.9);
   },
   drawLayer(tile){
-    var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
     if(tile.ent().ready()){
+      var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
+      Draw.rect(this.shadowRegion, tile.drawx(), tile.drawy(), rot);
       Draw.rect(tree[this.outputItem.item.name].tree, tile.drawx(), tile.drawy(), rot);
     }
   },
@@ -298,6 +302,7 @@ const rbgrower = extendContent(GenericCrafter, "rbgrower", {
   load(){
     this.super$load();
     this.rimRegion = Core.atlas.find(this.name + "-rim");
+    this.shadowRegion = Core.atlas.find("commandblocks-tree-shadow");
   },
   draw(tile){
     //Draw.color(Color.lightGray);
@@ -345,8 +350,9 @@ const rbgrower = extendContent(GenericCrafter, "rbgrower", {
     newSounds.tree.at(tile.worldx(), tile.worldy(), 0.9);
   },
   drawLayer(tile){
-    var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
     if(tile.ent().ready()){
+      var rot = Mathf.randomSeed(tile.pos(), 0, 3)*90;
+      Draw.rect(this.shadowRegion, tile.drawx(), tile.drawy(), rot);
       Draw.rect(tree[this.outputItem.item.name].tree, tile.drawx(), tile.drawy(), rot);
     }
   },
