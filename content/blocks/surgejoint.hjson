@@ -14,3 +14,4 @@ targetable: true
 update: true
 research: sporeblock
 outputsPower: true
+hasPower: true

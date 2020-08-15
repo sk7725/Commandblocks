@@ -140,14 +140,14 @@ function addBlock(r, stile, count, maxCount){
   var pusharr = getFrontBlocks(stile, r);
   if(slimeBlock.indexOf(stile.block().name) > -1){
     slimeArray.push(stile);
-    var retSide = addSide(r, stile.getNearby((r+1)%4), count, stile);
+    var retSide = addSide(r, stile.getNearby((r+1)%4), count, stile, maxCount);
     if(!retSide) return false;
-    retSide = addSide(r, stile.getNearby((r+3)%4), count, stile);
+    retSide = addSide(r, stile.getNearby((r+3)%4), count, stile, maxCount);
     if(!retSide) return false;
   }
   else if(slimeDir.indexOf(stile.block().name) > -1&&(stile.rotation()-r+4)%2==1){
     slimeArray.push(stile);
-    var retSide = addSide(r, stile.getNearby(stile.rotation()), count, stile);
+    var retSide = addSide(r, stile.getNearby(stile.rotation()), count, stile, maxCount);
     if(!retSide) return false;
   }
   if(count + pusharr.length>maxCount) return false;
