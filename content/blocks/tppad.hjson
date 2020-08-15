@@ -1,0 +1,24 @@
+size: 3
+health: 300
+breakable: true
+update: true
+category: effect
+category: effect
+requirements: [
+  titanium/50
+  silicon/120
+  ref-vector/50
+  ref-tensor/20
+]
+consumes: {
+  power: 6
+}
+research: boostpad
+consumesTap: true
+solid: false
+
+range: 1400
+timers: 5
+layer: power
+hasItems: false
+consumesTap: true
