@@ -128,7 +128,7 @@ function getLowest(r, stile, count, maxCount){
 }
 
 function addSide(r, stile, count, orig, maxCount){
-  if(stile == null || count > maxCount) return false;
+  if(stile == null/* || count > maxCount*/) return false;
   if(stile.link() == null) return false;
   stile = stile.link();
   if(stile.block().name == "air" || pushArray.indexOf(stile) > -1 || slimeArray.indexOf(stile) > -1 ||  !canPush(stile) || !canStick(stile, orig) || !canPushPiston(r, stile, count, maxCount)) return true;
@@ -150,7 +150,7 @@ function addBlock(r, stile, count, maxCount){
     var retSide = addSide(r, stile.getNearby(stile.rotation()), count, stile, maxCount);
     if(!retSide) return false;
   }
-  if(count + pusharr.length>maxCount) return false;
+  //if(count + pusharr.length>maxCount) return false;
   if(count < maxCount){
     for(var i=0;i<pusharr.length;i++){
       if(pusharr[i] == null || !canPush(pusharr[i]) || !canPushPiston(r, pusharr[i], count, maxCount)) return false;

@@ -15,3 +15,6 @@ update: true
 research: sporeblock
 outputsPower: true
 hasPower: true
+consumes: {
+  power: 0
+}
