@@ -62,10 +62,11 @@ const tree = {
     sapling: "commandblocks-rb-sapling",
     tree: "commandblocks-rb-tree",
     harvest: newEffect(90, e => {
-      Draw.color(colors.leaf3, colors.leaf4, e.finpow());
       var i=0;
       Angles.randLenVectors(e.id, 13, 40 + e.finpow()*4, floatc2((x,y) => {
         i++;
+        if(i%2==0) Draw.color(colors.leaf3, colors.leaf4, e.finpow());
+        else Draw.color(Color.black);
         Draw.alpha(e.fout()*Mathf.randomSeed(e.id+i)*8);
         Fill.circle(e.x + x, e.y + y, 2);
       }));
