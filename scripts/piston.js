@@ -97,7 +97,7 @@ function canPushPiston(r, ptile, count, maxCount){
   var etile = ptile.front();
   if(etile == null) return true;
   etile = etile.getNearby(r);
-  if(etile == null || count>maxCount) return false;
+  if(etile == null/* || count>maxCount*/) return false;
   if(etile.block().name == "air"||etile==ptile) return true;
   if(!canPush(ptile.link()) || !canPushPiston(r, etile, count, maxCount)) return false;
   return addBlock(r, etile.link(), count, maxCount);
@@ -119,7 +119,7 @@ function slimeType(name){
 function getLowest(r, stile, count, maxCount){
   var ret = stile;
   if(!(slimeBlock.indexOf(stile.block().name) > -1 || (slimeDir.indexOf(stile.block().name) > -1 && (stile.rotation()-r+4)%4 == 2))) return stile.link();
-  for(var i=0;i<maxCount-count;i++){
+  for(var i=0;i<maxCount/*-count*/;i++){
     var etile = stile.getNearby((r+2)%4);
     if(etile == null || etile.block().name == "air" || pushArray.indexOf(etile) > -1 || !canStick(etile, stile) || !canPushPiston(r, etile, count, maxCount)) return stile;
     if(slimeBlock.indexOf(etile.block().name) > -1 || (slimeDir.indexOf(etile.block().name) > -1 && (etile.rotation()-r+4)%4 == 2)) stile = etile;//for 2x2 slimes add .link()
@@ -151,7 +151,7 @@ function addBlock(r, stile, count, maxCount){
     if(!retSide) return false;
   }
   //if(count + pusharr.length>maxCount) return false;
-  if(count < maxCount){
+  if(count <= maxCount){
     for(var i=0;i<pusharr.length;i++){
       if(pusharr[i] == null || !canPush(pusharr[i]) || !canPushPiston(r, pusharr[i], count, maxCount)) return false;
       var ret = addBlock(r, pusharr[i], ++count, maxCount);
