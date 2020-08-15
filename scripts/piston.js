@@ -150,8 +150,8 @@ function addBlock(r, stile, count, maxCount){
     var retSide = addSide(r, stile.getNearby(stile.rotation()), count, stile);
     if(!retSide) return false;
   }
-  if(count + pusharr.length>maxCount) return false;
-  if(count<maxCount){
+  //if(count + pusharr.length>maxCount) return false;
+  if(count <= maxCount){
     for(var i=0;i<pusharr.length;i++){
       if(pusharr[i] == null || !canPush(pusharr[i]) || !canPushPiston(r, pusharr[i], count, maxCount)) return false;
       var ret = addBlock(r, pusharr[i], ++count, maxCount);
