@@ -22,7 +22,7 @@ const colors = {
 const tree = {
   "spore-pod": {
     sapling: "spore-cluster",
-    tree: "white-tree2",
+    tree: "commandblocks-white-tree2",
     harvest: newEffect(90, e => {
       Draw.color(colors.spore, colors.spore2, e.finpow());
       var i=0;
