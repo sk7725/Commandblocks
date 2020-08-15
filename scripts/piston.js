@@ -338,6 +338,29 @@ const pistonArm = extendContent(Block, "pistonarm", {
   }
 });
 
+function sortArr(arr, r){
+  if(r == 0){
+    arr.sort(function(a, b) {
+      return b.x - a.x;
+    });
+  }
+  else if(r == 1){
+    arr.sort(function(a, b) {
+      return b.y - a.y;
+    });
+  }
+  else if(r == 2){
+    arr.sort(function(a, b) {
+      return a.x - b.x;
+    });
+  }
+  else{
+    arr.sort(function(a, b) {
+      return a.y - b.y;
+    });
+  }
+  return arr;
+}
 
 function pushBlocks(tile, maxCount){
   if(tile.front() == null || !canPush(tile.front())){
@@ -348,7 +371,9 @@ function pushBlocks(tile, maxCount){
     pushArray = [];
     slimeArray = [];
     var ret = addBlock(tile.rotation(), tile.front().link(), 1, maxCount);
+    print("pushArray: "+pushArray);
     if(ret&&pushArray.length<=maxCount){
+      pushArray = sortArr(pushArray, tile.rotation());
       for(var i=0;i<pushArray.length;i++){
         pushBlock(tile, pushArray[i]);
       }
@@ -390,8 +415,9 @@ function pullBlocks(tile, maxCount){
     //print("pullStart: "+pullStart);
     if(canStick(pullStart, tile) || slimeBlock.indexOf(pullStart.block().name)>-1){
       var ret = addBlock(pullDir, pullStart, 1, maxCount);
-      //print("pushArray: "+pushArray); print("ret: "+ret);
+      print("pushArray: "+pushArray);
       if(ret&&pushArray.length<=maxCount){
+        pushArray = sortArr(pushArray, pullDir);
         /*
         var i=0; var j=0;
         while(j<=72 && pushArray.length>0){
