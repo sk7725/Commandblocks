@@ -19,22 +19,34 @@ const tppad = extendContent(Block, "tppad", {
     return !player.isDead() && tile.interactable(player.getTeam()) && Math.abs(player.x - tile.drawx()) <= tile.block().size * Vars.tilesize && Math.abs(player.y - tile.drawy()) <= tile.block().size * Vars.tilesize && tile.ent().cons.valid();
   },
   tpPlayer(tile, player){
-    var arr = tile.ent().power.links.toArray();//list of pos
-    print(arr);
-    arr = arr.filter(pos => Vars.world.tile(pos).block().name == "commandblocks-tppad");
-    arr.push(tile.pos());
-    arr.sort(function(a, b) {
+    var str = tile.ent().power.graph.toString();//What the OHNO Anuke
+    str = str.substring(str.indexOf("consumers={")+11,str.indexOf("batteries")-3);
+    //print(">"+str+"<");
+    var arr = str.split(", ");
+    //print(arr);
+    var tiles = [];
+    for(var i=0;i<arr.length;i++){
+      var single = arr[i].split(":");
+      //names.push(single[1]);
+      var spos = single[2].substring(single[2].indexOf("[")+1, single[2].indexOf("]")).split(",");
+      tiles.push(Vars.world.tile(spos[0], spos[1]));
+    }
+    //print(tiles);
+    tiles = tiles.filter(t => t.block().name == "commandblocks-tppad");
+    //arr.push(tile.pos());
+    tiles.sort(function(a, b) {
       return a - b;
     });
-    var index = arr.indexOf(tile.pos());
+    print(tiles);
+    var index = tiles.indexOf(tile);
     if(index < 0){
       print("Err: parent pad not in link!");
-      print(arr);
+      print(tiles);
       return;
     }
     index++;
-    if(index >= arr.length) index = 0;
-    var etile = Vars.world.tile(arr[index]);
+    if(index >= tiles.length) index = 0;
+    var etile = tiles[index];
     player.set(etile.drawx(), etile.drawy());
     if(player == Vars.player) Core.camera.position.set(player);
     Effects.effect(Fx.teleportActivate, Pal.lancerLaser, etile.drawx(), etile.drawy());
