@@ -17,8 +17,7 @@ research: boostpad
 consumesTap: true
 solid: false
 
-range: 1400
-timers: 5
 layer: power
 hasItems: false
 consumesTap: true
+buildVisibility: debugOnly
