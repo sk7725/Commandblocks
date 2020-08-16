@@ -44,8 +44,17 @@ const tppad = extendContent(Block, "tppad", {
     Draw.alpha(Mathf.sin(Time.time()*0.05)*0.5+0.5);
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
   },
+  drawSelect(tile){
+    Draw.color(Pal.accent);
+    for(var i = 0; i < 4; i++){
+      var length = Vars.tilesize * this.size / 2 + 3 + Mathf.absin(Time.time(), 5, 2);
+      Draw.rect(this.arrowRegion, tile.drawx() + Geometry.d4[i].x * length, tile.drawy() + Geometry.d4[i].y * length, (i + 2) * 90);
+    }
+    Draw.color();
+  },
   load(){
     this.super$load();
     this.topRegion = Core.atlas.find(this.name + "-top");
+    this.arrowRegion = Core.atlas.find("transfer-arrow");
   }
 }
