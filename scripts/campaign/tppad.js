@@ -57,4 +57,4 @@ const tppad = extendContent(Block, "tppad", {
     this.topRegion = Core.atlas.find(this.name + "-top");
     this.arrowRegion = Core.atlas.find("transfer-arrow");
   }
-}
+});
