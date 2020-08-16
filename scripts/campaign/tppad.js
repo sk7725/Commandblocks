@@ -11,7 +11,7 @@ const tppad = extendContent(Block, "tppad", {
   },
   configured(tile, player, value){
     if(value != 1) return;
-    if(player == null || tile == null || tile.block()!=this || !checkValidTap(tile, player)) return;
+    if(player == null || tile == null || tile.block()!=this || !this.checkValidTap(tile, player)) return;
     if(!tile.ent().cons.valid()) return;
     this.tpPlayer(tile, player);
   },
