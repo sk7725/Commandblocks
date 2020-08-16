@@ -46,10 +46,13 @@ const tppad = extendContent(Block, "tppad", {
   },
   drawSelect(tile){
     Draw.color(Pal.accent);
-    for(var i = 0; i < 4; i++){
-      var length = Vars.tilesize * this.size / 2 + 3 + Mathf.absin(Time.time(), 5, 2);
-      Draw.rect(this.arrowRegion, tile.drawx() + Geometry.d4[i].x * length, tile.drawy() + Geometry.d4[i].y * length, (i + 2) * 90);
-    }
+    var length = Vars.tilesize * this.size / 2 + 3 + Mathf.absin(Time.time(), 5, 2);
+
+    Draw.rect(this.arrowRegion, tile.drawx() + length, tile.drawy(), (i + 2) * 90);
+    Draw.rect(this.arrowRegion, tile.drawx(), tile.drawy() + length, (i + 2) * 90);
+    Draw.rect(this.arrowRegion, tile.drawx() + -1 * length, tile.drawy(), (i + 2) * 90);
+    Draw.rect(this.arrowRegion, tile.drawx(), tile.drawy() + -1 * length, (i + 2) * 90);
+
     Draw.color();
   },
   load(){
