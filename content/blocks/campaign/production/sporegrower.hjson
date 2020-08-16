@@ -5,7 +5,7 @@ size: 3
 health: 80
 hasPower: true
 hasItems: true
-craftTime: 64800
+craftTime: 44800
 
 consumes: {
   power: 1
