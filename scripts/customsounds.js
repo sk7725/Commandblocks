@@ -47,3 +47,4 @@ loadsound("spearappear");
 loadsound("boing");
 loadsound("sparklebg");
 loadsound("tree");
+loadsound("teleport");

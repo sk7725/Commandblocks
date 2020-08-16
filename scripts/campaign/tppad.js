@@ -1,3 +1,4 @@
+const newSounds = this.global.newSounds;
 
 const tppad = extendContent(Block, "tppad", {
   tapped(tile, player){
@@ -36,6 +37,8 @@ const tppad = extendContent(Block, "tppad", {
     if(player == Vars.player) Core.camera.position.set(player);
     Effects.effect(Fx.teleportActivate, Pal.lancerLaser, etile.drawx(), etile.drawy());
     Effects.effect(Fx.teleportOut, Pal.lancerLaser, tile.drawx(), tile.drawy());
+    newSounds.teleport.at(tile.drawx(), tile.drawy());
+    newSounds.teleport.at(etile.drawx(), etile.drawy());
   },
   draw(tile){
     this.super$draw(tile);
