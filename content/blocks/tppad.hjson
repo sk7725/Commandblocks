@@ -17,7 +17,6 @@ research: boostpad
 consumesTap: true
 solid: false
 
-layer: power
 hasItems: false
 consumesTap: true
-buildVisibility: debugOnly
+//buildVisibility: debugOnly
