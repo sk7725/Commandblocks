@@ -18,5 +18,6 @@ consumesTap: true
 solid: false
 
 hasItems: false
+hasPower: true
 consumesTap: true
 //buildVisibility: debugOnly

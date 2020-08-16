@@ -29,7 +29,7 @@ require("campaign/treegrower");
 require("campaign/loader");
 require("campaign/enderchest");
 require("campaign/enderbox");
-//require("campaign/tppad");
+require("campaign/tppad");
 
 //SERVER
 require("msgprotected");
