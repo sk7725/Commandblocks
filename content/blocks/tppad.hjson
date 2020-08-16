@@ -8,6 +8,7 @@ requirements: [
   titanium/50
   silicon/120
   ref-vector/40
+  ref-zeta/5
 ]
 consumes: {
   power: 6
