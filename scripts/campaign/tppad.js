@@ -37,7 +37,7 @@ const tppad = extendContent(Block, "tppad", {
     tiles.sort(function(a, b) {
       return a - b;
     });
-    print(tiles);
+    //print(tiles);
     var index = tiles.indexOf(tile);
     if(index < 0){
       print("Err: parent pad not in link!");
