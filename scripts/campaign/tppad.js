@@ -20,8 +20,9 @@ const tppad = extendContent(Block, "tppad", {
   },
   tpPlayer(tile, player){
     var arr = tile.ent().power.links.toArray();//list of pos
-    arr.push(tile.pos());
+
     arr = arr.filter(pos => Vars.world.tile(pos).block().name == "commandblocks-tppad");
+    arr.push(tile.pos());
     arr.sort(function(a, b) {
       return a - b;
     });
