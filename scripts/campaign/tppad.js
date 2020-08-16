@@ -19,7 +19,7 @@ const tppad = extendContent(Block, "tppad", {
     return !player.isDead() && tile.interactable(player.getTeam()) && Math.abs(player.x - tile.drawx()) <= tile.block().size * Vars.tilesize && Math.abs(player.y - tile.drawy()) <= tile.block().size * Vars.tilesize && tile.ent().cons.valid();
   },
   tpPlayer(tile, player){
-    var arr = stile.ent().power.links.toArray();//list of pos
+    var arr = tile.ent().power.links.toArray();//list of pos
     arr = arr.filter(pos => Vars.world.tile(pos).block().name == "commandblocks-tppad");
     arr.sort(function(a, b) {
       return a - b;
