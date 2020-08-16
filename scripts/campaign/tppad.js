@@ -19,7 +19,6 @@ const tppad = extendContent(Block, "tppad", {
     return !player.isDead() && tile.interactable(player.getTeam()) && Math.abs(player.x - tile.drawx()) <= tile.block().size * Vars.tilesize && Math.abs(player.y - tile.drawy()) <= tile.block().size * Vars.tilesize && tile.ent().cons.valid();
   },
   tpPlayer(tile, player){
-<<<<<<< HEAD
     var str = tile.ent().power.graph.toString();//What the OHNO Anuke
     str = str.substring(str.indexOf("consumers={")+11,str.indexOf("batteries")-3);
     //print(">"+str+"<");
@@ -36,15 +35,6 @@ const tppad = extendContent(Block, "tppad", {
     tiles = tiles.filter(t => t.block().name == "commandblocks-tppad");
     //arr.push(tile.pos());
     tiles.sort(function(a, b) {
-=======
-    var tmparr = tile.ent().power.links.toArray();//list of pos
-    var arr = [];
-    for(var i=0;i<tmparr.length;i++) arr.push(tmparr[i]);
-    print(arr);
-    arr = arr.filter(pos => Vars.world.tile(pos).block().name == "commandblocks-tppad");
-    arr.push(tile.pos());
-    arr.sort(function(a, b) {
->>>>>>> a772c13de0f9e62792f079b4a7ca0fcb15cc3096
       return a - b;
     });
     print(tiles);
