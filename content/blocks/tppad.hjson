@@ -7,8 +7,7 @@ category: effect
 requirements: [
   titanium/50
   silicon/120
-  ref-vector/50
-  ref-zeta/20
+  ref-vector/40
 ]
 consumes: {
   power: 6
