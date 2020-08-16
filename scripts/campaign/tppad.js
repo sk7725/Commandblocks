@@ -35,7 +35,7 @@ const tppad = extendContent(Block, "tppad", {
     tiles = tiles.filter(t => t.block().name == "commandblocks-tppad");
     //arr.push(tile.pos());
     tiles.sort(function(a, b) {
-      return a - b;
+      return a.pos() - b.pos();
     });
     //print(tiles);
     var index = tiles.indexOf(tile);
