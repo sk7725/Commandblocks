@@ -20,6 +20,7 @@ const tppad = extendContent(Block, "tppad", {
   },
   tpPlayer(tile, player){
     var arr = tile.ent().power.links.toArray();//list of pos
+    arr.push(tile.pos());
     arr = arr.filter(pos => Vars.world.tile(pos).block().name == "commandblocks-tppad");
     arr.sort(function(a, b) {
       return a - b;
@@ -46,6 +47,7 @@ const tppad = extendContent(Block, "tppad", {
     Draw.color(Pal.lancerLaser, Color.white, Mathf.sin(Time.time()*0.01));
     Draw.alpha(Mathf.sin(Time.time()*0.05)*0.5+0.5);
     Draw.rect(this.topRegion, tile.drawx(), tile.drawy());
+    Draw.color();
   },
   drawSelect(tile){
     Draw.color(Pal.accent);
