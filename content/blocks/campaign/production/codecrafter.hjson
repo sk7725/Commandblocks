@@ -1,6 +1,6 @@
 //type: GenericCrafter
 itemCapacity: 48
-liquidCapacity: 120
+liquidCapacity: 180
 outputItem: s-code/1
 
 size: 3
