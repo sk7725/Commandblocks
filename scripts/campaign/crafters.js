@@ -1,3 +1,5 @@
+const newSounds = this.global.newSounds;
+
 if (typeof(floatc2)== "undefined"){
   const floatc2 = method => new Floatc2(){get : method};
 }
@@ -190,4 +192,11 @@ coffeed.color=Color.valueOf("80623c");
 coffeed.effect=Fx.steam;
 
 const cmachine = extendContent(Fracker, "cmachine", {
+  tapped(tile, player){
+    if(tile.ent().liquid.get(this.result) >= this.liquidCapacity - 0.01){
+      player.applyEffect(coffeed, 18000);
+      newSounds.drink.at(player.getX(), player.getY());
+      Effects.effect(Fx.bubble, coffeed.color, tile.drawx(), tile.drawy(), 0);
+    }
+  }
 });
