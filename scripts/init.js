@@ -96,9 +96,9 @@ function loadSingleEffect(eff, intensity, hidep){
 }
 
 function loadEffects(eff){
-  for(var i=0; i<10; i++){
+  for(var i=0; i<1; i++){
     loadSingleEffect(eff, i, false);
-    loadSingleEffect(eff, i, true);
+    //loadSingleEffect(eff, i, true);
   }
 }
 
