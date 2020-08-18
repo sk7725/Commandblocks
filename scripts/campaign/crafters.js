@@ -198,5 +198,12 @@ const cmachine = extendContent(Fracker, "cmachine", {
       newSounds.drink.at(player.getX(), player.getY());
       Effects.effect(Fx.bubble, coffeed.color, tile.drawx(), tile.drawy(), 0);
     }
+  },
+  init(){
+    this.super$init();
+    try{
+      this.result.effect = coffeed;
+    }
+    catch(err){print(err);}
   }
 });
