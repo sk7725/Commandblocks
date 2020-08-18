@@ -186,7 +186,7 @@ const coffeed = extendContent(StatusEffect,"coffeed",{
     unit.getTimer().reset(unit.getShootTimer(true), unit.getTimer().getTime(unit.getShootTimer(true)) + 1);
   }
 });
-coffeed.color=Color.valueOf("");
+coffeed.color=Color.valueOf("80623c");
 coffeed.effect=Fx.steam;
 
 const cmachine = extendContent(Fracker, "cmachine", {
