@@ -193,7 +193,7 @@ coffeed.effect=Fx.steam;
 
 const cmachine = extendContent(Fracker, "cmachine", {
   tapped(tile, player){
-    if(tile.ent().liquid.get(this.result) >= this.liquidCapacity - 0.01){
+    if(tile.ent().liquids.get(this.result) >= this.liquidCapacity - 0.01){
       player.applyEffect(coffeed, 18000);
       newSounds.drink.at(player.getX(), player.getY());
       Effects.effect(Fx.bubble, coffeed.color, tile.drawx(), tile.drawy(), 0);
