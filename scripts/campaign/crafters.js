@@ -177,5 +177,17 @@ const disassembler = extendContent(Separator, "disassembler", {
   }
 });
 
+const coffeed = extendContent(StatusEffect,"coffeed",{
+  update(unit, time){
+    this.super$update(unit, time);
+    if(unit instanceof Player) unit.updateBuilding();
+    if((unit instanceof Player)&&!unit.isShooting) return;
+    unit.getTimer().reset(unit.getShootTimer(false), unit.getTimer().getTime(unit.getShootTimer(false)) + 1);
+    unit.getTimer().reset(unit.getShootTimer(true), unit.getTimer().getTime(unit.getShootTimer(true)) + 1);
+  }
+});
+coffeed.color=Color.valueOf("");
+coffeed.effect=Fx.steam;
+
 const cmachine = extendContent(Fracker, "cmachine", {
 });
