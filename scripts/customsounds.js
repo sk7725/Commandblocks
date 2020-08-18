@@ -48,3 +48,4 @@ loadsound("boing");
 loadsound("sparklebg");
 loadsound("tree");
 loadsound("teleport");
+loadsound("drink");
