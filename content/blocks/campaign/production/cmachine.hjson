@@ -9,6 +9,8 @@ pumpAmount: 0.5
 updateEffect: pulverize
 updateEffectChance: 0.08
 
+consumesTap: true
+
 consumes: {
   power: 3
   items: {
