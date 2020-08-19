@@ -47,12 +47,12 @@ const tppad = extendContent(Block, "tppad", {
     index++;
     if(index >= tiles.length) index = 0;
     var etile = tiles[index];
-    player.set(etile.drawx(), etile.drawy());
-    if(player == Vars.player) Core.camera.position.set(player);
+    player.set(etile.worldx(), etile.worldy());
+    if(Vars.player != null && player == Vars.player) Core.camera.position.set(player);
     Effects.effect(Fx.teleportActivate, Pal.lancerLaser, etile.drawx(), etile.drawy());
     Effects.effect(Fx.teleportOut, Pal.lancerLaser, tile.drawx(), tile.drawy());
-    newSounds.teleport.at(tile.drawx(), tile.drawy());
-    newSounds.teleport.at(etile.drawx(), etile.drawy());
+    newSounds.teleport.at(tile.worldx(), tile.worldy());
+    newSounds.teleport.at(etile.worldx(), etile.worldy());
   },
   draw(tile){
     this.super$draw(tile);

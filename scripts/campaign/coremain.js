@@ -124,9 +124,9 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
   },
   placed(tile){
     //show dialog
+    if(!Vars.net.client()) this.selectNextItem(tile, null);
     if(Vars.headless) return;
     Vars.ui.showOkText(Core.bundle.get("hardmode.name"), Core.bundle.get("hardmode.description"), run(()=>{}));
-    if(!Vars.net.client()) this.selectNextItem(tile, null);
   },
   removed(tile){
 		if(this.blockpos[tile.getTeamID()] == tile.pos()){
@@ -163,11 +163,8 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
   },
   newWave(tile, avoid){
     tile.ent().nullItem();//until it is synced
-    newSounds.boostsound.at(tile.drawx(), tile.drawy());
-    Effects.effect(customfx.coreMainPhase, tile.drawx(), tile.drawy());
-    Effects.shake(3, 3, tile.ent());
     if(!Vars.net.client()) this.selectNextItem(tile, avoid);
-    this.forceEnemyWave(tile.ent().getWave());
+    if(!Vars.net.client()) this.forceEnemyWave(tile.ent().getWave());
   },
   finishBuild(tile, team){
     Sounds.corexplode.at(tile.drawx(), tile.drawy());
@@ -221,6 +218,9 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
   },
   configured(tile, player, value){
     if(value <= 0) return;
+    newSounds.boostsound.at(tile.drawx(), tile.drawy());
+    Effects.effect(customfx.coreMainPhase, tile.drawx(), tile.drawy());
+    Effects.shake(3, 3, tile.ent());
     tile.ent().setItemID(value-1);
   },
 

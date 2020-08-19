@@ -41,3 +41,4 @@ category: crafting
 research: separator
 idleSound: machine
 idleSoundVolume: 0.05
+sync: true
