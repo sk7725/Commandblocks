@@ -46,6 +46,7 @@ const researchskill = extendContent(Block, "researchskill", {
     Events.on(EventType.WorldLoadEvent, run(event => {
 			researchskill.blockpos = {};
       t.global.skilltile = null;
+      if(Vars.net.client()) return;
       localSkill.skill = "";
       localSkill.lastused = 0;
 		}));
