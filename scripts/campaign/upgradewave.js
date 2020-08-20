@@ -138,7 +138,7 @@ eruptor2.health = 12800;
 eruptor2.speed = 0.15;
 eruptor2.maxVelocity = 0.8;
 eruptor2.targetAir = true;
-eruptor2.rotatespeed = 0.0005;
+eruptor2.rotatespeed = 0.0055;
 this.global.upgradeUnits.eruptor = eruptor2;
 
 const wraith2 = createUnit("wraith", "grenade", FlyingUnit);
