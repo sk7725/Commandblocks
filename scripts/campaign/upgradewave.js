@@ -126,7 +126,7 @@ fortress2.health = 6400;
 fortress2.speed = 0.17;
 fortress2.maxVelocity = 1.2;
 
-const fortress2 = createUnit("wraith", "grenade", FlyingUnit);
+const wraith2 = createUnit("wraith", "grenade", FlyingUnit);
 wraith2.weapon.shootSound = Sounds.artillery;
 wraith2.weapon.reload = 45;
 wraith2.health = 560;
