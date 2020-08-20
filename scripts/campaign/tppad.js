@@ -47,7 +47,7 @@ const tppad = extendContent(Block, "tppad", {
     index++;
     if(index >= tiles.length) index = 0;
     var etile = tiles[index];
-    player.set(etile.worldx(), etile.worldy());
+    if(!Vars.net.client()) player.set(etile.worldx(), etile.worldy());
     if(Vars.player != null && player == Vars.player) Core.camera.position.set(player);
     Effects.effect(Fx.teleportActivate, Pal.lancerLaser, etile.drawx(), etile.drawy());
     Effects.effect(Fx.teleportOut, Pal.lancerLaser, tile.drawx(), tile.drawy());

@@ -1340,7 +1340,7 @@ const skillfunc={
     Effects.effect(Fx.teleportOut,Color.valueOf("f4ba6e"),player.getX(), player.getY());
     var tx=((Time.time()*17%60)-30)*4;
     var ty=((Time.time()*233%60)-30)*4;
-    player.set(player.getX()+tx,player.getY()+ty);
+    if(!Vars.net.client()) player.set(player.getX()+tx,player.getY()+ty);
     if(player==Vars.player)  Core.camera.position.set(player);
     Sounds.windowHide.at(player.getX(),player.getY(),2+Math.random());
     Effects.effect(Fx.teleport,Color.valueOf("f4ba6e"),player.getX(), player.getY());

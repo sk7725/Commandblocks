@@ -102,8 +102,9 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
       if(this.blockcount[tile.getTeamID()] == null) this.blockcount[tile.getTeamID()] = 0;
       this.blockcount[tile.getTeamID()]++;
     }
-
-    this.tryDump(tile, null);
+    if(tile.entity.timer.get(this.timerDump, this.dumpTime)){
+      this.tryDump(tile, null);
+    }
 
     if(this.isPowered(tile) && newSounds.sparklebg != Sounds.none) Vars.loops.play(newSounds.sparklebg, Vec2(tile.drawx(), tile.drawy()), 0.5);
 	},

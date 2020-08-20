@@ -69,6 +69,9 @@ const explosivelarge = extendContent(Block, "explosivelarge", {
   load(){
     this.super$load();
     this.topRegion = Core.atlas.find(this.name + "-top");
+  },
+  init(){
+    this.super$init();
     this.tier = 11;
     this.minTier = 3;//this doesnt make it to setStats
   },

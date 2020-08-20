@@ -222,6 +222,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     Effects.effect(customfx.coreMainPhase, tile.drawx(), tile.drawy());
     Effects.shake(3, 3, tile.ent());
     tile.ent().setItemID(value-1);
+    tile.ent().setProg(0);
   },
 
   canBreak(tile){
