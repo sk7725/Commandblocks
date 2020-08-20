@@ -1,4 +1,5 @@
 const customb = this.global.bullets;
+const shader = this.globak.shaders.bittrium;
 
 function copyWeapon(orig, target){
   const blacklist = ["minPlayerDist", "sequenceNum", "name", "Weapon", "onPlayerShootWeapon", "onGenericShootWeapon", "shootDirect", "load", "update", "getRecoil", "shoot", "bullet"];
@@ -31,7 +32,7 @@ function copyUnitType(orig, target){
   return target;
 }
 
-function createUnit(name, cbullet){
+function createUnit(name, cbullet, type){
   const origtype = Vars.content.getByName(ContentType.unit, name);
   if(origtype == null){
     print("Err: "+name+" not found!");
@@ -62,16 +63,30 @@ function createUnit(name, cbullet){
     unittype.weapon.bullet = Bullets.waterShot;
   }
 
+  var unitmain = prov(()=>{
+    main = extend(type, {
+      draw(){
+        Draw.shader(shader);
+        this.super$draw();
+        Draw.shader();
+      }
+    });
+    return main;
+  });
+
+  unittype.create(unitmain);
+
   unittype.localizedName = Core.bundle.format("unit.level2", origtype.localizedName);
   unittype.description = Core.bundle.get("unit."+name+".level2");
   return unittype;
 }
 
 
-const dagger2 = createUnit("dagger", "arc");
+const dagger2 = createUnit("dagger", "lightning", GroundUnit);
+dagger2.weapon.shootSound = Sounds.spark;
 dagger2.health = 300;
 
-const fortress2 = createUnit("fortress", "lancerLaser");
+const fortress2 = createUnit("fortress", "lancerLaser", GroundUnit);
 fortress2.health = 1200;
 fortress2.speed = 0.17;
 fortress2.maxVelocity = 1.2;
