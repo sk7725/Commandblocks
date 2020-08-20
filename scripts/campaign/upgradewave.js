@@ -1,5 +1,5 @@
 const customb = this.global.bullets;
-const shader = this.globak.shaders.bittrium;
+const shader = this.global.shaders.bittrium;
 
 function copyWeapon(orig, target){
   const blacklist = ["minPlayerDist", "sequenceNum", "name", "Weapon", "onPlayerShootWeapon", "onGenericShootWeapon", "shootDirect", "load", "update", "getRecoil", "shoot", "bullet"];
