@@ -130,10 +130,10 @@ fortress2.speed = 0.17;
 fortress2.maxVelocity = 1.2;
 this.global.upgradeUnits.fortress = fortress2;
 
-const eruptor2 = createUnit("eruptor", "meltdownLaser", GroundUnit);
-eruptor2.weapon.shootSound = Sounds.laserbig;
-eruptor2.weapon.reload = 1;
-eruptor2.weapon.alternate = false;
+const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit);
+eruptor2.weapon.shootSound = Sounds.flame;
+eruptor2.weapon.reload = 3;
+eruptor2.weapon.alternate = true;
 eruptor2.health = 12800;
 eruptor2.speed = 0.15;
 eruptor2.maxVelocity = 0.8;
