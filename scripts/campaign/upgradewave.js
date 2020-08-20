@@ -105,6 +105,7 @@ function createUnit(name, cbullet, type){
 
   unittype.create(unitmain);
 
+  if(Vars.headless) return unittype;
   unittype.localizedName = Core.bundle.format("unit.level2", origtype.localizedName);
   unittype.description = Core.bundle.get("unit."+name+".level2");
   return unittype;
