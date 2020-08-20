@@ -37,7 +37,7 @@ function createUnit(name, cbullet){
     print("Err: "+name+" not found!");
     return;
   }
-  const unittype = extendContent(UnitType, name+"-2", {
+  var unittype = extendContent(UnitType, name+"-2", {
     load(){
       //this.super$load();
       this.weapon.load();
@@ -63,10 +63,15 @@ function createUnit(name, cbullet){
   }
 
   unittype.localizedName = Core.bundle.format("unit.level2", origtype.localizedName);
-  unittype.description = Core.bundle.get("unit."+name+"level2");
+  unittype.description = Core.bundle.get("unit."+name+".level2");
   return unittype;
 }
 
 
 const dagger2 = createUnit("dagger", "arc");
 dagger2.health = 300;
+
+const fortress2 = createUnit("fortress", "lancerLaser");
+fortress2.health = 1200;
+fortress2.speed = 0.17;
+fortress2.maxVelocity = 1.2;
