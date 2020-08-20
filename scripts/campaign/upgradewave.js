@@ -60,7 +60,7 @@ function createUnit(name, cbullet, type){
       table.row();
 
       if(this.description != null){
-        table.add(this.displayDescription()).padLeft(5).padRight(5).width(400f).wrap().fillX();
+        table.add(this.displayDescription()).padLeft(5).padRight(5).width(400).wrap().fillX();
         table.row();
 
         table.addImage().height(3).color(Color.lightGray).pad(15).padLeft(0).padRight(0).fillX();
