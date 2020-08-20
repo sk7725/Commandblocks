@@ -18,7 +18,7 @@ function copyWeapon(orig, target){
 }
 
 function copyUnitType(orig, target){
-  const blacklist = ["UnitType", "weapon", "create", "displayInfo", "load", "getContentType", "name", "localizedName", "description", "constructor", "typeID"];
+  const blacklist = ["UnitType", "weapon", "create", "displayInfo", "load", "getContentType", "name", "localizedName", "description", "constructor", "typeID", "id"];
   blacklist = blacklist.concat(Object.keys(UnlockableContent));
   var arr = Object.keys(orig);
   for(var i=0; i<arr.length; i++){
@@ -115,8 +115,8 @@ const dagger2 = createUnit("dagger", "lightning", GroundUnit);
 dagger2.weapon.shootSound = Sounds.spark;
 dagger2.health = 700;
 
-const titan2 = createUnit("titan", "spear", GroundUnit);
-titan2.weapon.shootSound = Sounds.none;
+const titan2 = createUnit("titan", "artilleryHoming", GroundUnit);
+titan2.weapon.shootSound = Sounds.artillery;
 titan2.health = 2000;
 
 const fortress2 = createUnit("fortress", "lancerLaser", GroundUnit);
