@@ -335,10 +335,10 @@ this.global.fx = {
     Lines.circle(e.x, e.y, e.finpow()*5);
   }),
   chargeShine : newEffect(20, e => {
-    Draw.color(Pal.lancerLaser, Color.white.cpy().a(0), 1-e.fout()*2);
+    Draw.color(Pal.accent, Color.white.cpy().a(0), 1-e.fout()*2);
     Lines.stroke(e.fout());
-    Angles.randLenVectors(e.id, 1, 30*e.fout(), floatc2((x,y) => {
-      drawSpark(e.x+x, e.y+y, e.finpow()*6, e.finpow()*5, 0);
+    Angles.randLenVectors(e.id, 2+e.id%2, 30*e.fout(), floatc2((x,y) => {
+      drawSpark(e.x+x, e.y+y, e.finpow()*5, e.finpow()*6, 0);
       Lines.circle(e.x, e.y, e.finpow()*5);
     }));
   })
