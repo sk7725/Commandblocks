@@ -935,8 +935,8 @@ const spawnZone = extend(BasicBulletType,{
   init(b){
     if(b == null) return;
     Effects.effect(spawnStart, b.x, b.y);
-    Sounds.wave.at(b.x, b.y, 0.7);
-    Sounds.wave.at(b.x, b.y, 0.5);
+    Sounds.flame.at(b.x, b.y, 0.7);
+    Sounds.flame.at(b.x, b.y, 0.3);
   }
 });
 spawnZone.speed = 0;
