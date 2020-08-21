@@ -212,7 +212,7 @@ this.global.upgradeUnits.fortress = fortress2;
 const charging = extendContent(StatusEffect,"charging",{});
 charging.color = Pal.accent;
 charging.effect = customfx.chargeShine;
-charging.speedMultiplier = 0.01;
+charging.speedMultiplier = 0.05;
 
 const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit, {
   behavior(){
