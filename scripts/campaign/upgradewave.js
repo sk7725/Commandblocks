@@ -93,7 +93,7 @@ function createUnit(name, cbullet, type, obj){
     loadIcons(){
       print("Create Icon: "+"unit-" + this.name);
       // Code below by DeltaNedas, modified by sk7725.
-      this.super$createIcons(packer);
+      //this.super$createIcons(packer);
 
       // Get the unit mask.
       var mask = Core.atlas.getPixmap(origtype.icon(Cicon.full));
