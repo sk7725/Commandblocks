@@ -49,6 +49,7 @@ function createUnit(name, cbullet, type, obj){
       this.region = Core.atlas.find(name);
       this.baseRegion = Core.atlas.find(name + "-base");
       this.legRegion = Core.atlas.find(name + "-leg");
+      this.loadIcons();
     },
     displayInfo(table){
       table.table(cons(title => {
@@ -78,8 +79,19 @@ function createUnit(name, cbullet, type, obj){
       table.row();
       table.row();
     },
-    createIcons(packer){
-      pront("Create Icon: "+"unit-" + this.name);
+    setTexture(pixmap, pname){
+      this.pixmap = pixmap;
+      const texture = new Texture(new PixmapTextureData1(pixmap, null, true, false, true));
+      const item = this;
+      Core.app.post(run(() => {
+        item.iconRegion = Core.atlas.addRegion(pname, new TextureRegion(texture));
+      }));
+    },
+    getTexture(){
+      return this.pixmap;
+    },
+    loadIcons(){
+      print("Create Icon: "+"unit-" + this.name);
       // Code below by DeltaNedas, modified by sk7725.
       this.super$createIcons(packer);
 
@@ -104,7 +116,11 @@ function createUnit(name, cbullet, type, obj){
         }
       }
       // Add it to the atlas
-      packer.add(MultiPacker.PageType.main, "unit-" + this.name, newTexture);
+      //packer.add(MultiPacker.PageType.main, "unit-" + this.name, newTexture);
+      this.setTexture(newTexture, "unit-" + this.name);
+    },
+    icon(icon){
+      return this.iconRegion;
     }
   });
   unittype = copyUnitType(origtype, unittype);
@@ -128,6 +144,11 @@ function createUnit(name, cbullet, type, obj){
       Draw.shader(shader);
       this.super$draw();
       Draw.shader();
+    };
+  }
+  if((typeof obj.drawShadow) != "function"){
+      obj.drawShadow = function(offsetX, offsetY){
+      Draw.rect(origtype.icon(Cicon.full), this.x + offsetX, this.y + offsetY, this.rotation - 90);
     };
   }
   var unitmain = prov(()=>{
