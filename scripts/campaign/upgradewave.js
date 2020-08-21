@@ -222,7 +222,7 @@ const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit, {
           Time.run(i*7+10, run(()=>{
             var u = UnitTypes.eruptor.create(this.getTeam());
             var v1 = Vec2(75, 0).setAngle(Mathf.random()*360);
-            if(ars.world.tileWorld(this.x+v1.x, this.y+v1.y) == null || Vars.world.tileWorld(this.x+v1.x, this.y+v1.y).solid()) u.set(this.x, this.y);
+            if(Vars.world.tileWorld(this.x+v1.x, this.y+v1.y) == null || Vars.world.tileWorld(this.x+v1.x, this.y+v1.y).solid()) u.set(this.x, this.y);
             else u.set(this.x+v1.x, this.y+v1.y);
             u.add();
           }));
