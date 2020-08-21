@@ -2,6 +2,9 @@ const customb = this.global.bullets;
 const newSounds = this.global.newSounds;
 const shader = this.global.shaders.bittunit;
 
+const bitcolor1=Color.valueOf("00e5ff");
+const bitcolor2=Color.valueOf("ff65db");
+
 function copyWeapon(orig, target){
   const blacklist = ["minPlayerDist", "sequenceNum", "name", "Weapon", "onPlayerShootWeapon", "onGenericShootWeapon", "shootDirect", "load", "update", "getRecoil", "shoot", "bullet"];
   var arr = Object.keys(orig);
@@ -18,7 +21,7 @@ function copyWeapon(orig, target){
 }
 
 function copyUnitType(orig, target){
-  const blacklist = ["UnitType", "weapon", "create", "displayInfo", "load", "getContentType", "name", "localizedName", "description", "constructor", "typeID", "id"];
+  const blacklist = ["UnitType", "weapon", "create", "displayInfo", "load", "getContentType", "name", "localizedName", "description", "constructor", "typeID", "id", "icon", "createIcons"];
   blacklist = blacklist.concat(Object.keys(UnlockableContent));
   var arr = Object.keys(orig);
   for(var i=0; i<arr.length; i++){
@@ -80,6 +83,33 @@ function createUnit(name, cbullet, type, obj){
   unittype.weapon = extendContent(Weapon, name+"-2-equip", {
     load(){
       this.region = Core.atlas.find(origtype.weapon.name + "-equip", Core.atlas.find(origtype.weapon.name, Core.atlas.find("clear")));
+    },
+    createIcons(packer){
+      // Code below by DeltaNedas, modified by sk7725.
+      this.super$createIcons(packer);
+
+      // Get the unit mask.
+      var mask = Core.atlas.getPixmap(origtype.icon(Cicon.full));
+      var w = mask.getWidth();
+      var h = mask.getHeight();
+
+      // Colour the mask, pixel by pixel
+      var newTexture = new Pixmap(w, h);
+      var pixel = new Color(), x, y;
+      var color = new Color();
+      for(x = 0; x < w; x++){
+        for(y = 0; y < h; y++){
+          pixel.set(mask.getPixel(x, y));
+          if(pixel.a > 0 && !(Mathf.equal(pixel.r, pixel.b, 0.01) && Mathf.equal(pixel.g, pixel.b, 0.01) && Mathf.equal(pixel.r, pixel.g, 0.01))){
+            color.set(bitcolor1).lerp(bitcolor2, Mathf.sin(x*0.1 + y*0.1));
+            pixel.grays(pixel.g*1.5);
+            pixel.lerp(color, 0.8);
+            newTexture.draw(x, y, pixel);
+          }
+        }
+      }
+      // Add it to the atlas
+      packer.add(MultiPacker.PageType.main, "unit-" + this.name, newTexture);
     }
   });
 
