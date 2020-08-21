@@ -111,10 +111,12 @@ function createUnit(name, cbullet, type, obj){
       for(x = 0; x < w; x++){
         for(y = 0; y < h; y++){
           pixel.set(mask.getPixel(x, y));
-          if(pixel.a > 0 && !(Mathf.equal(pixel.r, pixel.b, 0.1) && Mathf.equal(pixel.g, pixel.b, 0.1) && Mathf.equal(pixel.r, pixel.g, 0.1))){
-            color.set(bitcolor1).lerp(bitcolor2, Mathf.sin(x*0.1 + y*0.1));
-            pixel.grays(pixel.g*1.3);
-            pixel.lerp(color, 0.7);
+          if(pixel.a > 0){
+            if(!(Mathf.equal(pixel.r, pixel.b, 0.1) && Mathf.equal(pixel.g, pixel.b, 0.1) && Mathf.equal(pixel.r, pixel.g, 0.1))){
+              color.set(bitcolor1).lerp(bitcolor2, Mathf.sin(x*0.1 + y*0.1));
+              pixel.grays(pixel.g*1.3);
+              pixel.lerp(color, 0.7);
+            }
             newTexture.draw(x, y, pixel);
           }
         }
