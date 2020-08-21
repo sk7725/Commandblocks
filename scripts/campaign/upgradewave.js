@@ -113,7 +113,7 @@ function createUnit(name, cbullet, type, obj){
           pixel.set(mask.getPixel(x, y));
           if(pixel.a > 0){
             if(!(Mathf.equal(pixel.r, pixel.b, 0.1) && Mathf.equal(pixel.g, pixel.b, 0.1) && Mathf.equal(pixel.r, pixel.g, 0.1))){
-              color.set(bitcolor1).lerp(bitcolor2, Mathf.sin(x*0.1 + y*0.1));
+              color.set(bitcolor1).lerp(bitcolor2, Mathf.sin(x*0.2 + y*0.1));
               pixel.grays(pixel.g*1.3);
               pixel.lerp(color, 0.7);
             }
@@ -182,7 +182,25 @@ titan2.weapon.shootSound = Sounds.artillery;
 titan2.health = 2000;
 this.global.upgradeUnits.titan = titan2;
 
-const fortress2 = createUnit("fortress", "lancerLaser", GroundUnit, {});
+const fortress2 = createUnit("fortress", "lancerLaser", GroundUnit, {
+  behavior(){
+    if(!Units.invalidateTarget(this.target, this)){
+      if(this.dst(target) < this.getWeapon().bullet.range()){
+
+        this.rotate(this.angleTo(target));
+
+        if(Angles.near(this.angleTo(target), this.rotation, 13)){
+          this.velocity().set(0, 0);
+          var ammo = this.getWeapon().bullet;
+
+          var to = Predict.intercept(this, this.target, ammo.speed);
+
+          this.getWeapon().update(this, to.x, to.y);
+        }
+      }
+    }
+  }
+});
 fortress2.weapon.shootSound = Sounds.laser;
 fortress2.weapon.reload = 15;
 fortress2.health = 6400;

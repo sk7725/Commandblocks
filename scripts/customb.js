@@ -7,49 +7,49 @@ const gravsuck = newEffect(20, e => {
   Lines.square(e.x, e.y, 1 + e.fout() * 80);
 });
 const gravstart = newEffect(45, e => {
-	if(Time.time()%3<2) return;
+  if(Time.time()%3<2) return;
   Draw.color(zetacolor);
   Lines.stroke(7*e.fout()+0.001);
-	//var sx=e.x+(e.data.x)*e.fout(); var sy=e.y+(e.data.y)*e.fout();
+  //var sx=e.x+(e.data.x)*e.fout(); var sy=e.y+(e.data.y)*e.fout();
   Lines.square(e.x, e.y, (e.fin()>0.68)?(e.fin()-0.68)*500+5:5 ,(e.fout()*350)%360);
 });
 const gravityTrap = extend(BasicBulletType,{
-	target:[],
-	draw(b){
+  target:[],
+  draw(b){
 
-	},
-	hit(b,x,y){},
-	despawned(b){
-		delete this.target[b.id];
-	},
-	update(b){
-		//if(b.time()<45) return;
+  },
+  hit(b,x,y){},
+  despawned(b){
+    delete this.target[b.id];
+  },
+  update(b){
+    //if(b.time()<45) return;
     if(!b.velocity().isZero(0.0001)) b.velocity(0,0);
-		if(Mathf.floorPositive(Time.time())%40==0){
-			Effects.effect(gravsuck,b.x,b.y);
-			Sounds.message.at(b.x,b.y,0.6);
-		}
-		var i=0;
-		if(this.target[b.id].length<=5){
-			Units.nearbyEnemies(b.getTeam(),b.x-80,b.y-80,160,160,cons(u=>{
-				if(i>=5||!u.isValid()) return;
-				var dst2=Mathf.dst2(u.x,u.y,b.x,b.y);
-				if(dst2<80*80&&this.target[b.id][u.id]==null){
-					this.target[b.id][u.id]=u;
-					i++;
-				}
-			}))
-		};
-		for(var i in this.target[b.id]){
-			if(this.target[b.id][i]!=null)	this.target[b.id][i].velocity().add((b.x-this.target[b.id][i].x)/3,(b.y-this.target[b.id][i].y)/3);
-		}
-	},
-	init(b){
-		if(b==null) return;
-		this.target[b.id]=[];
-		Effects.effect(gravstart,b.x,b.y);
-		Sounds.spray.at(b.x,b.y,0.9);
-	}
+    if(Mathf.floorPositive(Time.time())%40==0){
+      Effects.effect(gravsuck,b.x,b.y);
+      Sounds.message.at(b.x,b.y,0.6);
+    }
+    var i=0;
+    if(this.target[b.id].length<=5){
+      Units.nearbyEnemies(b.getTeam(),b.x-80,b.y-80,160,160,cons(u=>{
+        if(i>=5||!u.isValid()) return;
+        var dst2=Mathf.dst2(u.x,u.y,b.x,b.y);
+        if(dst2<80*80&&this.target[b.id][u.id]==null){
+          this.target[b.id][u.id]=u;
+          i++;
+        }
+      }))
+    };
+    for(var i in this.target[b.id]){
+      if(this.target[b.id][i]!=null)  this.target[b.id][i].velocity().add((b.x-this.target[b.id][i].x)/3,(b.y-this.target[b.id][i].y)/3);
+    }
+  },
+  init(b){
+    if(b==null) return;
+    this.target[b.id]=[];
+    Effects.effect(gravstart,b.x,b.y);
+    Sounds.spray.at(b.x,b.y,0.9);
+  }
 });
 gravityTrap.speed = 0;
 gravityTrap.lifetime = 260;
@@ -61,50 +61,50 @@ this.global.bullets.gravityTrap = gravityTrap;
 
 //Credits to EyeofDarkness
 const arcCharge = newEffect(27, e => {
-	Draw.color(Color.valueOf("606571"), Color.valueOf("6c8fc7"), e.fin());
-	const hh = new Floatc2({get: function(x, y){
-		//Fill.poly(e.x + x, e.y + y, 6, 2 + e.fin() * 11, e.rotation);
-		Fill.poly(e.x + x, e.y + y, 6, 1 + Mathf.sin(e.fin() * 3, 1, 2) * 5, e.rotation);
-	}});
+  Draw.color(Color.valueOf("606571"), Color.valueOf("6c8fc7"), e.fin());
+  const hh = new Floatc2({get: function(x, y){
+    //Fill.poly(e.x + x, e.y + y, 6, 2 + e.fin() * 11, e.rotation);
+    Fill.poly(e.x + x, e.y + y, 6, 1 + Mathf.sin(e.fin() * 3, 1, 2) * 5, e.rotation);
+  }});
 
-	Angles.randLenVectors(e.id, 2, e.fout() * 40.0, e.rotation, 135.0, hh);
+  Angles.randLenVectors(e.id, 2, e.fout() * 40.0, e.rotation, 135.0, hh);
 });
 const arcSmokeTwo = newEffect(15, e => {
-	const trnsB = new Vec2();
+  const trnsB = new Vec2();
 
-	Draw.color(Color.valueOf("6c8fc7"), Color.valueOf("606571"), e.fin());
-	trnsB.trns(e.rotation, e.fin() * (4.6 * 15));
-	Fill.poly(e.x + trnsB.x, e.y + trnsB.y, 6, e.fout() * 16, e.rotation);
+  Draw.color(Color.valueOf("6c8fc7"), Color.valueOf("606571"), e.fin());
+  trnsB.trns(e.rotation, e.fin() * (4.6 * 15));
+  Fill.poly(e.x + trnsB.x, e.y + trnsB.y, 6, e.fout() * 16, e.rotation);
 });
 const arcSmoke = newEffect(27, e => {
-	Draw.color(Color.valueOf("6c8fc7"), Color.valueOf("606571"), e.fin());
-	const hl = new Floatc2({get: function(x, y){
-		Fill.poly(e.x + x, e.y + y, 6, e.fout() * 9, e.rotation);
-	}});
-	Angles.randLenVectors(e.id, 3, e.finpow() * 20.0, e.rotation, 180.0, hl);
+  Draw.color(Color.valueOf("6c8fc7"), Color.valueOf("606571"), e.fin());
+  const hl = new Floatc2({get: function(x, y){
+    Fill.poly(e.x + x, e.y + y, 6, e.fout() * 9, e.rotation);
+  }});
+  Angles.randLenVectors(e.id, 3, e.finpow() * 20.0, e.rotation, 180.0, hl);
 });
 const arcCasterBullet = extend(BasicBulletType, {
-	update: function(b){
-		const trnsC = new Vec2();
-		const trnsD = new Vec2();
-		if(Mathf.chance(0.9)){
-			Effects.effect(arcSmoke, this.backColor, b.x + Mathf.range(2.0), b.y + Mathf.range(2.0), b.rot());
-		};
-		if(Mathf.chance(Time.delta() * 0.5)){
-			trnsC.trns(b.rot() + Mathf.range(2.0), 12);
-			Lightning.create(b.getTeam(), Color.valueOf("a9d8ff"), 29, b.x + trnsC.x + Mathf.range(12.0), b.y + trnsC.y + Mathf.range(12.0), b.rot() + Mathf.range(46.0), Mathf.random(4, 18));
-		};
-		if(Mathf.chance(Time.delta() * 0.2)){
-			trnsD.trns(b.rot() + Mathf.range(2.0), 12);
-			Lightning.create(b.getTeam(), Color.valueOf("8494b3"), 14, b.x + trnsD.x + Mathf.range(12.0), b.y + trnsD.y + Mathf.range(12.0), b.rot() + Mathf.range(180.0), Mathf.random(3, 12));
-		};
-		Effects.effect(arcSmokeTwo, this.backColor, b.x + Mathf.range(12.0), b.y + Mathf.range(12.0), b.rot() + Mathf.range(2.0));
-	},
-	draw: function(b){
-		Draw.color(Color.valueOf("6c8fc7"), Color.valueOf("606571"), b.fin());
-		Fill.poly(b.x, b.y, 6, 6 + b.fout() * 6.1, b.rot());
-		Draw.reset();
-	}
+  update: function(b){
+    const trnsC = new Vec2();
+    const trnsD = new Vec2();
+    if(Mathf.chance(0.9)){
+      Effects.effect(arcSmoke, this.backColor, b.x + Mathf.range(2.0), b.y + Mathf.range(2.0), b.rot());
+    };
+    if(Mathf.chance(Time.delta() * 0.5)){
+      trnsC.trns(b.rot() + Mathf.range(2.0), 12);
+      Lightning.create(b.getTeam(), Color.valueOf("a9d8ff"), 29, b.x + trnsC.x + Mathf.range(12.0), b.y + trnsC.y + Mathf.range(12.0), b.rot() + Mathf.range(46.0), Mathf.random(4, 18));
+    };
+    if(Mathf.chance(Time.delta() * 0.2)){
+      trnsD.trns(b.rot() + Mathf.range(2.0), 12);
+      Lightning.create(b.getTeam(), Color.valueOf("8494b3"), 14, b.x + trnsD.x + Mathf.range(12.0), b.y + trnsD.y + Mathf.range(12.0), b.rot() + Mathf.range(180.0), Mathf.random(3, 12));
+    };
+    Effects.effect(arcSmokeTwo, this.backColor, b.x + Mathf.range(12.0), b.y + Mathf.range(12.0), b.rot() + Mathf.range(2.0));
+  },
+  draw: function(b){
+    Draw.color(Color.valueOf("6c8fc7"), Color.valueOf("606571"), b.fin());
+    Fill.poly(b.x, b.y, 6, 6 + b.fout() * 6.1, b.rot());
+    Draw.reset();
+  }
 });
 arcCasterBullet.speed = 4.4;
 arcCasterBullet.damage = 4;
@@ -124,7 +124,7 @@ const forceSmall = extend(BasicBulletType,{
   radscl:[],
   hit:[],
   buildup:[],
-	draw(b){
+  draw(b){
     if(false && Core.settings.getBool("animatedshields") && Shaders.shield != null){
       Draw.shader(Shaders.shield);
       Draw.color(Pal.accent);
@@ -136,7 +136,7 @@ const forceSmall = extend(BasicBulletType,{
     else{
       this.drawSimple(b);
     }
-	},
+  },
   drawOver(b){
     if(this.hit[b.id] <= 0) return;
 
@@ -158,13 +158,13 @@ const forceSmall = extend(BasicBulletType,{
     Lines.poly(b.x, b.y, 6, rad);
     Draw.reset();
   },
-	hit(b,x,y){},
-	despawned(b){
-		delete this.radscl[b.id];
+  hit(b,x,y){},
+  despawned(b){
+    delete this.radscl[b.id];
     delete this.hit[b.id];
     delete this.buildup[b.id];
-	},
-	update(b){
+  },
+  update(b){
     try{
       var broken = (this.buildup[b.id] < 0);
       this.radscl[b.id] = Mathf.lerpDelta(this.radscl[b.id], (broken)?0:1, 0.05);
@@ -212,16 +212,16 @@ const forceSmall = extend(BasicBulletType,{
     catch(err){
       print(err);
     }
-	},
+  },
   realRadius(b){
     return this.radius * this.radscl[b.id];
   },
-	init(b){
+  init(b){
     if(b == null) return;
-		this.radscl[b.id] = 0;
+    this.radscl[b.id] = 0;
     this.hit[b.id] = 0;
     this.buildup[b.id] = 0;
-	}
+  }
 });
 forceSmall.speed = 0;
 forceSmall.lifetime = 3600;
@@ -248,20 +248,20 @@ function fillLight(x, y, sides, radius, center, edge){
 }
 
 const zoneStart = newEffect(15, e => {
-	fillLight(e.x, e.y, Lines.circleVertices(75), 75, Color.clear, Color.white.cpy().a(e.fout()));
+  fillLight(e.x, e.y, Lines.circleVertices(75), 75, Color.clear, Color.white.cpy().a(e.fout()));
 });
 const effectZone = extend(BasicBulletType,{
-	draw(b){
+  draw(b){
     if(b.getData() == null) return;
     Draw.color(b.getData().color);
     Lines.stroke(1);
     Lines.circle(b.x, b.y, Mathf.clamp((1-b.fin())*20)*75);
     fillLight(b.x, b.y, Lines.circleVertices(75), Mathf.clamp((1-b.fin())*20)*75, b.getData().color.cpy().a(0), b.getData().color.cpy().a(0.4+0.25*Mathf.sin(b.time()*0.02)));
     Draw.color();
-	},
-	hit(b,x,y){},
+  },
+  hit(b,x,y){},
   despawned(b){},
-	update(b){
+  update(b){
     if(b.getData() == null) return;
     Units.nearby(b.getTeam(), b.x, b.y, 75, cons(e=>{
       e.applyEffect(b.getData(), 2);
@@ -270,12 +270,12 @@ const effectZone = extend(BasicBulletType,{
       var v1=Vec2(75,0).setAngle(Mathf.random()*360);
       Effects.effect(b.getData().effect,b.x+v1.x,b.y+v1.y);
     }
-	},
-	init(b){
-		if(b == null) return;
+  },
+  init(b){
+    if(b == null) return;
     if(!(b.getData() instanceof StatusEffect)) b.setData(null);
     Effects.effect(zoneStart,b.x,b.y);
-	}
+  }
 });
 effectZone.speed = 0;
 effectZone.lifetime = 500;
@@ -288,19 +288,19 @@ this.global.bullets.effectZone = effectZone;
 const healFx = this.global.fx.healFx;
 const healSpread = this.global.fx.healSpread;
 const healStart = newEffect(15, e => {
-	fillLight(e.x, e.y, Lines.circleVertices(50), 50, Color.clear, Color.white.cpy().a(e.fout()));
+  fillLight(e.x, e.y, Lines.circleVertices(50), 50, Color.clear, Color.white.cpy().a(e.fout()));
 });
 const healZone = extend(BasicBulletType,{
-	draw(b){
+  draw(b){
     Draw.color(Pal.surge);
     Lines.stroke(1);
     Lines.circle(b.x, b.y, Mathf.clamp((1-b.fin())*20)*50);
     fillLight(b.x, b.y, Lines.circleVertices(50), Mathf.clamp((1-b.fin())*20)*50, Pal.surge.cpy().a(0), Pal.surge.cpy().a(0.4+0.25*Mathf.sin(b.time()*0.02)));
     Draw.color();
-	},
-	hit(b,x,y){},
+  },
+  hit(b,x,y){},
   despawned(b){},
-	update(b){
+  update(b){
     Units.nearby(b.getTeam(), b.x, b.y, 50, cons(e=>{
       e.health(Math.min(e.health()+0.5, e.maxHealth()));
       if(Mathf.chance(0.3)) Effects.effect(healSpread,e.getX(),e.getY());
@@ -309,11 +309,11 @@ const healZone = extend(BasicBulletType,{
       var v1=Vec2(50,0).setAngle(Mathf.random()*360);
       Effects.effect(healFx,b.x+v1.x,b.y+v1.y);
     }
-	},
-	init(b){
-		if(b == null) return;
+  },
+  init(b){
+    if(b == null) return;
     Effects.effect(healStart,b.x,b.y);
-	}
+  }
 });
 healZone.speed = 0;
 healZone.lifetime = 500;
@@ -325,8 +325,8 @@ this.global.bullets.healZone = healZone;
 
 const distcolor = Color.valueOf("4c00ff");
 const distortFx = newEffect(18, e => {
-	Draw.color(Pal.lancerLaser, distcolor, e.fin());
-	Fill.square(e.x, e.y, 0.1 + e.fout() * 2.5, 45);
+  Draw.color(Pal.lancerLaser, distcolor, e.fin());
+  Fill.square(e.x, e.y, 0.1 + e.fout() * 2.5, 45);
 });
 const distSplashFx = newEffect(80, e => {
   Draw.color(Pal.lancerLaser, distcolor, e.fin());
@@ -338,19 +338,19 @@ distort.speedMultiplier = 0.35;
 distort.color = distcolor;
 distort.effect = distortFx;
 const distStart = newEffect(45, e => {
-	fillLight(e.x, e.y, Lines.circleVertices(85), 85, Color.clear, Pal.lancerLaser.cpy().a(e.fout()));
+  fillLight(e.x, e.y, Lines.circleVertices(85), 85, Color.clear, Pal.lancerLaser.cpy().a(e.fout()));
 });
 const distZone = extend(BasicBulletType,{
-	draw(b){
+  draw(b){
     Draw.color(Pal.lancerLaser);
     Lines.stroke(1);
     Lines.circle(b.x, b.y, Mathf.clamp((1-b.fin())*20)*85);
     fillLight(b.x, b.y, Lines.circleVertices(85), Mathf.clamp((1-b.fin())*20)*85, Pal.lancerLaser.cpy().a(0), distcolor.cpy().a(0.7+0.25*Mathf.sin(b.time()*0.05)));
     Draw.color();
-	},
-	hit(b,x,y){},
+  },
+  hit(b,x,y){},
   despawned(b){},
-	update(b){
+  update(b){
     if(b.time()%80<=1 && b.lifetime() - b.time() > 100) Effects.effect(distSplashFx,b.x,b.y);
     Vars.bulletGroup.intersect(b.x-85, b.y-85, b.x+85, b.y+85, cons(e=>{
       if(Mathf.within(b.x, b.y, e.x, e.y, 85) && e != b && e.getTeam() != b.getTeam() && e != null){
@@ -363,11 +363,11 @@ const distZone = extend(BasicBulletType,{
         e.applyEffect(distort, 2);
       }
     }));
-	},
-	init(b){
-		if(b == null) return;
+  },
+  init(b){
+    if(b == null) return;
     Effects.effect(distStart,b.x,b.y);
-	}
+  }
 });
 distZone.speed = 0;
 distZone.lifetime = 897;
@@ -401,8 +401,8 @@ const blackhole = extend(BasicBulletType, {
           u.velocity().add(v1);
 
           if(u instanceof FlyingUnit){
-          	v2.set(v1).scl(0.5);
-          	u.velocity().add(v2);
+            v2.set(v1).scl(0.5);
+            u.velocity().add(v2);
           };
 
           u.moveBy(v1.x, v1.y);
@@ -415,13 +415,13 @@ const blackhole = extend(BasicBulletType, {
     }));
   },
 
-	draw(b){
-		Draw.shader(shader);
-		Fill.circle(b.x, b.y, b.fout() * 7.5);
+  draw(b){
+    Draw.shader(shader);
+    Fill.circle(b.x, b.y, b.fout() * 7.5);
     Draw.shader();
-		Draw.color(Color.black);
-		Fill.circle(b.x, b.y, b.fout() * 5.5);
-	}
+    Draw.color(Color.black);
+    Fill.circle(b.x, b.y, b.fout() * 5.5);
+  }
 });
 blackhole.strength = 1.6;
 blackhole.rangeB = 120;
@@ -459,8 +459,8 @@ const blackholeSmall = extend(BasicBulletType, {
           u.velocity().add(v1);
 
           if(u instanceof FlyingUnit){
-          	v2.set(v1).scl(0.5);
-          	u.velocity().add(v2);
+            v2.set(v1).scl(0.5);
+            u.velocity().add(v2);
           };
 
           u.moveBy(v1.x, v1.y);
@@ -473,13 +473,13 @@ const blackholeSmall = extend(BasicBulletType, {
     }));
   },
 
-	draw(b){
-		Draw.shader(shader);
-		Fill.circle(b.x, b.y, b.fout() * 4.5);
+  draw(b){
+    Draw.shader(shader);
+    Fill.circle(b.x, b.y, b.fout() * 4.5);
     Draw.shader();
-		Draw.color(Color.black);
-		Fill.circle(b.x, b.y, b.fout() * 2.5);
-	}
+    Draw.color(Color.black);
+    Fill.circle(b.x, b.y, b.fout() * 2.5);
+  }
 });
 blackholeSmall.strength = 0.9;
 blackholeSmall.rangeB = 40;
@@ -547,7 +547,7 @@ const flashbang = extend(BasicBulletType,{
       //print(v1); print(v2); print("Pos: ("+x+", "+y+")");
       if(v1.x<x && x<v2.x && v1.y<y && y<v2.y) this.flash((b.getTeam()==Vars.player.getTeam())?4:11);
     }
-    
+
     this.super$hit(b, x, y);
   },
   flash(duration){
