@@ -113,8 +113,8 @@ function createUnit(name, cbullet, type, obj){
           pixel.set(mask.getPixel(x, y));
           if(pixel.a > 0 && !(Mathf.equal(pixel.r, pixel.b, 0.1) && Mathf.equal(pixel.g, pixel.b, 0.1) && Mathf.equal(pixel.r, pixel.g, 0.1))){
             color.set(bitcolor1).lerp(bitcolor2, Mathf.sin(x*0.1 + y*0.1));
-            pixel.grays(pixel.g*1.5);
-            pixel.lerp(color, 0.8);
+            pixel.grays(pixel.g*1.3);
+            pixel.lerp(color, 0.7);
             newTexture.draw(x, y, pixel);
           }
         }
