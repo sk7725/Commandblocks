@@ -79,6 +79,7 @@ function createUnit(name, cbullet, type, obj){
       table.row();
     },
     createIcons(packer){
+      pront("Create Icon: "+"unit-" + this.name);
       // Code below by DeltaNedas, modified by sk7725.
       this.super$createIcons(packer);
 
