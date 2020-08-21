@@ -52,7 +52,7 @@ function createUnit(name, cbullet, type, obj){
     },
     displayInfo(table){
       table.table(cons(title => {
-        title.addImage(origtype.icon(Cicon.xlarge)).size(8 * 6);
+        title.addImage(this.icon(Cicon.xlarge)).size(8 * 6);
         title.add("[pink]" + this.localizedName).padLeft(5);
       }));
 
@@ -77,12 +77,6 @@ function createUnit(name, cbullet, type, obj){
       table.add(Core.bundle.format("unit.speed", this.speed.toFixed(1)));
       table.row();
       table.row();
-    }
-  });
-  unittype = copyUnitType(origtype, unittype);
-  unittype.weapon = extendContent(Weapon, name+"-2-equip", {
-    load(){
-      this.region = Core.atlas.find(origtype.weapon.name + "-equip", Core.atlas.find(origtype.weapon.name, Core.atlas.find("clear")));
     },
     createIcons(packer){
       // Code below by DeltaNedas, modified by sk7725.
@@ -110,6 +104,12 @@ function createUnit(name, cbullet, type, obj){
       }
       // Add it to the atlas
       packer.add(MultiPacker.PageType.main, "unit-" + this.name, newTexture);
+    }
+  });
+  unittype = copyUnitType(origtype, unittype);
+  unittype.weapon = extendContent(Weapon, name+"-2-equip", {
+    load(){
+      this.region = Core.atlas.find(origtype.weapon.name + "-equip", Core.atlas.find(origtype.weapon.name, Core.atlas.find("clear")));
     }
   });
 
