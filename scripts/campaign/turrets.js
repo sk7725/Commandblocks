@@ -162,19 +162,19 @@ const festival = extendContent(ChargeTurret, "festival", {
     this.stats.add(BlockStat.reload, "{0} ~ {1}", 0.23, 60);
   },
   setBars(){
-		this.super$setBars();
-		this.bars.add(
-			"reload", func(entity => {
-				return new Bar(
-					prov(() => Math.min((60/(this.reload/this.baseReloadSpeed(entity.tile))).toFixed(2),60) + " " + Core.bundle.get("blocks.reload")),
-					prov(() => Pal.accent),
-					floatp(() => {
-						return (60/(this.reload/this.baseReloadSpeed(entity.tile)))/60;
-					})
-				)
-			})
-		);
-	}
+    this.super$setBars();
+    this.bars.add(
+      "reload", func(entity => {
+        return new Bar(
+          prov(() => Math.min((60/(this.reload/this.baseReloadSpeed(entity.tile))).toFixed(2),60) + " " + Core.bundle.get("blocks.reload")),
+          prov(() => Pal.accent),
+          floatp(() => {
+            return (60/(this.reload/this.baseReloadSpeed(entity.tile)))/60;
+          })
+        )
+      })
+    );
+  }
 });
 festival.shootEffect = fesShoot;
 festival.chargeBeginEffect90 = fes90;

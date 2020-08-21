@@ -1,4 +1,5 @@
 const customb = this.global.bullets;
+const customfx = this.global.fx;
 const newSounds = this.global.newSounds;
 const shader = this.global.shaders.bittunit;
 
@@ -208,7 +209,43 @@ fortress2.speed = 0.17;
 fortress2.maxVelocity = 1.2;
 this.global.upgradeUnits.fortress = fortress2;
 
-const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit, {});
+const charging = extendContent(StatusEffect,"charging",{});
+charging.color = Pal.accent;
+charging.effect = customfx.chargeShine;
+
+const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit, {
+  behavior(){
+    if(this.timer.get(4, 650)){
+      this.applyEffect(charging, 120);
+      if(!Vars.net.client()){
+        for(var i=0; i<15; i++){
+          Time.run(i*7+10, run(()=>{
+            var u = UnitTypes.eruptor.create(this.getTeam());
+            var v1 = Vec2(75, 0).setAngle(Mathf.random()*360);
+            if(Vars.world.tileWorld(this.x+v1.x, this.y+v1.y).solid()) u.set(this.x, this.y);
+            else u.set(this.x+v1.x, this.y+v1.y);
+            u.add();
+          }));
+        }
+      }
+    }
+    if(!Units.invalidateTarget(this.target, this)){
+      if(this.dst(this.target) < this.getWeapon().bullet.range()){
+
+        this.rotate(this.angleTo(this.target));
+
+        if(Angles.near(this.angleTo(this.target), this.rotation, 13)){
+          //this.velocity().set(0, 0);
+          var ammo = this.getWeapon().bullet;
+
+          var to = Predict.intercept(this, this.target, ammo.speed);
+
+          this.getWeapon().update(this, to.x, to.y);
+        }
+      }
+    }
+  }
+});
 eruptor2.weapon.shootSound = Sounds.flame;
 eruptor2.weapon.reload = 3;
 eruptor2.weapon.alternate = true;
