@@ -212,6 +212,7 @@ this.global.upgradeUnits.fortress = fortress2;
 const charging = extendContent(StatusEffect,"charging",{});
 charging.color = Pal.accent;
 charging.effect = customfx.chargeShine;
+charging.speedMultiplier = 0;
 
 const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit, {
   behavior(){
@@ -225,6 +226,7 @@ const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit, {
             if(Vars.world.tileWorld(this.x+v1.x, this.y+v1.y) == null || Vars.world.tileWorld(this.x+v1.x, this.y+v1.y).solid()) u.set(this.x, this.y);
             else u.set(this.x+v1.x, this.y+v1.y);
             u.add();
+            u.applyEffect(StatusEffects.overdrive, 1000);
           }));
         }
       }
