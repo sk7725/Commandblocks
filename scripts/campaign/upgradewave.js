@@ -185,11 +185,11 @@ this.global.upgradeUnits.titan = titan2;
 const fortress2 = createUnit("fortress", "lancerLaser", GroundUnit, {
   behavior(){
     if(!Units.invalidateTarget(this.target, this)){
-      if(this.dst(target) < this.getWeapon().bullet.range()){
+      if(this.dst(this.target) < this.getWeapon().bullet.range()){
 
-        this.rotate(this.angleTo(target));
+        this.rotate(this.angleTo(this.target));
 
-        if(Angles.near(this.angleTo(target), this.rotation, 13)){
+        if(Angles.near(this.angleTo(this.target), this.rotation, 13)){
           this.velocity().set(0, 0);
           var ammo = this.getWeapon().bullet;
 
