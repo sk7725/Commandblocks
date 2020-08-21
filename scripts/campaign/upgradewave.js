@@ -92,11 +92,13 @@ function createUnit(name, cbullet, type, obj){
     unittype.weapon.bullet = Bullets.waterShot;
   }
 
-  obj.draw = function(){
-    Draw.shader(shader);
-    this.super$draw();
-    Draw.shader();
-  };
+  if((typeof obj.draw) != "function"){
+      obj.draw = function(){
+      Draw.shader(shader);
+      this.super$draw();
+      Draw.shader();
+    };
+  }
   var unitmain = prov(()=>{
     main = extend(type, obj);
     return main;
