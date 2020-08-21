@@ -1,6 +1,6 @@
 const customb = this.global.bullets;
 const newSounds = this.global.newSounds;
-const shader = this.global.shaders.bittrium;
+const shader = this.global.shaders.bittunit;
 
 function copyWeapon(orig, target){
   const blacklist = ["minPlayerDist", "sequenceNum", "name", "Weapon", "onPlayerShootWeapon", "onGenericShootWeapon", "shootDirect", "load", "update", "getRecoil", "shoot", "bullet"];
@@ -33,7 +33,7 @@ function copyUnitType(orig, target){
   return target;
 }
 
-function createUnit(name, cbullet, type){
+function createUnit(name, cbullet, type, obj){
   const origtype = Vars.content.getByName(ContentType.unit, name);
   if(origtype == null){
     print("Err: "+name+" not found!");
@@ -92,14 +92,13 @@ function createUnit(name, cbullet, type){
     unittype.weapon.bullet = Bullets.waterShot;
   }
 
+  obj.draw = function(){
+    Draw.shader(shader);
+    this.super$draw();
+    Draw.shader();
+  };
   var unitmain = prov(()=>{
-    main = extend(type, {
-      draw(){
-        Draw.shader(shader);
-        this.super$draw();
-        Draw.shader();
-      }
-    });
+    main = extend(type, obj);
     return main;
   });
 
@@ -113,17 +112,17 @@ function createUnit(name, cbullet, type){
 
 this.global.upgradeUnits = {};
 
-const dagger2 = createUnit("dagger", "lightning", GroundUnit);
+const dagger2 = createUnit("dagger", "lightning", GroundUnit, {});
 dagger2.weapon.shootSound = Sounds.spark;
 dagger2.health = 700;
 this.global.upgradeUnits.dagger = dagger2;
 
-const titan2 = createUnit("titan", "artilleryHoming", GroundUnit);
+const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {});
 titan2.weapon.shootSound = Sounds.artillery;
 titan2.health = 2000;
 this.global.upgradeUnits.titan = titan2;
 
-const fortress2 = createUnit("fortress", "lancerLaser", GroundUnit);
+const fortress2 = createUnit("fortress", "lancerLaser", GroundUnit, {});
 fortress2.weapon.shootSound = Sounds.laser;
 fortress2.weapon.reload = 15;
 fortress2.health = 6400;
@@ -131,7 +130,7 @@ fortress2.speed = 0.17;
 fortress2.maxVelocity = 1.2;
 this.global.upgradeUnits.fortress = fortress2;
 
-const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit);
+const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit, {});
 eruptor2.weapon.shootSound = Sounds.flame;
 eruptor2.weapon.reload = 3;
 eruptor2.weapon.alternate = true;
@@ -142,7 +141,7 @@ eruptor2.targetAir = true;
 eruptor2.rotatespeed = 0.0055;
 this.global.upgradeUnits.eruptor = eruptor2;
 
-const wraith2 = createUnit("wraith", "grenade", FlyingUnit);
+const wraith2 = createUnit("wraith", "grenade", FlyingUnit, {});
 wraith2.weapon.shootSound = Sounds.artillery;
 wraith2.weapon.reload = 45;
 wraith2.health = 560;
