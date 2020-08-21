@@ -5,6 +5,10 @@ const shader = this.global.shaders.bittunit;
 const bitcolor1=Color.valueOf("00e5ff");
 const bitcolor2=Color.valueOf("ff65db");
 
+if(typeof(PixmapTextureData1) == "undefined"){
+  const PixmapTextureData1 = Packages.arc.graphics.gl.PixmapTextureData;
+}
+
 function copyWeapon(orig, target){
   const blacklist = ["minPlayerDist", "sequenceNum", "name", "Weapon", "onPlayerShootWeapon", "onGenericShootWeapon", "shootDirect", "load", "update", "getRecoil", "shoot", "bullet"];
   var arr = Object.keys(orig);
