@@ -114,7 +114,7 @@ function createUnit(name, cbullet, type, obj){
           pixel.set(mask.getPixel(x, y));
           if(pixel.a > 0){
             if(!(Mathf.equal(pixel.r, pixel.b, 0.1) && Mathf.equal(pixel.g, pixel.b, 0.1) && Mathf.equal(pixel.r, pixel.g, 0.1))){
-              color.set(bitcolor1).lerp(bitcolor2, Mathf.sin(x*0.2 + y*0.1));
+              color.set(bitcolor1).lerp(bitcolor2, Mathf.sin(x*0.2 + y*0.2));
               pixel.grays(pixel.g*1.3);
               pixel.lerp(color, 0.7);
             }
@@ -212,7 +212,7 @@ this.global.upgradeUnits.fortress = fortress2;
 const charging = extendContent(StatusEffect,"charging",{});
 charging.color = Pal.accent;
 charging.effect = customfx.chargeShine;
-charging.speedMultiplier = 0.05;
+charging.speedMultiplier = 0.09;
 
 const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit, {
   behavior(){
