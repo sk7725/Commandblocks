@@ -97,8 +97,8 @@ function createUnit(name, cbullet, type, obj){
 
       // Get the unit mask.
       var mask = Core.atlas.getPixmap(origtype.icon(Cicon.full));
-      var w = mask.getWidth();
-      var h = mask.getHeight();
+      var w = mask.width;
+      var h = mask.height;
 
       // Colour the mask, pixel by pixel
       var newTexture = new Pixmap(w, h);
