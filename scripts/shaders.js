@@ -12,7 +12,7 @@ function highShader(apply, frag){
     return mediumShader(apply, frag);
   }
 }
-function mediumShader(apply. frag){
+function mediumShader(apply, frag){
   var cfrag = frag;
   if(!frag.includes("#ifdef GL_ES")) cfrag = "#ifdef GL_ES\nprecision mediump float;precision mediump int;\n#endif\n" + frag;
   try{
