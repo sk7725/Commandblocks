@@ -907,3 +907,42 @@ ball.status = ballstun;
 ball.statusDuration = 140;
 
 this.global.bullets.ball = ball;
+
+
+const spawnStart = newEffect(15, e => {
+  Draw.color(Pal.lightFlame);
+  Lines.stroke(e.fout() * 5);
+  Lines.circle(e.x, e.y, 3 + e.fin() * 100);
+});
+const spawnZone = extend(BasicBulletType,{
+  draw(b){
+    /*
+    if(b.getData() == null) return;
+    Draw.color(b.getData().color);
+    Lines.stroke(1);
+    Lines.circle(b.x, b.y, Mathf.clamp((1-b.fin())*20)*75);
+    fillLight(b.x, b.y, Lines.circleVertices(75), Mathf.clamp((1-b.fin())*20)*75, b.getData().color.cpy().a(0), b.getData().color.cpy().a(0.4+0.25*Mathf.sin(b.time()*0.02)));
+    Draw.color();*/
+  },
+  hit(b,x,y){},
+  despawned(b){},
+  update(b){
+    if(Mathf.chance(0.4)){
+      var v1=Vec2(80,0).setAngle(Mathf.random()*360);
+      Effects.effect(Fx.overdriven, b.x+v1.x, b.y+v1.y);
+    }
+  },
+  init(b){
+    if(b == null) return;
+    Effects.effect(spawnStart, b.x, b.y);
+    Sounds.wave.at(b.x, b.y, 0.7);
+    Sounds.wave.at(b.x, b.y, 0.5);
+  }
+});
+spawnZone.speed = 0;
+spawnZone.lifetime = 120;
+spawnZone.collidesTiles = false;
+spawnZone.collides = false;
+spawnZone.collidesAir = false;
+spawnZone.keepVelocity = false;
+this.global.bullets.spawnZone = spawnZone;

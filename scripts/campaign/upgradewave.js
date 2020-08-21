@@ -212,13 +212,14 @@ this.global.upgradeUnits.fortress = fortress2;
 const charging = extendContent(StatusEffect,"charging",{});
 charging.color = Pal.accent;
 charging.effect = customfx.chargeShine;
-charging.speedMultiplier = 0.09;
+charging.speedMultiplier = 0.1;
 
 const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit, {
   behavior(){
     if(this.timer.get(4, 650)){
       this.applyEffect(charging, 120);
       if(!Vars.net.client()){
+        Call.createBullet(customb.spawnZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
         for(var i=0; i<15; i++){
           Time.run(i*7+10, run(()=>{
             var u = UnitTypes.eruptor.create(this.getTeam());

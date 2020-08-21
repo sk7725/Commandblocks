@@ -338,8 +338,8 @@ this.global.fx = {
     Draw.color(Pal.accent, Color.white.cpy().a(0), 1-e.fout()*2);
     Lines.stroke(e.fout());
     Angles.randLenVectors(e.id, 2+e.id%2, 30*e.fout(), floatc2((x,y) => {
-      drawSpark(e.x+x, e.y+y, e.finpow()*5, e.finpow()*6, 0);
-      Lines.circle(e.x, e.y, e.finpow()*5);
+      drawSpark(e.x+x, e.y+y, e.finpow()*5, e.finpow()*13, 0);
+      Lines.circle(e.x, e.y, e.finpow()*4.5);
     }));
   })
 };
