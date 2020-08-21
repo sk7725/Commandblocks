@@ -111,7 +111,7 @@ function createUnit(name, cbullet, type, obj){
       for(x = 0; x < w; x++){
         for(y = 0; y < h; y++){
           pixel.set(mask.getPixel(x, y));
-          if(pixel.a > 0 && !(Mathf.equal(pixel.r, pixel.b, 0.01) && Mathf.equal(pixel.g, pixel.b, 0.01) && Mathf.equal(pixel.r, pixel.g, 0.01))){
+          if(pixel.a > 0 && !(Mathf.equal(pixel.r, pixel.b, 0.1) && Mathf.equal(pixel.g, pixel.b, 0.1) && Mathf.equal(pixel.r, pixel.g, 0.1))){
             color.set(bitcolor1).lerp(bitcolor2, Mathf.sin(x*0.1 + y*0.1));
             pixel.grays(pixel.g*1.5);
             pixel.lerp(color, 0.8);
