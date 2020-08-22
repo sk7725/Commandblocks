@@ -52,6 +52,7 @@ if(!this.global.shieldSetup){
   this.global.shieldSetup = true;
 
   Events.on(EventType.ClientLoadEvent, run(e => {
+    print("Loaded Renderer!");
     //const t = new Table();
     const t = shieldRenderer;
     t.setFillParent(true);
