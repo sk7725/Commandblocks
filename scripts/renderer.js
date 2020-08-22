@@ -9,7 +9,7 @@ const shieldRenderer = extend(Table, {
     //const prev = Draw.scl;
     const prev = Draw.proj();
     //Draw.scl = 1;
-    Draw.proj(camera.projection());
+    Draw.proj(Core.camera.projection());
     const length = t.global.shieldList.length;
     if(Core.settings.getBool("animatedshields") && Shaders.shield != null){
       if(!Core.graphics.isHidden() && (shieldBuffer.getWidth() != Core.graphics.getWidth() || shieldBuffer.getHeight() != Core.graphics.getHeight())){
