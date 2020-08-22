@@ -36,7 +36,7 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
       bitcrystal.blockcount = [];
       bitcrystal.checkpos = [];
 		}));
-  }
+  },
   /*
   drawLight(tile){
 
