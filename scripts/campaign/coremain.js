@@ -209,8 +209,9 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
       newGroup.unitAmount = Mathf.floor(spawns.items[i].unitAmount/2);
       newGroup.max = spawns.items[i].max;
       newGroup.spacing = spawns.items[i].spacing*2;
+      if(newGroup.spacing > SpawnGroup.never) newGroup.spacing = SpawnGroup.never;
 
-      spawns.items[i].unitScaling = SpawnGroup.never;
+      spawns.items[i].unitScaling = Math.min(SpawnGroup.never, spawns.items[i].unitScaling*2);
 
       spawns.add(newGroup);
     }
