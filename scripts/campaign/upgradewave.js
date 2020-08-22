@@ -54,7 +54,9 @@ function createUnit(name, cbullet, type, obj){
       this.region = Core.atlas.find(name);
       this.baseRegion = Core.atlas.find(name + "-base");
       this.legRegion = Core.atlas.find(name + "-leg");
-      this.loadIcons();
+      Core.app.post(run(() => {
+        this.loadIcons();
+      }));
     },
     displayInfo(table){
       table.table(cons(title => {

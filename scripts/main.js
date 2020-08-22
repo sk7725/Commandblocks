@@ -18,6 +18,7 @@ require("command");
 
 //CAMPAIGN
 require("campaign/ores");
+require("campaign/upgradewave");
 require("campaign/coremain");
 require("campaign/campfire");
 require("campaign/bitcrystal");
@@ -125,7 +126,5 @@ require("sandbox/drawtester");
 require("sandbox/tabletester");
 require("sandbox/jstester");
 require("sandbox/fxtester");
-
-require("campaign/upgradewave");
 
 print("Load Complete!");
