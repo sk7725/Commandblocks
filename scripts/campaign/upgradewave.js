@@ -214,7 +214,7 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
   setHit(a){
     this._hitShield = a;
   },
-  getBuild(a){
+  getBuild(){
     return this._buildup;
   },
   addBuild(a){
