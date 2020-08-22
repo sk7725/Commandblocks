@@ -7,7 +7,7 @@ const shieldBuffer = new FrameBuffer(2, 2);
 const shieldRenderer = extend(Table, {
   draw(){
     //const prev = Draw.scl;
-    const prev = Draw.proj();
+    const prev = new Mat(Draw.proj());
     //Draw.scl = 1;
     Draw.proj(Core.camera.projection());
     const length = t.global.shieldList.length;
