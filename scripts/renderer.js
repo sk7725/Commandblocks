@@ -18,8 +18,8 @@ const shieldRenderer = extend(Table, {
       shieldBuffer.begin();
       Core.graphics.clear(Color.clear);
 
-      this.drawEach("drawShield");
-      this.drawEach("drawOver");
+      this.drawEach("drawShield", length);
+      this.drawEach("drawOver", length);
 
       Draw.flush();
       shieldBuffer.end();
@@ -30,13 +30,13 @@ const shieldRenderer = extend(Table, {
       Draw.shader();
     }
     else{
-      this.drawEach("drawSimple");
+      this.drawEach("drawSimple", length);
     }
 
     t.global.shieldList = [];
     Draw.scl = prev;
   },
-  drawEach(funcname){
+  drawEach(funcname, length){
     for(var i=0; i<length; i++){
       var e = t.global.shieldList[i];
       if(e instanceof Bullet) e.getBulletType()[funcname](e);
