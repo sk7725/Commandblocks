@@ -26,15 +26,17 @@ const bitcrystal = extendContent(Block, "bitcrystal",{
     this.super$load();
     this.region = Core.atlas.find(this.name);
     this.animRegion = Core.atlas.find(this.name+"-anim");
-
+    //bitcrystal.activeSound = newSounds.sparklebg;
+  },
+  init(){
+    this.super$init();
     Events.on(EventType.WorldLoadEvent, run(event => {
       bitcrystal.hasLast = [];
 			bitcrystal.blockpos = {};
       bitcrystal.blockcount = [];
       bitcrystal.checkpos = [];
 		}));
-    //bitcrystal.activeSound = newSounds.sparklebg;
-  },
+  }
   /*
   drawLight(tile){
 

@@ -1,6 +1,7 @@
 const shader=this.global.shaders.bittrium;
 const customfx = this.global.fx;
 const newSounds = this.global.newSounds;
+const upgraded = this.global.upgradeUnits;
 
 const bitcolor1=Color.valueOf("00e5ff");
 const bitcolor2=Color.valueOf("ff65db");
@@ -31,6 +32,7 @@ function tryOre(x, y, scl, oct, fall, thresh, ore, o){
 
 const coremain = extendContent(CoreBlock, "coremain",{
   checkpos: [],
+  hardmode: false,
   draw(tile){
     this.super$draw(tile);
     Draw.shader(shader);
@@ -41,9 +43,19 @@ const coremain = extendContent(CoreBlock, "coremain",{
     this.super$load();
     this.region = Core.atlas.find(this.name);
     this.animRegion = Core.atlas.find(this.name+"-anim");
-
+  },
+  init(){
+    this.super$init();
     Events.on(EventType.WorldLoadEvent, run(event => {
 			coremain.checkpos = [];
+      coremain.hardmode = false;
+
+      Vars.state.teams.playerCores().each(cons(core => {
+        if(!coremain.hardmode && core.block == coremain){
+          coremain.hardmode = true;
+          coremainbuild.addEnemies(Vars.state.rules.spawns, 1);
+        }
+      }));
 		}));
   },
   update(tile){
@@ -96,7 +108,9 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     this.region = Core.atlas.find(coremain.name);
     this.animRegion = Core.atlas.find(coremain.name+"-anim");
     this.itemRegion = Core.atlas.find(this.name+"-item");
-
+  },
+  init(){
+    this.super$init();
     Events.on(EventType.WorldLoadEvent, run(event => {
 			coremainbuild.blockpos = {};
 		}));
@@ -177,6 +191,30 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     tile.remove();
     tile.set(coremain, team);
     this.blockpos[tile.getTeamID()] = tile.pos();
+    Vars.state.wave = 1;
+    this.addEnemies(Vars.state.rules.spawns, 1);
+  },
+
+  addEnemies(spawns, wave){
+    Vars.state.rules.waveSpacing *= 0.7;
+    const initsize = spawns.size;
+    for(var i=0; i<initsize; i++){
+      if(!upgraded[spawns.items[i].type.name]) continue;
+
+      var newGroup = new SpawnGroup(upgraded[spawns.items[i].type.name]);
+      newGroup.begin = wave - (wave - spawns.items[i].begin)%spawns.items[i].spacing + spawns.items[i].spacing;
+      if(spawns.items[i].unitScaling == SpawnGroup.never) newGroup.begin = waves + 50;
+      newGroup.unitScaling = spawns.items[i].unitScaling;
+      newGroup.unitAmount = 1;
+      newGroup.max = spawns.items[i].max;
+      newGroup.spacing = spawns.items[i].spacing;
+
+      spawns.items[i].unitScaling = SpawnGroup.never;
+
+      spawns.add(newGroup);
+    }
+
+    Vars.state.rules.spawns = spawns;
   },
 
   forceEnemyWave(n){
