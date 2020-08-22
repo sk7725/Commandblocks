@@ -204,9 +204,6 @@ this.global.upgradeUnits.crawler = crawler2;
 var t = this;
 
 const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
-  _buildup: 0,
-  _radscl: 0,
-  _shielded: true,
   hitShield(){
     //if(this._hitShield == undefined) this._hitShield = 0;
     return this._hitShield;
@@ -216,6 +213,24 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
   },
   setHit(a){
     this._hitShield = a;
+  },
+  getBuild(a){
+    return this._buildup;
+  },
+  addBuild(a){
+    this._buildup += a;
+  },
+  setBuild(a){
+    this._buildup = a;
+  },
+  isShielded(){
+    return this._shielded;
+  },
+  setShielded(a){
+    this._shielded = a;
+  },
+  setScl(a){
+    this._radscl = a;
   },
   drawShield(){
     Draw.color(Pal.accent);
@@ -244,20 +259,20 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
     Draw.reset();
   },
   realRadius(){
-    return 70 * this._radscl;
+    return 70 * this.radScl();
   },
   updateShield(){
     if(!this.isValid() || this.isDead()) return;
-    this._radscl = Mathf.lerpDelta(this._radscl, (this._shielded)?1:0, 0.05);
-    if(!this._shielded){
-      this._buildup -= ((this.hasEffect(StatusEffects.overdrive))?1.5:0.7)*Time.delta();
-      if(this._buildup <= 0.0001) this._shielded = true;
+    this.setScl(Mathf.lerpDelta(this.radScl(), (this.isShielded())?1:0, 0.05));
+    if(!this.isShielded()){
+      this.addBuild(-1*((this.hasEffect(StatusEffects.overdrive))?1.5:0.7)*Time.delta());
+      if(this.getBuild() <= 0.0001) this.setShielded(true);
       return;
     }
 
-    if(this._buildup >= 360){
+    if(this.getBuild() >= 360){
       Effects.effect(Fx.shieldBreak, this.x, this.y, 70);
-      this._shielded = false;
+      this.setShielded(false);
       return;
       //b.remove();
     }
@@ -268,11 +283,11 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
 
     var realRadius = this.realRadius();
     Vars.bulletGroup.intersect(this.x - realRadius, this.y - realRadius, realRadius * 2, realRadius * 2, cons(trait => {
-      if(trait.canBeAbsorbed() && trait.getTeam() != this.getTeam() && Intersector.isInsideHexagon(this.x, this.y, 70 * this._radscl * 2, trait.getX(), trait.getY())){
+      if(trait.canBeAbsorbed() && trait.getTeam() != this.getTeam() && Intersector.isInsideHexagon(this.x, this.y, 70 * this.radScl() * 2, trait.getX(), trait.getY())){
         trait.absorb();
         Effects.effect(Fx.absorb, trait);
         this.setHit(1);
-        this._buildup += trait.getShieldDamage();
+        this.addBuild(trait.getShieldDamage());
       }
     }));
   },
@@ -291,6 +306,9 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
   }
 }, cons(main => {
   main.setHit(0);
+  main.setShielded(true);
+  main.setBuild(0);
+  main.setScl(0);
 }));
 titan2.weapon.shootSound = Sounds.artillery;
 titan2.health = 1000;
