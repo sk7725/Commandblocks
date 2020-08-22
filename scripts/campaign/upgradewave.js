@@ -229,6 +229,9 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
   setShielded(a){
     this._shielded = a;
   },
+  radScl(){
+    return this._radscl;
+  },
   setScl(a){
     this._radscl = a;
   },
