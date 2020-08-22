@@ -202,12 +202,13 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
       if(!upgraded[spawns.items[i].type.name]) continue;
 
       var newGroup = new SpawnGroup(upgraded[spawns.items[i].type.name]);
-      newGroup.begin = wave - (wave - spawns.items[i].begin)%spawns.items[i].spacing + spawns.items[i].spacing;
+      newGroup.begin = spawns.items[i].begin;
       if(spawns.items[i].unitScaling == SpawnGroup.never) newGroup.begin = waves + 50;
-      newGroup.unitScaling = spawns.items[i].unitScaling;
-      newGroup.unitAmount = 1;
+      newGroup.unitScaling = spawns.items[i].unitScaling*3;
+      if(newGroup.unitScaling > SpawnGroup.never) newGroup.unitScaling = SpawnGroup.never;
+      newGroup.unitAmount = Mathf.floor(spawns.items[i].unitAmount/2);
       newGroup.max = spawns.items[i].max;
-      newGroup.spacing = spawns.items[i].spacing;
+      newGroup.spacing = spawns.items[i].spacing*2;
 
       spawns.items[i].unitScaling = SpawnGroup.never;
 
