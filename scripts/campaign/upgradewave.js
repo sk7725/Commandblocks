@@ -203,11 +203,11 @@ this.global.upgradeUnits.crawler = crawler2;
 var t = this;
 
 const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
-  _hitShield: 0,
   _buildup: 0,
   _radscl: 0,
   _shielded: true,
   hitShield(){
+    if(this._hitShield == undefined) this._hitShield = 0;
     return this._hitShield;
   },
   subHit(a){
