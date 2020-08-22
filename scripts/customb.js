@@ -914,7 +914,7 @@ const spawnStart = newEffect(15, e => {
   Lines.stroke(e.fout() * 5);
   Lines.circle(e.x, e.y, 3 + e.fin() * 100);
 });
-const spawnZone = extend(BasicBulletType,{
+const spawnZone = extend(BasicBulletType, {
   draw(b){
     /*
     if(b.getData() == null) return;
@@ -946,3 +946,31 @@ spawnZone.collides = false;
 spawnZone.collidesAir = false;
 spawnZone.keepVelocity = false;
 this.global.bullets.spawnZone = spawnZone;
+
+const japok = extend(BombBulletType, {
+  hit(b, x, y){
+    if(x === undefined || x === null){
+      x = b.x; y = b.y;
+    }
+    this.super$hit(b, x, y);
+
+    Sounds.explosionbig.at(x, y);
+    Effects.shake(6, 16, x, y);
+    Effects.effect(Fx.nuclearShockwave, x, y);
+    for(var i = 0; i < 6; i++){
+      Time.run(Mathf.random(40), run(() => {
+        Effects.effect(Fx.nuclearcloud, x, y);
+      }));
+    }
+  }
+});
+japok.splashDamage = 600;
+japok.splashDamageRadius = 60;
+japok.speed = 1.1;
+japok.lifetime = 30;
+japok.killShooter = true;
+japok.instantDisappear = true;
+japok.hitEffect = Fx.none;
+japok.despawnEffect = Fx.none;
+japok.hitSound = Sounds.none;
+this.global.bullets.japok = japok;

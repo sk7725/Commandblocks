@@ -180,6 +180,26 @@ dagger2.weapon.shootSound = Sounds.spark;
 dagger2.health = 700;
 this.global.upgradeUnits.dagger = dagger2;
 
+const crawler2 = createUnit("crawler", "japok", GroundUnit, {
+  damage(amount){
+    this.super$damage(amount);
+    if(!this.isDead()){
+      this.teleport();
+    }
+  },
+  teleport(){
+    var tx = Angles.trnsx(this.rotation - 90, Mathf.randomSeed(this.id + Time.time(), 64) - 32, -Mathf.randomSeed(this.id + Time.time() + 1, 80));
+    var ty = Angles.trnsy(this.rotation - 90, Mathf.randomSeed(this.id + Time.time(), 64) - 32, -Mathf.randomSeed(this.id + Time.time() + 1, 80));
+    if(Vars.world.tileWorld(this.x+tx, this.y+ty) == null || Vars.world.tileWorld(this.x+tx, this.y+ty).solid()) return;
+    Effects.effect(Fx.teleportOut, Color.valueOf("f4ba6e"), this.getX(), this.getY());
+    this.set(this.x + tx, this.y + ty);
+    Sounds.windowHide.at(this.getX(), this.getY(), 2+Math.random());
+    Effects.effect(Fx.teleport, Color.valueOf("f4ba6e"), this.getX(), this.getY());
+  }
+});
+crawler2.health = 300;
+this.global.upgradeUnits.crawler = crawler2;
+
 const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {});
 titan2.weapon.shootSound = Sounds.artillery;
 titan2.health = 2000;
