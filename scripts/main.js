@@ -3,6 +3,7 @@ print("Command Mod Load Start!");
 require("commandblocks/init");
 //require("collisions");
 require("shaders");
+require("renderer");
 
 //UNITS
 require("units/armorstand");

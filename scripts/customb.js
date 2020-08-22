@@ -118,6 +118,8 @@ arcCasterBullet.collidesAir = true;
 arcCasterBullet.pierce = true;
 this.global.bullets.arcCasterBullet = arcCasterBullet;
 
+var t = this;
+
 const forceSmall = extend(BasicBulletType,{
   breakage:540,
   radius:80,
@@ -125,6 +127,7 @@ const forceSmall = extend(BasicBulletType,{
   hit:[],
   buildup:[],
   draw(b){
+    /*
     if(false && Core.settings.getBool("animatedshields") && Shaders.shield != null){
       Draw.shader(Shaders.shield);
       Draw.color(Pal.accent);
@@ -135,7 +138,13 @@ const forceSmall = extend(BasicBulletType,{
     }
     else{
       this.drawSimple(b);
-    }
+    }*/
+    t.global.shieldList.push(b);
+  },
+  drawShield(b){
+    Draw.color(Pal.accent);
+    Fill.poly(b.x, b.y, 6, this.realRadius(b));
+    Draw.color();
   },
   drawOver(b){
     if(this.hit[b.id] <= 0) return;
@@ -526,7 +535,7 @@ grenade.bulletSprite = "commandblocks-b-grenade";
 this.global.bullets.grenade = grenade;
 
 const flashSpark = this.global.fx.flashSpark;
-var t = this;
+
 const flashbang = extend(BasicBulletType,{
   draw(b){
     var h = -1*b.fin()*(b.fin()-1)*190;
