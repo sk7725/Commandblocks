@@ -378,7 +378,7 @@ const fortress2 = createUnit("fortress", "lancerLaser", GroundUnit, {
 });
 fortress2.weapon.shootSound = Sounds.laser;
 fortress2.weapon.reload = 15;
-fortress2.health = 10000;
+fortress2.health = 16400;
 fortress2.speed = 0.17;
 fortress2.maxVelocity = 1.2;
 this.global.upgradeUnits.fortress = fortress2;
@@ -427,7 +427,7 @@ const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit, {
 eruptor2.weapon.shootSound = Sounds.flame;
 eruptor2.weapon.reload = 3;
 eruptor2.weapon.alternate = true;
-eruptor2.health = 10800;
+eruptor2.health = 12800;
 eruptor2.speed = 0.15;
 eruptor2.maxVelocity = 0.8;
 eruptor2.targetAir = true;
