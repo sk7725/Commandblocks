@@ -203,20 +203,29 @@ this.global.upgradeUnits.crawler = crawler2;
 var t = this;
 
 const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
-  hitShield: 0,
+  _hitShield: 0,
   _buildup: 0,
   _radscl: 0,
   _shielded: true,
+  hitShield(){
+    return this._hitShield;
+  },
+  subHit(a){
+    this._hitShield -= a;
+  },
+  setHit(a){
+    this._hitShield = a;
+  },
   drawShield(){
     Draw.color(Pal.accent);
     Fill.poly(this.x, this.y, 6, this.realRadius());
     Draw.color();
   },
   drawShieldOver(){
-    if(this.hitShield <= 0) return;
+    if(this.hitShield() <= 0) return;
 
     Draw.color(Color.white);
-    Draw.alpha(this.hitShield);
+    Draw.alpha(this.hitShield());
     Fill.poly(this.x, this.y, 6, this.realRadius());
     Draw.color();
   },
@@ -227,7 +236,7 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
 
     Draw.color(Pal.accent);
     Lines.stroke(1.5);
-    Draw.alpha(0.09 + 0.08 * this.hitShield);
+    Draw.alpha(0.09 + 0.08 * this.hitShield());
     Fill.poly(this.x, this.y, 6, rad);
     Draw.alpha(1);
     Lines.poly(this.x, this.y, 6, rad);
@@ -252,8 +261,8 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
       //b.remove();
     }
 
-    if(this.hitShield > 0){
-      this.hitShield -= 1 / 5 * Time.delta();
+    if(this.hitShield() > 0){
+      this.subHit(1 / 5 * Time.delta());
     }
 
     var realRadius = this.realRadius();
@@ -261,7 +270,7 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
       if(trait.canBeAbsorbed() && trait.getTeam() != this.getTeam() && Intersector.isInsideHexagon(this.x, this.y, 70 * this._radscl * 2, trait.getX(), trait.getY())){
         trait.absorb();
         Effects.effect(Fx.absorb, trait);
-        this.hitShield = 1;
+        this.setHit(1);
         this._buildup += trait.getShieldDamage();
       }
     }));
