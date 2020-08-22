@@ -268,13 +268,13 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
   },
   update(){
     this.super$update();
-    this.updateShield;
+    this.updateShield();
   },
   draw(){
     Draw.shader(shader);
     this.super$draw();
     Draw.shader();
-    shieldList.push(this);
+    if(this.isValid() && !this.isDead() && this.realRadius() > 0.01) shieldList.push(this);
   },
   drawSize(){
     return Math.max(this.super$drawSize(), this.realRadius()*2+2);
