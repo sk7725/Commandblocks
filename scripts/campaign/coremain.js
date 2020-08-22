@@ -53,7 +53,7 @@ const coremain = extendContent(CoreBlock, "coremain",{
       Vars.state.teams.playerCores().each(cons(core => {
         if(!coremain.hardmode && core.block == coremain){
           coremain.hardmode = true;
-          coremainbuild.addEnemies(Vars.state.rules.spawns, 1);
+          //coremainbuild.addEnemies(Vars.state.rules.spawns, 1);
         }
       }));
 		}));
@@ -203,7 +203,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
 
       var newGroup = new SpawnGroup(upgraded[spawns.items[i].type.name]);
       newGroup.begin = spawns.items[i].begin;
-      if(spawns.items[i].unitScaling == SpawnGroup.never) newGroup.begin = waves + 50;
+      //if(spawns.items[i].unitScaling == SpawnGroup.never) newGroup.begin = waves + 50;
       newGroup.unitScaling = spawns.items[i].unitScaling*3;
       if(newGroup.unitScaling > SpawnGroup.never) newGroup.unitScaling = SpawnGroup.never;
       newGroup.unitAmount = Mathf.floor(spawns.items[i].unitAmount/2);
