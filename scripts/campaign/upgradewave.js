@@ -41,7 +41,7 @@ function copyUnitType(orig, target){
   return target;
 }
 
-function createUnit(name, cbullet, type, obj, runc){
+function createUnit(name, cbullet, type, obj, notCreate){
   const origtype = Vars.content.getByName(ContentType.unit, name);
   if(origtype == null){
     print("Err: "+name+" not found!");
@@ -148,25 +148,27 @@ function createUnit(name, cbullet, type, obj, runc){
     unittype.weapon.bullet = Bullets.waterShot;
   }
 
-  if((typeof obj.draw) != "function"){
-      obj.draw = function(){
-      Draw.shader(shader);
-      this.super$draw();
-      Draw.shader();
-    };
-  }
-  if((typeof obj.drawShadow) != "function"){
-      obj.drawShadow = function(offsetX, offsetY){
-      Draw.rect(origtype.icon(Cicon.full), this.x + offsetX, this.y + offsetY, this.rotation - 90);
-    };
-  }
-  var unitmain = prov(()=>{
-    main = extend(type, obj);
-    if(runc != undefined) runc.get(main);
-    return main;
-  });
+  if(!notCreate){
+    if((typeof obj.draw) != "function"){
+        obj.draw = function(){
+        Draw.shader(shader);
+        this.super$draw();
+        Draw.shader();
+      };
+    }
+    if((typeof obj.drawShadow) != "function"){
+        obj.drawShadow = function(offsetX, offsetY){
+        Draw.rect(origtype.icon(Cicon.full), this.x + offsetX, this.y + offsetY, this.rotation - 90);
+      };
+    }
+    var unitmain = prov(()=>{
+      main = extend(type, obj);
+      if(runc != undefined) runc.get(main);
+      return main;
+    });
 
-  unittype.create(unitmain);
+    unittype.create(unitmain);
+  }
 
   if(Vars.headless) return unittype;
   unittype.localizedName = Core.bundle.format("unit.level2", origtype.localizedName);
@@ -203,118 +205,122 @@ this.global.upgradeUnits.crawler = crawler2;
 
 var t = this;
 
-const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
-  hitShield(){
-    //if(this._hitShield == undefined) this._hitShield = 0;
-    return this._hitShield;
-  },
-  subHit(a){
-    this._hitShield -= a;
-  },
-  setHit(a){
-    this._hitShield = a;
-  },
-  getBuild(){
-    return this._buildup;
-  },
-  addBuild(a){
-    this._buildup += a;
-  },
-  setBuild(a){
-    this._buildup = a;
-  },
-  isShielded(){
-    return this._shielded;
-  },
-  setShielded(a){
-    this._shielded = a;
-  },
-  radScl(){
-    return this._radscl;
-  },
-  setScl(a){
-    this._radscl = a;
-  },
-  drawShield(){
-    Draw.color(Pal.accent);
-    Fill.poly(this.x, this.y, 6, this.realRadius());
-    Draw.color();
-  },
-  drawShieldOver(){
-    if(this.hitShield() <= 0) return;
-
-    Draw.color(Color.white);
-    Draw.alpha(this.hitShield());
-    Fill.poly(this.x, this.y, 6, this.realRadius());
-    Draw.color();
-  },
-  drawSimple(){
-    if(this.realRadius() < 0.5) return;
-
-    var rad = this.realRadius();
-
-    Draw.color(Pal.accent);
-    Lines.stroke(1.5);
-    Draw.alpha(0.09 + 0.08 * this.hitShield());
-    Fill.poly(this.x, this.y, 6, rad);
-    Draw.alpha(1);
-    Lines.poly(this.x, this.y, 6, rad);
-    Draw.reset();
-  },
-  realRadius(){
-    return 70 * this.radScl();
-  },
-  updateShield(){
-    if(!this.isValid() || this.isDead()) return;
-    this.setScl(Mathf.lerpDelta(this.radScl(), (this.isShielded())?1:0, 0.05));
-    if(!this.isShielded()){
-      this.addBuild(-1*((this.hasEffect(StatusEffects.overdrive))?1.5:0.7)*Time.delta());
-      if(this.getBuild() <= 0.0001) this.setShielded(true);
-      return;
-    }
-
-    if(this.getBuild() >= 360){
-      Effects.effect(Fx.shieldBreak, this.x, this.y, 70);
-      this.setShielded(false);
-      return;
-      //b.remove();
-    }
-
-    if(this.hitShield() > 0){
-      this.subHit(1 / 5 * Time.delta());
-    }
-
-    var realRadius = this.realRadius();
-    Vars.bulletGroup.intersect(this.x - realRadius, this.y - realRadius, realRadius * 2, realRadius * 2, cons(trait => {
-      if(trait.canBeAbsorbed() && trait.getTeam() != this.getTeam() && Intersector.isInsideHexagon(this.x, this.y, 70 * this.radScl() * 2, trait.getX(), trait.getY())){
-        trait.absorb();
-        Effects.effect(Fx.absorb, trait);
-        this.setHit(1);
-        this.addBuild(trait.getShieldDamage());
-      }
-    }));
-  },
-  update(){
-    this.super$update();
-    this.updateShield();
-  },
-  draw(){
-    Draw.shader(shader);
-    this.super$draw();
-    Draw.shader();
-    if(this.isValid() && !this.isDead() && this.realRadius() > 0.01) t.global.shieldList.push(this);
-  },
-  drawSize(){
-    return Math.max(this.super$drawSize(), this.realRadius()*2+2);
-  }
-}, cons(main => {
-  main.setHit(0);
-  main.setShielded(true);
-  main.setBuild(0);
-  main.setScl(0);
-}));
+const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {}, true);
 titan2.weapon.shootSound = Sounds.artillery;
 titan2.health = 1000;
+const titanMain = prov(() => {
+  titanMainB = extend(GroundUnit, {
+    hitShield(){
+      //if(this._hitShield == undefined) this._hitShield = 0;
+      return this._hitShield;
+    },
+    subHit(a){
+      this._hitShield -= a;
+    },
+    setHit(a){
+      this._hitShield = a;
+    },
+    getBuild(){
+      return this._buildup;
+    },
+    addBuild(a){
+      this._buildup += a;
+    },
+    setBuild(a){
+      this._buildup = a;
+    },
+    isShielded(){
+      return this._shielded;
+    },
+    setShielded(a){
+      this._shielded = a;
+    },
+    radScl(){
+      return this._radscl;
+    },
+    setScl(a){
+      this._radscl = a;
+    },
+    drawShield(){
+      Draw.color(Pal.accent);
+      Fill.poly(this.x, this.y, 6, this.realRadius());
+      Draw.color();
+    },
+    drawShieldOver(){
+      if(this.hitShield() <= 0) return;
+
+      Draw.color(Color.white);
+      Draw.alpha(this.hitShield());
+      Fill.poly(this.x, this.y, 6, this.realRadius());
+      Draw.color();
+    },
+    drawSimple(){
+      if(this.realRadius() < 0.5) return;
+
+      var rad = this.realRadius();
+
+      Draw.color(Pal.accent);
+      Lines.stroke(1.5);
+      Draw.alpha(0.09 + 0.08 * this.hitShield());
+      Fill.poly(this.x, this.y, 6, rad);
+      Draw.alpha(1);
+      Lines.poly(this.x, this.y, 6, rad);
+      Draw.reset();
+    },
+    realRadius(){
+      return 70 * this.radScl();
+    },
+    updateShield(){
+      if(!this.isValid() || this.isDead()) return;
+      this.setScl(Mathf.lerpDelta(this.radScl(), (this.isShielded())?1:0, 0.05));
+      if(!this.isShielded()){
+        this.addBuild(-1*((this.hasEffect(StatusEffects.overdrive))?1.5:0.7)*Time.delta());
+        if(this.getBuild() <= 0.0001) this.setShielded(true);
+        return;
+      }
+
+      if(this.getBuild() >= 360){
+        Effects.effect(Fx.shieldBreak, this.x, this.y, 70);
+        this.setShielded(false);
+        return;
+        //b.remove();
+      }
+
+      if(this.hitShield() > 0){
+        this.subHit(1 / 5 * Time.delta());
+      }
+
+      var realRadius = this.realRadius();
+      Vars.bulletGroup.intersect(this.x - realRadius, this.y - realRadius, realRadius * 2, realRadius * 2, cons(trait => {
+        if(trait.canBeAbsorbed() && trait.getTeam() != this.getTeam() && Intersector.isInsideHexagon(this.x, this.y, 70 * this.radScl() * 2, trait.getX(), trait.getY())){
+          trait.absorb();
+          Effects.effect(Fx.absorb, trait);
+          this.setHit(1);
+          this.addBuild(trait.getShieldDamage());
+        }
+      }));
+    },
+    update(){
+      this.super$update();
+      this.updateShield();
+    },
+    draw(){
+      Draw.shader(shader);
+      this.super$draw();
+      Draw.shader();
+      if(this.isValid() && !this.isDead() && this.realRadius() > 0.01) t.global.shieldList.push(this);
+    },
+    drawSize(){
+      return Math.max(this.super$drawSize(), this.realRadius()*2+2);
+    }
+  });
+  titanMainB.setHit(0);
+  titanMainB.setShielded(true);
+  titanMainB.setBuild(0);
+  titanMainB.setScl(0);
+  return titanMainB;
+});
+titan2.create(titanMain);
 this.global.upgradeUnits.titan = titan2;
 
 const fortress2 = createUnit("fortress", "lancerLaser", GroundUnit, {
