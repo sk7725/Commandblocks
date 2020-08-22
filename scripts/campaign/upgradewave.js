@@ -312,6 +312,19 @@ const titanMain = prov(() => {
     },
     drawSize(){
       return Math.max(this.super$drawSize(), this.realRadius()*2+2);
+    },
+    writeSave(stream, net){
+      if(net == undefined || net == null) net = false;
+      this.super$writeSave(stream, net);
+      stream.writeBoolean(this.isShielded());
+      stream.writeShort(Mathf.floor(this.getBuild()));
+      stream.writeShort(Mathf.floor(this.radScl()*100));
+    },
+    readSave(stream, version){
+      this.super$readSave(stream, version);
+      this.setShielded(stream.readBoolean());
+      this.setBuild(stream.readShort());
+      this.setScl(stream.readShort()/100);
     }
   });
   titanMainB.setHit(0);
