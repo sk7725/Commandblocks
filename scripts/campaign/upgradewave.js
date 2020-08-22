@@ -169,7 +169,7 @@ function createUnit(name, cbullet, type, obj){
 
   if(Vars.headless) return unittype;
   unittype.localizedName = Core.bundle.format("unit.level2", origtype.localizedName);
-  unittype.description = origtype.description.split(".")[0] + ". "+ Core.bundle.get("unit.level2.description");
+  unittype.description = origtype.description.split(".")[0] + ".\n"+ Core.bundle.get("unit.level2.description");
   return unittype;
 }
 
