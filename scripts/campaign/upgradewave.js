@@ -240,7 +240,7 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
     if(!this.isValid() || this.isDead()) return;
     this._radscl = Mathf.lerpDelta(this._radscl, (this._shielded)?1:0, 0.05);
     if(!this._shielded){
-      this._buildup = Mathf.lerpDelta(this._buildup, 0, (this.hasEffect(StatusEffects.overdrive))?1.5:0.7);
+      this._buildup -= ((this.hasEffect(StatusEffects.overdrive))?1.5:0.7)*Time.delta();
       if(this._buildup <= 0.0001) this._shielded = true;
       return;
     }
