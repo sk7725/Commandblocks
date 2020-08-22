@@ -169,7 +169,7 @@ function createUnit(name, cbullet, type, obj){
 
   if(Vars.headless) return unittype;
   unittype.localizedName = Core.bundle.format("unit.level2", origtype.localizedName);
-  unittype.description = Core.bundle.get("unit."+name+".level2");
+  unittype.description = origtype.description.split(".")[0] + ". "+ Core.bundle.get("unit.level2.description");
   return unittype;
 }
 
@@ -224,6 +224,7 @@ const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit, {
         Call.createBullet(customb.spawnZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
         for(var i=0; i<15; i++){
           Time.run(i*7+10, run(()=>{
+            if(this == null || this.isDead()) return;
             var u = UnitTypes.eruptor.create(this.getTeam());
             var v1 = Vec2(75, 0).setAngle(Mathf.random()*360);
             if(Vars.world.tileWorld(this.x+v1.x, this.y+v1.y) == null || Vars.world.tileWorld(this.x+v1.x, this.y+v1.y).solid()) u.set(this.x, this.y);
