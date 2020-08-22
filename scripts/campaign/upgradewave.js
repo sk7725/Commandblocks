@@ -200,9 +200,88 @@ const crawler2 = createUnit("crawler", "japok", GroundUnit, {
 crawler2.health = 300;
 this.global.upgradeUnits.crawler = crawler2;
 
-const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {});
+var shieldList = this.global.shieldList;
+
+const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
+  hitShield: 0,
+  _buildup: 0,
+  _radscl: 0,
+  _shielded: true,
+  drawShield(){
+    Draw.color(Pal.accent);
+    Fill.poly(this.x, this.y, 6, this.realRadius());
+    Draw.color();
+  },
+  drawOver(){
+    if(this.hitShield <= 0) return;
+
+    Draw.color(Color.white);
+    Draw.alpha(this.hitShield);
+    Fill.poly(this.x, this.y, 6, this.realRadius());
+    Draw.color();
+  },
+  drawSimple(){
+    if(this.realRadius() < 0.5) return;
+
+    var rad = this.realRadius();
+
+    Draw.color(Pal.accent);
+    Lines.stroke(1.5);
+    Draw.alpha(0.09 + 0.08 * this.hitShield);
+    Fill.poly(this.x, this.y, 6, rad);
+    Draw.alpha(1);
+    Lines.poly(this.x, this.y, 6, rad);
+    Draw.reset();
+  },
+  realRadius(){
+    return 70 * this._radscl;
+  },
+  updateShield(){
+    if(!this.isValid() || this.isDead()) return;
+    this._radscl = Mathf.lerpDelta(this._radscl, (this._shielded)?1:0, 0.05);
+    if(!this._shielded){
+      this._buildup = Mathf.lerpDelta(this._buildup, 0, (this.hasEffect(StatusEffects.overdrive))?1.5:0.7);
+      if(this._buildup <= 0.0001) this._shielded = true;
+      return;
+    }
+
+    if(this._buildup >= 360){
+      Effects.effect(Fx.shieldBreak, b.x, b.y, 70);
+      this._shielded = false;
+      return;
+      //b.remove();
+    }
+
+    if(this.hitShield > 0){
+      this.hitShield -= 1 / 5 * Time.delta();
+    }
+
+    var realRadius = this.realRadius();
+    Vars.bulletGroup.intersect(this.x - realRadius, this.y - realRadius, realRadius * 2, realRadius * 2, cons(trait => {
+      if(trait.canBeAbsorbed() && trait.getTeam() != this.getTeam() && Intersector.isInsideHexagon(this.x, this.y, 70 * this._radscl * 2, trait.getX(), trait.getY())){
+        trait.absorb();
+        Effects.effect(Fx.absorb, trait);
+        this.hitShield = 1;
+        this._buildup += trait.getShieldDamage();
+      }
+    }));
+  },
+  update(){
+    this.super$update();
+    this.updateShield;
+  },
+  draw(){
+    Draw.shader(shader);
+    this.super$draw();
+    Draw.shader();
+    shieldList.push(this);
+  },
+  drawSize(){
+    return Math.max(this.super$drawSize(), this.realRadius()*2+2);
+  }
+});
 titan2.weapon.shootSound = Sounds.artillery;
-titan2.health = 2000;
+titan2.health = 1000;
 this.global.upgradeUnits.titan = titan2;
 
 const fortress2 = createUnit("fortress", "lancerLaser", GroundUnit, {
