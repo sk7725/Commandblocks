@@ -163,7 +163,7 @@ function createUnit(name, cbullet, type, obj, notCreate){
     }
     var unitmain = prov(()=>{
       main = extend(type, obj);
-      if(runc != undefined) runc.get(main);
+      //if(runc != undefined) runc.get(main);
       return main;
     });
 
