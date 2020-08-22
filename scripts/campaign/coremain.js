@@ -139,8 +139,8 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
   placed(tile){
     //show dialog
     if(!Vars.net.client()) this.selectNextItem(tile, null);
-    if(Vars.headless) return;
-    Vars.ui.showOkText(Core.bundle.get("hardmode.name"), Core.bundle.get("hardmode.description"), run(()=>{}));
+    //if(Vars.headless) return;
+    if(Vars.ui) Vars.ui.showOkText(Core.bundle.get("hardmode.name"), Core.bundle.get("hardmode.description"), run(()=>{}));
   },
   removed(tile){
 		if(this.blockpos[tile.getTeamID()] == tile.pos()){

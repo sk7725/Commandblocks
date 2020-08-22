@@ -191,13 +191,15 @@ const crawler2 = createUnit("crawler", "japok", GroundUnit, {
     }
   },
   teleport(){
-    var tx = Angles.trnsx(this.rotation - 90, Mathf.randomSeed(this.id + Time.time(), 64) - 32, -Mathf.randomSeed(this.id + Time.time() + 1, 80));
-    var ty = Angles.trnsy(this.rotation - 90, Mathf.randomSeed(this.id + Time.time(), 64) - 32, -Mathf.randomSeed(this.id + Time.time() + 1, 80));
-    if(Vars.world.tileWorld(this.x+tx, this.y+ty) == null || Vars.world.tileWorld(this.x+tx, this.y+ty).solid()) return;
+    //var tx = Angles.trnsx(this.rotation - 90, Mathf.randomSeed(this.id + Time.time(), 64) - 32, -Mathf.randomSeed(this.id + Time.time() + 1, 80));
+    //var ty = Angles.trnsy(this.rotation - 90, Mathf.randomSeed(this.id + Time.time(), 64) - 32, -Mathf.randomSeed(this.id + Time.time() + 1, 80));
+    var v1 = Vec2(89, 0).setAngle(Mathf.randomSeed((this.tileOn() == null)?628:this.tileOn().pos())*360);
+    if(Vars.world.tileWorld(this.x+v1.x, this.y+v1.y) == null || Vars.world.tileWorld(this.x+v1.x, this.y+v1.y).solid()) return;
     Effects.effect(Fx.teleportOut, Color.valueOf("f4ba6e"), this.getX(), this.getY());
-    this.set(this.x + tx, this.y + ty);
     Sounds.windowHide.at(this.getX(), this.getY(), 2+Math.random());
-    Effects.effect(Fx.teleport, Color.valueOf("f4ba6e"), this.getX(), this.getY());
+    this.set(this.x + v1.x, this.y + v1.y);
+
+    //Effects.effect(Fx.teleport, Color.valueOf("f4ba6e"), this.getX(), this.getY());
   }
 });
 crawler2.health = 300;
@@ -274,7 +276,7 @@ const titanMain = prov(() => {
       if(!this.isValid() || this.isDead()) return;
       this.setScl(Mathf.lerpDelta(this.radScl(), (this.isShielded())?1:0, 0.05));
       if(!this.isShielded()){
-        this.addBuild(-1*((this.hasEffect(StatusEffects.overdrive))?1.5:0.7)*Time.delta());
+        this.addBuild(-1*((this.hasEffect(StatusEffects.overdrive))?3.5:1.7)*Time.delta());
         if(this.getBuild() <= 0.0001){
           this.setShielded(true);
           this.setBuild(0);
@@ -282,7 +284,7 @@ const titanMain = prov(() => {
         return;
       }
 
-      if(this.getBuild() >= 360){
+      if(this.getBuild() >= 900){
         Effects.effect(Fx.shieldBreak, this.x, this.y, 70);
         this.setShielded(false);
         return;
@@ -376,7 +378,7 @@ const fortress2 = createUnit("fortress", "lancerLaser", GroundUnit, {
 });
 fortress2.weapon.shootSound = Sounds.laser;
 fortress2.weapon.reload = 15;
-fortress2.health = 6400;
+fortress2.health = 10000;
 fortress2.speed = 0.17;
 fortress2.maxVelocity = 1.2;
 this.global.upgradeUnits.fortress = fortress2;
@@ -425,7 +427,7 @@ const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit, {
 eruptor2.weapon.shootSound = Sounds.flame;
 eruptor2.weapon.reload = 3;
 eruptor2.weapon.alternate = true;
-eruptor2.health = 12800;
+eruptor2.health = 10800;
 eruptor2.speed = 0.15;
 eruptor2.maxVelocity = 0.8;
 eruptor2.targetAir = true;
