@@ -315,7 +315,7 @@ const titanMain = prov(() => {
     },
     drawSize(){
       return Math.max(this.super$drawSize(), this.realRadius()*2+2);
-    },
+    }/*
     readSave(stream, version){
       this.super$readSave(stream, version);
       this.readExtra(stream, version);
@@ -344,7 +344,7 @@ const titanMain = prov(() => {
       this.setShielded(stream.readBoolean());
       this.setBuild(stream.readShort());
       this.setScl(stream.readShort()/100);
-    }
+    }*/
   });
   titanMainB.setHit(0);
   titanMainB.setShielded(true);
