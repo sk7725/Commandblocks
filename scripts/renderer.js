@@ -9,7 +9,7 @@ if(!Vars.headless){
       const length = t.global.shieldList.length;
       if(length <= 0) return;
       //const prev = Draw.scl;
-      const prev = new Mat(Draw.proj());
+      Tmp.m1.set(Draw.proj());
       //Draw.scl = 1;
       Draw.proj(Core.camera.projection());
 
@@ -39,7 +39,7 @@ if(!Vars.headless){
 
       t.global.shieldList = [];
       //Draw.scl = prev;
-      Draw.proj(prev);
+      Draw.proj(Tmp.m1);
     },
     drawEach(funcname, length){
       for(var i=0; i<length; i++){
