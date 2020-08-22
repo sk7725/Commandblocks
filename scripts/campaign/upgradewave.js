@@ -275,7 +275,10 @@ const titanMain = prov(() => {
       this.setScl(Mathf.lerpDelta(this.radScl(), (this.isShielded())?1:0, 0.05));
       if(!this.isShielded()){
         this.addBuild(-1*((this.hasEffect(StatusEffects.overdrive))?1.5:0.7)*Time.delta());
-        if(this.getBuild() <= 0.0001) this.setShielded(true);
+        if(this.getBuild() <= 0.0001){
+          this.setShielded(true);
+          this.setBuild(0);
+        }
         return;
       }
 
@@ -313,15 +316,31 @@ const titanMain = prov(() => {
     drawSize(){
       return Math.max(this.super$drawSize(), this.realRadius()*2+2);
     },
-    writeSave(stream, net){
-      if(net == undefined || net == null) net = false;
-      this.super$writeSave(stream, net);
+    readSave(stream, version){
+      this.super$readSave(stream, version);
+      this.readExtra(stream, version);
+    },
+    read(stream){
+      this.super$read(stream,);
+      this.readExtra(stream, this.version());
+    },
+    writeSave(stream){
+      this.super$writeSave(stream);
+      this.writeExtra(stream);
+    },
+    write(stream){
+      this.super$write(stream);
+      this.writeExtra(stream);
+    },
+    writeExtra(stream){
+      //if(net == undefined || net == null) net = false;
+      //this.super$writeSave(stream);
       stream.writeBoolean(this.isShielded());
       stream.writeShort(Mathf.floor(this.getBuild()));
       stream.writeShort(Mathf.floor(this.radScl()*100));
     },
-    readSave(stream, version){
-      this.super$readSave(stream, version);
+    readExtra(stream, version){
+      //this.super$readSave(stream, version);
       this.setShielded(stream.readBoolean());
       this.setBuild(stream.readShort());
       this.setScl(stream.readShort()/100);
