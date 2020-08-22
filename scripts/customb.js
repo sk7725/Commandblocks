@@ -146,7 +146,7 @@ const forceSmall = extend(BasicBulletType,{
     Fill.poly(b.x, b.y, 6, this.realRadius(b));
     Draw.color();
   },
-  drawOver(b){
+  drawShieldOver(b){
     if(this.hit[b.id] <= 0) return;
 
     Draw.color(Color.white);

@@ -200,7 +200,7 @@ const crawler2 = createUnit("crawler", "japok", GroundUnit, {
 crawler2.health = 300;
 this.global.upgradeUnits.crawler = crawler2;
 
-var shieldList = this.global.shieldList;
+var t = this;
 
 const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
   hitShield: 0,
@@ -212,7 +212,7 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
     Fill.poly(this.x, this.y, 6, this.realRadius());
     Draw.color();
   },
-  drawOver(){
+  drawShieldOver(){
     if(this.hitShield <= 0) return;
 
     Draw.color(Color.white);
@@ -246,7 +246,7 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
     }
 
     if(this._buildup >= 360){
-      Effects.effect(Fx.shieldBreak, b.x, b.y, 70);
+      Effects.effect(Fx.shieldBreak, this.x, this.y, 70);
       this._shielded = false;
       return;
       //b.remove();
@@ -274,7 +274,7 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
     Draw.shader(shader);
     this.super$draw();
     Draw.shader();
-    if(this.isValid() && !this.isDead() && this.realRadius() > 0.01) shieldList.push(this);
+    if(this.isValid() && !this.isDead() && this.realRadius() > 0.01) t.global.shieldList.push(this);
   },
   drawSize(){
     return Math.max(this.super$drawSize(), this.realRadius()*2+2);

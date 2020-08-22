@@ -23,7 +23,7 @@ if(!Vars.headless){
         Core.graphics.clear(Color.clear);
 
         this.drawEach("drawShield", length);
-        this.drawEach("drawOver", length);
+        this.drawEach("drawShieldOver", length);
 
         Draw.flush();
         shieldBuffer.end();
