@@ -41,7 +41,7 @@ function copyUnitType(orig, target){
   return target;
 }
 
-function createUnit(name, cbullet, type, obj){
+function createUnit(name, cbullet, type, obj, runc){
   const origtype = Vars.content.getByName(ContentType.unit, name);
   if(origtype == null){
     print("Err: "+name+" not found!");
@@ -162,6 +162,7 @@ function createUnit(name, cbullet, type, obj){
   }
   var unitmain = prov(()=>{
     main = extend(type, obj);
+    if(runc != undefined) runc.get(main);
     return main;
   });
 
@@ -207,7 +208,7 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
   _radscl: 0,
   _shielded: true,
   hitShield(){
-    if(this._hitShield == undefined) this._hitShield = 0;
+    //if(this._hitShield == undefined) this._hitShield = 0;
     return this._hitShield;
   },
   subHit(a){
@@ -288,7 +289,9 @@ const titan2 = createUnit("titan", "artilleryHoming", GroundUnit, {
   drawSize(){
     return Math.max(this.super$drawSize(), this.realRadius()*2+2);
   }
-});
+}, cons(main => {
+  main.setHit(0);
+}));
 titan2.weapon.shootSound = Sounds.artillery;
 titan2.health = 1000;
 this.global.upgradeUnits.titan = titan2;
