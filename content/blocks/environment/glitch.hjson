@@ -8,4 +8,5 @@ insulated: true
 size: 1
 targetable: false
 
+category: effect
 buildVisibility: sandboxOnly

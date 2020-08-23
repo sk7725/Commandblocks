@@ -9,7 +9,7 @@ const glitch = extendContent(Block, "glitch", {
   isHidden(){
     return !Vars.state.isEditor();
   },
-  unlockedCur(){
+  canPlaceOn(tile){
     return false;
   }
 });
