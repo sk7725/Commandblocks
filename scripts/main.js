@@ -32,6 +32,7 @@ require("campaign/loader");
 require("campaign/enderchest");
 require("campaign/enderbox");
 require("campaign/tppad");
+require("campaign/glitch");
 
 //SERVER
 require("msgprotected");
