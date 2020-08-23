@@ -83,6 +83,7 @@ if(!Vars.headless){
 
   //const bitItem = Vars.content.getByName(ContentType.item, "commandblocks-bittrium");
   const bitShader = this.global.shaders.bittrium;
+  const smokeFx = this.global.fx.smokeRise;
 
   const bitcodeFx = newEffect(90, e => {
     Draw.shader(bitShader);
@@ -113,7 +114,8 @@ if(!Vars.headless){
       for(var i=0;i<thresh;i++){
         v1 = Core.camera.unproject(Mathf.random()*Core.graphics.getWidth(), Mathf.random()*Core.graphics.getHeight());
         tile = Vars.world.tileWorld(v1.x, v1.y);
-        if(tile!=null && sparkling.indexOf(tile.overlay().name)>-1) Effects.effect(sparkleFx[sparkling.indexOf(tile.overlay().name)], tile.worldx(), tile.worldy());
+        if(tile != null && tile.floor().name == "commandblocks-slaglava") Effects.effect((v1.x%1>0.5)?Fx.lava:smokeFx);
+        else if(tile!=null && sparkling.indexOf(tile.overlay().name)>-1) Effects.effect(sparkleFx[sparkling.indexOf(tile.overlay().name)], tile.worldx(), tile.worldy());
       }
       if(tile!=null && tile.block() instanceof Conveyor && tile.ent().items.total()>0 && tile.ent().items.first().name == "commandblocks-bittrium") Effects.effect(bitsparkleFx[Mathf.floorPositive(Mathf.random()*3)], tile.worldx(), tile.worldy());
     }
