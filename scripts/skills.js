@@ -1338,12 +1338,14 @@ const skillfunc={
   phasetp(player){
     //f4ba6e windowHide
     Effects.effect(Fx.teleportOut,Color.valueOf("f4ba6e"),player.getX(), player.getY());
-    var tx=((Time.time()*17%60)-30)*4;
-    var ty=((Time.time()*233%60)-30)*4;
-    if(!Vars.net.client()) player.set(player.getX()+tx,player.getY()+ty);
-    if(player==Vars.player)  Core.camera.position.set(player);
+    var v1 = Vec2(89, 0).setAngle(Mathf.randomSeed((player.tileOn() == null)?628:player.tileOn().pos())*360);
+    player.setNet(player.getX()+v1.x,player.getY()+v1.y);
+    Core.app.post(run(()=>{
+      if(player==Vars.player)  Core.camera.position.set(player);
+      Effects.effect(Fx.teleport,Color.valueOf("f4ba6e"),player.getX(), player.getY());
+    }));
     Sounds.windowHide.at(player.getX(),player.getY(),2+Math.random());
-    Effects.effect(Fx.teleport,Color.valueOf("f4ba6e"),player.getX(), player.getY());
+    //
   },
   phaseshot(player){
     Sounds.pew.at(player.getX(),player.getY(),0.5+Math.random());

@@ -182,7 +182,7 @@ const disassembler = extendContent(Separator, "disassembler", {
 const coffeed = extendContent(StatusEffect,"coffeed",{
   update(unit, time){
     this.super$update(unit, time);
-    if(Vars.net.client()) return;
+    //if(Vars.net.client()) return;
     if((unit instanceof Player) && !Vars.net.client()) unit.updateBuilding();
     if((unit instanceof Player)&&!unit.isShooting) return;
     if(Vars.net.client() && player != Vars.player) return;

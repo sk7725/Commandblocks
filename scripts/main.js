@@ -90,10 +90,10 @@ require("bundle-lib");
 require("piston");
 require("sporeblock");
 
-require("colorcanvas");
-require("colorpicker");
-require("colorpickerhex");
-require("colorpickerbrush");
+//require("colorcanvas");
+//require("colorpicker");
+//require("colorpickerhex");
+//require("colorpickerbrush");
 
 require("units/armorstandmodder");
 require("magicrouter");

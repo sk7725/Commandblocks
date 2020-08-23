@@ -197,8 +197,10 @@ const crawler2 = createUnit("crawler", "japok", GroundUnit, {
     if(Vars.world.tileWorld(this.x+v1.x, this.y+v1.y) == null || Vars.world.tileWorld(this.x+v1.x, this.y+v1.y).solid()) return;
     Effects.effect(Fx.teleportOut, Color.valueOf("f4ba6e"), this.getX(), this.getY());
     Sounds.windowHide.at(this.getX(), this.getY(), 2+Math.random());
-    this.set(this.x + v1.x, this.y + v1.y);
-
+    this.setNet(this.x + v1.x, this.y + v1.y);
+    Core.app.post(run(()=>{
+      Effects.effect(Fx.teleport, Color.valueOf("f4ba6e"), this.getX(), this.getY());
+    }));
     //Effects.effect(Fx.teleport, Color.valueOf("f4ba6e"), this.getX(), this.getY());
   }
 });
