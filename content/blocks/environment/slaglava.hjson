@@ -7,7 +7,7 @@ status: melting
 statusDuration: 180
 drownUpdateEffect: burning
 walkEffect: melting
-blendGroup: water
+blendGroup: air
 drownTime: 1200
 cacheLayer: tar
 damageTaken: 0.5
