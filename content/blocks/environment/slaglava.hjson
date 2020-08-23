@@ -11,3 +11,4 @@ drownTime: 1200
 cacheLayer: tar
 damageTaken: 0.5
 updateEffect: lava
+variants: 0
