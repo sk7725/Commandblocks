@@ -12,4 +12,4 @@ const glitch = extendContent(Block, "glitch", {
   unlockedCur(){
     return false;
   }
-}
+});
