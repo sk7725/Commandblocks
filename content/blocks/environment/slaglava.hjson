@@ -1,13 +1,12 @@
 type: Floor
 liquidDrop: slag
 speedMultiplier: 0.15
-variants: 3
 isLiquid: true
 status: melting
 statusDuration: 180
 drownUpdateEffect: burning
 walkEffect: melting
-blendGroup: air
+blendGroup: water
 drownTime: 1200
 cacheLayer: tar
 damageTaken: 0.5
