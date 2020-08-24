@@ -432,9 +432,57 @@ eruptor2.weapon.alternate = true;
 eruptor2.health = 12800;
 eruptor2.speed = 0.15;
 eruptor2.maxVelocity = 0.8;
-eruptor2.targetAir = true;
+eruptor2.targetAir = false;
 eruptor2.rotatespeed = 0.0055;
 this.global.upgradeUnits.eruptor = eruptor2;
+
+const carray2 = createUnit("chaos-array", "missileJavelin", GroundUnit, {
+  behavior(){
+    if(this.timer.get(4, 650)){
+      /*
+      this.applyEffect(charging, 120);
+      if(!Vars.net.client()){
+        Call.createBullet(customb.spawnZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
+        for(var i=0; i<15; i++){
+          Time.run(i*7+10, run(()=>{
+            if(this == null || this.isDead()) return;
+            var u = UnitTypes.eruptor.create(this.getTeam());
+            var v1 = Vec2(75, 0).setAngle(Mathf.random()*360);
+            if(Vars.world.tileWorld(this.x+v1.x, this.y+v1.y) == null || Vars.world.tileWorld(this.x+v1.x, this.y+v1.y).solid()) u.set(this.x, this.y);
+            else u.set(this.x+v1.x, this.y+v1.y);
+            u.add();
+            u.applyEffect(StatusEffects.overdrive, 1000);
+          }));
+        }
+      }*/
+    }
+    if(!Units.invalidateTarget(this.target, this)){
+      if(this.dst(this.target) < this.getWeapon().bullet.range()){
+
+        this.rotate(this.angleTo(this.target));
+
+        if(Angles.near(this.angleTo(this.target), this.rotation, 13)){
+          this.velocity().set(0, 0);
+          var ammo = this.getWeapon().bullet;
+
+          var to = Predict.intercept(this, this.target, ammo.speed);
+
+          this.getWeapon().update(this, to.x, to.y);
+        }
+      }
+    }
+  }
+});
+carray2.weapon.shootSound = Sounds.missile;
+carray2.weapon.reload = 30;
+carray2.weapon.shots = 6;
+carray2.weapon.spacing = 6;
+carray2.weapon.alternate = true;
+carray2.health = 36000;
+carray2.speed = 0.1;
+carray2.maxVelocity = 0.6;
+carray2.targetAir = true;
+this.global.upgradeUnits["chaos-array"] = carray2;
 
 const wraith2 = createUnit("wraith", "grenade", FlyingUnit, {});
 wraith2.weapon.shootSound = Sounds.artillery;

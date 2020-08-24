@@ -1,4 +1,4 @@
-type: Floor
+//type: Floor
 speedMultiplier: -1
 
 walkEffect: breakBlock

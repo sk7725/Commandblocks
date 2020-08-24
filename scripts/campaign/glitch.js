@@ -13,3 +13,12 @@ const glitch = extendContent(Block, "glitch", {
     return false;
   }
 });
+
+const ohno = extendContent(Floor, "ohno", {
+  doEdge(other, sameLayer){
+    return false;
+  },
+  edgeOnto(other){
+    return false;
+  }
+});
