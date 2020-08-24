@@ -1015,7 +1015,7 @@ this.global.bullets.rageZone = rageZone;
 
 const arrayTrail = newEffect(15, e => {
   Draw.color(Pal.meltdownHit);
-  Fill.square(b.x, b.y, 3.5*e.fout(), 45);
+  Fill.square(e.x, e.y, 3.5*e.fout(), 45);
 });
 const fragArrayPiece = extend(BasicBulletType, {
   draw(b){
