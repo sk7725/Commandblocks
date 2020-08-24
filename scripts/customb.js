@@ -998,7 +998,7 @@ const rageZone = extend(BasicBulletType, {
     Effects.effect(rageStart, b.x, b.y);
     Sounds.flame.at(b.x, b.y, 0.7);
     Sounds.flame.at(b.x, b.y, 0.3);
-    Units.nearby(b.getTeam(), x, y, 200, cons(e=>{
+    Units.nearby(b.getTeam(), b.x, b.y, 200, cons(e=>{
       e.applyEffect(Vars.content.getByName(ContentType.status, "commandblocks-raging"), 999999);
     }));
     b.remove();
