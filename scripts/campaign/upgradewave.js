@@ -502,7 +502,7 @@ const arrayMain = prov(() => {
       }
     },
     behavior(){
-      if(this.healthf() < 0.5 || this.rage()){
+      if(this.healthf() < 0.65 || this.rage()){
         if(!this.rage()){
           this.doHalf();
           this.setRage(true);
