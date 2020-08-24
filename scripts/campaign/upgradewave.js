@@ -482,7 +482,7 @@ const arrayMain = prov(() => {
       if(!Vars.net.client()){
         if(this.skillTimer().get(0, 140)){
           for(var i=0; i<3; i++){
-            Time.run(i*5, run(()=>{
+            Time.run(i*15, run(()=>{
               if(this.isValid() && !this.isDead()) Call.createBullet(customb.fragArray, this.getTeam(), this.getX(), this.getY(), this.rotation+180, 1, 1);
             }));
           }
@@ -497,13 +497,15 @@ const arrayMain = prov(() => {
       }
     },
     behavior(){
-      if(this.healthf() > 0.5 && !this.rage()) this.behaviorFull();
-      else{
+      if(this.healthf() < 0.5 || this.rage()){
         if(!this.rage()){
           this.doHalf();
           this.setRage(true);
         }
         this.behaviorHalf();
+      }
+      else{
+        this.behaviorFull();
       }
       if(!Units.invalidateTarget(this.target, this)){
         if(this.dst(this.target) < this.getWeapon().bullet.range()){

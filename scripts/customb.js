@@ -1042,7 +1042,7 @@ fragArrayPiece.hitEffect = Fx.hitMeltdown;
 fragArrayPiece.despawnEffect = Fx.hitMeltdown;
 fragArrayPiece.status = StatusEffects.burning;
 fragArrayPiece.homingPower = 0.03;
-fragArrayPiece.homingRange = 50;
+fragArrayPiece.homingRange = 150;
 this.global.bullets.fragArrayPiece = fragArrayPiece;
 
 const fragArray = extend(BasicBulletType, {
