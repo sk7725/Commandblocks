@@ -1101,7 +1101,7 @@ const meltCharge = extend(BasicBulletType, {
   },
   draw(b){}
 });
-meltCharge.speed = 0;
+meltCharge.speed = 1;
 meltCharge.lifetime = 120;
 meltCharge.collidesTiles = false;
 meltCharge.collides = false;

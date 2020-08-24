@@ -489,7 +489,9 @@ const arrayMain = prov(() => {
         }
         //shoot meltdown laser!
         if(this.skillTimer().get(1, 800*this.healthf()+400)){
-          Call.createBullet(customb.meltCharge, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1);
+          this.applyEffect(charging, 200);
+          var v1 = Vec2(30, 0).setAngle(this.rotation);
+          Call.createBullet(customb.meltCharge, this.getTeam(), this.getX()+v1.x, this.getY()+v1.y, this.rotation, 1, 1);
         }
       }
     },
