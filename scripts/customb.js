@@ -1064,3 +1064,52 @@ fragArray.collides = false;
 fragArray.collidesAir = false;
 fragArray.keepVelocity = false;
 this.global.bullets.fragArray = fragArray;
+
+const meltColor = Color.valueOf("ff9c5a");
+const meltChargeFx = newEffect(30, e => {
+  Draw.color(meltColor, Color.white, e.fin());
+  Angles.randLenVectors(e.id, 3+e.id%3, 70*e.fout(), floatc2((x,y) => {
+    Fill.square(e.x+x, e.y+y, e.fin()*4.5, 45);
+  }));
+});
+const meltChargeFx2 = newEffect(90, e => {
+  Draw.color(meltColor);
+  Fill.circle(e.x, e.y, e.finpow()*12)
+  Lines.stroke(e.finpow()*1.5);
+  Lines.poly(e.x, e.y, Mathf.random()*5+5, e.fin()*12+8, e.fout()*190);
+  Lines.poly(e.x, e.y, Mathf.random()*5+5, e.fin()*12+8, e.fout()*-290);
+  Draw.color();
+  Fill.circle(e.x, e.y, e.finpow()*9);
+});
+const meltCharge = extend(BasicBulletType, {
+  init(b){
+    if(b == null) return;
+    var tx = b.x;
+    var ty = b.y;
+    var tr = b.rot();
+    var team = b.getTeam();
+    Effects.effect(meltChargeFx2, tx, ty);
+    for(var i=0; i<5; i++){
+      Time.run(Mathf.random(80), run(()=>{
+        Effects.effect(meltChargeFx, tx, ty);
+      }));
+    }
+    for(var i=0; i<90; i++){
+      Time.run(90+i, run(()=>{
+        Bullet.create(Bullets.meltdownLaser, null, team, tx, ty, tr, 1, 1);
+      }));
+    }
+    Time.run(90, run(()=>{
+      Sounds.laserbig.at(tx, ty, 1);
+    }));
+    b.remove();
+  },
+  draw(b){}
+});
+meltCharge.speed = 0;
+meltCharge.lifetime = 120;
+meltCharge.collidesTiles = false;
+meltCharge.collides = false;
+meltCharge.collidesAir = false;
+meltCharge.keepVelocity = false;
+this.global.bullets.meltCharge = meltCharge;

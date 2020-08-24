@@ -466,7 +466,7 @@ const arrayMain = prov(() => {
       return this._timerSkill;
     },
     setRage(a){
-      this._rage = t;
+      this._rage = a;
     },
     rage(){
       return this._rage;
@@ -488,6 +488,9 @@ const arrayMain = prov(() => {
           }
         }
         //shoot meltdown laser!
+        if(this.skillTimer().get(1, 800*this.healthf()+400)){
+          Call.createBullet(customb.meltCharge, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1);
+        }
       }
     },
     doHalf(){
