@@ -447,10 +447,10 @@ raging.effect = customfx.rageShine;
 raging.speedMultiplier = 1.6;
 raging.damageMultiplier = 2;
 
-const carray2 = createUnit("chaos-array", "missileSurge", GroundUnit, {}, true);
-carray2.weapon.shootSound = Sounds.missile;
+const carray2 = createUnit("chaos-array", "standardThoriumBig", GroundUnit, {}, true);
+carray2.weapon.shootSound = Sounds.artillery;
 carray2.weapon.reload = 30;
-carray2.weapon.shots = 6;
+carray2.weapon.shots = 5;
 carray2.weapon.spacing = 6;
 carray2.weapon.alternate = true;
 carray2.weapon.lengthRand = 0;
@@ -497,7 +497,7 @@ const arrayMain = prov(() => {
       }
     },
     behavior(){
-      if(this.health()/this.maxHealth() >= 0.5) this.behaviorFull();
+      if(this.healthf() > 0.5 && !this.rage()) this.behaviorFull();
       else{
         if(!this.rage()){
           this.doHalf();
@@ -520,6 +520,11 @@ const arrayMain = prov(() => {
           }
         }
       }
+    },
+    draw(){
+      Draw.shader(shader);
+      this.super$draw();
+      Draw.shader();
     }
   });
   //arrayMainB.initTimer(new Interval(4));

@@ -1025,10 +1025,10 @@ const fragArrayPiece = extend(BasicBulletType, {
   },
   update(b){
     this.super$update(b);
-    if(Mathf.chance(0.5)) Effects.effect(arrayTrail, b.x, b.y);
+    Effects.effect(arrayTrail, b.x, b.y);
   }
 });
-fragArrayPiece.speed = 1.9;
+fragArrayPiece.speed = 2.5;
 fragArrayPiece.lifetime = 240;
 fragArrayPiece.pierce = true;
 fragArrayPiece.damage = 400;
@@ -1041,8 +1041,8 @@ fragArrayPiece.hitShake = 3;
 fragArrayPiece.hitEffect = Fx.hitMeltdown;
 fragArrayPiece.despawnEffect = Fx.hitMeltdown;
 fragArrayPiece.status = StatusEffects.burning;
-fragArrayPiece.homingPower = 0.05;
-fragArrayPiece.homingRange = 100;
+fragArrayPiece.homingPower = 0.03;
+fragArrayPiece.homingRange = 50;
 this.global.bullets.fragArrayPiece = fragArrayPiece;
 
 const fragArray = extend(BasicBulletType, {
