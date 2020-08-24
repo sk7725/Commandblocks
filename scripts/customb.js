@@ -983,3 +983,84 @@ japok.hitEffect = Fx.none;
 japok.despawnEffect = Fx.none;
 japok.hitSound = Sounds.none;
 this.global.bullets.japok = japok;
+
+const rageStart = newEffect(100, e => {
+  Draw.color(Color.purple, Color.white, e.fout());
+  Lines.stroke(e.fout()*5);
+  Lines.circle(e.x, e.y, e.finpow()*200);
+  Lines.circle(e.x, e.y, e.finpow()*180);
+  Lines.spikes(e.x, e.y, e.finpow()*180, e.finpow()*20, 12, e.finpow()*180);
+  Lines.spikes(e.x, e.y, e.finpow()*180, e.finpow()*20, 12, e.finpow()*-180);
+});
+const rageZone = extend(BasicBulletType, {
+  init(b){
+    if(b == null) return;
+    Effects.effect(rageStart, b.x, b.y);
+    Sounds.flame.at(b.x, b.y, 0.7);
+    Sounds.flame.at(b.x, b.y, 0.3);
+    Units.nearby(b.getTeam(), x, y, 200, cons(e=>{
+      e.applyEffect(Vars.content.getByName(ContentType.status, "commandblocks-raging"), 999999);
+    }));
+    b.remove();
+  },
+  draw(b){}
+});
+rageZone.speed = 0;
+rageZone.lifetime = 120;
+rageZone.collidesTiles = false;
+rageZone.collides = false;
+rageZone.collidesAir = false;
+rageZone.keepVelocity = false;
+this.global.bullets.rageZone = rageZone;
+
+const arrayTrail = newEffect(15, e => {
+  Draw.color(Pal.meltdownHit);
+  Fill.square(b.x, b.y, 3.5*e.fout(), 45);
+});
+const fragArrayPiece = extend(BasicBulletType, {
+  draw(b){
+    Draw.color(Pal.meltdownHit);
+    Fill.square(b.x, b.y, 3.5, 45);
+    Draw.color();
+  },
+  update(b){
+    this.super$update(b);
+    if(Mathf.chance(0.5)) Effects.effect(arrayTrail, b.x, b.y);
+  }
+});
+fragArrayPiece.speed = 1.9;
+fragArrayPiece.lifetime = 240;
+fragArrayPiece.pierce = true;
+fragArrayPiece.damage = 400;
+fragArrayPiece.collidesTiles = true;
+fragArrayPiece.collides = true;
+fragArrayPiece.collidesAir = true;
+fragArrayPiece.keepVelocity = false;
+fragArrayPiece.hitSound = Sounds.none;//change later
+fragArrayPiece.hitShake = 3;
+fragArrayPiece.hitEffect = Fx.hitMeltdown;
+fragArrayPiece.despawnEffect = Fx.hitMeltdown;
+fragArrayPiece.status = StatusEffects.burning;
+fragArrayPiece.homingPower = 0.05;
+fragArrayPiece.homingRange = 100;
+this.global.bullets.fragArrayPiece = fragArrayPiece;
+
+const fragArray = extend(BasicBulletType, {
+  init(b){
+    if(b == null) return;
+    Bullet.create(fragArrayPiece, null, b.getTeam(), b.x, b.y, b.rot()-30, 1, 1);
+    Bullet.create(fragArrayPiece, null, b.getTeam(), b.x, b.y, b.rot()-15, 1, 1);
+    Bullet.create(fragArrayPiece, null, b.getTeam(), b.x, b.y, b.rot(), 1, 1);
+    Bullet.create(fragArrayPiece, null, b.getTeam(), b.x, b.y, b.rot()+30, 1, 1);
+    Bullet.create(fragArrayPiece, null, b.getTeam(), b.x, b.y, b.rot()+15, 1, 1);
+    b.remove();
+  },
+  draw(b){}
+});
+fragArray.speed = 1;
+fragArray.lifetime = 120;
+fragArray.collidesTiles = false;
+fragArray.collides = false;
+fragArray.collidesAir = false;
+fragArray.keepVelocity = false;
+this.global.bullets.fragArray = fragArray;

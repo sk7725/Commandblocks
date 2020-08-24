@@ -57,7 +57,7 @@ if(!Vars.headless){
       }
     }, "uniform sampler2D u_texture;uniform float u_time;varying vec4 v_color;varying vec2 v_texCoord;void main(){vec4 color = texture2D(u_texture, v_texCoord.xy);float t = clamp((sin(u_time * .01 + gl_FragCoord.x * .01 + gl_FragCoord.y * .005) + 1.) / 2., 0., 1.);vec3 c = vec3(mix(0., 1., t), mix(.89, .39, t), mix(1., .85, t));float mulp = abs(color.r-color.g)+abs(color.g-color.b)+abs(color.r-color.b);mulp = mulp*mulp/1.1;gl_FragColor = vec4(mix(color.ggg,c.rgb,mulp), color.a);}");
 
-    this.global.shaders.glitch = mediumShader({
+    this.global.shaders.glitch = highShader({
       apply(){
         this.setUniformf("u_time", Time.time() / Scl.scl(1.0));
         this.setUniformf("u_resolution", Core.graphics.getWidth(), Core.graphics.getHeight());

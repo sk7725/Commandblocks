@@ -436,52 +436,100 @@ eruptor2.targetAir = false;
 eruptor2.rotatespeed = 0.0055;
 this.global.upgradeUnits.eruptor = eruptor2;
 
-const carray2 = createUnit("chaos-array", "missileJavelin", GroundUnit, {
-  behavior(){
-    if(this.timer.get(4, 650)){
-      /*
-      this.applyEffect(charging, 120);
-      if(!Vars.net.client()){
-        Call.createBullet(customb.spawnZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
-        for(var i=0; i<15; i++){
-          Time.run(i*7+10, run(()=>{
-            if(this == null || this.isDead()) return;
-            var u = UnitTypes.eruptor.create(this.getTeam());
-            var v1 = Vec2(75, 0).setAngle(Mathf.random()*360);
-            if(Vars.world.tileWorld(this.x+v1.x, this.y+v1.y) == null || Vars.world.tileWorld(this.x+v1.x, this.y+v1.y).solid()) u.set(this.x, this.y);
-            else u.set(this.x+v1.x, this.y+v1.y);
-            u.add();
-            u.applyEffect(StatusEffects.overdrive, 1000);
-          }));
-        }
-      }*/
-    }
-    if(!Units.invalidateTarget(this.target, this)){
-      if(this.dst(this.target) < this.getWeapon().bullet.range()){
-
-        this.rotate(this.angleTo(this.target));
-
-        if(Angles.near(this.angleTo(this.target), this.rotation, 13)){
-          this.velocity().set(0, 0);
-          var ammo = this.getWeapon().bullet;
-
-          var to = Predict.intercept(this, this.target, ammo.speed);
-
-          this.getWeapon().update(this, to.x, to.y);
-        }
-      }
-    }
+const raging = extendContent(StatusEffect, "raging", {
+  update(unit, time){
+    this.super$update(unit, time);
+    if(unit.health() < unit.maxHealth()) unit.healBy(1);
   }
 });
+raging.color = Color.purple;
+raging.effect = customfx.rageShine;
+raging.speedMultiplier = 1.6;
+raging.damageMultiplier = 2;
+
+const carray2 = createUnit("chaos-array", "missileSurge", GroundUnit, {}, true);
 carray2.weapon.shootSound = Sounds.missile;
 carray2.weapon.reload = 30;
 carray2.weapon.shots = 6;
 carray2.weapon.spacing = 6;
 carray2.weapon.alternate = true;
+carray2.weapon.lengthRand = 0;
+carray2.weapon.shotDelay = 0;
 carray2.health = 36000;
 carray2.speed = 0.1;
 carray2.maxVelocity = 0.6;
 carray2.targetAir = true;
+const arrayMain = prov(() => {
+  arrayMainB = extend(GroundUnit, {
+    _timers: new Interval(2),
+    getTimer(){
+      return this._timers;
+    },
+    initTimer(t){
+      this._timers = t;
+    },
+    setRage(a){
+      this._rage = t;
+    },
+    rage(){
+      return this._rage;
+    },
+    behaviorFull(){
+      if(!Vars.net.client()){
+        if(this.getTimer().get(0, 150)){
+          Call.createBullet(customb.fragArray, this.getTeam(), this.getX(), this.getY(), this.rotation+180, 1, 1);
+        }
+      }
+    },
+    behaviorHalf(){
+      if(!Vars.net.client()){
+        if(this.getTimer().get(0, 140)){
+          for(var i=0; i<3; i++){
+            Time.run(i*5, run(()=>{
+              if(this.isValid() && !this.isDead()) Call.createBullet(customb.fragArray, this.getTeam(), this.getX(), this.getY(), this.rotation+180, 1, 1);
+            }));
+          }
+        }
+        //shoot meltdown laser!
+      }
+    },
+    doHalf(){
+      if(!Vars.net.client()){
+        this.applyEffect(raging, 9999999);
+        Call.createBullet(customb.rageZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
+      }
+    },
+    behavior(){
+      if(this.health()/this.maxHealth() >= 0.5) this.behaviorFull();
+      else{
+        if(!this.rage()){
+          this.doHalf();
+          this.setRage(true);
+        }
+        this.behaviorHalf();
+      }
+      if(!Units.invalidateTarget(this.target, this)){
+        if(this.dst(this.target) < this.getWeapon().bullet.range()){
+
+          this.rotate(this.angleTo(this.target));
+
+          if(Angles.near(this.angleTo(this.target), this.rotation, 13)){
+            this.velocity().set(0, 0);
+            var ammo = this.getWeapon().bullet;
+
+            var to = Predict.intercept(this, this.target, ammo.speed);
+
+            this.getWeapon().update(this, to.x, to.y);
+          }
+        }
+      }
+    }
+  });
+  //arrayMainB.initTimer(new Interval(4));
+  arrayMainB.setRage(false);
+  return arrayMainB;
+});
+carray2.create(arrayMain);
 this.global.upgradeUnits["chaos-array"] = carray2;
 
 const wraith2 = createUnit("wraith", "grenade", FlyingUnit, {});
