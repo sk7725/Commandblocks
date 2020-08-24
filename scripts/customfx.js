@@ -346,5 +346,11 @@ this.global.fx = {
     Lines.stroke(e.fout()*2);
     Draw.color(Color.purple, Color.white, e.fin());
     Lines.lineAngleCenter(e.x, e.y+e.fin()*6, 90, e.fin()*5+5);
+  }),
+  meltChargeFx : newEffect(25, e => {
+    Draw.color(meltColor, Color.white, e.fin());
+    Angles.randLenVectors(e.id, 3+e.id%3, 70*e.fout(), floatc2((x,y) => {
+      Fill.square(e.x+x, e.y+y, e.fin()*4.5, 45);
+    }));
   })
 };

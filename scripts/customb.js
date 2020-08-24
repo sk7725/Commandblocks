@@ -1066,12 +1066,7 @@ fragArray.keepVelocity = false;
 this.global.bullets.fragArray = fragArray;
 
 const meltColor = Color.valueOf("ff9c5a");
-const meltChargeFx = newEffect(30, e => {
-  Draw.color(meltColor, Color.white, e.fin());
-  Angles.randLenVectors(e.id, 3+e.id%3, 70*e.fout(), floatc2((x,y) => {
-    Fill.square(e.x+x, e.y+y, e.fin()*4.5, 45);
-  }));
-});
+const meltChargeFx = this.global.fx.meltChargeFx;
 const meltChargeFx2 = newEffect(90, e => {
   Draw.color(meltColor);
   Fill.circle(e.x, e.y, e.finpow()*12)
