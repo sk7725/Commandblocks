@@ -41,6 +41,7 @@ function newGroundEffect(lifetime, staticLife, renderer){
 //thanks to EyeofDarkness(aka Darky Daddy)
 const newEffectSize = (life, size, renderer) => new Effects.Effect(life, size, new Effects.EffectRenderer({render: renderer}));
 
+const meltColor = Color.valueOf("ff9c5a");
 this.global.fx = {
   evalfx : newEffect(30, e => {
     if(e.data == null || !e.data.text || !e.data.parent) return;
