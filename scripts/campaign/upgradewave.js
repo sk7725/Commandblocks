@@ -461,12 +461,9 @@ carray2.maxVelocity = 0.6;
 carray2.targetAir = true;
 const arrayMain = prov(() => {
   arrayMainB = extend(GroundUnit, {
-    _timers: new Interval(2),
-    getTimer(){
-      return this._timers;
-    },
-    initTimer(t){
-      this._timers = t;
+    _timerSkill: new Interval(2),
+    skillTimer(){
+      return this._timerSkill;
     },
     setRage(a){
       this._rage = t;
@@ -476,14 +473,14 @@ const arrayMain = prov(() => {
     },
     behaviorFull(){
       if(!Vars.net.client()){
-        if(this.getTimer().get(0, 150)){
+        if(this.skillTimer().get(0, 150)){
           Call.createBullet(customb.fragArray, this.getTeam(), this.getX(), this.getY(), this.rotation+180, 1, 1);
         }
       }
     },
     behaviorHalf(){
       if(!Vars.net.client()){
-        if(this.getTimer().get(0, 140)){
+        if(this.skillTimer().get(0, 140)){
           for(var i=0; i<3; i++){
             Time.run(i*5, run(()=>{
               if(this.isValid() && !this.isDead()) Call.createBullet(customb.fragArray, this.getTeam(), this.getX(), this.getY(), this.rotation+180, 1, 1);
