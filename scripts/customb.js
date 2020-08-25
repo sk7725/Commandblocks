@@ -999,7 +999,7 @@ const rageZone = extend(BasicBulletType, {
     Sounds.flame.at(b.x, b.y, 0.7);
     Sounds.flame.at(b.x, b.y, 0.3);
     Units.nearby(b.getTeam(), b.x, b.y, 200, cons(e=>{
-      e.applyEffect(Vars.content.getByName(ContentType.status, "commandblocks-raging"), 900);
+      e.applyEffect(Vars.content.getByName(ContentType.status, "commandblocks-raging"), 1500);
     }));
     b.remove();
   },
@@ -1125,7 +1125,7 @@ const arrayHealZone = extend(BasicBulletType, {
     Sounds.message.at(b.x, b.y, 0.7);
     Sounds.message.at(b.x, b.y, 1.5);
     Units.nearby(b.getTeam(), b.x, b.y, 200, cons(e=>{
-      if(e.getType().name != "commandblocks-chaos-array-2") e.healBy(Math.max(500, e.maxHealth()*0.2));
+      if(e.getType().name != "commandblocks-chaos-array-2") e.healBy(Math.max(500, e.maxHealth()*0.5));
     }));
     b.remove();
   },
@@ -1151,7 +1151,7 @@ const burstArrayPiece = extend(BasicBulletType, {
   }
 });
 burstArrayPiece.speed = 1.5;
-burstArrayPiece.lifetime = 670;
+burstArrayPiece.lifetime = 300;
 burstArrayPiece.pierce = false;
 burstArrayPiece.damage = 400;
 burstArrayPiece.collidesTiles = false;
