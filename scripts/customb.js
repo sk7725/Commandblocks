@@ -839,7 +839,7 @@ const spear2 = extend(BasicBulletType,{
     }
     this.super$hit(b, x, y);
     if(b.time()<60) return;
-    b.scaleTime(-1*Math.min(60, b.time()-60));
+    b.scaleTime(-1*Math.min(60+(b.time()-60)*0.4, b.time()-60));
     var t1 = b.getData();
     t1[2] = false;
     b.setData(t1);

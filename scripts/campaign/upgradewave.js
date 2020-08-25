@@ -508,7 +508,7 @@ const arrayMain = prov(() => {
         }
         else{
           if(this.skillTimer().get(0, 140)){
-            for(var i=0; i<3; i++){
+            for(var i=0; i<((this.healthf()>0.3)?3:5); i++){
               Time.run(i*15, run(()=>{
                 if(this.isValid() && !this.isDead()) Call.createBullet(customb.fragArray, this.getTeam(), this.getX(), this.getY(), this.rotation+180, 1, 1);
               }));
@@ -540,7 +540,7 @@ const arrayMain = prov(() => {
         this.applyEffect(raging, 9999999);
         Call.createBullet(customb.rageZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
         this.skillTimer().reset(0, 0);
-        this.skillTimer().reset(1, 0);
+        //this.skillTimer().reset(1, 0);
         this.skillTimer().reset(2, 0);
         this.setAtkMode(false);
       }
