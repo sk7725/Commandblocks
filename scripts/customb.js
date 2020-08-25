@@ -1089,9 +1089,10 @@ const meltCharge = extend(BasicBulletType, {
         Effects.effect(meltChargeFx, tx, ty);
       }));
     }
-    for(var i=0; i<90; i++){
+    const mLaser = Bullet.create(Bullets.meltdownLaser, null, team, tx, ty, tr, 1, 1);
+    for(var i=0; i<95; i++){
       Time.run(90+i, run(()=>{
-        Bullet.create(Bullets.meltdownLaser, null, team, tx, ty, tr, 1, 1);
+        mLaser.time(0);
       }));
     }
     Time.run(90, run(()=>{

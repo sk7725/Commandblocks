@@ -484,7 +484,7 @@ const arrayMain = prov(() => {
       this._atkmode - a;
     },
     atkMode(){
-      return this._atkmodel
+      return this._atkmode;
     },
     toggleAtk(){
       this._atkmode = !this._atkmode;
