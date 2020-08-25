@@ -999,7 +999,7 @@ const rageZone = extend(BasicBulletType, {
     Sounds.flame.at(b.x, b.y, 0.7);
     Sounds.flame.at(b.x, b.y, 0.3);
     Units.nearby(b.getTeam(), b.x, b.y, 200, cons(e=>{
-      e.applyEffect(Vars.content.getByName(ContentType.status, "commandblocks-raging"), 999999);
+      e.applyEffect(Vars.content.getByName(ContentType.status, "commandblocks-raging"), 900);
     }));
     b.remove();
   },
@@ -1014,22 +1014,22 @@ rageZone.keepVelocity = false;
 this.global.bullets.rageZone = rageZone;
 
 const arrayTrail = newEffect(15, e => {
-  Draw.color(Pal.meltdownHit);
-  Fill.square(e.x, e.y, 3.5*e.fout(), 45);
+  Draw.color(e.color);
+  Fill.square(e.x, e.y, 3.5*e.fout(), e.rotation);
 });
 const fragArrayPiece = extend(BasicBulletType, {
   draw(b){
     Draw.color(Pal.meltdownHit);
-    Fill.square(b.x, b.y, 3.5, 45);
+    Fill.square(b.x, b.y, 3.5, 45+b.rot());
     Draw.color();
   },
   update(b){
     this.super$update(b);
-    Effects.effect(arrayTrail, b.x, b.y);
+    Effects.effect(arrayTrail, Pal.meltdownHit, b.x, b.y, b.rot()+45);
   }
 });
 fragArrayPiece.speed = 2.5;
-fragArrayPiece.lifetime = 240;
+fragArrayPiece.lifetime = 400;
 fragArrayPiece.pierce = true;
 fragArrayPiece.damage = 600;
 fragArrayPiece.collidesTiles = true;
@@ -1108,3 +1108,76 @@ meltCharge.collides = false;
 meltCharge.collidesAir = false;
 meltCharge.keepVelocity = false;
 this.global.bullets.meltCharge = meltCharge;
+
+const arrayHealStart = newEffect(100, e => {
+  Draw.color(Pal.heal, Color.white, e.fout());
+  Lines.stroke(e.fout()*5);
+  Lines.circle(e.x, e.y, e.finpow()*200);
+  Lines.circle(e.x, e.y, e.finpow()*180);
+  Lines.spikes(e.x, e.y, e.finpow()*180, e.finpow()*20, 12, e.finpow()*180);
+  Lines.spikes(e.x, e.y, e.finpow()*180, e.finpow()*20, 12, e.finpow()*-180);
+});
+const arrayHealZone = extend(BasicBulletType, {
+  init(b){
+    if(b == null) return;
+    Effects.effect(arrayHealStart, b.x, b.y);
+    Sounds.message.at(b.x, b.y, 0.7);
+    Sounds.message.at(b.x, b.y, 1.5);
+    Units.nearby(b.getTeam(), b.x, b.y, 200, cons(e=>{
+      if(e.getType().name != "commandblocks-chaos-array-2") e.healBy(Math.max(500, e.maxHealth()*0.2));
+    }));
+    b.remove();
+  },
+  draw(b){}
+});
+arrayHealZone.speed = 0;
+arrayHealZone.lifetime = 120;
+arrayHealZone.collidesTiles = false;
+arrayHealZone.collides = false;
+arrayHealZone.collidesAir = false;
+arrayHealZone.keepVelocity = false;
+this.global.bullets.arrayHealZone = arrayHealZone;
+
+const burstArrayPiece = extend(BasicBulletType, {
+  draw(b){
+    Draw.color(Pal.lancerLaser);
+    Fill.square(b.x, b.y, 3.5, 45+b.rot());
+    Draw.color();
+  },
+  update(b){
+    this.super$update(b);
+    Effects.effect(arrayTrail, Pal.lancerLaser, b.x, b.y, b.rot()+45);
+  }
+});
+burstArrayPiece.speed = 1.5;
+burstArrayPiece.lifetime = 670;
+burstArrayPiece.pierce = false;
+burstArrayPiece.damage = 400;
+burstArrayPiece.collidesTiles = false;
+burstArrayPiece.collides = true;
+burstArrayPiece.collidesAir = true;
+burstArrayPiece.keepVelocity = false;
+burstArrayPiece.hitSound = Sounds.none;//change later
+burstArrayPiece.hitShake = 2;
+burstArrayPiece.hitEffect = Fx.hitLancer;
+burstArrayPiece.despawnEffect = Fx.hitLancer;
+burstArrayPiece.status = empjam;
+this.global.bullets.burstArrayPiece = burstArrayPiece;
+
+const burstArray = extend(BasicBulletType, {
+  init(b){
+    if(b == null) return;
+    for(var i=0; i<18; i++){
+      Bullet.create(burstArrayPiece, null, b.getTeam(), b.x, b.y, b.rot()+i*20, 1, 1);
+    }
+    b.remove();
+  },
+  draw(b){}
+});
+burstArray.speed = 1;
+burstArray.lifetime = 120;
+burstArray.collidesTiles = false;
+burstArray.collides = false;
+burstArray.collidesAir = false;
+burstArray.keepVelocity = false;
+this.global.bullets.burstArray = burstArray;

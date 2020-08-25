@@ -446,6 +446,15 @@ raging.color = Color.purple;
 raging.effect = customfx.rageShine;
 raging.speedMultiplier = 1.6;
 raging.damageMultiplier = 2;
+const jamweapons = extendContent(StatusEffect,"jamweapons",{
+  update(unit, time){
+    this.super$update(unit, time);
+    unit.getTimer().get(unit.getShootTimer(true),1);
+    unit.getTimer().get(unit.getShootTimer(false),1);
+  }
+});
+jamweapons.color = Color.orange;
+jamweapons.effect = Fx.none;
 
 const carray2 = createUnit("chaos-array", "standardThoriumBig", GroundUnit, {}, true);
 carray2.weapon.shootSound = Sounds.artillery;
@@ -461,7 +470,7 @@ carray2.maxVelocity = 0.6;
 carray2.targetAir = true;
 const arrayMain = prov(() => {
   arrayMainB = extend(GroundUnit, {
-    _timerSkill: new Interval(2),
+    _timerSkill: new Interval(3),
     skillTimer(){
       return this._timerSkill;
     },
@@ -470,6 +479,15 @@ const arrayMain = prov(() => {
     },
     rage(){
       return this._rage;
+    },
+    setAtkMode(a){
+      this._atkmode - a;
+    },
+    atkMode(){
+      return this._atkmodel
+    },
+    toggleAtk(){
+      this._atkmode = !this._atkmode;
     },
     behaviorFull(){
       if(!Vars.net.client()){
@@ -480,18 +498,40 @@ const arrayMain = prov(() => {
     },
     behaviorHalf(){
       if(!Vars.net.client()){
-        if(this.skillTimer().get(0, 140)){
-          for(var i=0; i<3; i++){
-            Time.run(i*15, run(()=>{
-              if(this.isValid() && !this.isDead()) Call.createBullet(customb.fragArray, this.getTeam(), this.getX(), this.getY(), this.rotation+180, 1, 1);
-            }));
+        if(this.atkMode()){
+          if(this.skillTimer().get(0, 290)){
+            for(var i=0; i<((this.healthf()>0.3)?2:4); i++){
+              Tmp.v1.trns(Mathf.random()*360 ,Mathf.random()*15);
+              Call.createBullet(customb.burstArray, this.getTeam(), this.getX()+Tmp.v1.x, this.getY()+Tmp.v1.y, Tmp.v1.angle(), 1, 1);
+            }
           }
         }
+        else{
+          if(this.skillTimer().get(0, 140)){
+            for(var i=0; i<3; i++){
+              Time.run(i*15, run(()=>{
+                if(this.isValid() && !this.isDead()) Call.createBullet(customb.fragArray, this.getTeam(), this.getX(), this.getY(), this.rotation+180, 1, 1);
+              }));
+            }
+          }
+        }
+
         //shoot meltdown laser!
         if(this.skillTimer().get(1, 800*this.healthf()+400)){
+          this.applyEffect(jamweapons, 200);
           this.applyEffect(charging, 200);
           var v1 = Vec2(30, 0).setAngle(this.rotation);
           Call.createBullet(customb.meltCharge, this.getTeam(), this.getX()+v1.x, this.getY()+v1.y, this.rotation, 1, 1);
+        }
+        //heal,rage zone
+        if(this.skillTimer().get(2, 1500)){
+          if(this.atkMode()){
+            Call.createBullet(customb.rageZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
+          }
+          else{
+            Call.createBullet(customb.arrayHealZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
+          }
+          this.toggleAtk();
         }
       }
     },
@@ -499,6 +539,10 @@ const arrayMain = prov(() => {
       if(!Vars.net.client()){
         this.applyEffect(raging, 9999999);
         Call.createBullet(customb.rageZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
+        this.skillTimer().reset(0, 0);
+        this.skillTimer().reset(1, 0);
+        this.skillTimer().reset(2, 0);
+        this.setAtkMode(false);
       }
     },
     behavior(){
@@ -536,6 +580,7 @@ const arrayMain = prov(() => {
   });
   //arrayMainB.initTimer(new Interval(4));
   arrayMainB.setRage(false);
+  arrayMainB.setAtkMode(false);
   return arrayMainB;
 });
 carray2.create(arrayMain);

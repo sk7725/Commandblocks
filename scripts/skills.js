@@ -1089,15 +1089,7 @@ const boostedskill= extendContent(StatusEffect,"boostedskill",{});
 boostedskill.speedMultiplier=1.45;
 boostedskill.color=Pal.redderDust;
 boostedskill.effect=boostfire;
-const jamweapons = extendContent(StatusEffect,"jamweapons",{
-  update(unit, time){
-    this.super$update(unit, time);
-    unit.getTimer().get(unit.getShootTimer(true),1);
-    unit.getTimer().get(unit.getShootTimer(false),1);
-  }
-});
-jamweapons.color=Color.orange;
-jamweapons.effect=Fx.purifystone;
+
 const bleach = extendContent(StatusEffect,"bleach",{
   update(unit, time){
     this.super$update(unit, time);

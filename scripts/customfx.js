@@ -344,9 +344,9 @@ this.global.fx = {
     }));
   }),
   rageShine : newEffect(20, e => {
-    Lines.stroke(e.fout()*2);
+    Lines.stroke(e.fout()*2.5);
     Draw.color(Color.purple, Color.white, e.fin());
-    Lines.lineAngleCenter(e.x, e.y+e.fin()*6, 90, e.fin()*5+5);
+    Lines.lineAngleCenter(e.x, e.y+e.fin()*6, 90, e.fin()*5.5+5.5);
   }),
   meltChargeFx : newEffect(25, e => {
     Draw.color(meltColor, Color.white, e.fin());
