@@ -1089,13 +1089,13 @@ const meltCharge = extend(BasicBulletType, {
         Effects.effect(meltChargeFx, tx, ty);
       }));
     }
-    const mLaser = Bullet.create(Bullets.meltdownLaser, null, team, tx, ty, tr, 1, 1);
-    for(var i=0; i<95; i++){
-      Time.run(90+i, run(()=>{
-        mLaser.time(0);
-      }));
-    }
     Time.run(90, run(()=>{
+      const mLaser = Bullet.create(Bullets.meltdownLaser, null, team, tx, ty, tr, 1, 1);
+      for(var i=0; i<95; i++){
+        Time.run(i+1, run(()=>{
+          mLaser.time(0);
+        }));
+      }
       Sounds.laserbig.at(tx, ty, 1);
     }));
     b.remove();

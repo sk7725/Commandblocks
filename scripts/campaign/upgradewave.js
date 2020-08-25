@@ -501,7 +501,7 @@ const arrayMain = prov(() => {
         if(this.atkMode()){
           if(this.skillTimer().get(0, 290)){
             for(var i=0; i<((this.healthf()>0.3)?2:4); i++){
-              Tmp.v1.trns(Mathf.random()*360 ,Mathf.random()*15);
+              Tmp.v1.trns(Mathf.random()*360 ,Mathf.random()*40);
               Call.createBullet(customb.burstArray, this.getTeam(), this.getX()+Tmp.v1.x, this.getY()+Tmp.v1.y, Tmp.v1.angle(), 1, 1);
             }
           }
@@ -524,7 +524,7 @@ const arrayMain = prov(() => {
           Call.createBullet(customb.meltCharge, this.getTeam(), this.getX()+v1.x, this.getY()+v1.y, this.rotation, 1, 1);
         }
         //heal,rage zone
-        if(this.skillTimer().get(2, 1500)){
+        if(this.skillTimer().get(2, 1230)){
           if(this.atkMode()){
             Call.createBullet(customb.rageZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
           }
