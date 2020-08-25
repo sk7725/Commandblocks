@@ -520,8 +520,8 @@ const arrayMain = prov(() => {
         if(this.skillTimer().get(1, 900*this.healthf()+480)){
           this.applyEffect(jamweapons, 230);
           this.applyEffect(charging, 230);
-          var v1 = Vec2(30, 0).setAngle(this.rotation);
-          Call.createBullet(customb.meltCharge, this.getTeam(), this.getX()+v1.x, this.getY()+v1.y, this.rotation, 1, 1);
+          //var v1 = Vec2(30, 0).setAngle(this.rotation);
+          Call.createBullet(customb.meltCharge, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1);
         }
         //heal,rage zone
         if(this.skillTimer().get(2, 1321)){
