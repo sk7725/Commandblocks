@@ -1127,7 +1127,7 @@ const arrayHealZone = extend(BasicBulletType, {
     Sounds.message.at(b.x, b.y, 0.7);
     Sounds.message.at(b.x, b.y, 1.5);
     Units.nearby(b.getTeam(), b.x, b.y, 200, cons(e=>{
-      if(e.getType().name != "commandblocks-chaos-array-2") e.healBy(Math.max(500, e.maxHealth()*0.5));
+      if((e instanceof Player) || ((e instanceof BaseUnit)&& e.getType().name != "commandblocks-chaos-array-2")) e.healBy(Math.max(500, e.maxHealth()*0.5));
     }));
     b.remove();
   },

@@ -1364,40 +1364,35 @@ const skillfunc={
     }
   },
   thorhoming(player){
-    var bullet=Bullets.missileSwarm;
+    var bullet=customb.fragArrayPiece;
     Sounds.explosion.at(player.getX(),player.getY(),0.8);
     player.damage(player.maxHealth()*0.05);
     if(Vars.net.client()) return;
     var primes=[0,2,5,7,11,13,17,19,23,29,31,37];//random will absoultely not work on multi
-    for(var i=1;i<=11;i++){
+    for(var i=1;i<=8;i++){
       //Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation+(Time.time()*primes[12-i])%13-7, ((Time.time()*primes[i])%10+20)/25,1);
       Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation+(Time.time()*primes[12-i])%13-7, ((Time.time()*primes[i])%10+20)/25,1);
     }
   },
   thorbeam(player){
     player.damage(player.maxHealth()*0.8);
-    Sounds.corexplode.at(player.getX(),player.getY(),1.5);
-    this.fire(Bullets.meltdownLaser, player, 1, 1);
-    this.fire(Bullets.lancerLaser, player, 1, 1);
-    this.fire(Bullets.lancerLaser, player, 1, 1);
-    this.fire(Bullets.lancerLaser, player, 1, 1);
-    this.fire(Bullets.lancerLaser, player, 1, 1);
-    this.fire(Bullets.lancerLaser, player, 1, 1);
-    this.fire(Bullets.lightning, player, 1, 1);
-    this.fire(Bullets.lightning, player, 1, 1);
-    this.fire(Bullets.lightning, player, 1, 1);
+    this.fire(customb.meltCharge, player, 1, 1);
+    player.applyEffect(Vars.content.getByName(ContentType.status ,"commandblocks-charging"), 230);
+    player.applyEffect(Vars.content.getByName(ContentType.status, "commandblocks-jamweapons"), 230);
   },
   pyraheal(player){
     Sounds.unlock.at(player.getX(),player.getY(),0.75);
     this.fire(customb.healZone, player, 1, 1);
   },
   pyraboost(player){
-    var x=player.getX(); var y=player.getY();
-    Sounds.flame.at(x, y, 0.27);
+    //var x=player.getX(); var y=player.getY();
+    //Sounds.flame.at(x, y, 0.27);
+    /*
     Effects.effect(spellstart,Color.valueOf("ffaa5f"), x, y);
     Units.nearby(player.getTeam(), x, y, 10*Vars.tilesize, cons(e=>{
       e.applyEffect(StatusEffects.overdrive, 420);
-    }));
+    }));*/
+    this.fire(customb.rageZone, player, 1, 1);
   },
   blastdash(player){
     Effects.effect(booststart,player.getX(), player.getY());
