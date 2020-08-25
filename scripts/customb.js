@@ -1091,9 +1091,11 @@ const meltCharge = extend(BasicBulletType, {
     }
     Time.run(90, run(()=>{
       const mLaser = Bullet.create(Bullets.meltdownLaser, null, team, tx, ty, tr, 1, 1);
-      for(var i=0; i<95; i++){
+      const mLaser2 = Bullet.create(Bullets.meltdownLaser, null, team, tx, ty, tr, 1, 1);
+      for(var i=0; i<120; i++){
         Time.run(i+1, run(()=>{
           mLaser.time(0);
+          mLaser2.time(0);
         }));
       }
       Sounds.laserbig.at(tx, ty, 1);

@@ -517,14 +517,14 @@ const arrayMain = prov(() => {
         }
 
         //shoot meltdown laser!
-        if(this.skillTimer().get(1, 800*this.healthf()+400)){
-          this.applyEffect(jamweapons, 200);
-          this.applyEffect(charging, 200);
+        if(this.skillTimer().get(1, 900*this.healthf()+480)){
+          this.applyEffect(jamweapons, 230);
+          this.applyEffect(charging, 230);
           var v1 = Vec2(30, 0).setAngle(this.rotation);
           Call.createBullet(customb.meltCharge, this.getTeam(), this.getX()+v1.x, this.getY()+v1.y, this.rotation, 1, 1);
         }
         //heal,rage zone
-        if(this.skillTimer().get(2, 1230)){
+        if(this.skillTimer().get(2, 1321)){
           if(this.atkMode()){
             Call.createBullet(customb.rageZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
           }
