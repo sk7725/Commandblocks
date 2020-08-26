@@ -1184,3 +1184,44 @@ burstArray.collides = false;
 burstArray.collidesAir = false;
 burstArray.keepVelocity = false;
 this.global.bullets.burstArray = burstArray;
+
+const wormSmall = extend(BasicBulletType,{
+  hit(b,x,y){
+    if(x === undefined || x === null){
+      x = b.x; y = b.y;
+    }
+    const team = b.getTeam();
+    for(var i=0; i<7; i++){
+      Time.run(i*10, run(()=>{
+        Damage.damage(team, x, y, this.splashDamageRadius, this.splashDamage);
+      }));
+    }
+    this.super$hit(b, x, y);
+  },
+  //despawned(b){},
+  update(b){
+    this.super$update(b);
+    if(Mathf.chance(0.1)) Effects.effect(Fx.smoke, b.x, b.y - b.fin()*(b.fin()-1)*190);
+  }
+});
+wormSmall.speed = 2.2;
+wormSmall.lifetime = 300;
+wormSmall.collidesTiles = true;
+wormSmall.collides = true;
+wormSmall.collidesAir = true;
+wormSmall.keepVelocity = true;
+wormSmall.hitSound = Sounds.bigshot;
+wormSmall.splashDamage = 220;
+wormSmall.splashDamageRadius = 25;
+wormSmall.hitShake = 5;
+wormSmall.hitEffect = this.global.fx.wormSmallFx;
+wormSmall.despawnEffect = Fx.hitLancer;
+wormSmall.homingPower = 0.03;
+wormSmall.homingRange = 80;
+wormSmall.bulletSprite = "missile";
+wormSmall.frontColor = Color.white;
+wormSmall.backColor = Pal.lancerLaser;
+wormSmall.bulletWidth = 8;
+wormSmall.bulletHeight = 15;
+
+this.global.bullets.wormSmall = wormSmall;

@@ -586,6 +586,11 @@ const arrayMain = prov(() => {
 carray2.create(arrayMain);
 this.global.upgradeUnits["chaos-array"] = carray2;
 
+const erad2 = createUnit("eradicator", "wormSmall", GroundUnit, {});
+erad.weapon.shootSound = Sounds.missile;
+erad.health = 256000;
+this.global.upgradeUnits.eradicator = erad2;
+
 const wraith2 = createUnit("wraith", "grenade", FlyingUnit, {});
 wraith2.weapon.shootSound = Sounds.artillery;
 wraith2.weapon.reload = 45;
