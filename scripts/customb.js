@@ -1185,7 +1185,7 @@ burstArray.collidesAir = false;
 burstArray.keepVelocity = false;
 this.global.bullets.burstArray = burstArray;
 
-const wormSmall = extend(BasicBulletType,{
+const wormSmall = extend(MissileBulletType, {
   hit(b,x,y){
     if(x === undefined || x === null){
       x = b.x; y = b.y;
@@ -1197,11 +1197,6 @@ const wormSmall = extend(BasicBulletType,{
       }));
     }
     this.super$hit(b, x, y);
-  },
-  //despawned(b){},
-  update(b){
-    this.super$update(b);
-    if(Mathf.chance(0.1)) Effects.effect(Fx.smoke, b.x, b.y - b.fin()*(b.fin()-1)*190);
   }
 });
 wormSmall.speed = 2.2;
@@ -1221,6 +1216,7 @@ wormSmall.homingRange = 80;
 wormSmall.bulletSprite = "missile";
 wormSmall.frontColor = Color.white;
 wormSmall.backColor = Pal.lancerLaser;
+wormSmall.trailColor = Color.valueOf("c4ceff");
 wormSmall.bulletWidth = 8;
 wormSmall.bulletHeight = 15;
 
