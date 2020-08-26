@@ -1200,7 +1200,7 @@ const wormSmall = extend(MissileBulletType, {
   }
 });
 wormSmall.speed = 2.2;
-wormSmall.lifetime = 100;
+wormSmall.lifetime = 130;
 wormSmall.collidesTiles = true;
 wormSmall.collides = true;
 wormSmall.collidesAir = true;
