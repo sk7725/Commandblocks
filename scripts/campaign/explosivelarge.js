@@ -46,7 +46,7 @@ const explosivelarge = extendContent(Block, "explosivelarge", {
     amount *= (11-dist)/11;
     amount *= 2.8*Mathf.random()+1.6;
     if(amount <= 0) return;
-    var acceptTile = Units.findAllyTile(tile.getTeam(), tile.worldx(), tile.worldy(), 120, boolf(e=>(!(e.block() instanceof Conveyor) && e.block().acceptItem(drops, e, tile))));
+    var acceptTile = Units.findAllyTile(tile.getTeam(), tile.worldx(), tile.worldy(), 120, boolf(e=>(e != null && e.block().hasItems && e.block().itemCapacity > 5 && !(e.block() instanceof Conveyor) && e.block().acceptStack(drops, amount, e, null) >= 1)));
     if(acceptTile == null) return;
     //um
     Call.transferItemTo(drops, amount, other.worldx(), other.worldy(), acceptTile.getTile());
@@ -69,6 +69,9 @@ const explosivelarge = extendContent(Block, "explosivelarge", {
   load(){
     this.super$load();
     this.topRegion = Core.atlas.find(this.name + "-top");
+  },
+  init(){
+    this.super$init();
     this.tier = 11;
     this.minTier = 3;//this doesnt make it to setStats
   },

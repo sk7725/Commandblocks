@@ -1,0 +1,33 @@
+//type: GenericSmelter
+itemCapacity: 30
+outputItem: ref-vector/1
+
+size: 2
+health: 80
+hasPower: true
+hasItems: true
+craftTime: 120
+
+consumes: {
+  power: 5.5
+  items: {
+    items: [
+      silicon/5
+      pyratite/5
+      ref-scalar/2
+      ore-vector/6
+    ]
+  }
+}
+
+requirements: [
+  titanium/90
+  surge-alloy/30
+  ref-scalar/10
+  log-binary/65
+]
+
+category: crafting
+research: scalarcooker
+idleSound: respawning
+idleSoundVolume: 0.5

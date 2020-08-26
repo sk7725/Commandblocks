@@ -51,6 +51,9 @@ const drawtester=extendContent(Block,"drawtester",{
             dialog.show();
         }
     })).size(40);
+  },
+  shouldShowConfigure(tile, player){
+    return (!Vars.net.active())&&this.super$shouldShowConfigure(tile, player); 
   }
 });
 

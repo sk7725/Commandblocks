@@ -1,0 +1,18 @@
+
+size: 1
+breakable: true
+update: true
+category: distribution
+requirements: [
+  spore-pod/100
+  bittrium/100
+]
+consumes: {
+  power: 0.3
+}
+health: 300
+solid: true
+targetable: true
+rotate: true
+timers: 1
+buildVisibility: sandboxOnly

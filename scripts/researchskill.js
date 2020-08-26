@@ -33,11 +33,9 @@ const researchskill = extendContent(Block, "researchskill", {
 	dialog: null,
 	blockpos: {},
 
-	load(){
-		this.super$load();
-
-		//load languages
-		var uparr = Object.keys(root);
+  init(){
+    this.super$init();
+    var uparr = Object.keys(root);
 		for(var i=0; i<uparr.length; i++){
 			root[uparr[i]].n = i;
 			root[uparr[i]].name = uparr[i];
@@ -45,6 +43,16 @@ const researchskill = extendContent(Block, "researchskill", {
 			root[uparr[i]].shortDesc = Core.bundle.get("skill." + uparr[i] + ".short");
 			root[uparr[i]].description = Core.bundle.get("skill." + uparr[i] + ".description");
 		}
+    Events.on(EventType.WorldLoadEvent, run(event => {
+			researchskill.blockpos = {};
+      t.global.skilltile = null;
+      if(Vars.net.client()) return;
+      localSkill.skill = "";
+      localSkill.lastused = 0;
+		}));
+  },
+	load(){
+		this.super$load();
 
 		this.animRegion = [];
 		for(var i=0; i<19; i++){
@@ -54,13 +62,6 @@ const researchskill = extendContent(Block, "researchskill", {
 
 		this.dialog = new FloatingDialog(Core.bundle.get("research.title"));
 		this.dialog.addCloseButton();
-
-		Events.on(EventType.WorldLoadEvent, run(event => {
-			researchskill.blockpos = {};
-      t.global.skilltile = null;
-      localSkill.skill = "";
-      localSkill.lastused = 0;
-		}));
 	},
 	update(tile){
 		this.super$update(tile);
@@ -71,6 +72,7 @@ const researchskill = extendContent(Block, "researchskill", {
 			if(tile.getTeamID() in this.blockpos) ent.disable();
 			else this.blockpos[tile.getTeamID()] = tile.pos();
 		}
+    if(Vars.player == null) return;
     if(tile.getTeam() == Vars.player.getTeam() && (t.global.skilltile == null || t.global.skilltile != tile.pos())) t.global.skilltile = tile.pos();
 		if(skillfunc.update(tile.ent().skill(),tile)) tile.ent().useSkill();
     if(Vars.player.hasEffect(skillup)&&tile.ent().skill().skill!=""&&tile.ent().skill().skill!="zetarecharge") tile.ent().skillCooltimeReduce(2);
@@ -148,17 +150,21 @@ const researchskill = extendContent(Block, "researchskill", {
 		})).width(Vars.mobile ? 460 : 530);
 	},
 
-	configured(tile,player,value){
+	configured(tile, player, value){
 		//research in sync
 		if(value == 0) return;
 		if(value < 0){
 			var obj = root[Object.keys(root)[-1*value-1]];
 			try{
+        //print("UseVal: " + value);
+        //print("UseID: " + (-1*value-1));
+        //print("UseName: " + Object.keys(root)[-1*value-1]);
 				if(obj.name == "phaseskill") skillfunc[obj.name](player, tile);
 				else skillfunc[obj.name](player);
-        if(!Vars.net.client()) player.addItem(player.item().item,Math.floor(-1*obj.uses.amount));
+        if(!Vars.net.client()) player.addItem(player.item().item, Math.floor(-1*obj.uses.amount));
 			}catch(err){
-				print("err:" + err);
+				print("Err:" + err);
+        print(err.stack);
 			}
 			return;
 		}
@@ -167,7 +173,7 @@ const researchskill = extendContent(Block, "researchskill", {
 		//use up cost
 		if(!Vars.state.rules.infiniteResources){
 			var arr = obj.cost;
-			var core = Vars.state.teams.get(Vars.player.getTeam()).cores.first();
+			var core = Vars.state.teams.get(player.getTeam()).cores.first();
 			for(var i = 0;i<arr.length;i++){
 				var item = Vars.content.getByName(ContentType.item, arr[i].item);
 				core.items.remove(item, arr[i].amount);
@@ -435,3 +441,6 @@ researchskill.entityType = prov(() => extend(TileEntity , {
 		this._skill.lastused=0;
 	}
 }));
+
+print("Skills: "+Object.keys(root));
+print("SkillFunc: "+Object.keys(skillfunc));

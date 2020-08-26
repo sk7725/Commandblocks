@@ -3,6 +3,7 @@ print("Command Mod Load Start!");
 require("commandblocks/init");
 //require("collisions");
 require("shaders");
+require("renderer");
 
 //UNITS
 require("units/armorstand");
@@ -18,13 +19,20 @@ require("command");
 
 //CAMPAIGN
 require("campaign/ores");
+require("campaign/upgradewave");
+require("campaign/coremain");
+require("campaign/campfire");
+require("campaign/bitcrystal");
+require("campaign/crafters");
 require("campaign/turrets");
 require("campaign/explosive");
 require("campaign/explosivelarge");
+require("campaign/treegrower");
 require("campaign/loader");
-require("campaign/campfire");
 require("campaign/enderchest");
 require("campaign/enderbox");
+require("campaign/tppad");
+require("campaign/glitch");
 
 //SERVER
 require("msgprotected");
@@ -83,10 +91,10 @@ require("bundle-lib");
 require("piston");
 require("sporeblock");
 
-require("colorcanvas");
-require("colorpicker");
-require("colorpickerhex");
-require("colorpickerbrush");
+//require("colorcanvas");
+//require("colorpicker");
+//require("colorpickerhex");
+//require("colorpickerbrush");
 
 require("units/armorstandmodder");
 require("magicrouter");
@@ -120,3 +128,5 @@ require("sandbox/drawtester");
 require("sandbox/tabletester");
 require("sandbox/jstester");
 require("sandbox/fxtester");
+
+print("Load Complete!");

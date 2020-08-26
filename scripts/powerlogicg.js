@@ -77,7 +77,7 @@ const powerlogicg=extendContent(MessageBlock,"powerlogicg",{
     logiccheck(tile,in1,in2){
       if(tile.ent().timer.getTime(timerid)<=0){
         if(gloops>loopthresh){
-          Vars.ui.showInfoToast("Do not overuse!",1);
+          if(!Vars.headless) Vars.ui.showInfoToast("Do not overuse!",1);
           return false;
         }
         else{

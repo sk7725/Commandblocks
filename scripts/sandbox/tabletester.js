@@ -62,6 +62,9 @@ const tabletester=extendContent(Block,"tabletester",{
         tile.ent().setErr(err);
       }
     })).size(40);
+  },
+  shouldShowConfigure(tile, player){
+    return (!Vars.net.active())&&this.super$shouldShowConfigure(tile, player); 
   }
 });
 

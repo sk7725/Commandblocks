@@ -20,7 +20,7 @@ targetable: true
 rotate: false
 baseExplosiveness: 4
 research: kiln
-activeSound: Fire
+activeSound: fire
 activeSoundVolume: 1
 priority: turret
 expanded: true

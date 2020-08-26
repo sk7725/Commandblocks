@@ -16,10 +16,10 @@ const commandb = extendContent(MessageBlock, "commandb", {
     return (!Vars.net.active())||player.isAdmin;
   },
   canPlaceOn(tile){
-    return ((!Vars.net.active())||Vars.player.isAdmin)&&this.super$canPlaceOn(tile);
+    return ((!Vars.net.active())||(Vars.headless || Vars.player.isAdmin))&&this.super$canPlaceOn(tile);
 	},
 	canBreak(tile){
-		return((!Vars.net.active())||Vars.player.isAdmin)&&this.super$canBreak(tile);
+		return((!Vars.net.active())||(Vars.headless || Vars.player.isAdmin))&&this.super$canBreak(tile);
 	},
   handleDamage(tile,amount){
     return 0;

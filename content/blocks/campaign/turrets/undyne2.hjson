@@ -3,6 +3,7 @@ size: 3
 shots: 6
 reload: 65
 range: 180
+shootShake: 2.5
 shootCone: 170
 inaccuracy: 360
 heatColor: FF0000

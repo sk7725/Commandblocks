@@ -2,6 +2,10 @@ var t = this;
 var shieldColor = Color.valueOf("ffd37f").a(0.7);
 const shieldInColor = Color.black.cpy().a(0);
 const spaceshader = this.global.shaders.space;
+
+const bitcolor1=Color.valueOf("00e5ff");
+const bitcolor2=Color.valueOf("ff65db");
+
 //이런 영감 아저씨
 if (typeof(floatc2)== "undefined"){
   const floatc2 = method => new Floatc2(){get : method};
@@ -37,6 +41,8 @@ function newGroundEffect(lifetime, staticLife, renderer){
 //thanks to EyeofDarkness(aka Darky Daddy)
 const newEffectSize = (life, size, renderer) => new Effects.Effect(life, size, new Effects.EffectRenderer({render: renderer}));
 
+const meltColor = Color.valueOf("ff9c5a");
+const distcolor = Color.valueOf("4c00ff");
 this.global.fx = {
   evalfx : newEffect(30, e => {
     if(e.data == null || !e.data.text || !e.data.parent) return;
@@ -79,7 +85,7 @@ this.global.fx = {
   slash : newEffect(90, e => {
     Draw.color(Pal.lancerLaser);
     Drawf.tri(e.x, e.y, 4 * e.fout(), 45, (e.id*57 + 90)%360);
-  	Drawf.tri(e.x, e.y, 4 * e.fout(), 45, (e.id*57 - 90)%360);
+    Drawf.tri(e.x, e.y, 4 * e.fout(), 45, (e.id*57 - 90)%360);
   }),
   sword : newEffect(7, e => {
     Draw.color(Pal.lancerLaser);
@@ -183,7 +189,7 @@ this.global.fx = {
       Draw.shader();
     };
     Draw.color(Color.black);
-		Fill.circle(e.x, e.y, e.rotation);
+    Fill.circle(e.x, e.y, e.rotation);
   }),
   whirlSmall : newEffect(45, e => {
     const v1 = new Vec2();
@@ -203,7 +209,7 @@ this.global.fx = {
       Draw.shader();
     };
     Draw.color(Color.black);
-		Fill.circle(e.x, e.y, e.rotation);
+    Fill.circle(e.x, e.y, e.rotation);
   }),
   poof : newEffect(65, e => {
     var v1 = Vec2((1-e.fout()*e.fout())*30,0);
@@ -269,9 +275,95 @@ this.global.fx = {
     Lines.poly(e.x, e.y, rand*5+10, e.fin()*e.rotation*0.85, e.fout()*300);
   }),
   ballBounce : newEffect(30, e => {
-    var v1 = Vec2(e.fin()*24, 0).setAngle(e.rotation);
+    var v1 = Vec2(e.fin()*24, 0).setAngle(e.rotation+Mathf.randomSeed(e.id, 165, 195));
     Draw.alpha(e.fout());
     Draw.rect("commandblocks-b-ball-back", e.x+v1.x, e.y+v1.y, e.fin()*80);
     Draw.rect("commandblocks-b-ball", e.x+v1.x, e.y+v1.y);
+  }),
+  coreMainSquare : newEffectSize(90, 450, e => {
+    Lines.stroke(15*e.fout());
+    Draw.color(bitcolor1, bitcolor2, e.fin());
+    Lines.square(e.x, e.y, e.finpow()*210+12, e.finpow()*135);
+  }),
+  coreMainSpark : newEffectSize(150, 800, e => {
+    Draw.color(bitcolor1, bitcolor2, e.fout());
+    drawSpark(e.x, e.y, e.fin()*700+40, e.fout()*54, (1-e.finpow())*215);
+  }),
+  coreMainPhase : newEffectSize(90, 70, e => {
+    Draw.color(bitcolor1, bitcolor2, e.fin());
+
+    Lines.stroke(Math.max(6*e.fout()-3, 0));
+    Lines.square(e.x, e.y, 12);
+
+    Angles.randLenVectors(e.id+1, 7, 90*e.finpow()+12, floatc2((x,y) => {
+      Fill.square(e.x+x, e.y+y, e.fout()*3, 45);
+    }));
+
+    Draw.color(bitcolor1, bitcolor2, e.fout());
+    Angles.randLenVectors(e.id, 7, 90*e.finpow()+12, floatc2((x,y) => {
+      Fill.square(e.x+x, e.y+y, e.fout()*3, 45);
+    }));
+  }),
+  bittriumCenter : newEffect(300, e => {
+    var size = Mathf.sin(Time.time()*0.1)*0.5 + 3;
+    Draw.color(bitcolor1, bitcolor2, Mathf.sin(Time.time()*0.041));
+    Draw.alpha(e.fout()*5);
+    Fill.square(e.x, e.y, size, 45);
+    Draw.color();
+    Draw.alpha(e.fout()*2);
+    Fill.square(e.x, e.y, size-1, 45);
+  }),
+  bittriumSquare : newEffect(90, e => {
+    Lines.stroke(e.fout()*2);
+    Draw.shader(t.global.shaders.bittrium);
+    Lines.square(e.x, e.y, e.finpow()*8, e.finpow()*45+45);
+    Draw.shader();
+  }),
+  bittriumCharge : newEffect(30, e => {
+    Draw.color(bitcolor1, bitcolor2, Mathf.sin(Time.time()*0.041));
+    Angles.randLenVectors(e.id, 1, 20*e.fout(), floatc2((x,y) => {
+      Fill.circle(e.x+x, e.y+y, e.finpow()*1.5);
+    }));
+  }),
+  placeOre : newEffect(30, e => {
+    Draw.color(e.color);
+    Lines.stroke(e.fout()*4);
+    Lines.square(e.x, e.y, e.fin()*2+3);
+  }),
+  shine : newEffect(30, e => {
+    Draw.color(Color.white, e.color, e.finpow());
+    drawSpark(e.x, e.y, e.fout()*2, e.finpow()*15, 0);
+    Lines.stroke(e.fout());
+    Lines.circle(e.x, e.y, e.finpow()*5);
+  }),
+  chargeShine : newEffect(20, e => {
+    Draw.color(Pal.accent, Color.white.cpy().a(0), 1-e.fout()*2);
+    Lines.stroke(e.fout());
+    Angles.randLenVectors(e.id, 2+e.id%2, 30*e.fout(), floatc2((x,y) => {
+      drawSpark(e.x+x, e.y+y, e.finpow()*5, e.finpow()*13, 0);
+      Lines.circle(e.x, e.y, e.finpow()*4.5);
+    }));
+  }),
+  rageShine : newEffect(20, e => {
+    Lines.stroke(e.fout()*2.5);
+    Draw.color(Color.purple, Color.white, e.fin());
+    Lines.lineAngleCenter(e.x, e.y+e.fin()*6, 90, e.fin()*5.5+5.5);
+  }),
+  meltChargeFx : newEffect(25, e => {
+    Draw.color(meltColor, Color.white, e.fin());
+    Angles.randLenVectors(e.id, 3+e.id%3, 70*e.fout(), floatc2((x,y) => {
+      Fill.square(e.x+x, e.y+y, e.fin()*4.5, 45);
+    }));
+  }),
+  wormSmallFx : newEffect(60, e => {
+    Draw.color(distcolor, Pal.lancerLaser, 0.8+0.5*Mathf.sin(16*e.fin()));
+    var r = e.fin()*(1-e.fin())*2;
+    Fill.circle(e.x, e.y, 40*r);
+    Lines.swirl(e.x, e.y, 42*r, 0.6, Time.time()*13);
+    Lines.swirl(e.x, e.y, 43*r, 0.4, Time.time()*-11+121);
+    Draw.color(Color.black);
+    Fill.circle(e.x, e.y, 25*r);
+    Lines.swirl(e.x, e.y, 26*r, 0.7, Time.time()*-5+121);
+    Lines.swirl(e.x, e.y, 27*r, 0.3, Time.time()*19+222);
   })
 };

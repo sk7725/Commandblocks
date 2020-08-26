@@ -6,6 +6,7 @@ shootCone: 160
 inaccuracy: 360
 heatColor: FF0000
 ammoUseEffect: none
+shootShake: 1.5
 rotatespeed: 5.5
 recoil: 2
 powerUse: 5.5

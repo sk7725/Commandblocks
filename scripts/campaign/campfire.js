@@ -1,6 +1,7 @@
 const customfx = this.global.fx;
-const fireitem = ["copper", "plastanium", "surge-alloy", "lead", "pyratite", "silicon", "commandblocks-ore-scalar", "commandblocks-ore-vector", "commandblocks-ore-zeta", "commandblocks-piece-code", "scrap", "commandblocks-bittrium", "commandblocks-log-binary", "commandblocks-log-redblack", "sand"];
-const firecolor = [Color.valueOf("66ffbf"), Pal.plastanium, Pal.surge, Color.valueOf("c2fcff"), Pal.lightPyraFlame, Color.white, Color.valueOf("f5ddf3"), Color.valueOf("cfddff"), Color.valueOf("82ffe8"), Color.valueOf("5eff79"), Color.valueOf("ff4a80"), Color.valueOf("00ffff"), Color.valueOf("ffff77"), Color.valueOf("ff4444"), Color.clear];
+const fireitem = ["copper", "plastanium", "surge-alloy", "lead", "pyratite", "silicon", "commandblocks-ore-scalar", "commandblocks-ore-vector", "commandblocks-ore-zeta", "commandblocks-piece-code", "scrap", "commandblocks-bittrium", "commandblocks-log-binary", "commandblocks-log-redblack", "sand", "mindblow-zinc"];
+const firecolor = [Color.valueOf("66ffbf"), Pal.plastanium, Pal.surge, Color.valueOf("c2fcff"), Pal.lightPyraFlame, Color.white, Color.valueOf("f5ddf3"), Color.valueOf("cfddff"), Color.valueOf("82ffe8"), Color.valueOf("5eff79"), Color.valueOf("ff4a80"), Color.valueOf("00ffff"), Color.valueOf("ffff77"), Color.valueOf("ff4444"), Color.clear, Color.valueOf("b3ffe4")];
+const firecolorBit = Color.valueOf("ff00ff");
 
 const campfire=extendContent(Block, "campfire",{
   draw(tile){
@@ -18,7 +19,7 @@ const campfire=extendContent(Block, "campfire",{
     var index = fireitem.indexOf(tile.ent().items.first().name);
     if(index > -1){
       this.color1 = firecolor[index];
-      this.color2 = (index == 4)?Pal.darkPyraFlame:firecolor[index].cpy().mul(0.7, 0.65, 0.65, 1);
+      this.color2 = (index == 4)?Pal.darkPyraFlame:((index == 11)?firecolorBit:firecolor[index].cpy().mul(0.7, 0.65, 0.65, 1));
     }
     Effects.effect(customfx.campfire, this.color1, tile.drawx(), tile.drawy(), 0, this.color2);
   },

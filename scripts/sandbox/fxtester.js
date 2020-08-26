@@ -65,6 +65,9 @@ const fxtester=extendContent(Block,"fxtester",{
       tmpobj.parent = tile.ent();
       Effects.effect((tile.ent().getLong())?customfx.evalfxLong:customfx.evalfx, Color.white, tile.worldx(), tile.worldy(), 0, tmpobj);
     })).size(40);
+  },
+  shouldShowConfigure(tile, player){
+    return (!Vars.net.active())&&this.super$shouldShowConfigure(tile, player); 
   }
 });
 

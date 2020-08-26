@@ -1,0 +1,35 @@
+itemCapacity: 750
+outputItem: spore-pod/600
+
+size: 3
+health: 80
+hasPower: true
+hasItems: true
+craftTime: 34800
+
+consumes: {
+  power: 1
+  liquid: {
+    liquid: water
+    amount: 0.001
+  }
+}
+
+requirements: [
+  copper/40
+  metaglass/40
+  titanium/80
+  silicon/40
+]
+
+layer: power
+expanded: true
+
+category: production
+research: cultivator
+idleSound: none
+idleSoundVolume: 0
+updateEffect: none
+
+consumesTap: true
+timers: 1

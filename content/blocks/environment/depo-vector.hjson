@@ -1,3 +1,5 @@
 type: OreBlock
 itemDrop: ore-vector
 oreDefault: false
+oreThreshold: 0.894
+oreScale: 25.5813

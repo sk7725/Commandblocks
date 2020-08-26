@@ -1,0 +1,20 @@
+size: 1
+breakable: true
+category: distribution
+requirements: [
+  spore-pod/3
+  surge-alloy/3
+]
+health: 100
+solid: true
+targetable: true
+//hasShadow: false
+
+//sync: true
+update: true
+research: sporeblock
+outputsPower: true
+hasPower: true
+consumes: {
+  power: 0
+}

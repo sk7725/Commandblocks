@@ -56,6 +56,9 @@ const jstester=extendContent(Block,"jstester",{
         tile.ent().setErr(err);
       }
     })).size(40);
+  },
+  shouldShowConfigure(tile, player){
+    return (!Vars.net.active())&&this.super$shouldShowConfigure(tile, player); 
   }
 });
 

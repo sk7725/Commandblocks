@@ -1,0 +1,12 @@
+hasShadow: false
+
+destructible: false
+breakable: false
+update: false
+solid: false
+insulated: true
+size: 1
+targetable: false
+
+category: effect
+buildVisibility: sandboxOnly
