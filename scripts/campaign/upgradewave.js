@@ -588,6 +588,7 @@ this.global.upgradeUnits["chaos-array"] = carray2;
 
 const erad2 = createUnit("eradicator", "wormSmall", GroundUnit, {});
 erad2.weapon.shootSound = Sounds.missile;
+erad2.weapon.reload = 50;
 erad2.weapon.shots = 2;
 erad2.weapon.spacing = 8;
 erad2.weapon.alternate = true;
