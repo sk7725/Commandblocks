@@ -586,7 +586,7 @@ const arrayMain = prov(() => {
 carray2.create(arrayMain);
 this.global.upgradeUnits["chaos-array"] = carray2;
 
-const erad2 = createUnit("eradicator", "wormSmall", GroundUnit, {});
+const erad2 = createUnit("eradicator", "wormSmall", GroundUnit, {}, true);
 erad2.weapon.shootSound = Sounds.missile;
 erad2.weapon.reload = 50;
 erad2.weapon.shots = 2;
@@ -596,6 +596,25 @@ erad2.weapon.lengthRand = 0;
 erad2.weapon.shotDelay = 0;
 erad2.weapon.velocityRnd = 0.4;
 erad2.health = 256000;
+const eradMain = prov(() => {
+  eradMainB = extend(GroundUnit, {
+    _timerSkill: new Interval(1),
+    skillTimer(){
+      return this._timerSkill;
+    },
+    moveToCore(path){
+      if(this.target != null) return;
+      this.super$moveToCore(path);
+    },
+    draw(){
+      Draw.shader(shader);
+      this.super$draw();
+      Draw.shader();
+    }
+  });
+  return eradMainB;
+});
+erad2.create(eradMain);
 this.global.upgradeUnits.eradicator = erad2;
 
 const wraith2 = createUnit("wraith", "grenade", FlyingUnit, {});

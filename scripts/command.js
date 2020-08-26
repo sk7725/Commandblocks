@@ -154,8 +154,8 @@ const commandblocks={
         switch(tmparr[0].trim()){
           case "team":
             var targetteam=this.settype(ptile,pthis,"team:"+se);
-            if(invert) ret.eachFilter(boolf(e=>(e.team==targetteam)));
-            else ret.eachFilter(boolf(e=>(e.team!=targetteam)));
+            if(invert) ret.eachFilter(boolf(e=>(e.getTeam()==targetteam)));
+            else ret.eachFilter(boolf(e=>(e.getTeam()!=targetteam)));
           break;
           case "name":
             if(invert) ret.eachFilter(boolf(e=>((e instanceof TileEntity)?e.block.name:((e instanceof BaseUnit)?e.getType().name:((e instanceof Bullet)?e.getBulletType().name:e.name)))==se));
@@ -303,7 +303,7 @@ const commandblocks={
             else return null;
           break;
           case "team":
-            if(tmparr[1]==-1) return ptile.team;
+            if(tmparr[1]==-1) return ptile.getTeam();
             return Team.get(tmparr[1]);
           break;
           case "block":
@@ -508,9 +508,9 @@ const commandblocks={
         else throw "Missing params";
       break;
       case 'setblock':
-        //Call.setTile(Vars.world.tile(tile.x, tile.y), Blocks.air, tile.team, rot);
+        //Call.setTile(Vars.world.tile(tile.x, tile.y), Blocks.air, tile.getTeam(), rot);
         if(args.length>=3&&args.length<=6){
-          var tpos=this.tilde(tile,args[0],args[1]); var crot=0; var cteam=tile.team;
+          var tpos=this.tilde(tile,args[0],args[1]); var crot=0; var cteam=tile.getTeam();
           var cblock=Vars.content.getByName(ContentType.block, args[2]);
           var cx=0; var cy=0;
           if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
@@ -527,10 +527,10 @@ const commandblocks={
                 else throw "Rotation should be 0~3";
               }
               if(args.length>=5){
-                if(args[3]>=0&&args[3]<=3&&args[4]>=-1&&args[4]<=256){ crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team; }
+                if(args[3]>=0&&args[3]<=3&&args[4]>=-1&&args[4]<=256){ crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.getTeam(); }
                 else throw "Rotation should be 0~3 and Team should be -1~256";
               }
-              if(cteam!==tile.team) cteam=Team.get(cteam);
+              if(cteam!==tile.getTeam()) cteam=Team.get(cteam);
               if(args[5]=="build"||args[5]=="destroy"){
                 if(Vars.world.tile(cx, cy).block().hasEntity()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
                 Call.onDeconstructFinish(Vars.world.tile(cx, cy), cblock, 0);
@@ -561,8 +561,8 @@ const commandblocks={
               return true;
             }
             else if(args[5]=="force"){
-              crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team;
-              if(cteam!==tile.team) cteam=Team.get(cteam);
+              crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.getTeam();
+              if(cteam!==tile.getTeam()) cteam=Team.get(cteam);
               //if(ctile.ent()!=null) ctile.ent().remove();
               Vars.world.tile(cx, cy).setNet(cblock, cteam, crot);
               Vars.world.notifyChanged(Vars.world.tile(cx, cy));
@@ -578,9 +578,9 @@ const commandblocks={
         else throw "Missing params";
       break;
       case 'setblock2':
-        //Call.setTile(Vars.world.tile(tile.x, tile.y), Blocks.air, tile.team, rot);
+        //Call.setTile(Vars.world.tile(tile.x, tile.y), Blocks.air, tile.getTeam(), rot);
         if(args.length>=3&&args.length<=6){
-          var tpos=this.tilde(tile,args[0],args[1]); var cblock=args[2]; var crot=0; var cteam=tile.team;
+          var tpos=this.tilde(tile,args[0],args[1]); var cblock=args[2]; var crot=0; var cteam=tile.getTeam();
           var cx=0; var cy=0;
           if(!isNaN(Number(tpos.x))&&!isNaN(Number(tpos.y))){
             cx=tpos.x; cy=tpos.y;
@@ -596,10 +596,10 @@ const commandblocks={
                 else throw "Rotation should be 0~3";
               }
               if(args.length>=5){
-                if(args[3]>=0&&args[3]<=3&&args[4]>=-1&&args[4]<=256){ crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team; }
+                if(args[3]>=0&&args[3]<=3&&args[4]>=-1&&args[4]<=256){ crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.getTeam(); }
                 else throw "Rotation should be 0~3 and Team should be -1~256";
               }
-              if(cteam!==tile.team) cteam=Team.get(cteam);
+              if(cteam!==tile.getTeam()) cteam=Team.get(cteam);
               if(args[5]=="build"||args[5]=="destroy"){
                 /*
                 if(Vars.world.tile(cx, cy).block().hasEntity()) Vars.world.tile(cx, cy).ent().damage(Vars.world.tile(cx, cy).ent().health()+1);
@@ -626,11 +626,11 @@ const commandblocks={
               return true;
             }
             else if(args[5]=="force"){
-              crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.team;
-              if(cteam!==tile.team) cteam=Team.get(cteam);
+              crot=args[3];cteam=args[4];if(cteam==-1) cteam=tile.getTeam();
+              if(cteam!==tile.getTeam()) cteam=Team.get(cteam);
               //if(ctile.ent()!=null) ctile.ent().remove();
               //Vars.world.tile(cx, cy).removeNet()
-              Call.setTile(Vars.world.tile(cx, cy), Blocks.air, tile.team, 0);
+              Call.setTile(Vars.world.tile(cx, cy), Blocks.air, tile.getTeam(), 0);
               //Vars.world.tile(cx, cy).changed();
               return true;
             }
@@ -661,7 +661,7 @@ const commandblocks={
       case 'as':
         if(args.length>=2){
           var target=this.targetselect(tile,parentthis,args[0]);
-          if(target.r==null) return false;
+          if(target == null || target.r == null) return false;
           else if(!target.a) return this.command(target.r,'"'+args.slice(1).join('" "')+'"',parentthis,msg,true);
           else{
             ret=true;
