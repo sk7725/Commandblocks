@@ -129,4 +129,7 @@ require("sandbox/tabletester");
 require("sandbox/jstester");
 require("sandbox/fxtester");
 
+//if this exceeds 127 it will go die
+print("StatusEffect Total: "+Vars.content.getBy(ContentType.status).size);
+
 print("Load Complete!");

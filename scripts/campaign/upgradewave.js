@@ -590,6 +590,15 @@ const arrayMain = prov(() => {
 carray2.create(arrayMain);
 this.global.upgradeUnits["chaos-array"] = carray2;
 
+const immortal = extendContent(StatusEffect, "immortal", {
+  update(unit, time){
+    this.super$update(unit, time);
+    if(unit.health() < 65535) unit.health(65535);
+  }
+});
+immortal.color = Color.white;
+immortal.effect = Fx.none;
+
 const erad2 = createUnit("eradicator", "wormSmall", GroundUnit, {}, true);
 erad2.weapon.shootSound = Sounds.missile;
 erad2.weapon.reload = 50;
