@@ -1246,7 +1246,7 @@ const spawnWell = extend(BasicBulletType, {
     if(this.cooldown[b.id]>0) this.cooldown[b.id] -= 150;
     if(!Vars.net.client() && this.cooldown[b.id]<1 && Mathf.chance(Time.delta()*0.2)){
       var unitTarg = Vars.content.units().random();
-      if(unitTarg.name() == "commandblocks-eradicator-2") return;
+      if(unitTarg.name == "commandblocks-eradicator-2") return;
       var u = unitTarg.create(b.getTeam());
       Tmp.v1.trns(Mathf.random()*360, Mathf.random()*25);
       if(Vars.world.tileWorld(b.x+Tmp.v1.x, b.y+Tmp.v1.y) == null || Vars.world.tileWorld(b.x+Tmp.v1.x, b.y+Tmp.v1.y).solid()) u.set(b.x, b.y);
@@ -1270,13 +1270,6 @@ spawnWell.keepVelocity = false;
 this.global.bullets.spawnWell = spawnWell;
 
 const spawnErad = extend(BasicBulletType, {
-  hit(b,x,y){
-    if(x === undefined || x === null){
-      x = b.x; y = b.y;
-    }
-    Bullet.create(spawnWell, null, b.getTeam(), b.x, b.y, 0, 1, 1);
-    this.super$hit(b, x, y);
-  },
   draw(b){
     Draw.color(this.backColor.shiftHue(Time.delta()*8));
     Draw.rect(this.backRegion, b.x, b.y, b.rot()-90);
@@ -1311,5 +1304,7 @@ spawnErad.backColor = Color.valueOf("ffbbbb");
 spawnErad.trailColor = Color.red.cpy();
 spawnErad.bulletWidth = 10;
 spawnErad.bulletHeight = 16;
+spawnErad.fragBullet = spawnWell;
+spawnErad.fragBullets = 1;
 
 this.global.bullets.spawnErad = spawnErad;
