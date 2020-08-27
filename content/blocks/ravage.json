@@ -1,11 +1,11 @@
 requirements:[
-  computer/5
+  //computer/5
   copper/200
   lead/200
   graphite/100
   silicon/100
   surge-alloy/100
-  dense-alloy/50
+  //dense-alloy/50
   thorium/150
 ]
 size: 4
