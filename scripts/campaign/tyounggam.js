@@ -653,7 +653,7 @@ plasma3.splashDamageRadius=30;
 plasma3.splashDamage=1540;
 plasma3.hitSound=Sounds.artillery;
 plasma3.ammoMultiplier=4;
-plasma3.reloadMultiplier = 0.4;
+plasma3.reloadMultiplier = 0.8;
 const ravage=extendContent(ItemTurret,"ravage",{
   vec:new Vec2(),
   powerUse:4.5,
