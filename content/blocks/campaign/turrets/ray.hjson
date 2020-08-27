@@ -18,7 +18,8 @@ research: lancer
 requirements: [
     //semiconductor/10
     //steel/60
+
+    lead/180
     graphite/100
-    copper/60
-    lead/60
+    ref-scalar/70
 ]

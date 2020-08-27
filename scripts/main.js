@@ -25,6 +25,7 @@ require("campaign/campfire");
 require("campaign/bitcrystal");
 require("campaign/crafters");
 require("campaign/turrets");
+require("campaign/tyounggam");
 require("campaign/defense");
 require("campaign/explosive");
 require("campaign/explosivelarge");
@@ -87,7 +88,6 @@ require("setconv");
 require("setconva");
 require("setconvmodder");
 require("bundle-lib");
-require("tyounggam");
 
 //PISTONS
 require("piston");

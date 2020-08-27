@@ -4,15 +4,16 @@ requirements:[
   copper/60
   graphite/90
   titanium/60
+  ref-scalar/50
 ]
 size: 3
 range: 320
-reload: 120
+reload: 70
 recoil: 6
 smokeEffect: lightningShoot
 shootEffect: lancerLaserShoot
 shootSound: shootSnap
-outlineIcon: false
+//outlineIcon: false
 
 rotatespeed: 2
 inaccuracy:0
@@ -20,4 +21,4 @@ shots: 1
 health: 2500
 maxAmmo: 20
 category: turret
-//research: salvo
+research: salvo

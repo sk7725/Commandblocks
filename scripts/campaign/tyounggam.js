@@ -39,7 +39,7 @@ customLaser.hitSize=14;
 customLaser.drawSize=420;
 customLaser.lifetime=16;
 customLaser.pierce=true;
-customLaser.damage=100;
+customLaser.damage=240;
 customLaser.speed=0.001;
 const breakthrough=extendContent(LaserTurret,"breakthrough",{
   update(tile){
@@ -94,6 +94,7 @@ if(typeof(newEffectDst)=="undefined"){
     return new Effects.Effect(lifetime,dst,new Effects.EffectRenderer({render:renderer}));
   }
 }
+/*
 const boom=newEffectDst(80,480,e=>{
   const scale=e.data.splashDamageRadius;
   const scaleCen=[scale*0.5*0.4,scale*0.5*0.7,scale*0.5];
@@ -296,18 +297,19 @@ launchpad.entityType=prov(()=>extendContent(ItemTurret.ItemTurretEntity,launchpa
     this._targetSpot=Vars.world.tile(stream.readShort(),stream.readShort());
   },
 }));
-launchpad.configurable=true;
+launchpad.configurable=true;*/
 
 bullet1=extend(BasicBulletType,{
   hit(b,x,y){
     this.super$hit(b,x!=null?x:b.x,y!=null?y:b.y);
+    if(!(b.getOwner() instanceof ItemTurret.ItemTurretEntity)) return;
     var i=b.getOwner().getPierce();
     if(i==0){
       b.remove();
     }
   },
 });
-bullet1.damage=400;
+bullet1.damage=500;
 bullet1.pierce=true;
 bullet1.speed=15;
 bullet1.bulletWidth=9;
@@ -319,13 +321,14 @@ bullet1.hitEffect=Fx.hitBulletBig;
 bullet2=extend(BasicBulletType,{
   hit(b,x,y){
     this.super$hit(b,x!=null?x:b.x,y!=null?y:b.y);
+    if(!(b.getOwner() instanceof ItemTurret.ItemTurretEntity)) return;
     var i=b.getOwner().getPierce();
     if(i==0){
       b.remove();
     }
   },
 });
-bullet2.damage=130;
+bullet2.damage=330;
 bullet2.pierce=true;
 bullet2.speed=12.5;
 bullet2.bulletWidth=6;
@@ -432,7 +435,7 @@ plasma1.damage=0;
 plasma1.knockback=2;
 plasma1.lifetime=160;
 plasma1.splashDamageRadius=30;
-plasma1.splashDamage=240;
+plasma1.splashDamage=280;
 plasma1.hitSound=Sounds.artillery;
 plasma1.ammoMultiplier=1;
 const plasma2=extend(FlakBulletType,{
@@ -741,10 +744,10 @@ const hitLaser1 = newEffect(5,e=>{
 ray.shootType = extend(BasicBulletType,{
   //관통데미지
   update(b){
-    if(b==null) return;
+    if(b==null || b.getOwner() == null) return;
     if(b.timer.get(1,5)){
       const target=b.getOwner().target;
-      print(b.getOwner().getDamage())
+      //print(b.getOwner().getDamage())
       if(target!=null){
         var result=Predict.intercept(b.getOwner(),target,this.speed);
         if(result.isZero()) result.set(target.getX(),target.getY());
@@ -765,6 +768,7 @@ ray.shootType = extend(BasicBulletType,{
     }
   },
   draw(b){
+    if(b==null || b.getOwner() == null) return;
     var baseLen=length*b.fout();
     for(var s=0;s<colors.length;s++){
       Draw.color(colors[s]);
@@ -779,11 +783,12 @@ ray.shootType = extend(BasicBulletType,{
 ray.shootType.hitSize=3;
 ray.shootType.despawnEffect=Fx.none;
 ray.shootType.hitEffect=hitLaser1;
-ray.shootType.damage=25;
+ray.shootType.damage=45;
 ray.shootType.pierce=true;
 ray.shootType.speed=0.001;
 ray.shootType.lifetime=16;
 
+/*
 const tesla=extendContent(PowerTurret,"tesla",{
   bullet(tile,type,angle){
     Bullet.create(type,tile.entity,tile.getTeam(),tile.drawx(),tile.drawy(),angle);
@@ -808,3 +813,4 @@ tesla.shootType.speed=0.001
 tesla.shootType.hitEffect=Fx.hitLancer;
 tesla.shootType.damage=32;
 tesla.heatColor=Color.red;
+*/

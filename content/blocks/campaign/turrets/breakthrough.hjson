@@ -3,8 +3,11 @@ requirements:[
   //dense-alloy/225
   copper/200
   lead/200
-  thorium/150
   graphite/250
+  thorium/150
+  ref-scalar/80
+  ref-vector/120
+  s-code/40
 ]
 category:turret
-//research:meltdown
+research:meltdown

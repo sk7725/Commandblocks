@@ -1,0 +1,25 @@
+requirements:[
+  //computer/5
+  copper/200
+  lead/200
+  graphite/100
+  silicon/100
+  surge-alloy/100
+  //dense-alloy/50
+  thorium/150
+  ref-zeta/90
+]
+size: 4
+range: 320
+reload: 180
+recoil: 4
+smokeEffect: lightningShoot
+shootEffect: lancerLaserShoot
+outlineIcon: true
+rotatespeed: 2
+inaccuracy:0
+shots: 1
+health: 3300
+maxAmmo: 10
+category: turret
+research: lancer

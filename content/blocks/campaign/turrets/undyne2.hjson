@@ -19,6 +19,7 @@ requirements: [
   titanium/400
   plastanium/150
   ref-vector/350
+  ref-zeta/40
 ]
 category: turret
 research: undyne
