@@ -639,7 +639,7 @@ const eradMain = prov(() => {
           }
         }
         //skill 1: plusweave spark
-        if(this.skillTimer().get(1, 450)){
+        if(this.skillTimer().get(1, 660)){
           Call.createBullet(customb.plusErad, this.getTeam(), this.getX(), this.getY(), this.rotation, 2-this.healthf(), 0.5);
         }
       }
@@ -653,6 +653,9 @@ const eradMain = prov(() => {
           }
         }
         //skill 1: eye of darkness
+        if(this.skillTimer().get(1, 450)){
+          Call.createBullet(customb.bholErad, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1);
+        }
       }
     },
     doHalf(){

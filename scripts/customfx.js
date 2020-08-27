@@ -41,7 +41,6 @@ function newGroundEffect(lifetime, staticLife, renderer){
 //thanks to EyeofDarkness(aka Darky Daddy)
 const newEffectSize = (life, size, renderer) => new Effects.Effect(life, size, new Effects.EffectRenderer({render: renderer}));
 
-const meltColor = Color.valueOf("ff9c5a");
 const distcolor = Color.valueOf("4c00ff");
 this.global.fx = {
   evalfx : newEffect(30, e => {
@@ -350,7 +349,7 @@ this.global.fx = {
     Lines.lineAngleCenter(e.x, e.y+e.fin()*6, 90, e.fin()*5.5+5.5);
   }),
   meltChargeFx : newEffect(25, e => {
-    Draw.color(meltColor, Color.white, e.fin());
+    Draw.color(e.color, Color.white, e.fin());
     Angles.randLenVectors(e.id, 3+e.id%3, 70*e.fout(), floatc2((x,y) => {
       Fill.square(e.x+x, e.y+y, e.fin()*4.5, 45);
     }));

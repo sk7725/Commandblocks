@@ -1068,7 +1068,7 @@ this.global.bullets.fragArray = fragArray;
 const meltColor = Color.valueOf("ff9c5a");
 const meltChargeFx = this.global.fx.meltChargeFx;
 const meltChargeFx2 = newEffect(90, e => {
-  Draw.color(meltColor);
+  Draw.color(e.color);
   Fill.circle(e.x, e.y, e.finpow()*12)
   Lines.stroke(e.finpow()*1.5);
   Lines.poly(e.x, e.y, Mathf.random()*5+5, e.fin()*12+8, e.fout()*190);
@@ -1083,10 +1083,10 @@ const meltCharge = extend(BasicBulletType, {
     var ty = b.y;
     var tr = b.rot();
     var team = b.getTeam();
-    Effects.effect(meltChargeFx2, tx, ty);
+    Effects.effect(meltChargeFx2, meltColor, tx, ty);
     for(var i=0; i<5; i++){
       Time.run(Mathf.random(80), run(()=>{
-        Effects.effect(meltChargeFx, tx, ty);
+        Effects.effect(meltChargeFx, meltColor, tx, ty);
       }));
     }
     Time.run(90, run(()=>{
@@ -1342,6 +1342,35 @@ plusErad.despawnEffect = Fx.none;
 
 this.global.bullets.plusErad = plusErad;
 
+const plusCharge = extend(BasicBulletType, {
+  init(b){
+    if(b == null) return;
+    var tx = b.x;
+    var ty = b.y;
+    var tr = b.rot();
+    var team = b.getTeam();
+    Effects.effect(meltChargeFx2, Pal.lancerLaser, tx, ty);
+    for(var i=0; i<5; i++){
+      Time.run(Mathf.random(80), run(()=>{
+        Effects.effect(meltChargeFx, Pal.lancerLaser, tx, ty);
+      }));
+    }
+    Time.run(90, run(()=>{
+      const mLaser = Bullet.create(plusErad, null, team, tx, ty, tr, 1, 1);
+      Sounds.laserbig.at(tx, ty, 1);
+    }));
+    b.remove();
+  },
+  draw(b){}
+});
+plusCharge.speed = 1;
+plusCharge.lifetime = 120;
+plusCharge.collidesTiles = false;
+plusCharge.collides = false;
+plusCharge.collidesAir = false;
+plusCharge.keepVelocity = false;
+this.global.bullets.plusCharge = plusCharge;
+
 //This by EyeOfDarkness
 const bulletSize = 5;
 const despawnedBullet = newEffect(12, e => {
@@ -1537,3 +1566,21 @@ singularityBullet.bulletShrink = 0;
 singularityBullet.hitSize = 9;
 singularityBullet.despawnEffect = Fx.none;
 this.global.bullets.singularityBullet = singularityBullet;
+
+const bholErad = extend(BasicBulletType, {
+  init(b){
+    if(b == null) return;
+    for(var i=0; i<18; i++){
+      Bullet.create(singularityBullet, null, b.getTeam(), b.x, b.y, b.rot()+i*20, 1, 1);
+    }
+    b.remove();
+  },
+  draw(b){}
+});
+bholErad.speed = 1;
+bholErad.lifetime = 120;
+bholErad.collidesTiles = false;
+bholErad.collides = false;
+bholErad.collidesAir = false;
+bholErad.keepVelocity = false;
+this.global.bullets.bholErad = bholErad;
