@@ -1,6 +1,6 @@
 requirements:[
   //semiconductor/10
-  iron/90
+  //iron/90
   copper/60
   graphite/90
   titanium/60
@@ -20,4 +20,4 @@ shots: 1
 health: 2500
 maxAmmo: 20
 category: turret
-research: salvo
+//research: salvo
