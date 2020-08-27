@@ -1,0 +1,35 @@
+itemCapacity: 20
+
+size: 3
+health: 500
+hasPower: true
+hasItems: true
+consumes: {
+  power: 8
+  items: {
+    items: [
+      silicon/1
+      phase-fabric/1
+    ]
+    booster: true
+    optional: true
+  }
+}
+
+requirements: [
+  lead/200
+  titanium/120
+  silicon/140
+  phase-fabric/90
+  surge-alloy/100
+  ref-zeta/20
+]
+
+category: effect
+research: mend-projector
+
+range: 200
+reload: 270
+healPercent: 15
+phaseRangeBoost: 24
+phaseBoost: 24

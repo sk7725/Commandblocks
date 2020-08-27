@@ -25,6 +25,7 @@ require("campaign/campfire");
 require("campaign/bitcrystal");
 require("campaign/crafters");
 require("campaign/turrets");
+require("campaign/defense");
 require("campaign/explosive");
 require("campaign/explosivelarge");
 require("campaign/treegrower");
@@ -129,5 +130,8 @@ require("sandbox/drawtester");
 require("sandbox/tabletester");
 require("sandbox/jstester");
 require("sandbox/fxtester");
+
+//if this exceeds 127 it will go die
+print("StatusEffect Total: "+Vars.content.getBy(ContentType.status).size);
 
 print("Load Complete!");

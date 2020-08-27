@@ -392,6 +392,7 @@ charging.speedMultiplier = 0.21;
 
 const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit, {
   behavior(){
+    //skill 0: rise from lava
     if(this.timer.get(4, 650)){
       this.applyEffect(charging, 120);
       if(!Vars.net.client()){
@@ -465,8 +466,8 @@ carray2.weapon.alternate = true;
 carray2.weapon.lengthRand = 0;
 carray2.weapon.shotDelay = 0;
 carray2.health = 56000;
-carray2.speed = 0.1;
-carray2.maxVelocity = 0.6;
+carray2.speed = 0.23;
+carray2.maxVelocity = 0.99;
 carray2.targetAir = true;
 const arrayMain = prov(() => {
   arrayMainB = extend(GroundUnit, {
@@ -491,6 +492,7 @@ const arrayMain = prov(() => {
     },
     behaviorFull(){
       if(!Vars.net.client()){
+        //skill 0: antumbra
         if(this.skillTimer().get(0, 150)){
           Call.createBullet(customb.fragArray, this.getTeam(), this.getX(), this.getY(), this.rotation+180, 1, 1);
         }
@@ -499,6 +501,7 @@ const arrayMain = prov(() => {
     behaviorHalf(){
       if(!Vars.net.client()){
         if(this.atkMode()){
+          //skill 0: antumbra
           if(this.skillTimer().get(0, 290)){
             for(var i=0; i<((this.healthf()>0.3)?2:4); i++){
               Tmp.v1.trns(Mathf.random()*360 ,Mathf.random()*40);
@@ -507,6 +510,7 @@ const arrayMain = prov(() => {
           }
         }
         else{
+          //skill 1: lanced surge
           if(this.skillTimer().get(0, 140)){
             for(var i=0; i<((this.healthf()>0.3)?3:5); i++){
               Time.run(i*15, run(()=>{
@@ -516,14 +520,14 @@ const arrayMain = prov(() => {
           }
         }
 
-        //shoot meltdown laser!
+        //skill 2: beam of death
         if(this.skillTimer().get(1, 900*this.healthf()+480)){
           this.applyEffect(jamweapons, 230);
           this.applyEffect(charging, 230);
           //var v1 = Vec2(30, 0).setAngle(this.rotation);
           Call.createBullet(customb.meltCharge, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1);
         }
-        //heal,rage zone
+        //skill 3: bitshift
         if(this.skillTimer().get(2, 1321)){
           if(this.atkMode()){
             Call.createBullet(customb.rageZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
@@ -586,9 +590,126 @@ const arrayMain = prov(() => {
 carray2.create(arrayMain);
 this.global.upgradeUnits["chaos-array"] = carray2;
 
-const erad2 = createUnit("eradicator", "wormSmall", GroundUnit, {});
-erad.weapon.shootSound = Sounds.missile;
-erad.health = 256000;
+const immortal = extendContent(StatusEffect, "immortal", {
+  update(unit, time){
+    this.super$update(unit, time);
+    if(unit.health() < 65535) unit.health(65535);
+  }
+});
+immortal.color = Color.white;
+immortal.effect = Fx.none;
+
+const erad2 = createUnit("eradicator", "wormSmall", GroundUnit, {}, true);
+erad2.weapon.shootSound = Sounds.missile;
+erad2.weapon.reload = 50;
+erad2.weapon.shots = 2;
+erad2.weapon.spacing = 8;
+erad2.weapon.alternate = true;
+erad2.weapon.lengthRand = 0;
+erad2.weapon.shotDelay = 0;
+erad2.weapon.velocityRnd = 0.4;
+erad2.health = 256000;
+const eradMain = prov(() => {
+  eradMainB = extend(GroundUnit, {
+    _timerSkill: new Interval(3),
+    skillTimer(){
+      return this._timerSkill;
+    },
+    setRage(a){
+      this._rage = a;
+    },
+    rage(){
+      return this._rage;
+    },
+    setAtkMode(a){
+      this._atkmode - a;
+    },
+    atkMode(){
+      return this._atkmode;
+    },
+    toggleAtk(){
+      this._atkmode = !this._atkmode;
+    },
+    behaviorFull(){
+      if(!Vars.net.client()){
+        //skill 0: warpcall
+        if(this.skillTimer().get(0, 650+400*this.healthf())){
+          for(var i=0; i<((this.healthf()>0.85)?1:2); i++){
+            Call.createBullet(customb.spawnErad, this.getTeam(), this.getX(), this.getY(), Mathf.random()*360, Mathf.random()*0.7+0.7, 1);
+          }
+        }
+        //skill 1: plusweave spark
+        if(this.skillTimer().get(1, 450)){
+          Call.createBullet(customb.plusErad, this.getTeam(), this.getX(), this.getY(), this.rotation, 2-this.healthf(), 0.5);
+        }
+      }
+    },
+    behaviorHalf(){
+      if(!Vars.net.client()){
+        //skill 0: warpcall
+        if(this.skillTimer().get(0, 550+400*this.healthf())){
+          for(var i=0; i<((this.healthf()>0.35)?3:4); i++){
+            Call.createBullet(customb.spawnErad, this.getTeam(), this.getX(), this.getY(), Mathf.random()*360, Mathf.random()*0.7+0.7, 1);
+          }
+        }
+        //skill 1: eye of darkness
+      }
+    },
+    doHalf(){
+      if(!Vars.net.client()){
+        this.applyEffect(raging, 9999999);
+        //Call.createBullet(customb.rageZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
+        this.skillTimer().reset(0, 0);
+        this.skillTimer().reset(1, 0);
+        //this.skillTimer().reset(1, 0);
+        this.skillTimer().reset(2, 0);
+        this.setAtkMode(false);
+        Sounds.corexplode.at(this.x, this.y, 0.8);
+        Effects.effect(customfx.coreMainSpark, this.x, this.y);
+      }
+    },
+    behavior(){
+      if(this.healthf() < 0.65 || this.rage()){
+        if(!this.rage()){
+          this.doHalf();
+          this.setRage(true);
+        }
+        this.behaviorHalf();
+      }
+      else{
+        this.behaviorFull();
+      }
+      if(!Units.invalidateTarget(this.target, this)){
+        if(this.dst(this.target) < this.getWeapon().bullet.range()){
+
+          this.rotate(this.angleTo(this.target));
+
+          if(Angles.near(this.angleTo(this.target), this.rotation, 13)){
+            //this.velocity().set(0, 0);
+            var ammo = this.getWeapon().bullet;
+
+            var to = Predict.intercept(this, this.target, ammo.speed);
+
+            this.getWeapon().update(this, to.x, to.y);
+          }
+        }
+      }
+    },
+    moveToCore(path){
+      if(this.target != null) return;
+      this.super$moveToCore(path);
+    },
+    draw(){
+      Draw.shader(shader);
+      this.super$draw();
+      Draw.shader();
+    }
+  });
+  eradMainB.setRage(false);
+  eradMainB.setAtkMode(false);
+  return eradMainB;
+});
+erad2.create(eradMain);
 this.global.upgradeUnits.eradicator = erad2;
 
 const wraith2 = createUnit("wraith", "grenade", FlyingUnit, {});
