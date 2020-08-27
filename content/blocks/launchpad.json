@@ -1,20 +1,20 @@
 category:turret
 requirements:[
-  computer/10
+  //computer/10
   copper/250
   surge-alloy/150
   steel/150
-  graphite/250
+  //graphite/250
   silicon/250
 ]
 ammo:{
-  missile:{
+  copper:{
     type:BombBulletType
     splashDamage:600
     splashDamageRadius:80
     ammoMultiplier:1
   }
-  doom:{
+  lead:{
     type:BombBulletType
     splashDamage:4050
     splashDamageRadius:320
@@ -28,4 +28,4 @@ health:2400
 size:5
 maxAmmo:5
 outlineIcon:false
-research: ripple
+//research: ripple
