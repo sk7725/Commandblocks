@@ -16,8 +16,8 @@ activeSound:beam
 category: turret
 research: lancer
 requirements: [
-    semiconductor/10
-    steel/60
+    //semiconductor/10
+    //steel/60
     graphite/100
     copper/60
     lead/60
