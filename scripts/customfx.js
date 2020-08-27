@@ -366,9 +366,9 @@ this.global.fx = {
     Lines.swirl(e.x, e.y, 26*r, 0.7, Time.time()*-5+121);
     Lines.swirl(e.x, e.y, 27*r, 0.3, Time.time()*19+222);
   }),
-  spawnWellTrail: newEffect(30, e => {
+  spawnWellTrail : newEffect(30, e => {
     Tmp.c1.set(Color.red);
-    Draw.color(Tmp.c1.shiftHue(Mathf.randomSeed(e.id)*255);
+    Draw.color(Tmp.c1.shiftHue(Mathf.randomSeed(e.id)*255));
     drawSpark(e.x, e.y, e.fout()*2, e.finpow()*15, 0);
     Lines.stroke(e.fout());
     Lines.circle(e.x, e.y, e.finpow()*5);
