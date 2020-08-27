@@ -1,0 +1,24 @@
+health: 2600
+size: 3
+range: 185
+canOverdrive:false
+hasLiquids:false
+shootEffect: shootBigSmoke2
+recoil: 2
+shootShake:1
+reload: 10
+shootCone:20
+powerUse: 4
+shootSound:laserbig
+activeSound:beam
+
+
+category: turret
+research: lancer
+requirements: [
+    semiconductor/10
+    steel/60
+    graphite/100
+    copper/60
+    lead/60
+]

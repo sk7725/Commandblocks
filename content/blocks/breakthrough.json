@@ -1,0 +1,10 @@
+requirements:[
+  computer/10
+  dense-alloy/225
+  copper/200
+  lead/200
+  thorium/150
+  graphite/250
+]
+category:turret
+research:meltdown
