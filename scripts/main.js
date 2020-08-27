@@ -25,6 +25,7 @@ require("campaign/campfire");
 require("campaign/bitcrystal");
 require("campaign/crafters");
 require("campaign/turrets");
+require("campaign/defense");
 require("campaign/explosive");
 require("campaign/explosivelarge");
 require("campaign/treegrower");

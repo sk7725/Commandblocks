@@ -1,0 +1,33 @@
+itemCapacity: 20
+
+size: 3
+health: 250
+hasPower: true
+hasItems: true
+consumes: {
+  power: 10
+  items: {
+    items: [
+      silicon/1
+      phase-fabric/1
+    ]
+  }
+}
+
+requirements: [
+  lead/200
+  titanium/130
+  silicon/130
+  plastanium/80
+  surge-alloy/80
+  ref-vector/40
+]
+
+category: effect
+research: overdrive-projector
+
+range: 200
+speedBoost: 1.5
+speedBoostPhase: 1
+useTime: 300
+phaseRangeBoost: 40
