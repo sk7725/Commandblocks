@@ -25,7 +25,7 @@ const overDome = extendContent(OverdriveProjector, "overdrive-dome", {
     this.super$placed(tile);
     this._heat[tile.pos()] = 0;
     this._phase[tile.pos()] = 0;
-  }
+  },
   update(tile){
     this.super$update(tile);
     if(this._heat[tile.pos()] == undefined) this._heat[tile.pos()] = 0;
