@@ -1369,9 +1369,9 @@ const skillfunc={
     player.damage(player.maxHealth()*0.05);
     if(Vars.net.client()) return;
     var primes=[0,2,5,7,11,13,17,19,23,29,31,37];//random will absoultely not work on multi
-    for(var i=1;i<=8;i++){
+    for(var i=1;i<=6;i++){
       //Bullet.create(bullet,null, player.getTeam(), player.getX(), player.getY(), player.rotation+(Time.time()*primes[12-i])%13-7, ((Time.time()*primes[i])%10+20)/25,1);
-      Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation+(Time.time()*primes[12-i])%13-7, ((Time.time()*primes[i])%10+20)/25,1);
+      Call.createBullet(bullet, player.getTeam(), player.getX(), player.getY(), player.rotation+(Time.time()*primes[12-i])%13-7, ((Time.time()*primes[i])%10+20)/25,0.3);
     }
   },
   thorbeam(player){

@@ -598,9 +598,75 @@ erad2.weapon.velocityRnd = 0.4;
 erad2.health = 256000;
 const eradMain = prov(() => {
   eradMainB = extend(GroundUnit, {
-    _timerSkill: new Interval(1),
+    _timerSkill: new Interval(3),
     skillTimer(){
       return this._timerSkill;
+    },
+    setRage(a){
+      this._rage = a;
+    },
+    rage(){
+      return this._rage;
+    },
+    setAtkMode(a){
+      this._atkmode - a;
+    },
+    atkMode(){
+      return this._atkmode;
+    },
+    toggleAtk(){
+      this._atkmode = !this._atkmode;
+    },
+    behaviorFull(){
+      if(!Vars.net.client()){
+        if(this.skillTimer().get(0, 350+300*this.healthf())){
+          for(var i=0; i<((this.healthf()>0.85)?2:3); i++){
+            Call.createBullet(customb.spawnErad, this.getTeam(), this.getX(), this.getY(), Mathf.random()*360, Mathf.random()*0.7+0.7, 1);
+          }
+        }
+      }
+    },
+    behaviorHalf(){
+      if(!Vars.net.client()){
+        //
+      }
+    },
+    doHalf(){
+      if(!Vars.net.client()){
+        this.applyEffect(raging, 9999999);
+        //Call.createBullet(customb.rageZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
+        this.skillTimer().reset(0, 0);
+        //this.skillTimer().reset(1, 0);
+        this.skillTimer().reset(2, 0);
+        this.setAtkMode(false);
+      }
+    },
+    behavior(){
+      if(this.healthf() < 0.65 || this.rage()){
+        if(!this.rage()){
+          this.doHalf();
+          this.setRage(true);
+        }
+        this.behaviorHalf();
+      }
+      else{
+        this.behaviorFull();
+      }
+      if(!Units.invalidateTarget(this.target, this)){
+        if(this.dst(this.target) < this.getWeapon().bullet.range()){
+
+          this.rotate(this.angleTo(this.target));
+
+          if(Angles.near(this.angleTo(this.target), this.rotation, 13)){
+            //this.velocity().set(0, 0);
+            var ammo = this.getWeapon().bullet;
+
+            var to = Predict.intercept(this, this.target, ammo.speed);
+
+            this.getWeapon().update(this, to.x, to.y);
+          }
+        }
+      }
     },
     moveToCore(path){
       if(this.target != null) return;
@@ -612,6 +678,8 @@ const eradMain = prov(() => {
       Draw.shader();
     }
   });
+  eradMainB.setRage(false);
+  eradMainB.setAtkMode(false);
   return eradMainB;
 });
 erad2.create(eradMain);

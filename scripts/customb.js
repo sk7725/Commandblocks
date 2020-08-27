@@ -1221,3 +1221,95 @@ wormSmall.bulletWidth = 8;
 wormSmall.bulletHeight = 15;
 
 this.global.bullets.wormSmall = wormSmall;
+
+const spawnWellTrail = this.global.fx.spawnWellTrail;
+const spawnWell = extend(BasicBulletType, {
+  cooldown: [],
+  draw(b){
+    Lines.stroke(3-3*b.fin());
+    var r = b.fin()*10;
+    if(r > 1) r = 1;
+    r = r*r;
+    Tmp.c1.set(Color.red);
+    for(var i=0;i<6;i++){
+      Draw.color(Tmp.c1.shiftHue(Mathf.randomSeed(b.id+i*3)*255+Time.time()*Mathf.randomSeed(b.id+i*3+4)));
+      Tmp.v1.trns(360*Mathf.randomSeed(b.id+i)+Time.time()*Mathf.randomSeed(b.id+i+4)*3, 3);
+      Lines.circle(b.x+Tmp.v1.x, b.y+Tmp.v1.y, r*30);
+    }
+  },
+  update(b){
+    if(b.fin()<0.1) return;
+    if(Mathf.chance(Time.delta()*0.3)){
+      Tmp.v1.trns(Mathf.random()*360, Mathf.random()*30);
+      Effects.effect(spawnWellTrail, b.x+Tmp.v1.x, b.y+Tmp.v1.y);
+    }
+    if(this.cooldown[b.id]>0) this.cooldown[b.id] -= 150;
+    if(!Vars.net.client() && this.cooldown[b.id]<1 && Mathf.chance(Time.delta()*0.2)){
+      var unitTarg = Vars.content.units().random();
+      if(unitTarg.name() == "commandblocks-eradicator-2") return;
+      var u = unitTarg.create(b.getTeam());
+      Tmp.v1.trns(Mathf.random()*360, Mathf.random()*25);
+      if(Vars.world.tileWorld(b.x+Tmp.v1.x, b.y+Tmp.v1.y) == null || Vars.world.tileWorld(b.x+Tmp.v1.x, b.y+Tmp.v1.y).solid()) u.set(b.x, b.y);
+      else u.set(b.x+Tmp.v1.x, b.y+Tmp.v1.y);
+      u.add();
+      this.cooldown[b.id] = unitTarg.health;
+    }
+  },
+  init(b){
+    if(b == null) return;
+    this.cooldown[b.id] = 0;
+    this.super$init(b);
+  }
+});
+spawnWell.speed = 0;
+spawnWell.lifetime = 600;
+spawnWell.collidesTiles = false;
+spawnWell.collides = false;
+spawnWell.collidesAir = false;
+spawnWell.keepVelocity = false;
+this.global.bullets.spawnWell = spawnWell;
+
+const spawnErad = extend(BasicBulletType, {
+  hit(b,x,y){
+    if(x === undefined || x === null){
+      x = b.x; y = b.y;
+    }
+    Bullet.create(spawnWell, null, b.getTeam(), b.x, b.y, 0, 1, 1);
+    this.super$hit(b, x, y);
+  },
+  draw(b){
+    Draw.color(this.backColor.shiftHue(Time.delta()*8));
+    Draw.rect(this.backRegion, b.x, b.y, b.rot()-90);
+    Draw.color(this.frontColor);
+    Draw.rect(this.frontRegion, b.x, b.y, b.rot()-90);
+    Draw.color();
+  },
+  update(b){
+    this.super$update(b);
+    if(Mathf.chance(Time.delta() * 0.2)){
+      Effects.effect(Fx.missileTrail, this.trailColor.shiftHue(15*Time.delta()), b.x, b.y, 2);
+    }
+    if(Mathf.chance(Time.delta() * 0.1)){
+      Tmp.v1.trns(Mathf.random()*360, 3)
+      Effects.effect(spawnWellTrail, b.x+Tmp.v1.x, b.y+Tmp.v1.y);
+    }
+  }
+});
+spawnErad.speed = 3.2;
+spawnErad.lifetime = 60;
+spawnErad.collidesTiles = true;
+spawnErad.collides = true;
+spawnErad.collidesAir = true;
+spawnErad.keepVelocity = true;
+spawnErad.hitSound = Sounds.wave;
+spawnErad.hitShake = 2;
+spawnErad.hitEffect = Fx.none;
+spawnErad.despawnEffect = Fx.none;
+spawnErad.bulletSprite = "missile";
+spawnErad.frontColor = Color.white;
+spawnErad.backColor = Color.valueOf("ffbbbb");
+spawnErad.trailColor = Color.red.cpy();
+spawnErad.bulletWidth = 10;
+spawnErad.bulletHeight = 16;
+
+this.global.bullets.spawnErad = spawnErad;
