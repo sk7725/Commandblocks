@@ -339,7 +339,7 @@ const penetrate=extendContent(ItemTurret,"penetrate",{
   init(){
     this.hasPower=true;
     this.consumes.powerCond(this.powerUse,boolf(entity=>entity!=null?entity.target!=null:false));
-    this.ammo(Vars.content.getByName(ContentType.item,"steam-power-bullet"),bullet2,Vars.content.getByName(ContentType.item,"steam-power-armor-piercing-shell"),bullet1);
+    this.ammo(Vars.content.getByName(ContentType.item,"copper"),bullet2,Vars.content.getByName(ContentType.item,"lead"),bullet1);
     this.super$init();
   },
   baseReloadSpeed(tile){
@@ -550,7 +550,7 @@ const ravage=extendContent(ItemTurret,"ravage",{
   init(){
     this.hasPower=true;
     this.consumes.powerCond(this.powerUse,boolf(entity=>entity!=null?entity.target!=null:false));
-    this.ammo(Items.graphite,plasma1,Items.phasefabric,plasma2,Vars.content.getByName(ContentType.item,"steam-power-quantum-mass"),plasma3);
+    this.ammo(Items.graphite,plasma1,Items.phasefabric,plasma2,Vars.content.getByName(ContentType.item,"copper"),plasma3);
     this.super$init();
     this.soundTimer=this.timers++;
   },
