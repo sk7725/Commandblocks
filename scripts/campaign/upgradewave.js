@@ -392,6 +392,7 @@ charging.speedMultiplier = 0.21;
 
 const eruptor2 = createUnit("eruptor", "standardIncendiaryBig", GroundUnit, {
   behavior(){
+    //skill 0: rise from lava
     if(this.timer.get(4, 650)){
       this.applyEffect(charging, 120);
       if(!Vars.net.client()){
@@ -491,6 +492,7 @@ const arrayMain = prov(() => {
     },
     behaviorFull(){
       if(!Vars.net.client()){
+        //skill 0: antumbra
         if(this.skillTimer().get(0, 150)){
           Call.createBullet(customb.fragArray, this.getTeam(), this.getX(), this.getY(), this.rotation+180, 1, 1);
         }
@@ -499,6 +501,7 @@ const arrayMain = prov(() => {
     behaviorHalf(){
       if(!Vars.net.client()){
         if(this.atkMode()){
+          //skill 0: antumbra
           if(this.skillTimer().get(0, 290)){
             for(var i=0; i<((this.healthf()>0.3)?2:4); i++){
               Tmp.v1.trns(Mathf.random()*360 ,Mathf.random()*40);
@@ -507,6 +510,7 @@ const arrayMain = prov(() => {
           }
         }
         else{
+          //skill 1: lanced surge
           if(this.skillTimer().get(0, 140)){
             for(var i=0; i<((this.healthf()>0.3)?3:5); i++){
               Time.run(i*15, run(()=>{
@@ -516,14 +520,14 @@ const arrayMain = prov(() => {
           }
         }
 
-        //shoot meltdown laser!
+        //skill 2: beam of death
         if(this.skillTimer().get(1, 900*this.healthf()+480)){
           this.applyEffect(jamweapons, 230);
           this.applyEffect(charging, 230);
           //var v1 = Vec2(30, 0).setAngle(this.rotation);
           Call.createBullet(customb.meltCharge, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1);
         }
-        //heal,rage zone
+        //skill 3: bitshift
         if(this.skillTimer().get(2, 1321)){
           if(this.atkMode()){
             Call.createBullet(customb.rageZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
@@ -619,27 +623,27 @@ const eradMain = prov(() => {
     },
     behaviorFull(){
       if(!Vars.net.client()){
-        //skill 0: supercall missiles
+        //skill 0: warpcall
         if(this.skillTimer().get(0, 650+400*this.healthf())){
-          for(var i=0; i<((this.healthf()>0.85)?2:3); i++){
+          for(var i=0; i<((this.healthf()>0.85)?1:2); i++){
             Call.createBullet(customb.spawnErad, this.getTeam(), this.getX(), this.getY(), Mathf.random()*360, Mathf.random()*0.7+0.7, 1);
           }
         }
-        //skill 1: plusweave energy ball
-        if(this.skillTimer().get(1, 350)){
-          Call.createBullet(customb.plusErad, this.getTeam(), this.getX(), this.getY(), this.rotation, 2-this.healthf(), 1);
+        //skill 1: plusweave spark
+        if(this.skillTimer().get(1, 450)){
+          Call.createBullet(customb.plusErad, this.getTeam(), this.getX(), this.getY(), this.rotation, 2-this.healthf(), 0.5);
         }
       }
     },
     behaviorHalf(){
       if(!Vars.net.client()){
-        //skill 0: supercall missiles
+        //skill 0: warpcall
         if(this.skillTimer().get(0, 550+400*this.healthf())){
-          for(var i=0; i<((this.healthf()>0.35)?4:5); i++){
+          for(var i=0; i<((this.healthf()>0.35)?3:4); i++){
             Call.createBullet(customb.spawnErad, this.getTeam(), this.getX(), this.getY(), Mathf.random()*360, Mathf.random()*0.7+0.7, 1);
           }
         }
-        //skill
+        //skill 1: eye of darkness
       }
     },
     doHalf(){
@@ -651,6 +655,8 @@ const eradMain = prov(() => {
         //this.skillTimer().reset(1, 0);
         this.skillTimer().reset(2, 0);
         this.setAtkMode(false);
+        Sounds.corexplode.at(this.x, this.y, 0.8);
+        Effects.effect(customfx.coreMainSpark, this.x, this.y);
       }
     },
     behavior(){
