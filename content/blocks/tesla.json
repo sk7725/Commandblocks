@@ -1,7 +1,7 @@
 size: 2
 targetAir: false
 requirements:[
-  circuit/5
+  //circuit/5
   iron/60
   copper/20
   lead/40
