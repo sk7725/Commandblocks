@@ -1243,9 +1243,10 @@ const spawnWell = extend(BasicBulletType, {
       Tmp.v1.trns(Mathf.random()*360, Mathf.random()*30);
       Effects.effect(spawnWellTrail, b.x+Tmp.v1.x, b.y+Tmp.v1.y);
     }
-    if(this.cooldown[b.id]>0) this.cooldown[b.id] -= 150;
+    if(this.cooldown[b.id]>0) this.cooldown[b.id] -= 100;
     if(!Vars.net.client() && this.cooldown[b.id]<1 && Mathf.chance(Time.delta()*0.2)){
       var unitTarg = Vars.content.units().random();
+      if((Vars.world.tileWorld(b.x, b.y) == null || Vars.world.tileWorld(b.x, b.y).solid())&&(!unitTarg.flying)) return;
       if(this.blacklist.indexOf(unitTarg.name)>-1 || unitTarg.health > 100000) return;
       var u = unitTarg.create(b.getTeam());
       Tmp.v1.trns(Mathf.random()*360, Mathf.random()*25);
@@ -1261,7 +1262,7 @@ const spawnWell = extend(BasicBulletType, {
     this.super$init(b);
   }
 });
-spawnWell.blacklist = ["testing-dps-unit", "commandblocks-eradicator-2", "commandblocks-armorstand", "commandblocks-reaper-2", "commandblocks-gamesoccerball", "advancecontent-azathoth"];
+spawnWell.blacklist = ["spirit", "phantom", "draug", "testing-dps-unit", "commandblocks-eradicator-2", "commandblocks-armorstand", "commandblocks-reaper-2", "commandblocks-gamesoccerball", "advancecontent-azathoth"];
 spawnWell.speed = 0;
 spawnWell.lifetime = 600;
 spawnWell.collidesTiles = false;
