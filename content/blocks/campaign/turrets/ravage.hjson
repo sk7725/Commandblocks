@@ -11,7 +11,7 @@ requirements:[
 ]
 size: 4
 range: 320
-reload: 180
+reload: 160
 recoil: 4
 smokeEffect: lightningShoot
 shootEffect: lancerLaserShoot

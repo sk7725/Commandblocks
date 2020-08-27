@@ -1,6 +1,6 @@
 health: 2600
 size: 3
-range: 185
+range: 285
 canOverdrive:false
 hasLiquids:false
 shootEffect: shootBigSmoke2
