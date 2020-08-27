@@ -619,16 +619,27 @@ const eradMain = prov(() => {
     },
     behaviorFull(){
       if(!Vars.net.client()){
-        if(this.skillTimer().get(0, 350+300*this.healthf())){
+        //skill 0: supercall missiles
+        if(this.skillTimer().get(0, 650+400*this.healthf())){
           for(var i=0; i<((this.healthf()>0.85)?2:3); i++){
             Call.createBullet(customb.spawnErad, this.getTeam(), this.getX(), this.getY(), Mathf.random()*360, Mathf.random()*0.7+0.7, 1);
           }
+        }
+        //skill 1: plusweave energy ball
+        if(this.skillTimer().get(1, 350)){
+          Call.createBullet(customb.plusErad, this.getTeam(), this.getX(), this.getY(), this.rotation, 2-this.healthf(), 1);
         }
       }
     },
     behaviorHalf(){
       if(!Vars.net.client()){
-        //
+        //skill 0: supercall missiles
+        if(this.skillTimer().get(0, 550+400*this.healthf())){
+          for(var i=0; i<((this.healthf()>0.35)?4:5); i++){
+            Call.createBullet(customb.spawnErad, this.getTeam(), this.getX(), this.getY(), Mathf.random()*360, Mathf.random()*0.7+0.7, 1);
+          }
+        }
+        //skill
       }
     },
     doHalf(){
@@ -636,6 +647,7 @@ const eradMain = prov(() => {
         this.applyEffect(raging, 9999999);
         //Call.createBullet(customb.rageZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
         this.skillTimer().reset(0, 0);
+        this.skillTimer().reset(1, 0);
         //this.skillTimer().reset(1, 0);
         this.skillTimer().reset(2, 0);
         this.setAtkMode(false);

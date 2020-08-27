@@ -1246,7 +1246,7 @@ const spawnWell = extend(BasicBulletType, {
     if(this.cooldown[b.id]>0) this.cooldown[b.id] -= 150;
     if(!Vars.net.client() && this.cooldown[b.id]<1 && Mathf.chance(Time.delta()*0.2)){
       var unitTarg = Vars.content.units().random();
-      if(unitTarg.name == "commandblocks-eradicator-2") return;
+      if(this.blacklist.indexOf(unitTarg.name)>-1 || unitTarg.health > 100000) return;
       var u = unitTarg.create(b.getTeam());
       Tmp.v1.trns(Mathf.random()*360, Mathf.random()*25);
       if(Vars.world.tileWorld(b.x+Tmp.v1.x, b.y+Tmp.v1.y) == null || Vars.world.tileWorld(b.x+Tmp.v1.x, b.y+Tmp.v1.y).solid()) u.set(b.x, b.y);
@@ -1261,6 +1261,7 @@ const spawnWell = extend(BasicBulletType, {
     this.super$init(b);
   }
 });
+spawnWell.blacklist = ["testing-dps-unit", "commandblocks-eradicator-2", "commandblocks-armorstand", "commandblocks-reaper-2", "commandblocks-gamesoccerball", "advancecontent-azathoth"];
 spawnWell.speed = 0;
 spawnWell.lifetime = 600;
 spawnWell.collidesTiles = false;
@@ -1308,3 +1309,34 @@ spawnErad.fragBullet = spawnWell;
 spawnErad.fragBullets = 1;
 
 this.global.bullets.spawnErad = spawnErad;
+
+const plusErad = extend(BasicBulletType, {
+  draw(b){
+    Draw.color(Color.lancerLaser);
+    var r = 1-b.fin();
+    Fill.circle(b.x, b.y, r*12);
+    Lines.stroke(r*1.3);
+    Lines.poly(b.x, b.y, Mathf.random()*7+5, r*12+8, r*190);
+    Lines.poly(b.x, b.y, Mathf.random()*7+5, r*12+8, r*-290);
+    Draw.color();
+    Fill.circle(b.x, b.y, r*9);
+  },
+  update(b){
+    this.super$update(b);
+    for(var i=0; i<4; i++){
+      Bullet.create(Bullets.lancerLaser, null, b.getTeam(), b.x, b.y, i*90+b.rot()+b.fin()*360, 1, 1);
+    }
+  }
+});
+plusErad.speed = 1.2;
+plusErad.lifetime = 500;
+plusErad.collidesTiles = false;
+plusErad.collides = false;
+plusErad.collidesAir = false;
+plusErad.keepVelocity = true;
+plusErad.hitSound = Sounds.laser;
+plusErad.hitShake = 2;
+plusErad.hitEffect = Fx.none;
+plusErad.despawnEffect = Fx.none;
+
+this.global.bullets.plusErad = plusErad;
