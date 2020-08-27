@@ -11,6 +11,8 @@ consumes: {
       silicon/1
       phase-fabric/1
     ]
+    booster: true
+    optional: true
   }
 }
 
