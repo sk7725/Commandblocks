@@ -7,6 +7,7 @@ const overDome = extendContent(MendProjector, "overdrive-dome", {
     var entity = tile.ent();
     var f = 1 - (Time.time() / 100) % 1;
 
+    if(entity.phaseHeat == undefined) entity.phaseHeat = 0;//wtf
     Draw.color(this.baseColor, this.phaseColor, entity.phaseHeat);
     Draw.alpha(entity.heat * Mathf.absin(Time.time(), 10, 1) * 0.5);
     //Draw.blend(Blending.additive);
@@ -29,6 +30,7 @@ const rageDome = extendContent(MendProjector, "rage-dome", {
   },
   update(tile){
     var entity = tile.ent();
+    if(entity.phaseHeat == undefined) entity.phaseHeat = 0;//wtf
     entity.heat = Mathf.lerpDelta(entity.heat, (entity.cons.valid() || tile.isEnemyCheat())? 1 : 0, 0.08);
     entity.charge += entity.heat * entity.delta();
 
