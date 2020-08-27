@@ -683,7 +683,7 @@ const ravage=extendContent(ItemTurret,"ravage",{
       var afin=10*fin-Math.floor(10*fin);
       if(entity.timer.get(this.soundTimer,20)) Sounds.message.at(tile,1/Math.pow(2,22/12));
       for(var i=0;i<this.cColors1.length;i++){
-        Draw.color(this.peekAmmo(tile).splashDamage!=600?this.cColors1[i]:this.cColors2[i]);
+        Draw.color(this.peekAmmo(tile).splashDamage==1540?this.cColors3[i]:(this.peekAmmo(tile).splashDamage!=600?this.cColors1[i]:this.cColors2[i]));
         Fill.circle(tile.drawx()+this.vec.x+this.tr2.x,tile.drawy()+this.vec.y+this.tr2.y,this.peekAmmo(tile).splashDamageRadius*this.cScales[i]*(Math.max(fin-0.2,0))*0.5);
       }
       var bfin=(Time.time()%this.reload)/this.reload;
