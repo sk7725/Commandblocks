@@ -1312,7 +1312,7 @@ this.global.bullets.spawnErad = spawnErad;
 
 const plusErad = extend(BasicBulletType, {
   draw(b){
-    Draw.color(Color.lancerLaser);
+    Draw.color(Pal.lancerLaser);
     var r = 1-b.fin();
     Fill.circle(b.x, b.y, r*12);
     Lines.stroke(r*1.3);
