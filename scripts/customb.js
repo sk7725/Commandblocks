@@ -1708,7 +1708,7 @@ const triEradPiece = extend(BasicBulletType, {
     Effects.effect(arrayTrail, Pal.heal, b.x, b.y, b.rot()+45);
   }
 });
-triEradPiece.speed = 4.7;
+triEradPiece.speed = 3.7;
 triEradPiece.lifetime = 250;
 triEradPiece.pierce = false;
 triEradPiece.damage = 200;
@@ -1743,8 +1743,8 @@ const triErad = extend(BasicBulletType, {
     }
   }
 });
-triErad.speed = 1.3;
-triErad.lifetime = 670;
+triErad.speed = 1.1;
+triErad.lifetime = 270;
 triErad.collidesTiles = false;
 triErad.collides = false;
 triErad.collidesAir = false;
