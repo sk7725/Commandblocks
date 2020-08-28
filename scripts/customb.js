@@ -1403,7 +1403,8 @@ const attractBlock = newEffectWSize(23, 180, e => {
   Draw.blend();
 });
 
-const whirl = newEffect(65, e => {
+/*
+const whirl3 = newEffect(65, e => {
   const vec = new Vec2();
   for(var i = 0; i < 2; i++){
     var h = i * 2;
@@ -1420,7 +1421,7 @@ const whirl = newEffect(65, e => {
 
     //Fill.poly(e.x + vec.x, e.y + vec.y, 6, 5 * e.fout(), e.rotation);
   };
-});
+});*/
 
 const singularityTrail = newEffect(55, e => {
   Draw.color(Color.valueOf("a9d8ff"), Color.valueOf("4787ff"), e.fin());
@@ -1439,7 +1440,7 @@ const singularityBulletEffect = extend(BasicBulletType, {
     const tileDamage = 150;
 
     /*if(Mathf.chance(Time.delta() * (0.5 * interp))){
-      Effects.effect(whirl, b.x, b.y);
+      Effects.effect(whirl3, b.x, b.y);
     };*/
 
     Effects.shake(interpB, interpB, b.x, b.y);
@@ -1594,7 +1595,7 @@ const superBlackhole = extend(BasicBulletType, {
     const tileDamage = 150;
 
     /*if(Mathf.chance(Time.delta() * (0.5 * interp))){
-      Effects.effect(whirl, b.x, b.y);
+      Effects.effect(whirl3, b.x, b.y);
     };*/
 
     Effects.shake(interpB, interpB, b.x, b.y);
