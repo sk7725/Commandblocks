@@ -600,6 +600,7 @@ immortal.color = Color.white;
 immortal.effect = Fx.none;
 
 const erad2 = createUnit("eradicator", "wormSmall", GroundUnit, {}, true);
+erad2.range = 150;
 erad2.weapon.shootSound = Sounds.missile;
 erad2.weapon.reload = 50;
 erad2.weapon.shots = 2;
@@ -670,7 +671,7 @@ const eradMain = prov(() => {
           }
         }
         //skill 3: rip the fabric
-        if(this.skillTimer().get(3, 1628)){
+        if(this.skillTimer().get(3, 1911)){
           if(this.atkMode()){
             this.fabricRip();
           }
@@ -708,6 +709,11 @@ const eradMain = prov(() => {
         this.fabricRip();
       }
     },
+    onUnitDeath(unit){
+      //Call.createBullet(customb.superBlackhole, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1.6);
+      Bullet.create(customb.superBlackhole, null, unit.getTeam(), unit.x, unit.y, unit.rotation, 1, 1);
+      this.super$onUnitDeath(unit);
+    },
     behavior(){
       if(this.healthf() < 0.65 || this.rage()){
         if(!this.rage()){
@@ -736,7 +742,7 @@ const eradMain = prov(() => {
       }
     },
     moveToCore(path){
-      if(this.target != null && !Units.invalidateTarget(this.target, this.getTeam(), this.x ,this.y, 70)) return;
+      if(this.target != null && !Units.invalidateTarget(this.target, this.getTeam(), this.x ,this.y, 150)) return;
       this.super$moveToCore(path);
     },
     draw(){

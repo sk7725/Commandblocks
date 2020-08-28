@@ -1197,6 +1197,9 @@ const wormSmall = extend(MissileBulletType, {
       }));
     }
     this.super$hit(b, x, y);
+  },
+  range(){
+    return 150;
   }
 });
 wormSmall.speed = 2.2;
@@ -1736,7 +1739,7 @@ const triErad = extend(BasicBulletType, {
   },
   update(b){
     this.super$update(b);
-    if(b.timer.get(1, 18)){
+    if(b.timer.get(1, 8)){
       for(var i=0; i<3; i++){
         Bullet.create(triEradPiece, null, b.getTeam(), b.x, b.y, i*120+b.rot()+b.fin()*360, 1, 1);
       }
@@ -1744,7 +1747,7 @@ const triErad = extend(BasicBulletType, {
   }
 });
 triErad.speed = 1.1;
-triErad.lifetime = 270;
+triErad.lifetime = 300;
 triErad.collidesTiles = false;
 triErad.collides = false;
 triErad.collidesAir = false;
