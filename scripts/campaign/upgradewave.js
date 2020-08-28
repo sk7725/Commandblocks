@@ -684,11 +684,11 @@ const eradMain = prov(() => {
     fabricRip(){
       var n = 6-Mathf.floorPositive(this.healthf()*5);
       var v1 = Vec2(0,0);
-      Effects.effect(customfx.distBlast, this.x, this.y, 200);
+      Effects.effect(customfx.distBlast, this.x, this.y, 250);
       for(var i=0; i<n; i++){
         Time.run(i*8, run(()=>{
           if(this.isValid() && !this.isDead()){
-            v1.trns(Mathf.random()*360, Mathf.random()*80);
+            v1.trns(Mathf.random()*360, Mathf.random()*170);
             Call.createBullet(customb.distZone, this.getTeam(), this.getX()+v1.x, this.getY()+v1.y, 0, 1, 1);
           }
         }));

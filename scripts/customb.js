@@ -1704,7 +1704,7 @@ const triEradPiece = extend(BasicBulletType, {
   },
   update(b){
     this.super$update(b);
-    b.velocity().scl(0.92);
+    b.velocity().scl(0.985);
     Effects.effect(arrayTrail, Pal.heal, b.x, b.y, b.rot()+45);
   }
 });

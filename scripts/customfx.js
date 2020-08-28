@@ -373,14 +373,15 @@ this.global.fx = {
     Lines.circle(e.x, e.y, e.finpow()*5);
   }),
   distBlast : newEffectSize(40, 300, e => {
+    var r = e.rotation;
     Draw.color(Pal.lancerLaser, distcolor, e.fin());
     Lines.stroke(e.fout()*7.5);
     var rand = Mathf.random();
-    Lines.poly(e.x, e.y, rand*5+10, e.fin()*e.rotation, e.fout()*300);
+    Lines.poly(e.x, e.y, rand*5+10, e.finpow()*r, e.fout()*300);
     Lines.stroke(e.fout()*5);
-    Lines.poly(e.x, e.y, rand*5+10, e.fin()*e.rotation*0.9, e.fout()*-310);
+    Lines.poly(e.x, e.y, rand*5+10, e.finpow()*r*0.9, e.fout()*-310);
     rand = Mathf.random();
-    Lines.poly(e.x, e.y, rand*5+10, e.fin()*e.rotation*0.85, e.fout()*300);
-    Lines.poly(e.x, e.y, rand*5+10, e.fin()*e.rotation*0.8, e.fout()*-290);
+    Lines.poly(e.x, e.y, rand*5+10, e.finpow()*r*0.85, e.fout()*300);
+    Lines.poly(e.x, e.y, rand*5+10, e.finpow()*r*0.8, e.fout()*-290);
   })
 };
