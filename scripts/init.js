@@ -10,14 +10,6 @@ StatusEffects.corroded.color = Pal.plastanium;
 StatusEffects.boss.color = Pal.health;
 StatusEffects.shielded.color = Pal.stoneGray;
 
-//load warning
-if(!Vars.headless && Vars.ui.hudGroup){
-  Core.app.post(run(() => {
-    Vars.ui.showCustomConfirm(Core.bundle.get("warning.title"), Core.bundle.get("warning.text"), "[accent]"+Core.bundle.get("ok")+"[]", "[lightgray]"+Core.bundle.get("cancel")+"[]", run(()=>{
-      Core.app.exit();
-    }), run(()=>{}));
-  }));
-}
 
 //Load effects for /effect
 this.global.potionEffects = [];

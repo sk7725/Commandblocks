@@ -670,7 +670,7 @@ const eradMain = prov(() => {
           }
         }
         //skill 3: rip the fabric
-        if(this.skillTimer().get(3, 1628){
+        if(this.skillTimer().get(3, 1628)){
           if(this.atkMode()){
             this.fabricRip();
           }

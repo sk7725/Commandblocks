@@ -134,4 +134,13 @@ require("sandbox/fxtester");
 //if this exceeds 127 it will go die
 print("StatusEffect Total: "+Vars.content.getBy(ContentType.status).size);
 
+//load warning
+if(!Vars.headless && Vars.ui.hudGroup){
+  Core.app.post(run(() => {
+    Vars.ui.showCustomConfirm(Core.bundle.get("warning.title"), Core.bundle.get("warning.text"), "[accent]"+Core.bundle.get("ok")+"[]", "[lightgray]"+Core.bundle.get("cancel")+"[]", run(()=>{
+      Core.app.exit();
+    }), run(()=>{}));
+  }));
+}
+
 print("Load Complete!");
