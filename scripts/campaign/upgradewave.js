@@ -709,10 +709,10 @@ const eradMain = prov(() => {
         this.fabricRip();
       }
     },
-    onUnitDeath(unit){
+    onDeath(){
       //Call.createBullet(customb.superBlackhole, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1.6);
-      Bullet.create(customb.superBlackhole, null, unit.getTeam(), unit.x, unit.y, unit.rotation, 1, 1);
-      this.super$onUnitDeath(unit);
+      Bullet.create(customb.superBlackhole, null, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1);
+      this.super$onDeath();
     },
     behavior(){
       if(this.healthf() < 0.65 || this.rage()){
