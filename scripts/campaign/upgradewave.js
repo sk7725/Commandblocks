@@ -661,11 +661,11 @@ const eradMain = prov(() => {
             Call.createBullet(customb.plusCharge, this.getTeam(), this.getX(), this.getY(), this.rotation, 2-this.healthf(), 0.5);
           }
           //skill 2: eye of darkness
-          if(this.skillTimer().get(1, 200+400*this.healthf())){
+          if(this.skillTimer().get(1, 400+900*this.healthf())){
             Call.createBullet(customb.bholErad, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1);
           }
           //skill 4: trinity
-          if(this.skillTimer().get(2, 120+265*this.healthf())){
+          if(this.skillTimer().get(2, 240+465*this.healthf())){
             Call.createBullet(customb.triCharge, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1);
           }
         }
@@ -684,7 +684,7 @@ const eradMain = prov(() => {
     fabricRip(){
       var n = 6-Mathf.floorPositive(this.healthf()*5);
       var v1 = Vec2(0,0);
-      Effects.effect(customfx.distBlast, this.x, this.y);
+      Effects.effect(customfx.distBlast, this.x, this.y, 200);
       for(var i=0; i<n; i++){
         Time.run(i*8, run(()=>{
           if(this.isValid() && !this.isDead()){

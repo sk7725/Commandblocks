@@ -1358,7 +1358,7 @@ const plusCharge = extend(BasicBulletType, {
       }));
     }
     Time.run(90, run(()=>{
-      const mLaser = Bullet.create(plusErad, null, team, tx, ty, tr, 1, 1);
+      const mLaser = Bullet.create(plusErad, null, team, tx, ty, tr, 1, 0.5);
       Sounds.laserbig.at(tx, ty, 1);
     }));
     b.remove();
@@ -1573,8 +1573,8 @@ this.global.bullets.singularityBullet = singularityBullet;
 const bholErad = extend(BasicBulletType, {
   init(b){
     if(b == null) return;
-    for(var i=0; i<7; i++){
-      Bullet.create(singularityBullet, null, b.getTeam(), b.x, b.y, b.rot()+i*60, 1, 1);
+    for(var i=0; i<3; i++){
+      Bullet.create(singularityBullet, null, b.getTeam(), b.x, b.y, b.rot()-60+i*60, 1, 1);
     }
     b.remove();
   },
@@ -1708,8 +1708,8 @@ const triEradPiece = extend(BasicBulletType, {
     Effects.effect(arrayTrail, Pal.heal, b.x, b.y, b.rot()+45);
   }
 });
-triEradPiece.speed = 1.7;
-triEradPiece.lifetime = 300;
+triEradPiece.speed = 4.7;
+triEradPiece.lifetime = 250;
 triEradPiece.pierce = false;
 triEradPiece.damage = 200;
 triEradPiece.collidesTiles = false;
@@ -1736,14 +1736,14 @@ const triErad = extend(BasicBulletType, {
   },
   update(b){
     this.super$update(b);
-    if(b.timer.get(1, 8)){
+    if(b.timer.get(1, 18)){
       for(var i=0; i<3; i++){
         Bullet.create(triEradPiece, null, b.getTeam(), b.x, b.y, i*120+b.rot()+b.fin()*360, 1, 1);
       }
     }
   }
 });
-triErad.speed = 1.1;
+triErad.speed = 1.3;
 triErad.lifetime = 670;
 triErad.collidesTiles = false;
 triErad.collides = false;
@@ -1770,7 +1770,9 @@ const triCharge = extend(BasicBulletType, {
       }));
     }
     Time.run(90, run(()=>{
-      Bullet.create(triErad, null, team, tx, ty, tr, 1, 1);
+      for(var i=0;i<3;i++){
+        Bullet.create(triErad, null, team, tx, ty, tr+i*120, 1, 1);
+      }
       Sounds.spark.at(tx, ty, 0.7);
     }));
     b.remove();
