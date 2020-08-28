@@ -677,7 +677,8 @@ const eradMain = prov(() => {
           }
           else{
             this.skillTimer().reset(0, 0);
-            Call.createBullet(customb.superBlackhole, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1.6);
+            //Call.createBullet(customb.superBlackhole, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1.6);
+            this.fabricRip();//nerf
           }
           this.toggleAtk();
         }
