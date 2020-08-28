@@ -659,6 +659,7 @@ const ravage=extendContent(ItemTurret,"ravage",{
   powerUse:4.5,
   cColors1:[Pal.lancerLaser.cpy().mul(1,1,1,0.4),Pal.lancerLaser,Color.white],
   cColors2:[Color.valueOf("f4ba6e").cpy().mul(1,1,1,0.4),Color.valueOf("f4ba6e"),Color.white],
+  cColors3:[Color.valueOf("82ffe866") ,Color.valueOf("82ffe8"), Color.white],
   cScales:[1,0.9,0.8],
   soundTimer:0,
   init(){
