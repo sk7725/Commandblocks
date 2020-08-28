@@ -611,7 +611,7 @@ erad2.weapon.velocityRnd = 0.4;
 erad2.health = 256000;
 const eradMain = prov(() => {
   eradMainB = extend(GroundUnit, {
-    _timerSkill: new Interval(3),
+    _timerSkill: new Interval(5),
     skillTimer(){
       return this._timerSkill;
     },
@@ -639,36 +639,72 @@ const eradMain = prov(() => {
           }
         }
         //skill 1: plusweave spark
-        if(this.skillTimer().get(1, 660)){
-          Call.createBullet(customb.plusErad, this.getTeam(), this.getX(), this.getY(), this.rotation, 2-this.healthf(), 0.5);
+        if(this.skillTimer().get(1, 760)){
+          Call.createBullet(customb.plusCharge, this.getTeam(), this.getX(), this.getY(), this.rotation, 2-this.healthf(), 0.5);
         }
       }
     },
     behaviorHalf(){
       if(!Vars.net.client()){
-        //skill 0: warpcall
-        if(this.skillTimer().get(0, 550+400*this.healthf())){
-          for(var i=0; i<((this.healthf()>0.35)?3:4); i++){
-            Call.createBullet(customb.spawnErad, this.getTeam(), this.getX(), this.getY(), Mathf.random()*360, Mathf.random()*0.7+0.7, 1);
+        if(this.atkMode()){
+          //skill 0: warpcall
+          if(this.skillTimer().get(0, 550+400*this.healthf())){
+            for(var i=0; i<((this.healthf()>0.35)?3:4); i++){
+              Call.createBullet(customb.spawnErad, this.getTeam(), this.getX(), this.getY(), Mathf.random()*360, Mathf.random()*0.7+0.7, 1);
+            }
+          }
+          //
+        }
+        else{
+          //skill 1: plusweave spark
+          if(this.skillTimer().get(0, 550)){
+            Call.createBullet(customb.plusCharge, this.getTeam(), this.getX(), this.getY(), this.rotation, 2-this.healthf(), 0.5);
+          }
+          //skill 2: eye of darkness
+          if(this.skillTimer().get(1, 200+400*this.healthf())){
+            Call.createBullet(customb.bholErad, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1);
+          }
+          //skill 4: trinity
+          if(this.skillTimer().get(2, 120+265*this.healthf())){
+            Call.createBullet(customb.triCharge, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1);
           }
         }
-        //skill 1: eye of darkness
-        if(this.skillTimer().get(1, 450)){
-          Call.createBullet(customb.bholErad, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1);
+        //skill 3: rip the fabric
+        if(this.skillTimer().get(3, 1628){
+          if(this.atkMode()){
+            this.fabricRip();
+          }
+          else{
+            Call.createBullet(customb.superBlackhole, this.getTeam(), this.getX(), this.getY(), this.rotation, 1, 1.6);
+          }
+          this.toggleAtk();
         }
+      }
+    },
+    fabricRip(){
+      var n = 6-Mathf.floorPositive(this.healthf()*5);
+      var v1 = Vec2(0,0);
+      Effects.effect(customfx.distBlast, this.x, this.y);
+      for(var i=0; i<n; i++){
+        Time.run(i*8, run(()=>{
+          if(this.isValid() && !this.isDead()){
+            v1.trns(Mathf.random()*360, Mathf.random()*80);
+            Call.createBullet(customb.distZone, this.getTeam(), this.getX()+v1.x, this.getY()+v1.y, 0, 1, 1);
+          }
+        }));
       }
     },
     doHalf(){
       if(!Vars.net.client()){
         this.applyEffect(raging, 9999999);
-        //Call.createBullet(customb.rageZone, this.getTeam(), this.getX(), this.getY(), 0, 1, 1);
         this.skillTimer().reset(0, 0);
         this.skillTimer().reset(1, 0);
-        //this.skillTimer().reset(1, 0);
         this.skillTimer().reset(2, 0);
+        this.skillTimer().reset(3, 0);
         this.setAtkMode(false);
         Sounds.corexplode.at(this.x, this.y, 0.8);
         Effects.effect(customfx.coreMainSpark, this.x, this.y);
+        this.fabricRip();
       }
     },
     behavior(){
@@ -699,7 +735,7 @@ const eradMain = prov(() => {
       }
     },
     moveToCore(path){
-      if(this.target != null) return;
+      if(this.target != null && !Units.invalidateTarget(this.target, this.getTeam(), this.x ,this.y, 70)) return;
       this.super$moveToCore(path);
     },
     draw(){

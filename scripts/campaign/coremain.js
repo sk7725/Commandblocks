@@ -137,11 +137,13 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
     return Vars.state.rules.waves && Vars.state.rules.waveTimer && !Vars.state.rules.pvp && !Vars.state.rules.attackMode && !Vars.state.rules.infiniteResources && !Vars.state.rules.editor;
   },
   placed(tile){
-    if(Vars.ui != null && Vars.ui != undefined) Vars.ui.showOkText(Core.bundle.get("hardmode.name"), Core.bundle.get("hardmode.description"), run(()=>{}));
     //show dialog
     if(!Vars.net.client()) this.selectNextItem(tile, null);
     //if(Vars.headless) return;
 
+  },
+  showDialog(){
+    if(Vars.ui != null && Vars.ui != undefined) Vars.ui.showOkText(Core.bundle.get("hardmode.name"), Core.bundle.get("hardmode.description"), run(()=>{}));
   },
   removed(tile){
 		if(this.blockpos[tile.getTeamID()] == tile.pos()){
@@ -259,6 +261,7 @@ const coremainbuild = extendContent(Block, "coremainbuild",{
   },
   configured(tile, player, value){
     if(value <= 0) return;
+    if(tile.ent().getWave() == 0) this.showDialog();
     newSounds.boostsound.at(tile.drawx(), tile.drawy());
     Effects.effect(customfx.coreMainPhase, tile.drawx(), tile.drawy());
     Effects.shake(3, 3, tile.ent());

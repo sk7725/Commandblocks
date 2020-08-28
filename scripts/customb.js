@@ -1324,8 +1324,10 @@ const plusErad = extend(BasicBulletType, {
   },
   update(b){
     this.super$update(b);
-    for(var i=0; i<4; i++){
-      Bullet.create(Bullets.lancerLaser, null, b.getTeam(), b.x, b.y, i*90+b.rot()+b.fin()*360, 1, 1);
+    if(b.timer.get(1, 8)){
+      for(var i=0; i<4; i++){
+        Bullet.create(Bullets.lancerLaser, null, b.getTeam(), b.x, b.y, i*90+b.rot()+b.fin()*360, 1, 1);
+      }
     }
   }
 });
@@ -1372,7 +1374,7 @@ plusCharge.keepVelocity = false;
 this.global.bullets.plusCharge = plusCharge;
 
 //This by EyeOfDarkness
-const bulletSize = 5;
+const bulletSize = 5.5;
 const despawnedBullet = newEffect(12, e => {
   const scales = [8.6, 7, 5.5, 4.3, 4.1, 3.9];
   const colors = [Color.valueOf("4787ff80"), Color.valueOf("a9d8ff"), Color.valueOf("ffffff"), Color.valueOf("a9d8ff"), Color.valueOf("4787ff"), Color.valueOf("000000")];
@@ -1514,7 +1516,7 @@ const singularityBulletEffect = extend(BasicBulletType, {
   }
 });
 
-singularityBulletEffect.strength = 1.5;
+singularityBulletEffect.strength = 0.94;
 singularityBulletEffect.rangeB = 230;
 singularityBulletEffect.speed = 0.0002;
 singularityBulletEffect.damage = 130;
@@ -1571,8 +1573,8 @@ this.global.bullets.singularityBullet = singularityBullet;
 const bholErad = extend(BasicBulletType, {
   init(b){
     if(b == null) return;
-    for(var i=0; i<18; i++){
-      Bullet.create(singularityBullet, null, b.getTeam(), b.x, b.y, b.rot()+i*20, 1, 1);
+    for(var i=0; i<7; i++){
+      Bullet.create(singularityBullet, null, b.getTeam(), b.x, b.y, b.rot()+i*60, 1, 1);
     }
     b.remove();
   },
@@ -1586,6 +1588,16 @@ bholErad.collidesAir = false;
 bholErad.keepVelocity = false;
 this.global.bullets.bholErad = bholErad;
 
+const despawnedBulletBig = newEffect(24, e => {
+  const scales = [8.6, 7, 5.5, 4.3, 4.1, 3.9];
+  const colors = [Color.valueOf("4787ff80"), Color.valueOf("a9d8ff"), Color.valueOf("ffffff"), Color.valueOf("a9d8ff"), Color.valueOf("4787ff"), Color.valueOf("000000")];
+
+  for(var i = 0; i < 6; i++){
+    Draw.color(colors[i]);
+    Fill.circle(e.x + Mathf.range(1), e.y + Mathf.range(1), e.fout() * 30 * scales[i]);
+  };
+  Draw.reset();
+});
 const superBlackhole = extend(BasicBulletType, {
   update: function(b){
     var interp = this.strength * Interpolation.exp10Out.apply(b.fin());
@@ -1609,7 +1621,7 @@ const superBlackhole = extend(BasicBulletType, {
 
         dstB = Math.abs((Mathf.dst(b.x, b.y, tileB.x, tileB.y) / this.rangeB) - 1);
 
-        if(tileB.health <= tileDamage || (tileB.block != null && Mathf.within(b.x, b.y, tileB.x, tileB.y, (interpB * bulletSize * 3.9) + (tileB.block.size / 2)))){
+        if(tileB.health <= tileDamage || (tileB.block != null && Mathf.within(b.x, b.y, tileB.x, tileB.y, (interpB * 30 * 3.9) + (tileB.block.size / 2)))){
           tileB.kill();
           var data = [Core.atlas.find(tileB.block.name), tileB.x, tileB.y];
           Effects.effect(attractBlock, b.x, b.y, tileB.tile.rotation(), data);
@@ -1643,7 +1655,7 @@ const superBlackhole = extend(BasicBulletType, {
 
           //var interpB = Interpolation.exp10Out.apply(b.fin());
 
-          if(Mathf.within(b.x, b.y, u.x, u.y, (interpB * bulletSize * 3.9) + hitSizeB) && u instanceof HealthTrait){
+          if(Mathf.within(b.x, b.y, u.x, u.y, (interpB * 30 * 3.9) + hitSizeB) && u instanceof HealthTrait){
             u.damage(120);
           };
 
@@ -1663,7 +1675,7 @@ const superBlackhole = extend(BasicBulletType, {
 
     for(var i = 0; i < 6; i++){
       Draw.color(colors[i]);
-      Fill.circle(b.x + Mathf.range(1), b.y + Mathf.range(1), interp * bulletSize * scales[i]);
+      Fill.circle(b.x + Mathf.range(1), b.y + Mathf.range(1), interp * 30 * scales[i]);
     };
     Draw.reset();
   }
@@ -1680,5 +1692,95 @@ superBlackhole.bulletWidth = 12;
 superBlackhole.bulletHeight = 12;
 superBlackhole.bulletShrink = 0;
 superBlackhole.hitSize = 19;
-superBlackhole.despawnEffect = despawnedBullet;
+superBlackhole.drawSize = 290;
+superBlackhole.despawnEffect = despawnedBulletBig;
 this.global.bullets.superBlackhole = superBlackhole;
+
+const triEradPiece = extend(BasicBulletType, {
+  draw(b){
+    Draw.color(Pal.heal);
+    Fill.square(b.x, b.y, 3.5, 45+b.rot());
+    Draw.color();
+  },
+  update(b){
+    this.super$update(b);
+    b.velocity().scl(0.92);
+    Effects.effect(arrayTrail, Pal.heal, b.x, b.y, b.rot()+45);
+  }
+});
+triEradPiece.speed = 1.7;
+triEradPiece.lifetime = 300;
+triEradPiece.pierce = false;
+triEradPiece.damage = 200;
+triEradPiece.collidesTiles = false;
+triEradPiece.collides = true;
+triEradPiece.collidesAir = true;
+triEradPiece.keepVelocity = false;
+triEradPiece.hitSound = Sounds.none;//change later
+triEradPiece.hitShake = 0;
+triEradPiece.hitEffect = Fx.hitLancer;
+triEradPiece.despawnEffect = Fx.hitLancer;
+triEradPiece.status = empjam;
+this.global.bullets.triEradPiece = triEradPiece;
+
+const triErad = extend(BasicBulletType, {
+  draw(b){
+    Draw.color(Pal.heal);
+    var r = 1-b.fin();
+    Fill.circle(b.x, b.y, r*12);
+    Lines.stroke(r*1.3);
+    Lines.poly(b.x, b.y, Mathf.random()*7+5, r*12+8, r*190);
+    Lines.poly(b.x, b.y, Mathf.random()*7+5, r*12+8, r*-290);
+    Draw.color();
+    Fill.circle(b.x, b.y, r*9);
+  },
+  update(b){
+    this.super$update(b);
+    if(b.timer.get(1, 8)){
+      for(var i=0; i<3; i++){
+        Bullet.create(triEradPiece, null, b.getTeam(), b.x, b.y, i*120+b.rot()+b.fin()*360, 1, 1);
+      }
+    }
+  }
+});
+triErad.speed = 1.1;
+triErad.lifetime = 670;
+triErad.collidesTiles = false;
+triErad.collides = false;
+triErad.collidesAir = false;
+triErad.keepVelocity = true;
+triErad.hitSound = Sounds.laser;
+triErad.hitShake = 2;
+triErad.hitEffect = Fx.none;
+triErad.despawnEffect = Fx.none;
+
+this.global.bullets.triErad = triErad;
+
+const triCharge = extend(BasicBulletType, {
+  init(b){
+    if(b == null) return;
+    var tx = b.x;
+    var ty = b.y;
+    var tr = b.rot();
+    var team = b.getTeam();
+    Effects.effect(meltChargeFx2, Pal.heal, tx, ty);
+    for(var i=0; i<5; i++){
+      Time.run(Mathf.random(80), run(()=>{
+        Effects.effect(meltChargeFx, Pal.heal, tx, ty);
+      }));
+    }
+    Time.run(90, run(()=>{
+      Bullet.create(triErad, null, team, tx, ty, tr, 1, 1);
+      Sounds.spark.at(tx, ty, 0.7);
+    }));
+    b.remove();
+  },
+  draw(b){}
+});
+triCharge.speed = 1;
+triCharge.lifetime = 120;
+triCharge.collidesTiles = false;
+triCharge.collides = false;
+triCharge.collidesAir = false;
+triCharge.keepVelocity = false;
+this.global.bullets.triCharge = triCharge;
