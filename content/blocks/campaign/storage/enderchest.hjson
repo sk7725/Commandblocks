@@ -7,7 +7,7 @@ requirements: [
   thorium/290
   ref-zeta/270
   s-code/250
-  t-space/200
+  t-space/90
 ]
 sync: true
 health: 900

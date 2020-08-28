@@ -16,7 +16,7 @@ shootSound: shootSnap
 //outlineIcon: false
 
 rotatespeed: 2
-inaccuracy:0
+inaccuracy:3
 shots: 1
 health: 2500
 maxAmmo: 20

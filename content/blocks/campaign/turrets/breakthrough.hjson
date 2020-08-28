@@ -4,9 +4,9 @@ requirements:[
   copper/500
   silicon/350
   thorium/300
-  ref-scalar/340
   ref-vector/330
   s-code/200
+  //t-space/20
 ]
 category:turret
 research:meltdown

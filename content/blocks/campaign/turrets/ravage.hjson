@@ -8,10 +8,11 @@ requirements:[
   //dense-alloy/50
   thorium/150
   ref-zeta/90
+  s-code/20
 ]
 size: 4
 range: 320
-reload: 160
+reload: 145
 recoil: 4
 smokeEffect: lightningShoot
 shootEffect: lancerLaserShoot
