@@ -1384,7 +1384,7 @@ const despawnedBullet = newEffect(12, e => {
   Draw.reset();
 });
 const newEffectSize = (life, size, renderer) => new Effects.Effect(life, size, new Effects.EffectRenderer({render: renderer}));
-const attractBlock = newEffectWSize(23, 180, e => {
+const attractBlock = newEffectSize(23, 180, e => {
   var interpC = Interpolation.pow3In.apply(e.fin());
   var sizeB = 1 - Interpolation.pow5In.apply(e.fin());
   const region = e.data[0];
