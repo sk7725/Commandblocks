@@ -697,10 +697,11 @@ const ravage=extendContent(ItemTurret,"ravage",{
   },
   load(){
     this.super$load();
-    this.barrelRegion=Core.atlas.find(this.name+"-barrel")
+    this.barrelRegion=Core.atlas.find(this.name+"-barrel");
+    this.baseRegion=Core.atlas.find(this.name+"-base");
   }
 });
-ravage.heatColor=Color.red;
+ravage.heatColor=Pal.lancerLaser;
 ravage.shootSound=Sounds.release;
 
 /*
