@@ -698,7 +698,7 @@ const ravage=extendContent(ItemTurret,"ravage",{
   load(){
     this.super$load();
     this.barrelRegion=Core.atlas.find(this.name+"-barrel");
-    this.baseRegion=Core.atlas.find(this.name+"-base");
+    this.baseTurretRegion=Core.atlas.find(this.name+"-base");
   }
 });
 ravage.heatColor=Pal.lancerLaser;
