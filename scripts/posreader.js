@@ -14,5 +14,5 @@ const posreader = extendContent(MessageBlock, "posreader", {
 		// this는 이거 및 이거의 부모의 모든 함수를 가져온다. 이거의 바로 위 부모(이 블럭은 MessageBlock의 딸이고 Block의 손자!)는 setMessageBlockText라는 함수가 있다.
 		// https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/world/blocks/logic/MessageBlock.java 여기에 있다!
 	}
-	//SOL님 힘내세요!
+	//샤르르를님 힘내세요!
 });
