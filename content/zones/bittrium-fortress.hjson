@@ -5,7 +5,7 @@ startingItems: [
 	lead/4000
 	bittrium/4000
 	titanium/500
-  thorium/500
+  	thorium/500
 ]
 conditionWave: 60
 launchPeriod: 5
