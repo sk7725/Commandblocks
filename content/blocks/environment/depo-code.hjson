@@ -1,5 +1,0 @@
-type: OreBlock
-itemDrop: piece-code
-oreDefault: false
-oreThreshold: 0.921
-oreScale: 26.1234
