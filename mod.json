@@ -1,8 +1,8 @@
 {
-    "name": "beta-mindy",
+    "name": "beta-mindy-r",
     "displayName": "BetaMindy",
     "author": "[royal]sk7725[]",
-    "description": "BetaMindy is a 6.0 Java mod. Hence, it cannot be downloaded from the Mod Browser. \nFor it to activate, please download it from\nhttps://github.com/sk7725/BetaMindy/releases\nBe sure to star the mod!",
+    "description": "BetaMindy is a 6.0 Java mod. \nDownload for further instructions on how to apply Java mods.",
     "version": "6.0",
     "minGameVersion": 121,
     "hidden": true
